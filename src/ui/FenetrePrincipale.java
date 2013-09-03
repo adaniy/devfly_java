@@ -15,6 +15,11 @@ public class FenetrePrincipale extends JFrame {
 	private PanelBienvenue panelBienvenue;
 	private PanelBoutons panelBoutons;
 	private PanelVols panelVols;
+	private PanelDeconnexion panelDeconnexion;
+	private PanelNouveauVol panelNouveauVol;
+	private PanelNouvelleDestination panelNouvelleDestination;
+	private PanelValiderAnnuler panelValiderAnnuler;
+	
 	private JLabel lblLogoGauche;
 	private JLabel lblLogoDroite;
 
@@ -66,39 +71,35 @@ public class FenetrePrincipale extends JFrame {
 		return panelBienvenue;
 	}
 
-	public void setPanelBienvenue(PanelBienvenue panelBienvenue) {
-		this.panelBienvenue = panelBienvenue;
-	}
-
 	public PanelBoutons getPanelBoutons() {
 		return panelBoutons;
-	}
-
-	public void setPanelBoutons(PanelBoutons panelBoutons) {
-		this.panelBoutons = panelBoutons;
 	}
 
 	public PanelVols getPanelVols() {
 		return panelVols;
 	}
 
-	public void setPanelVols(PanelVols panelVols) {
-		this.panelVols = panelVols;
-	}
-
 	public JLabel getLblLogoGauche() {
 		return lblLogoGauche;
-	}
-
-	public void setLblLogoGauche(JLabel lblLogoGauche) {
-		this.lblLogoGauche = lblLogoGauche;
 	}
 
 	public JLabel getLblLogoDroite() {
 		return lblLogoDroite;
 	}
 
-	public void setLblLogoDroite(JLabel lblLogoDroite) {
-		this.lblLogoDroite = lblLogoDroite;
+	public PanelDeconnexion getPanelDeconnexion() {
+		return panelDeconnexion;
+	}
+
+	public PanelNouveauVol getPanelNouveauVol() {
+		return panelNouveauVol;
+	}
+
+	public PanelNouvelleDestination getPanelNouvelleDestination() {
+		return panelNouvelleDestination;
+	}
+
+	public PanelValiderAnnuler getPanelValiderAnnuler() {
+		return panelValiderAnnuler;
 	}	
 }
