@@ -19,7 +19,7 @@ public class FenetrePrincipale extends JFrame {
 	private PanelNouveauVol panelNouveauVol;
 	private PanelNouvelleDestination panelNouvelleDestination;
 	private PanelValiderAnnuler panelValiderAnnuler;
-	
+
 	private JLabel lblLogoGauche;
 	private JLabel lblLogoDroite;
 
@@ -46,25 +46,30 @@ public class FenetrePrincipale extends JFrame {
 		setResizable(false);
 		setBounds(100, 100, 1000, 350);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		
+
 		panelBienvenue = new PanelBienvenue();
 		getContentPane().add(panelBienvenue, BorderLayout.CENTER);
 		panelVols = new PanelVols();
 		panelBoutons = new PanelBoutons();
-		
+
 		lblLogoGauche = new JLabel("");
 		lblLogoGauche.setIcon(new ImageIcon(FenetrePrincipale.class.getResource("/img/logo.jpg")));
 		GridBagConstraints gbc_lblNewLabel = new GridBagConstraints();
 		gbc_lblNewLabel.insets = new Insets(0, 0, 5, 5);
 		gbc_lblNewLabel.gridx = 0;
 		gbc_lblNewLabel.gridy = 3;
-		
+
 		getContentPane().add(lblLogoGauche, BorderLayout.WEST);
-		
+
 		lblLogoDroite = new JLabel("");
 		lblLogoDroite.setIcon(new ImageIcon(FenetrePrincipale.class.getResource("/img/logo.jpg")));
 		getContentPane().add(lblLogoDroite, BorderLayout.EAST);
-		
+
+		panelDeconnexion = new PanelDeconnexion();
+		panelNouveauVol = new PanelNouveauVol();
+		panelNouvelleDestination = new PanelNouvelleDestination();
+		panelValiderAnnuler = new PanelValiderAnnuler();
+
 	}
 
 	public PanelBienvenue getPanelBienvenue() {
@@ -102,4 +107,37 @@ public class FenetrePrincipale extends JFrame {
 	public PanelValiderAnnuler getPanelValiderAnnuler() {
 		return panelValiderAnnuler;
 	}	
+
+	public void hidePanels()
+	{
+
+		// on nettoie la page en rendant invisible tous les autres éléments :
+		getPanelDeconnexion().setVisible(false);
+		getPanelBienvenue().setVisible(false);
+		getPanelBoutons().setVisible(false);
+		getPanelNouveauVol().setVisible(false);
+		getPanelNouvelleDestination().setVisible(false);
+		getPanelValiderAnnuler().setVisible(false);
+		getLblLogoDroite().setVisible(false);
+		getLblLogoGauche().setVisible(false);				
+
+		// on supprime ces mêmes éléments
+		getContentPane().removeAll();
+
+	}
+
+	public void displaysDeconnexion()
+	{
+		// on ajoute le panel de déconnexion + le PanelBoutons
+		getContentPane().add(getPanelDeconnexion(), BorderLayout.CENTER);
+		getContentPane().add(getPanelBoutons(), BorderLayout.NORTH);
+
+		// on rend visible les éléments ajoutés
+		// et on fait un repaint pour avoir le nouvel affichage
+		getPanelDeconnexion().setVisible(true);
+		getPanelBoutons().setVisible(true);
+		pack();
+		getContentPane().revalidate();
+		getContentPane().repaint();
+	}
 }
