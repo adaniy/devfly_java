@@ -23,6 +23,7 @@ public class FenetrePrincipale extends JFrame {
 	private JLabel lblLogoGauche;
 	private JLabel lblLogoDroite;
 
+	// ligne de test à supprimer : versionnement du projet
 	/**
 	 * Launch the application.
 	 */
