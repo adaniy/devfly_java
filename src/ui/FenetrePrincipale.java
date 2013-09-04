@@ -197,8 +197,6 @@ public class FenetrePrincipale extends JFrame {
 		// et on fait un repaint pour avoir le nouvel affichage
 		getPanelBoutons().setVisible(true);
 		getPanelDeconnexion().setVisible(true);
-		//pack();
-		//getContentPane().revalidate();
 		getContentPane().repaint();
 	}
 }
