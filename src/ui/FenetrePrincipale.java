@@ -126,18 +126,79 @@ public class FenetrePrincipale extends JFrame {
 
 	}
 
-	public void displaysDeconnexion()
+	// TODO
+	public void displaysVolsProgrammes()
 	{
-		// on ajoute le panel de déconnexion + le PanelBoutons
-		getContentPane().add(getPanelDeconnexion(), BorderLayout.CENTER);
+		hidePanels();
+		// on ajoute le panel de présentation des vols
 		getContentPane().add(getPanelBoutons(), BorderLayout.NORTH);
+		getContentPane().add(getPanelVols(), BorderLayout.CENTER);
 
 		// on rend visible les éléments ajoutés
 		// et on fait un repaint pour avoir le nouvel affichage
-		getPanelDeconnexion().setVisible(true);
 		getPanelBoutons().setVisible(true);
-		pack();
-		getContentPane().revalidate();
+		getPanelVols().setVisible(true);
+		getContentPane().repaint();
+	}
+
+	// TODO
+	public void displaysVolsEnAttente()
+	{
+		hidePanels();
+		// on ajoute le panel de présentation des vols
+		getContentPane().add(getPanelBoutons(), BorderLayout.NORTH);
+		getContentPane().add(getPanelVols(), BorderLayout.CENTER);
+
+		// on rend visible les éléments ajoutés
+		// et on fait un repaint pour avoir le nouvel affichage
+		getPanelBoutons().setVisible(true);
+		getPanelVols().setVisible(true);
+		getContentPane().repaint();
+	}
+
+	// TODO
+	public void displaysNouveauVol()
+	{
+		hidePanels();
+		// on ajoute le panel de présentation des vols
+		getContentPane().add(getPanelBoutons(), BorderLayout.NORTH);
+		getContentPane().add(getPanelNouveauVol(), BorderLayout.CENTER);
+
+		// on rend visible les éléments ajoutés
+		// et on fait un repaint pour avoir le nouvel affichage
+		getPanelBoutons().setVisible(true);
+		getPanelVols().setVisible(true);
+		getContentPane().repaint();
+	}
+
+	// TODO
+	public void displaysDestinations()
+	{
+		hidePanels();
+		// on ajoute le panel de présentation des vols
+		getContentPane().add(getPanelBoutons(), BorderLayout.NORTH);
+		getContentPane().add(getPanelNouvelleDestination(), BorderLayout.CENTER);
+
+		// on rend visible les éléments ajoutés
+		// et on fait un repaint pour avoir le nouvel affichage
+		getPanelBoutons().setVisible(true);
+		getPanelVols().setVisible(true);
+		getContentPane().repaint();
+	}
+
+	public void displaysDeconnexion()
+	{
+		hidePanels();
+		// on ajoute le panel de déconnexion + le PanelBoutons
+		getContentPane().add(getPanelBoutons(), BorderLayout.NORTH);
+		getContentPane().add(getPanelDeconnexion(), BorderLayout.CENTER);
+
+		// on rend visible les éléments ajoutés
+		// et on fait un repaint pour avoir le nouvel affichage
+		getPanelBoutons().setVisible(true);
+		getPanelDeconnexion().setVisible(true);
+		//pack();
+		//getContentPane().revalidate();
 		getContentPane().repaint();
 	}
 }
