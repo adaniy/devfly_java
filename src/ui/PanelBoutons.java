@@ -33,7 +33,7 @@ public class PanelBoutons extends JPanel {
 				(FenetrePrincipale) 
 				SwingUtilities.getRoot(PanelBoutons.this);
 
-				frame.displaysVolsProgrammes();
+				frame.displayVolsProgrammes();
 			}
 		});
 		add(btnVolsProgrammes);
@@ -46,7 +46,7 @@ public class PanelBoutons extends JPanel {
 				(FenetrePrincipale) 
 				SwingUtilities.getRoot(PanelBoutons.this);
 
-				frame.displaysVolsEnAttente();
+				frame.displayVolsEnAttente();
 			}
 		});
 		add(btnVolsEnAttente);
@@ -59,7 +59,7 @@ public class PanelBoutons extends JPanel {
 				(FenetrePrincipale) 
 				SwingUtilities.getRoot(PanelBoutons.this);
 
-				frame.displaysNouveauVol();
+				frame.displayNouveauVol();
 			}
 		});
 		add(btnNouveauVol);
@@ -72,7 +72,7 @@ public class PanelBoutons extends JPanel {
 				(FenetrePrincipale) 
 				SwingUtilities.getRoot(PanelBoutons.this);
 
-				frame.displaysDestinations();
+				frame.displayDestinations();
 			}
 		});
 		add(btnDestinations);
