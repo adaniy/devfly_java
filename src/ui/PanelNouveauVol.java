@@ -25,10 +25,10 @@ public class PanelNouveauVol extends JPanel {
 	 */
 	public PanelNouveauVol() {
 		GridBagLayout gridBagLayout = new GridBagLayout();
-		gridBagLayout.columnWidths = new int[]{0, 0, 0, 0};
-		gridBagLayout.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
-		gridBagLayout.columnWeights = new double[]{0.0, 0.0, 1.0, Double.MIN_VALUE};
-		gridBagLayout.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, Double.MIN_VALUE};
+		gridBagLayout.columnWidths = new int[]{300, 0, 145, 0};
+		gridBagLayout.rowHeights = new int[]{0, 55, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+		gridBagLayout.columnWeights = new double[]{0.0, 0.0, 0.0, Double.MIN_VALUE};
+		gridBagLayout.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, Double.MIN_VALUE};
 		setLayout(gridBagLayout);
 		
 		labelMessage = new JLabel("");
@@ -47,12 +47,12 @@ public class PanelNouveauVol extends JPanel {
 		gbc_lblNouveauVol.gridy = 1;
 		add(lblNouveauVol, gbc_lblNouveauVol);
 		
-		JLabel lblVilleDeDepart = new JLabel("ville de départ");
+		JLabel lblVilleDeDepart = new JLabel("Ville de départ");
 		GridBagConstraints gbc_lblVilleDeDepart = new GridBagConstraints();
 		gbc_lblVilleDeDepart.anchor = GridBagConstraints.EAST;
 		gbc_lblVilleDeDepart.insets = new Insets(0, 0, 5, 5);
 		gbc_lblVilleDeDepart.gridx = 1;
-		gbc_lblVilleDeDepart.gridy = 3;
+		gbc_lblVilleDeDepart.gridy = 2;
 		add(lblVilleDeDepart, gbc_lblVilleDeDepart);
 		
 		comboBoxVilleDeDepart = new JComboBox();
@@ -60,15 +60,15 @@ public class PanelNouveauVol extends JPanel {
 		gbc_comboBoxVilleDeDepart.insets = new Insets(0, 0, 5, 0);
 		gbc_comboBoxVilleDeDepart.fill = GridBagConstraints.HORIZONTAL;
 		gbc_comboBoxVilleDeDepart.gridx = 2;
-		gbc_comboBoxVilleDeDepart.gridy = 3;
+		gbc_comboBoxVilleDeDepart.gridy = 2;
 		add(comboBoxVilleDeDepart, gbc_comboBoxVilleDeDepart);
 		
-		JLabel lblVilleDarrivee = new JLabel("ville d'arrivée");
+		JLabel lblVilleDarrivee = new JLabel("Ville d'arrivée");
 		GridBagConstraints gbc_lblVilleDarrivee = new GridBagConstraints();
 		gbc_lblVilleDarrivee.anchor = GridBagConstraints.EAST;
 		gbc_lblVilleDarrivee.insets = new Insets(0, 0, 5, 5);
 		gbc_lblVilleDarrivee.gridx = 1;
-		gbc_lblVilleDarrivee.gridy = 4;
+		gbc_lblVilleDarrivee.gridy = 3;
 		add(lblVilleDarrivee, gbc_lblVilleDarrivee);
 		
 		comboBoxVilleDarrivee = new JComboBox();
@@ -76,15 +76,15 @@ public class PanelNouveauVol extends JPanel {
 		gbc_comboBoxVilleDarrivee.insets = new Insets(0, 0, 5, 0);
 		gbc_comboBoxVilleDarrivee.fill = GridBagConstraints.HORIZONTAL;
 		gbc_comboBoxVilleDarrivee.gridx = 2;
-		gbc_comboBoxVilleDarrivee.gridy = 4;
+		gbc_comboBoxVilleDarrivee.gridy = 3;
 		add(comboBoxVilleDarrivee, gbc_comboBoxVilleDarrivee);
 		
-		JLabel lblDateDeDepart = new JLabel("date de départ");
+		JLabel lblDateDeDepart = new JLabel("Date de départ");
 		GridBagConstraints gbc_lblDateDeDepart = new GridBagConstraints();
 		gbc_lblDateDeDepart.anchor = GridBagConstraints.EAST;
 		gbc_lblDateDeDepart.insets = new Insets(0, 0, 5, 5);
 		gbc_lblDateDeDepart.gridx = 1;
-		gbc_lblDateDeDepart.gridy = 5;
+		gbc_lblDateDeDepart.gridy = 4;
 		add(lblDateDeDepart, gbc_lblDateDeDepart);
 		
 		textFieldDateDeDepart = new JTextField();
@@ -92,16 +92,16 @@ public class PanelNouveauVol extends JPanel {
 		gbc_textFieldDateDeDepart.anchor = GridBagConstraints.WEST;
 		gbc_textFieldDateDeDepart.insets = new Insets(0, 0, 5, 0);
 		gbc_textFieldDateDeDepart.gridx = 2;
-		gbc_textFieldDateDeDepart.gridy = 5;
+		gbc_textFieldDateDeDepart.gridy = 4;
 		add(textFieldDateDeDepart, gbc_textFieldDateDeDepart);
 		textFieldDateDeDepart.setColumns(10);
 		
-		JLabel lblHeureDeDepart = new JLabel("heure de départ");
+		JLabel lblHeureDeDepart = new JLabel("Heure de départ");
 		GridBagConstraints gbc_lblHeureDeDepart = new GridBagConstraints();
 		gbc_lblHeureDeDepart.anchor = GridBagConstraints.EAST;
 		gbc_lblHeureDeDepart.insets = new Insets(0, 0, 5, 5);
 		gbc_lblHeureDeDepart.gridx = 1;
-		gbc_lblHeureDeDepart.gridy = 6;
+		gbc_lblHeureDeDepart.gridy = 5;
 		add(lblHeureDeDepart, gbc_lblHeureDeDepart);
 		
 		textFieldHeureDeDepart = new JTextField();
@@ -109,16 +109,16 @@ public class PanelNouveauVol extends JPanel {
 		gbc_textFieldHeureDeDepart.anchor = GridBagConstraints.WEST;
 		gbc_textFieldHeureDeDepart.insets = new Insets(0, 0, 5, 0);
 		gbc_textFieldHeureDeDepart.gridx = 2;
-		gbc_textFieldHeureDeDepart.gridy = 6;
+		gbc_textFieldHeureDeDepart.gridy = 5;
 		add(textFieldHeureDeDepart, gbc_textFieldHeureDeDepart);
 		textFieldHeureDeDepart.setColumns(10);
 		
-		JLabel lblDureeDuVol = new JLabel("durée du vol en minutes");
+		JLabel lblDureeDuVol = new JLabel("Durée du vol en minutes");
 		GridBagConstraints gbc_lblDureeDuVol = new GridBagConstraints();
 		gbc_lblDureeDuVol.anchor = GridBagConstraints.EAST;
 		gbc_lblDureeDuVol.insets = new Insets(0, 0, 5, 5);
 		gbc_lblDureeDuVol.gridx = 1;
-		gbc_lblDureeDuVol.gridy = 7;
+		gbc_lblDureeDuVol.gridy = 6;
 		add(lblDureeDuVol, gbc_lblDureeDuVol);
 		
 		textFieldDureeDuVol = new JTextField();
@@ -126,16 +126,16 @@ public class PanelNouveauVol extends JPanel {
 		gbc_textFieldDureeDuVol.anchor = GridBagConstraints.WEST;
 		gbc_textFieldDureeDuVol.insets = new Insets(0, 0, 5, 0);
 		gbc_textFieldDureeDuVol.gridx = 2;
-		gbc_textFieldDureeDuVol.gridy = 7;
+		gbc_textFieldDureeDuVol.gridy = 6;
 		add(textFieldDureeDuVol, gbc_textFieldDureeDuVol);
 		textFieldDureeDuVol.setColumns(10);
 		
-		JLabel lblTarif = new JLabel("tarif en euros");
+		JLabel lblTarif = new JLabel("Tarif en euros");
 		GridBagConstraints gbc_lblTarif = new GridBagConstraints();
 		gbc_lblTarif.anchor = GridBagConstraints.EAST;
 		gbc_lblTarif.insets = new Insets(0, 0, 5, 5);
 		gbc_lblTarif.gridx = 1;
-		gbc_lblTarif.gridy = 8;
+		gbc_lblTarif.gridy = 7;
 		add(lblTarif, gbc_lblTarif);
 		
 		textFieldTarif = new JTextField();
@@ -143,7 +143,7 @@ public class PanelNouveauVol extends JPanel {
 		gbc_textFieldTarif.anchor = GridBagConstraints.WEST;
 		gbc_textFieldTarif.insets = new Insets(0, 0, 5, 0);
 		gbc_textFieldTarif.gridx = 2;
-		gbc_textFieldTarif.gridy = 8;
+		gbc_textFieldTarif.gridy = 7;
 		add(textFieldTarif, gbc_textFieldTarif);
 		textFieldTarif.setColumns(10);
 		
@@ -151,7 +151,7 @@ public class PanelNouveauVol extends JPanel {
 		GridBagConstraints gbc_panelValiderAnnuler = new GridBagConstraints();
 		gbc_panelValiderAnnuler.fill = GridBagConstraints.BOTH;
 		gbc_panelValiderAnnuler.gridx = 2;
-		gbc_panelValiderAnnuler.gridy = 10;
+		gbc_panelValiderAnnuler.gridy = 9;
 		add(panelValiderAnnuler, gbc_panelValiderAnnuler);
 
 	}

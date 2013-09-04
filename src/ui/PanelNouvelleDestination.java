@@ -22,10 +22,10 @@ public class PanelNouvelleDestination extends JPanel {
 	 */
 	public PanelNouvelleDestination() {
 		GridBagLayout gridBagLayout = new GridBagLayout();
-		gridBagLayout.columnWidths = new int[]{0, 0, 0, 0};
-		gridBagLayout.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0};
-		gridBagLayout.columnWeights = new double[]{0.0, 0.0, 1.0, Double.MIN_VALUE};
-		gridBagLayout.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, Double.MIN_VALUE};
+		gridBagLayout.columnWidths = new int[]{365, 0, 145, 0};
+		gridBagLayout.rowHeights = new int[]{0, 55, 0, 0, 0, 0, 0, 0, 0, 0};
+		gridBagLayout.columnWeights = new double[]{0.0, 0.0, 0.0, Double.MIN_VALUE};
+		gridBagLayout.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, Double.MIN_VALUE};
 		setLayout(gridBagLayout);
 		
 		labelMessage = new JLabel("");
@@ -49,7 +49,7 @@ public class PanelNouvelleDestination extends JPanel {
 		gbc_lblVille.anchor = GridBagConstraints.EAST;
 		gbc_lblVille.insets = new Insets(0, 0, 5, 5);
 		gbc_lblVille.gridx = 1;
-		gbc_lblVille.gridy = 3;
+		gbc_lblVille.gridy = 2;
 		add(lblVille, gbc_lblVille);
 		
 		textFieldVille = new JTextField();
@@ -57,7 +57,7 @@ public class PanelNouvelleDestination extends JPanel {
 		gbc_textFieldVille.fill = GridBagConstraints.HORIZONTAL;
 		gbc_textFieldVille.insets = new Insets(0, 0, 5, 0);
 		gbc_textFieldVille.gridx = 2;
-		gbc_textFieldVille.gridy = 3;
+		gbc_textFieldVille.gridy = 2;
 		add(textFieldVille, gbc_textFieldVille);
 		textFieldVille.setColumns(10);
 		
@@ -66,7 +66,7 @@ public class PanelNouvelleDestination extends JPanel {
 		gbc_lblPays.anchor = GridBagConstraints.EAST;
 		gbc_lblPays.insets = new Insets(0, 0, 5, 5);
 		gbc_lblPays.gridx = 1;
-		gbc_lblPays.gridy = 4;
+		gbc_lblPays.gridy = 3;
 		add(lblPays, gbc_lblPays);
 		
 		textFieldPays = new JTextField();
@@ -74,7 +74,7 @@ public class PanelNouvelleDestination extends JPanel {
 		gbc_textFieldPays.fill = GridBagConstraints.HORIZONTAL;
 		gbc_textFieldPays.insets = new Insets(0, 0, 5, 0);
 		gbc_textFieldPays.gridx = 2;
-		gbc_textFieldPays.gridy = 4;
+		gbc_textFieldPays.gridy = 3;
 		add(textFieldPays, gbc_textFieldPays);
 		textFieldPays.setColumns(10);
 		
@@ -83,7 +83,7 @@ public class PanelNouvelleDestination extends JPanel {
 		gbc_lblCodeAita.anchor = GridBagConstraints.EAST;
 		gbc_lblCodeAita.insets = new Insets(0, 0, 5, 5);
 		gbc_lblCodeAita.gridx = 1;
-		gbc_lblCodeAita.gridy = 5;
+		gbc_lblCodeAita.gridy = 4;
 		add(lblCodeAita, gbc_lblCodeAita);
 		
 		textFieldAita = new JTextField();
@@ -91,15 +91,16 @@ public class PanelNouvelleDestination extends JPanel {
 		gbc_textFieldAita.anchor = GridBagConstraints.WEST;
 		gbc_textFieldAita.insets = new Insets(0, 0, 5, 0);
 		gbc_textFieldAita.gridx = 2;
-		gbc_textFieldAita.gridy = 5;
+		gbc_textFieldAita.gridy = 4;
 		add(textFieldAita, gbc_textFieldAita);
 		textFieldAita.setColumns(10);
 		
 		panelValiderAnnuler = new PanelValiderAnnuler();
 		GridBagConstraints gbc_panelValiderAnnuler = new GridBagConstraints();
+		gbc_panelValiderAnnuler.insets = new Insets(0, 0, 5, 0);
 		gbc_panelValiderAnnuler.fill = GridBagConstraints.BOTH;
 		gbc_panelValiderAnnuler.gridx = 2;
-		gbc_panelValiderAnnuler.gridy = 7;
+		gbc_panelValiderAnnuler.gridy = 6;
 		add(panelValiderAnnuler, gbc_panelValiderAnnuler);
 
 	}
