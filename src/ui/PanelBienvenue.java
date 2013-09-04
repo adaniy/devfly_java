@@ -89,6 +89,13 @@ public class PanelBienvenue extends JPanel {
 		add(passwordFieldMotDePasse, gbc_passwordFieldMotDePasse);
 
 		panelValiderAnnuler = new PanelValiderAnnuler();
+		panelValiderAnnuler.getBtnAnnuler().addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				// Un clic sur le bouton "annuler" efface les éléments saisis.
+				getTextFieldIdentifiant().setText("");
+				getPasswordFieldMotDePasse().setText("");
+			}
+		});
 		GridBagConstraints gbc_panelValiderAnnuler = new GridBagConstraints();
 		gbc_panelValiderAnnuler.insets = new Insets(0, 0, 5, 5);
 		gbc_panelValiderAnnuler.fill = GridBagConstraints.BOTH;
@@ -122,5 +129,29 @@ public class PanelBienvenue extends JPanel {
 			}
 		});
 
+	}
+
+	public JTextField getTextFieldIdentifiant() {
+		return textFieldIdentifiant;
+	}
+
+	public void setTextFieldIdentifiant(JTextField textFieldIdentifiant) {
+		this.textFieldIdentifiant = textFieldIdentifiant;
+	}
+
+	public JLabel getLabelMessage() {
+		return labelMessage;
+	}
+
+	public void setLabelMessage(JLabel labelMessage) {
+		this.labelMessage = labelMessage;
+	}
+
+	public JPasswordField getPasswordFieldMotDePasse() {
+		return passwordFieldMotDePasse;
+	}
+
+	public void setPasswordFieldMotDePasse(JPasswordField passwordFieldMotDePasse) {
+		this.passwordFieldMotDePasse = passwordFieldMotDePasse;
 	}
 }
