@@ -1,4 +1,3 @@
-CC=javac
 srcdir=ui
 
 all: clean compile test
