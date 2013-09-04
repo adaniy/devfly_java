@@ -32,36 +32,49 @@ public class PanelBoutons extends JPanel {
 				FenetrePrincipale frame = 
 				(FenetrePrincipale) 
 				SwingUtilities.getRoot(PanelBoutons.this);
-				frame.hidePanels();
 
-				/*
-				// on supprime ces mêmes éléments
-				frame.getContentPane().remove(frame.getPanelDeconnexion());
-				frame.getContentPane().remove(frame.getPanelBienvenue());
-				frame.getContentPane().remove(frame.getPanelBoutons());
-				frame.getContentPane().remove(frame.getPanelNouveauVol());
-				frame.getContentPane().remove(frame.getPanelNouvelleDestination());
-				frame.getContentPane().remove(frame.getPanelValiderAnnuler());
-				*/
-
-				// on ajoute le panel de présentation des vols
-				frame.getContentPane().add(frame.getPanelVols(), BorderLayout.CENTER);
-
-				// on rend visible les éléments ajoutés
-				// et on fait un repaint pour avoir le nouvel affichage
-				frame.getPanelVols().setVisible(true);
-				frame.getContentPane().repaint();
+				frame.displaysVolsProgrammes();
 			}
 		});
 		add(btnVolsProgrammes);
 
 		btnVolsEnAttente = new JButton("vols en attente");
+		btnVolsEnAttente.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				// on récupère la frame principale
+				FenetrePrincipale frame = 
+				(FenetrePrincipale) 
+				SwingUtilities.getRoot(PanelBoutons.this);
+
+				frame.displaysVolsEnAttente();
+			}
+		});
 		add(btnVolsEnAttente);
 
 		btnNouveauVol = new JButton("nouveau vol");
+		btnNouveauVol.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				// on récupère la frame principale
+				FenetrePrincipale frame = 
+				(FenetrePrincipale) 
+				SwingUtilities.getRoot(PanelBoutons.this);
+
+				frame.displaysNouveauVol();
+			}
+		});
 		add(btnNouveauVol);
 
 		btnDestinations = new JButton("destinations");
+		btnDestinations.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				// on récupère la frame principale
+				FenetrePrincipale frame = 
+				(FenetrePrincipale) 
+				SwingUtilities.getRoot(PanelBoutons.this);
+
+				frame.displaysDestinations();
+			}
+		});
 		add(btnDestinations);
 
 		btnDeconnexion = new JButton("déconnexion");
@@ -72,7 +85,6 @@ public class PanelBoutons extends JPanel {
 				(FenetrePrincipale) 
 				SwingUtilities.getRoot(PanelBoutons.this);
 
-				frame.hidePanels();
 				frame.displaysDeconnexion();
 			}
 		});
