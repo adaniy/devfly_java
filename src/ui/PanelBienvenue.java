@@ -34,8 +34,8 @@ public class PanelBienvenue extends JPanel {
 	 */
 	public PanelBienvenue() {
 		GridBagLayout gridBagLayout = new GridBagLayout();
-		gridBagLayout.columnWidths = new int[]{263, 0, 0, 0};
-		gridBagLayout.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 0, 0};
+		gridBagLayout.columnWidths = new int[]{225, 0, 0, 0};
+		gridBagLayout.rowHeights = new int[]{60, 45, 0, 0, 0, 0, 0, 0};
 		gridBagLayout.columnWeights = new double[]{0.0, 0.0, 0.0, Double.MIN_VALUE};
 		gridBagLayout.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, Double.MIN_VALUE};
 		setLayout(gridBagLayout);
@@ -43,9 +43,8 @@ public class PanelBienvenue extends JPanel {
 		JLabel lblBienvenue = new JLabel("Bienvenue !");
 		lblBienvenue.setFont(new Font("Dialog", Font.BOLD, 18));
 		GridBagConstraints gbc_lblBienvenue = new GridBagConstraints();
-		gbc_lblBienvenue.gridwidth = 2;
 		gbc_lblBienvenue.insets = new Insets(0, 0, 5, 5);
-		gbc_lblBienvenue.gridx = 0;
+		gbc_lblBienvenue.gridx = 1;
 		gbc_lblBienvenue.gridy = 0;
 		add(lblBienvenue, gbc_lblBienvenue);
 
@@ -90,6 +89,13 @@ public class PanelBienvenue extends JPanel {
 		add(passwordFieldMotDePasse, gbc_passwordFieldMotDePasse);
 
 		panelValiderAnnuler = new PanelValiderAnnuler();
+		panelValiderAnnuler.getBtnAnnuler().addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				// Un clic sur le bouton "annuler" efface les éléments saisis.
+				getTextFieldIdentifiant().setText("");
+				getPasswordFieldMotDePasse().setText("");
+			}
+		});
 		GridBagConstraints gbc_panelValiderAnnuler = new GridBagConstraints();
 		gbc_panelValiderAnnuler.insets = new Insets(0, 0, 5, 5);
 		gbc_panelValiderAnnuler.fill = GridBagConstraints.BOTH;
@@ -123,5 +129,29 @@ public class PanelBienvenue extends JPanel {
 			}
 		});
 
+	}
+
+	public JTextField getTextFieldIdentifiant() {
+		return textFieldIdentifiant;
+	}
+
+	public void setTextFieldIdentifiant(JTextField textFieldIdentifiant) {
+		this.textFieldIdentifiant = textFieldIdentifiant;
+	}
+
+	public JLabel getLabelMessage() {
+		return labelMessage;
+	}
+
+	public void setLabelMessage(JLabel labelMessage) {
+		this.labelMessage = labelMessage;
+	}
+
+	public JPasswordField getPasswordFieldMotDePasse() {
+		return passwordFieldMotDePasse;
+	}
+
+	public void setPasswordFieldMotDePasse(JPasswordField passwordFieldMotDePasse) {
+		this.passwordFieldMotDePasse = passwordFieldMotDePasse;
 	}
 }
