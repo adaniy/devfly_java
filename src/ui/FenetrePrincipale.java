@@ -18,6 +18,7 @@ public class FenetrePrincipale extends JFrame {
 	private PanelDeconnexion panelDeconnexion;
 	private PanelNouveauVol panelNouveauVol;
 	private PanelNouvelleDestination panelNouvelleDestination;
+	private PanelDestinations panelDestinations;
 	private PanelValiderAnnuler panelValiderAnnuler;
 
 	private JLabel lblLogoGauche;
@@ -65,9 +66,11 @@ public class FenetrePrincipale extends JFrame {
 		lblLogoDroite.setIcon(new ImageIcon(FenetrePrincipale.class.getResource("/img/logo.jpg")));
 		getContentPane().add(lblLogoDroite, BorderLayout.EAST);
 
+		// on instancie les panels
 		panelDeconnexion = new PanelDeconnexion();
 		panelNouveauVol = new PanelNouveauVol();
 		panelNouvelleDestination = new PanelNouvelleDestination();
+		panelDestinations = new PanelDestinations();
 		panelValiderAnnuler = new PanelValiderAnnuler();
 
 	}
@@ -106,7 +109,11 @@ public class FenetrePrincipale extends JFrame {
 
 	public PanelValiderAnnuler getPanelValiderAnnuler() {
 		return panelValiderAnnuler;
-	}	
+	}
+	
+	public PanelDestinations getPanelDestinations() {
+		return panelDestinations;
+	}
 
 	public void hideElements()
 	{
@@ -116,6 +123,7 @@ public class FenetrePrincipale extends JFrame {
 		getPanelBoutons().setVisible(false);
 		getPanelNouveauVol().setVisible(false);
 		getPanelNouvelleDestination().setVisible(false);
+		getPanelDestinations().setVisible(false);
 		getPanelValiderAnnuler().setVisible(false);
 		getPanelVols().setVisible(false);
 		getLblLogoDroite().setVisible(false);
@@ -125,11 +133,10 @@ public class FenetrePrincipale extends JFrame {
 		getContentPane().removeAll();
 	}
 
-	// TODO
 	public void displayVolsProgrammes()
 	{
 		hideElements();
-		// on ajoute le panel de présentation des vols
+		// on ajoute le panel de présentation des vols + les boutons
 		getContentPane().add(getPanelBoutons(), BorderLayout.NORTH);
 		getContentPane().add(getPanelVols(), BorderLayout.CENTER);
 
@@ -140,11 +147,10 @@ public class FenetrePrincipale extends JFrame {
 		getContentPane().repaint();
 	}
 
-	// TODO
 	public void displayVolsEnAttente()
 	{
 		hideElements();
-		// on ajoute le panel de présentation des vols
+		// on ajoute le panel de présentation des vols + les boutons
 		getContentPane().add(getPanelBoutons(), BorderLayout.NORTH);
 		getContentPane().add(getPanelVols(), BorderLayout.CENTER);
 
@@ -155,11 +161,10 @@ public class FenetrePrincipale extends JFrame {
 		getContentPane().repaint();
 	}
 
-	// TODO
 	public void displayNouveauVol()
 	{
 		hideElements();
-		// on ajoute le panel de création d'un vol
+		// on ajoute le panel de création d'un vol + les boutons
 		getContentPane().add(getPanelBoutons(), BorderLayout.NORTH);
 		getContentPane().add(getPanelNouveauVol(), BorderLayout.CENTER);
 
@@ -170,11 +175,10 @@ public class FenetrePrincipale extends JFrame {
 		getContentPane().repaint();
 	}
 
-	// TODO
-	public void displayDestinations()
+	public void displayNouvelleDestination()
 	{
 		hideElements();
-		// on ajoute le panel de création d'une destination
+		// on ajoute le panel de création d'une destination + les boutons
 		getContentPane().add(getPanelBoutons(), BorderLayout.NORTH);
 		getContentPane().add(getPanelNouvelleDestination(), BorderLayout.CENTER);
 
@@ -184,8 +188,22 @@ public class FenetrePrincipale extends JFrame {
 		getPanelNouvelleDestination().setVisible(true);
 		getContentPane().repaint();
 	}
+	
+	public void displayDestinations()
+	{
+		hideElements();
+		// on ajoute le panel des destinations + les boutons
+		getContentPane().add(getPanelBoutons(), BorderLayout.NORTH);
+		getContentPane().add(getPanelDestinations(), BorderLayout.CENTER);
 
-	public void displaysDeconnexion()
+		// on rend visible les éléments ajoutés
+		// et on fait un repaint pour avoir le nouvel affichage
+		getPanelBoutons().setVisible(true);
+		getPanelDestinations().setVisible(true);
+		getContentPane().repaint();
+	}
+
+	public void displayDeconnexion()
 	{
 		hideElements();
 		// on ajoute le panel de déconnexion + le PanelBoutons
