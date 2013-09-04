@@ -32,6 +32,7 @@ public class PanelVols extends JPanel {
 		tableVols = new JTable();
 		// pour que le tableau ne soit pas redimensionné automatiquement à la longueur de la fenêtre :
 		tableVols.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+		tableVols.setAutoCreateRowSorter(true); // pour trier en cliquant sur les en-têtes
 		scrollPane.setViewportView(tableVols);
 		
 		// pour enlever le fait qu'on puisse déplacer les colonnes :
