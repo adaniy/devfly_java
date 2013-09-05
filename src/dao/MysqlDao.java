@@ -8,6 +8,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import model.Aeroport;
 import model.Vol;
 
 public class MysqlDao {
@@ -27,5 +28,23 @@ public class MysqlDao {
 		}
 		connection.close();
 		return vols;
+	}
+
+	public List<Aeroport> getAllAeroports() throws SQLException {
+		List<Aeroport> aeroports = new ArrayList<>();
+		Connection connection = DriverManager.getConnection(datasource, user,
+				password);
+		String sql = "SELECT * FROM destination";
+		PreparedStatement stmt = connection.prepareStatement(sql);
+		ResultSet result = stmt.executeQuery();
+		while (result.next()) {
+			String code = result.getString("codeaeroport");
+			String ville = result.getString("ville");
+			String pays = result.getString("pays");
+			Aeroport a = new Aeroport(code, ville, pays);
+			aeroports.add(a);
+		}
+		connection.close();
+		return aeroports;
 	}
 }
