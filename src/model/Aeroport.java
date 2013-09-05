@@ -35,4 +35,8 @@ public class Aeroport {
 	public void setPays(String pays) {
 		this.pays = pays;
 	}
+	
+	public Object[] toArray(){
+		return new Object[]{codeAeroport,ville,pays};
+	}
 }

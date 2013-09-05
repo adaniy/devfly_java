@@ -3,13 +3,17 @@ package ui;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
-import javax.swing.JPanel;
+
 import java.awt.BorderLayout;
-import java.awt.Dimension;
+
 import javax.swing.JLabel;
+
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
+import java.sql.SQLException;
+
 import javax.swing.ImageIcon;
+
 
 public class FenetrePrincipale extends JFrame {
 	private PanelBienvenue panelBienvenue;
@@ -42,8 +46,9 @@ public class FenetrePrincipale extends JFrame {
 
 	/**
 	 * Create the frame.
+	 * @throws SQLException 
 	 */
-	public FenetrePrincipale() {
+	public FenetrePrincipale() throws SQLException { // pour le panelDestination notamment
 		setResizable(false);
 		setBounds(100, 100, 1000, 350);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
