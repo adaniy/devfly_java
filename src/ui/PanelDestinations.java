@@ -35,8 +35,8 @@ public class PanelDestinations extends JPanel {
 		add(scrollPane, BorderLayout.CENTER);
 		
 		tableDestinations = new JTable();
-//		// pour que le tableau ne soit pas redimensionné automatiquement à la longueur de la fenêtre :
-//		tableDestinations.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+		// pour que le tableau ne soit pas redimensionné automatiquement à la longueur de la fenêtre :
+		tableDestinations.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
 		tableDestinations.setAutoCreateRowSorter(true); // pour trier en cliquant sur les en-têtes
 		scrollPane.setViewportView(tableDestinations);
 		
@@ -69,10 +69,10 @@ public class PanelDestinations extends JPanel {
 		labelMessage = new JLabel("");
 		add(labelMessage, BorderLayout.NORTH);
 		
-//		// On dimensionne les colonnes :
-//		tableDestinations.getColumnModel().getColumn(0).setPreferredWidth(80);
-//		tableDestinations.getColumnModel().getColumn(1).setPreferredWidth(120);
-//		tableDestinations.getColumnModel().getColumn(2).setPreferredWidth(120);
+		// On dimensionne les colonnes :
+		tableDestinations.getColumnModel().getColumn(0).setPreferredWidth(80);
+		tableDestinations.getColumnModel().getColumn(1).setPreferredWidth(120);
+		tableDestinations.getColumnModel().getColumn(2).setPreferredWidth(120);
 	}
 	
 	// méthode private qui ne servira que dans ce panel.
