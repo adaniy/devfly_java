@@ -26,6 +26,9 @@ public class PanelBoutons extends JPanel {
 	public PanelBoutons() {
 		setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
 
+		// Les boutons sont visibles en haut de la fenêtre.
+		// Au clic sur l'un d'eux, on affiche les éléments correspondants.
+		
 		btnVolsProgrammes = new JButton("vols programmés");
 		btnVolsProgrammes.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -34,6 +37,7 @@ public class PanelBoutons extends JPanel {
 				(FenetrePrincipale) 
 				SwingUtilities.getRoot(PanelBoutons.this);
 
+				// on affiche les vols programmés
 				frame.displayVolsProgrammes();
 			}
 		});
@@ -47,6 +51,7 @@ public class PanelBoutons extends JPanel {
 				(FenetrePrincipale) 
 				SwingUtilities.getRoot(PanelBoutons.this);
 
+				// on affiche les vols en attente
 				frame.displayVolsEnAttente();
 			}
 		});
@@ -60,6 +65,7 @@ public class PanelBoutons extends JPanel {
 				(FenetrePrincipale) 
 				SwingUtilities.getRoot(PanelBoutons.this);
 
+				// on affiche le formulaire de création d'un vol
 				frame.displayNouveauVol();
 			}
 		});
@@ -73,6 +79,7 @@ public class PanelBoutons extends JPanel {
 				(FenetrePrincipale) 
 				SwingUtilities.getRoot(PanelBoutons.this);
 
+				// on affiche le formulaire de création d'une destination (ou aéroport)
 				frame.displayNouvelleDestination();
 			}
 		});
@@ -86,6 +93,7 @@ public class PanelBoutons extends JPanel {
 				(FenetrePrincipale) 
 				SwingUtilities.getRoot(PanelBoutons.this);
 
+				// on affiche la liste des destinations
 				frame.displayDestinations();
 			}
 		});
@@ -99,6 +107,7 @@ public class PanelBoutons extends JPanel {
 				(FenetrePrincipale) 
 				SwingUtilities.getRoot(PanelBoutons.this);
 
+				// on affiche la page de déconnexion
 				frame.displayDeconnexion();
 			}
 		});

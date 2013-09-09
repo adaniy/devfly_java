@@ -34,12 +34,14 @@ public class PanelBienvenue extends JPanel {
 	 */
 	public PanelBienvenue() {
 		GridBagLayout gridBagLayout = new GridBagLayout();
+		// on joue sur les dimensions de la grille pour positionner les éléments :
 		gridBagLayout.columnWidths = new int[]{225, 0, 0, 0};
 		gridBagLayout.rowHeights = new int[]{60, 45, 0, 0, 0, 0, 0, 0};
 		gridBagLayout.columnWeights = new double[]{0.0, 0.0, 0.0, Double.MIN_VALUE};
 		gridBagLayout.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, Double.MIN_VALUE};
 		setLayout(gridBagLayout);
 
+		// Style, taille et positionnement du mot "Bienvenue" :
 		JLabel lblBienvenue = new JLabel("Bienvenue !");
 		lblBienvenue.setFont(new Font("Dialog", Font.BOLD, 18));
 		GridBagConstraints gbc_lblBienvenue = new GridBagConstraints();
@@ -48,6 +50,7 @@ public class PanelBienvenue extends JPanel {
 		gbc_lblBienvenue.gridy = 0;
 		add(lblBienvenue, gbc_lblBienvenue);
 
+		// Label qui pourra contenir les différents messages à afficher :
 		labelMessage = new JLabel("");
 		GridBagConstraints gbc_labelMessage = new GridBagConstraints();
 		gbc_labelMessage.insets = new Insets(0, 0, 5, 5);
@@ -55,6 +58,7 @@ public class PanelBienvenue extends JPanel {
 		gbc_labelMessage.gridy = 1;
 		add(labelMessage, gbc_labelMessage);
 
+		// Label contenant le texte "identifiant"
 		JLabel lblIdentifiant = new JLabel("identifiant");
 		GridBagConstraints gbc_lblIdentifiant = new GridBagConstraints();
 		gbc_lblIdentifiant.anchor = GridBagConstraints.EAST;
@@ -63,6 +67,7 @@ public class PanelBienvenue extends JPanel {
 		gbc_lblIdentifiant.gridy = 3;
 		add(lblIdentifiant, gbc_lblIdentifiant);
 
+		// Champ texte pour l'identifiant :
 		textFieldIdentifiant = new JTextField();
 		GridBagConstraints gbc_textFieldIdentifiant = new GridBagConstraints();
 		gbc_textFieldIdentifiant.fill = GridBagConstraints.HORIZONTAL;
@@ -72,6 +77,7 @@ public class PanelBienvenue extends JPanel {
 		add(textFieldIdentifiant, gbc_textFieldIdentifiant);
 		textFieldIdentifiant.setColumns(10);
 
+		// Label contenant le texte "mot de passe"
 		JLabel lblMotDePasse = new JLabel("mot de passe");
 		GridBagConstraints gbc_lblMotDePasse = new GridBagConstraints();
 		gbc_lblMotDePasse.anchor = GridBagConstraints.EAST;
@@ -80,6 +86,7 @@ public class PanelBienvenue extends JPanel {
 		gbc_lblMotDePasse.gridy = 4;
 		add(lblMotDePasse, gbc_lblMotDePasse);
 
+		// Champ pour le mot de passe, les caractères saisis ne sont pas affichés :
 		passwordFieldMotDePasse = new JPasswordField();
 		GridBagConstraints gbc_passwordFieldMotDePasse = new GridBagConstraints();
 		gbc_passwordFieldMotDePasse.insets = new Insets(0, 0, 5, 5);
@@ -96,6 +103,7 @@ public class PanelBienvenue extends JPanel {
 				getPasswordFieldMotDePasse().setText("");
 			}
 		});
+		// On positionne le panel avec les boutons "valider" et "annuler" :
 		GridBagConstraints gbc_panelValiderAnnuler = new GridBagConstraints();
 		gbc_panelValiderAnnuler.insets = new Insets(0, 0, 5, 5);
 		gbc_panelValiderAnnuler.fill = GridBagConstraints.BOTH;
@@ -103,29 +111,18 @@ public class PanelBienvenue extends JPanel {
 		gbc_panelValiderAnnuler.gridy = 5;
 		add(panelValiderAnnuler, gbc_panelValiderAnnuler);
 
+		// Action déclenchée au clic sur "valider" :
 		panelValiderAnnuler.getBtnValider().addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				PanelBienvenue.this.setVisible(false);
 
 				// on récupère la frame principale
 				FenetrePrincipale frame = 
 						(FenetrePrincipale) 
 						SwingUtilities.getRoot(PanelBienvenue.this);
-
-				// on supprime le panel de bienvenue et les 2 logos
-				frame.getContentPane().remove(PanelBienvenue.this);
-				frame.getContentPane().remove(frame.getLblLogoGauche());
-				frame.getContentPane().remove(frame.getLblLogoDroite());
-
-				// on ajoute les boutons + le panel avec l'affichage des vols
-				frame.getContentPane().add(frame.getPanelVols(), BorderLayout.CENTER);
-				frame.getContentPane().add(frame.getPanelBoutons(), BorderLayout.NORTH);
-
-				// on rend visible les éléments ajoutés
-				// et on fait un repaint pour avoir le nouvel affichage
-				frame.getPanelVols().setVisible(true);
-				frame.getPanelBoutons().setVisible(true);
-				frame.getContentPane().repaint();
+				
+				// on utilise la méthode définie dans la frame pour 
+				// nettoyer la page et afficher les vols programmés
+				frame.displayVolsProgrammes();
 			}
 		});
 
