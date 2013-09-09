@@ -83,6 +83,7 @@ public class PanelDestinations extends JPanel {
 		final Object[][] myValues = new Object[listeAeroports.size()][enTete.length];
 		for (int i = 0; i < listeAeroports.size(); i++) {
 			Aeroport a = listeAeroports.get(i);
+			// le sous-tableau vient directement de l'aéroport "a"
 			myValues[i] = a.toArray();
 		}
 		DefaultTableModel myModel = new DefaultTableModel(myValues, enTete) {

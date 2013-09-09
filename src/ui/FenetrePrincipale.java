@@ -8,8 +8,6 @@ import java.awt.BorderLayout;
 
 import javax.swing.JLabel;
 
-import java.awt.GridBagConstraints;
-import java.awt.Insets;
 import java.sql.SQLException;
 
 import javax.swing.ImageIcon;
@@ -48,36 +46,35 @@ public class FenetrePrincipale extends JFrame {
 	 * Create the frame.
 	 * @throws SQLException 
 	 */
-	public FenetrePrincipale() throws SQLException { // pour le panelDestination notamment
+	public FenetrePrincipale() throws SQLException { // throws SQLException pour le panelDestination notamment
+		// la fenêtre n'est pas redimensionnable
 		setResizable(false);
+		// on fixe sa position et sa taille :
 		setBounds(100, 100, 1000, 350);
+		// le processus s'arrête à la fermeture de la fenêtre :
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 		panelBienvenue = new PanelBienvenue();
+		// le panelBienvenue est visible par défaut, on l'ajoute au centre du ContentPane
 		getContentPane().add(panelBienvenue, BorderLayout.CENTER);
-		panelVols = new PanelVols();
-		panelBoutons = new PanelBoutons();
 
+		// par défaut, le logo de la compagnie apparait à gauche et à droite
 		lblLogoGauche = new JLabel("");
 		lblLogoGauche.setIcon(new ImageIcon(FenetrePrincipale.class.getResource("/img/logo.jpg")));
-		GridBagConstraints gbc_lblNewLabel = new GridBagConstraints();
-		gbc_lblNewLabel.insets = new Insets(0, 0, 5, 5);
-		gbc_lblNewLabel.gridx = 0;
-		gbc_lblNewLabel.gridy = 3;
-
 		getContentPane().add(lblLogoGauche, BorderLayout.WEST);
 
 		lblLogoDroite = new JLabel("");
 		lblLogoDroite.setIcon(new ImageIcon(FenetrePrincipale.class.getResource("/img/logo.jpg")));
 		getContentPane().add(lblLogoDroite, BorderLayout.EAST);
 
-		// on instancie les panels
+		// on instancie les panels non visibles au départ :
 		panelDeconnexion = new PanelDeconnexion();
 		panelNouveauVol = new PanelNouveauVol();
 		panelNouvelleDestination = new PanelNouvelleDestination();
 		panelDestinations = new PanelDestinations();
 		panelValiderAnnuler = new PanelValiderAnnuler();
-
+		panelVols = new PanelVols();
+		panelBoutons = new PanelBoutons();
 	}
 
 	public PanelBienvenue getPanelBienvenue() {

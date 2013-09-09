@@ -6,7 +6,6 @@ public class Aeroport {
 	private String pays;
 	
 	public Aeroport(String codeAeroport, String ville, String pays) {
-		super();
 		this.codeAeroport = codeAeroport;
 		this.ville = ville;
 		this.pays = pays;
@@ -36,7 +35,9 @@ public class Aeroport {
 		this.pays = pays;
 	}
 	
-	public Object[] toArray(){
-		return new Object[]{codeAeroport,ville,pays};
+	// retourne un tableau de chaines de caractères avec le
+	// code aéroport, la ville et le pays
+	public String[] toArray(){
+		return new String[]{codeAeroport,ville,pays};
 	}
 }

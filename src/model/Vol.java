@@ -8,7 +8,7 @@ public class Vol {
 	private Aeroport aeroportArrivee;
 	private Date dateHeureDepart;
 	private int duree; // en minutes
-	private int tarif;
+	private float tarif;
 	private String codePilote;
 	private String codeCopilote;
 	private String codeHotesseSt1;
@@ -17,10 +17,9 @@ public class Vol {
 	
 	// un constructeur complet
 	public Vol(String id, Aeroport aeroportDepart, Aeroport aeroportArrivee,
-			Date dateHeureDepart, int duree, int tarif, String codePilote,
+			Date dateHeureDepart, int duree, float tarif, String codePilote,
 			String codeCopilote, String codeHotesseSt1, String codeHotesseSt2,
 			String codeHotesseSt3) {
-		super();
 		this.id = id;
 		this.aeroportDepart = aeroportDepart;
 		this.aeroportArrivee = aeroportArrivee;
@@ -36,8 +35,7 @@ public class Vol {
 
 	// un constructeur sans les codes "employés"
 	public Vol(String id, Aeroport aeroportDepart, Aeroport aeroportArrivee,
-			Date dateHeureDepart, int duree, int tarif) {
-		super();
+			Date dateHeureDepart, int duree, float tarif) {
 		this.id = id;
 		this.aeroportDepart = aeroportDepart;
 		this.aeroportArrivee = aeroportArrivee;
@@ -45,13 +43,11 @@ public class Vol {
 		this.duree = duree;
 		this.tarif = tarif;
 	}
+	
+	// Remarque : pas de setter sur l'id du vol qui ne doit pas être modifié.
 
 	public String getId() {
 		return id;
-	}
-
-	public void setId(String id) {
-		this.id = id;
 	}
 
 	public Aeroport getAeroportDepart() {
@@ -86,7 +82,7 @@ public class Vol {
 		this.duree = duree;
 	}
 
-	public int getTarif() {
+	public float getTarif() {
 		return tarif;
 	}
 
@@ -132,5 +128,11 @@ public class Vol {
 
 	public void setCodeHotesseSt3(String codeHotesseSt3) {
 		this.codeHotesseSt3 = codeHotesseSt3;
-	}	
+	}
+	
+	// TODO : à compléter si utilisé
+//	// retourne un tableau d'objets avec ...
+//	public Object[] toArray(){
+//		return new Object[]{id,aeroportDepart ... };
+//	}
 }

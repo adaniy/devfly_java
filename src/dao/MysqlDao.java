@@ -16,10 +16,13 @@ public class MysqlDao {
 	private String user = "greta";
 	private String password = "gretatest";
 
+	// retourne les vols sous forme d'une liste
 	public List<Vol> getAllVols() throws SQLException {
 		List<Vol> vols = new ArrayList<>();
+		// on se connecte à la BDD
 		Connection connection = DriverManager.getConnection(datasource, user,
 				password);
+		// on crée et exécute une requête préparée
 		String sql = "SELECT * FROM vol"; // à compléter
 		PreparedStatement stmt = connection.prepareStatement(sql);
 		ResultSet result = stmt.executeQuery();
@@ -30,10 +33,13 @@ public class MysqlDao {
 		return vols;
 	}
 
+	// retourne les aéroports sous forme d'une liste
 	public List<Aeroport> getAllAeroports() throws SQLException {
 		List<Aeroport> aeroports = new ArrayList<>();
+		// on se connecte à la BDD
 		Connection connection = DriverManager.getConnection(datasource, user,
 				password);
+		// on crée et exécute une requête préparée
 		String sql = "SELECT * FROM destination";
 		PreparedStatement stmt = connection.prepareStatement(sql);
 		ResultSet result = stmt.executeQuery();
@@ -41,7 +47,9 @@ public class MysqlDao {
 			String code = result.getString("codeaeroport");
 			String ville = result.getString("ville");
 			String pays = result.getString("pays");
+			// on crée un objet aéroport avec les informations récupérées
 			Aeroport a = new Aeroport(code, ville, pays);
+			// on l'ajoute à la liste
 			aeroports.add(a);
 		}
 		connection.close();
