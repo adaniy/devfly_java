@@ -11,7 +11,7 @@ import javax.swing.JLabel;
 
 public class PanelVols extends JPanel {
 	private JTable tableVols;
-	private JScrollPane scrollPane;
+	private JScrollPane scrollPane; // conteneur pour avoir une barre de défilement
 	private PanelValiderAnnuler panelBoutonsVols;
 	private JLabel labelMessage;
 
@@ -21,15 +21,15 @@ public class PanelVols extends JPanel {
 	public PanelVols() {
 		setLayout(new BorderLayout(0, 0));
 		
+		// conteneur pour avoir une barre de défilement
 		scrollPane = new JScrollPane();
-//		scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
-//		scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
 		add(scrollPane, BorderLayout.CENTER);
 		
 		tableVols = new JTable();
 		// pour que le tableau ne soit pas redimensionné automatiquement à la longueur de la fenêtre :
 		tableVols.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
-		tableVols.setAutoCreateRowSorter(true); // pour trier en cliquant sur les en-têtes
+		// pour trier en cliquant sur les en-têtes
+		tableVols.setAutoCreateRowSorter(true);
 		scrollPane.setViewportView(tableVols);
 		
 		// pour enlever le fait qu'on puisse déplacer les colonnes :
@@ -50,6 +50,7 @@ public class PanelVols extends JPanel {
 				{"DF6", "Berne", "Suisse", "BRN", "Sydney", "Australie", "SYD", "14/12/2013 06:50", "14/12/2013 20:05", 795, 1472, "P0005", "C0002", "H0004", "H0008", "H0013", "DF6"}
 		};
 		
+		// TODO commenter + compléter
 		DefaultTableModel model = new DefaultTableModel(values, headers)
 		{
 			// pour qu'on ne puisse pas éditer les cellules directement :
@@ -68,6 +69,7 @@ public class PanelVols extends JPanel {
 		// On donne le model à la table :
 		tableVols.setModel(model);
 		
+		// Label qui pourra contenir les différents messages à afficher :
 		labelMessage = new JLabel("");
 		add(labelMessage, BorderLayout.NORTH);
 		

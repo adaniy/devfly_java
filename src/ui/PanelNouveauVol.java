@@ -25,18 +25,22 @@ public class PanelNouveauVol extends JPanel {
 	 */
 	public PanelNouveauVol() {
 		GridBagLayout gridBagLayout = new GridBagLayout();
+		// on joue sur les dimensions de la grille pour positionner les éléments :
 		gridBagLayout.columnWidths = new int[]{300, 0, 145, 0};
 		gridBagLayout.rowHeights = new int[]{0, 55, 0, 0, 0, 0, 0, 0, 0, 0, 0};
 		gridBagLayout.columnWeights = new double[]{0.0, 0.0, 0.0, Double.MIN_VALUE};
 		gridBagLayout.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, Double.MIN_VALUE};
 		setLayout(gridBagLayout);
 		
+		// Label qui pourra contenir les différents messages à afficher :
 		labelMessage = new JLabel("");
 		GridBagConstraints gbc_labelMessage = new GridBagConstraints();
 		gbc_labelMessage.insets = new Insets(0, 0, 5, 5);
 		gbc_labelMessage.gridx = 0;
 		gbc_labelMessage.gridy = 0;
 		add(labelMessage, gbc_labelMessage);
+		
+		// Les différents éléments du formulaires :
 		
 		JLabel lblNouveauVol = new JLabel("Nouveau vol");
 		lblNouveauVol.setFont(new Font("Dialog", Font.BOLD, 18));

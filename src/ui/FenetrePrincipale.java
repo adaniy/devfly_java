@@ -19,8 +19,8 @@ public class FenetrePrincipale extends JFrame {
 	private PanelVols panelVols;
 	private PanelDeconnexion panelDeconnexion;
 	private PanelNouveauVol panelNouveauVol;
-	private PanelNouvelleDestination panelNouvelleDestination;
-	private PanelDestinations panelDestinations;
+	private PanelNouvelAeroport panelNouvelAeroport;
+	private PanelAeroports panelAeroports;
 	private PanelValiderAnnuler panelValiderAnnuler;
 
 	private JLabel lblLogoGauche;
@@ -70,8 +70,8 @@ public class FenetrePrincipale extends JFrame {
 		// on instancie les panels non visibles au départ :
 		panelDeconnexion = new PanelDeconnexion();
 		panelNouveauVol = new PanelNouveauVol();
-		panelNouvelleDestination = new PanelNouvelleDestination();
-		panelDestinations = new PanelDestinations();
+		panelNouvelAeroport = new PanelNouvelAeroport();
+		panelAeroports = new PanelAeroports();
 		panelValiderAnnuler = new PanelValiderAnnuler();
 		panelVols = new PanelVols();
 		panelBoutons = new PanelBoutons();
@@ -105,16 +105,16 @@ public class FenetrePrincipale extends JFrame {
 		return panelNouveauVol;
 	}
 
-	public PanelNouvelleDestination getPanelNouvelleDestination() {
-		return panelNouvelleDestination;
+	public PanelNouvelAeroport getPanelNouvelleDestination() {
+		return panelNouvelAeroport;
 	}
 
 	public PanelValiderAnnuler getPanelValiderAnnuler() {
 		return panelValiderAnnuler;
 	}
 	
-	public PanelDestinations getPanelDestinations() {
-		return panelDestinations;
+	public PanelAeroports getPanelDestinations() {
+		return panelAeroports;
 	}
 
 	public void hideElements()
@@ -177,10 +177,10 @@ public class FenetrePrincipale extends JFrame {
 		getContentPane().repaint();
 	}
 
-	public void displayNouvelleDestination()
+	public void displayNouvelAeroport()
 	{
 		hideElements();
-		// on ajoute le panel de création d'une destination + les boutons
+		// on ajoute le panel de création d'un aéroport + les boutons
 		getContentPane().add(getPanelBoutons(), BorderLayout.NORTH);
 		getContentPane().add(getPanelNouvelleDestination(), BorderLayout.CENTER);
 
@@ -191,10 +191,10 @@ public class FenetrePrincipale extends JFrame {
 		getContentPane().repaint();
 	}
 	
-	public void displayDestinations()
+	public void displayAeroports()
 	{
 		hideElements();
-		// on ajoute le panel des destinations + les boutons
+		// on ajoute le panel des aéroports + les boutons
 		getContentPane().add(getPanelBoutons(), BorderLayout.NORTH);
 		getContentPane().add(getPanelDestinations(), BorderLayout.CENTER);
 

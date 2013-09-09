@@ -4,6 +4,7 @@ import javax.swing.JPanel;
 import javax.swing.JButton;
 
 public class PanelValiderAnnuler extends JPanel {
+	// boutons "valider" et "annuler" qui se retrouvent sur différentes vues
 	private JButton btnValider;
 	private JButton btnAnnuler;
 
@@ -17,24 +18,15 @@ public class PanelValiderAnnuler extends JPanel {
 		
 		btnAnnuler = new JButton("annuler");
 		add(btnAnnuler);
-
-		
+	
 	}
 
 	public JButton getBtnValider() {
 		return btnValider;
 	}
 
-	public void setBtnValider(JButton btnValider) {
-		this.btnValider = btnValider;
-	}
-
 	public JButton getBtnAnnuler() {
 		return btnAnnuler;
-	}
-
-	public void setBtnAnnuler(JButton btnAnnuler) {
-		this.btnAnnuler = btnAnnuler;
 	}
 
 }

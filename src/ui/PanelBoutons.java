@@ -16,9 +16,9 @@ public class PanelBoutons extends JPanel {
 	private JButton btnVolsProgrammes;
 	private JButton btnVolsEnAttente;
 	private JButton btnNouveauVol;
-	private JButton btnNouvelleDestination;
+	private JButton btnNouvelAeroport;
 	private JButton btnDeconnexion;
-	private JButton btnDestinations;
+	private JButton btnAeroports;
 
 	/**
 	 * Create the panel.
@@ -71,33 +71,33 @@ public class PanelBoutons extends JPanel {
 		});
 		add(btnNouveauVol);
 
-		btnNouvelleDestination = new JButton("nouvelle destination");
-		btnNouvelleDestination.addActionListener(new ActionListener() {
+		btnNouvelAeroport = new JButton("nouvel aéroport");
+		btnNouvelAeroport.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				// on récupère la frame principale
 				FenetrePrincipale frame = 
 				(FenetrePrincipale) 
 				SwingUtilities.getRoot(PanelBoutons.this);
 
-				// on affiche le formulaire de création d'une destination (ou aéroport)
-				frame.displayNouvelleDestination();
+				// on affiche le formulaire de création d'un aéroport
+				frame.displayNouvelAeroport();
 			}
 		});
-		add(btnNouvelleDestination);
+		add(btnNouvelAeroport);
 		
-		btnDestinations = new JButton("destinations");
-		btnDestinations.addActionListener(new ActionListener() {
+		btnAeroports = new JButton("aéroports");
+		btnAeroports.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				// on récupère la frame principale
 				FenetrePrincipale frame = 
 				(FenetrePrincipale) 
 				SwingUtilities.getRoot(PanelBoutons.this);
 
-				// on affiche la liste des destinations
-				frame.displayDestinations();
+				// on affiche la liste des aéroports
+				frame.displayAeroports();
 			}
 		});
-		add(btnDestinations);	
+		add(btnAeroports);	
 
 		btnDeconnexion = new JButton("déconnexion");
 		btnDeconnexion.addActionListener(new ActionListener() {
