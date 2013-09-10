@@ -157,14 +157,18 @@ public class PanelNouvelAeroport extends JPanel {
 				String ville = getTextFieldVille().getText();
 				String pays = getTextFieldPays().getText();
 				
-				String regex = "([a-zA-Z]*)";
+				// TODO : à optimiser ?
+				// On définit des expressions régulières.
+				String regexLettresAccents = "^[A-Za-zàâäéèêëìîïôöòùûüçÀÂÄÉÈËÏÎÌÔÖÙÛÜÇ-]+$";
+				String regexLettre = "^[A-Z]+$";
 				
-				// TODO : compléter
 				// On vérifie que les 3 champs ne sont pas vides,
 				// qu'ils contiennent des lettres,
-				// et que le code aéroport soit composé de 3 lettres.
+				// et que le code aéroport est composé de 3 lettres
+				// (on utilise les regex).
 				if(codeAita.length() == 3 && ville.length()!=0 && pays.length()!=0
-						&& codeAita.matches(regex) && ville.matches(regex) && pays.matches(regex)){
+						&& codeAita.matches(regexLettre) && ville.matches(regexLettresAccents)
+						&& pays.matches(regexLettresAccents)){
 					// On crée un objet Aeroport avec ces données
 					Aeroport nouvelAeroport = new Aeroport(codeAita, ville, pays);
 					
@@ -194,9 +198,10 @@ public class PanelNouvelAeroport extends JPanel {
 				}else{
 					// si tous les champs ne sont pas remplis, on affiche un
 					// message (et on ne vide pas les champs !)
-					getLabelMessage().setText("<html>Attention, veuillez svp vous assurer que :<br>"
-							+ "- tous les champs sont remplis et constitués de lettres<br>"
-							+ "- le code aéroport contient 3 lettres</html>");
+					getLabelMessage().setText("<html>Attention, veuillez vous assurer que :<br>"
+							+ "- tous les champs sont remplis<br>"
+							+ "- la ville et le pays sont constitués de lettres<br>"
+							+ "- le code aéroport contient 3 lettres.</html>");
 				}
 			}
 		});
