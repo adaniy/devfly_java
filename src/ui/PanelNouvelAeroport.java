@@ -149,6 +149,14 @@ public class PanelNouvelAeroport extends JPanel {
 		panelValiderAnnuler = new PanelValiderAnnuler();
 		panelValiderAnnuler.getBtnValider().addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				// TODO : supprimer ces lignes de débug
+				try {
+					dao.getAllVolsProgrammes();
+				} catch (SQLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}				
+				
 				// au clic sur le bouton "valider", on ajoute un aéroport en base.
 				
 				// On récupère les données saisies
