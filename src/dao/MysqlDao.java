@@ -6,6 +6,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import model.Aeroport;
@@ -56,19 +57,34 @@ public class MysqlDao {
 		return aeroports;
 	}
 	
+	// TODO : à optimiser ?
 	// ajoute un nouvel aéroport en base
 	public int addNewAeroport(Aeroport a) throws SQLException{
 		// on se connecte à la BDD
 		Connection connection = DriverManager.getConnection(datasource, user,
 				password);
-		// on crée et exécute une requête préparée
-		String sql = "INSERT INTO destination values(?, ?, ?)";
-		PreparedStatement stmt = connection.prepareStatement(sql);
-		stmt.setString(1, a.getCodeAeroport());
-		stmt.setString(2, a.getVille());
-		stmt.setString(3, a.getPays());
-		int result = stmt.executeUpdate(); // renvoie le nb d'enregistrements impactés
+		// on regarde si le code aéroport existe déjà en base, avec une requête préparée
+		String sql1 = "SELECT * from destination WHERE codeaeroport = ?";
+		PreparedStatement stmt1 = connection.prepareStatement(sql1);
+		stmt1.setString(1, a.getCodeAeroport());
+		ResultSet result1 = stmt1.executeQuery();
+		// si l'aéroport existe déjà, on sort de la fonction et on renvoie "2".
+		if (result1.next()) {
+			String id = result1.getString("codeaeroport");
+			if(id.equals(a.getCodeAeroport())){
+				return 2;
+			}
+		}
+		
+		// s'il n'existe pas déjà, on crée et exécute une requête
+		// préparée pour insérer l'aéroport
+		String sql2 = "INSERT INTO destination values(?, ?, ?)";
+		PreparedStatement stmt2 = connection.prepareStatement(sql2);
+		stmt2.setString(1, a.getCodeAeroport());
+		stmt2.setString(2, a.getVille());
+		stmt2.setString(3, a.getPays());
+		int result2 = stmt2.executeUpdate(); // renvoie le nb d'enregistrements impactés
 		connection.close();
-		return result; // doit renvoyer 1
+		return result2; // doit renvoyer "1"
 	}
 }

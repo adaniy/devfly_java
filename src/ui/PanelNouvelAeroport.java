@@ -151,37 +151,53 @@ public class PanelNouvelAeroport extends JPanel {
 			public void actionPerformed(ActionEvent arg0) {
 				// au clic sur le bouton "valider", on ajoute un aéroport en base.
 				
-				// TODO : vérifs + réinitaliser
-				
 				// On récupère les données saisies
-				String codeAita = getTextFieldAita().getText();
+				// La code aéroport est passé en majuscules
+				String codeAita = getTextFieldAita().getText().toUpperCase();
 				String ville = getTextFieldVille().getText();
 				String pays = getTextFieldPays().getText();
 				
-				// On crée un objet Aeroport avec ces données
-				Aeroport nouvelAeroport = new Aeroport(codeAita, ville, pays);
+				String regex = "([a-zA-Z]*)";
 				
-				// On ajoute l'aéroport à la base
-				try {
-					int retour = dao.addNewAeroport(nouvelAeroport);
+				// TODO : compléter
+				// On vérifie que les 3 champs ne sont pas vides,
+				// qu'ils contiennent des lettres,
+				// et que le code aéroport soit composé de 3 lettres.
+				if(codeAita.length() == 3 && ville.length()!=0 && pays.length()!=0
+						&& codeAita.matches(regex) && ville.matches(regex) && pays.matches(regex)){
+					// On crée un objet Aeroport avec ces données
+					Aeroport nouvelAeroport = new Aeroport(codeAita, ville, pays);
 					
-					// On vérifie que l'ajout s'est bien passé
-					// et on affiche un message en conséquence.
-					if(retour == 1){
-						getLabelMessage().setText("L'aéroport " + codeAita + " a bien été ajouté !");
-					}else{
-						//getLabelMessage().setText("Le code aéroport " + codeAita + " existe déjà.");
-					}					
-					
-				} catch (SQLException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
+					// On ajoute l'aéroport à la base
+					try {
+						int retour = dao.addNewAeroport(nouvelAeroport);
+						
+						// On vérifie que l'ajout s'est bien passé
+						// et on affiche un message en conséquence.
+						if(retour == 1){
+							getLabelMessage().setText("L'aéroport " + codeAita + " a bien été ajouté !");
+						}else if(retour == 2){
+							getLabelMessage().setText("Le code aéroport " + codeAita + " existe déjà.");
+						}else{
+							// TODO : dans quel cas ?
+							getLabelMessage().setText("L'aéroport n'a pas pu être ajouté !");
+						}
+						
+					} catch (SQLException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+					// On vide les champs texte :
+					getTextFieldAita().setText("");
+					getTextFieldVille().setText("");
+					getTextFieldPays().setText("");
+				}else{
+					// si tous les champs ne sont pas remplis, on affiche un
+					// message (et on ne vide pas les champs !)
+					getLabelMessage().setText("<html>Attention, veuillez svp vous assurer que :<br>"
+							+ "- tous les champs sont remplis et constitués de lettres<br>"
+							+ "- le code aéroport contient 3 lettres</html>");
 				}
-				
-				// On vide les champs texte :
-				getTextFieldAita().setText("");
-				getTextFieldVille().setText("");
-				getTextFieldPays().setText("");
 			}
 		});
 		GridBagConstraints gbc_panelValiderAnnuler = new GridBagConstraints();
