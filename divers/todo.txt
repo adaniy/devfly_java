@@ -1,4 +1,3 @@
--titre des pages (!vols) ou bouton coloré...
 -notes papier
 -commentaires panelAeroport
 -commentaire "final"
