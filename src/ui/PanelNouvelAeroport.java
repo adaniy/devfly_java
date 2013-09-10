@@ -37,9 +37,8 @@ public class PanelNouvelAeroport extends JPanel {
 		gbc_labelMessage.gridy = 0;
 		add(labelMessage, gbc_labelMessage);
 		
-		// Les différents éléments du formulaires :
-		
-		JLabel lblNouvelleDestination = new JLabel("Nouvelle destination");
+		// Le titre de la page :
+		JLabel lblNouvelleDestination = new JLabel("Nouvel aéroport");
 		lblNouvelleDestination.setFont(new Font("Dialog", Font.BOLD, 18));
 		GridBagConstraints gbc_lblNouvelleDestination = new GridBagConstraints();
 		gbc_lblNouvelleDestination.gridwidth = 2;
@@ -47,6 +46,8 @@ public class PanelNouvelAeroport extends JPanel {
 		gbc_lblNouvelleDestination.gridx = 1;
 		gbc_lblNouvelleDestination.gridy = 1;
 		add(lblNouvelleDestination, gbc_lblNouvelleDestination);
+		
+		// Les différents éléments du formulaires :
 		
 		JLabel lblCodeAita = new JLabel("Code AITA");
 		GridBagConstraints gbc_lblCodeAita = new GridBagConstraints();

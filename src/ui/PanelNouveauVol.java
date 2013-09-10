@@ -40,8 +40,7 @@ public class PanelNouveauVol extends JPanel {
 		gbc_labelMessage.gridy = 0;
 		add(labelMessage, gbc_labelMessage);
 		
-		// Les différents éléments du formulaires :
-		
+		// Le titre de la page :
 		JLabel lblNouveauVol = new JLabel("Nouveau vol");
 		lblNouveauVol.setFont(new Font("Dialog", Font.BOLD, 18));
 		GridBagConstraints gbc_lblNouveauVol = new GridBagConstraints();
@@ -50,6 +49,8 @@ public class PanelNouveauVol extends JPanel {
 		gbc_lblNouveauVol.gridx = 1;
 		gbc_lblNouveauVol.gridy = 1;
 		add(lblNouveauVol, gbc_lblNouveauVol);
+		
+		// Les différents éléments du formulaires :
 		
 		JLabel lblVilleDeDepart = new JLabel("Ville de départ");
 		GridBagConstraints gbc_lblVilleDeDepart = new GridBagConstraints();

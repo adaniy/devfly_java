@@ -1,6 +1,10 @@
+-titre des pages (!vols) ou bouton coloré...
+-notes papier
 -commentaires panelAeroport
 -commentaire "final"
 -2 fichiers pour les vols ?
+-cahier des charges
+
 -commentaires
 -vérifier les imports
 -enlever les lignes TODO

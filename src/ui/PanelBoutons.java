@@ -71,6 +71,20 @@ public class PanelBoutons extends JPanel {
 		});
 		add(btnNouveauVol);
 
+		btnAeroports = new JButton("aéroports");
+		btnAeroports.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				// on récupère la frame principale
+				FenetrePrincipale frame = 
+				(FenetrePrincipale) 
+				SwingUtilities.getRoot(PanelBoutons.this);
+
+				// on affiche la liste des aéroports
+				frame.displayAeroports();
+			}
+		});
+		add(btnAeroports);
+		
 		btnNouvelAeroport = new JButton("nouvel aéroport");
 		btnNouvelAeroport.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -84,20 +98,6 @@ public class PanelBoutons extends JPanel {
 			}
 		});
 		add(btnNouvelAeroport);
-		
-		btnAeroports = new JButton("aéroports");
-		btnAeroports.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				// on récupère la frame principale
-				FenetrePrincipale frame = 
-				(FenetrePrincipale) 
-				SwingUtilities.getRoot(PanelBoutons.this);
-
-				// on affiche la liste des aéroports
-				frame.displayAeroports();
-			}
-		});
-		add(btnAeroports);	
 
 		btnDeconnexion = new JButton("déconnexion");
 		btnDeconnexion.addActionListener(new ActionListener() {
