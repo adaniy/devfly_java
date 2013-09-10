@@ -17,22 +17,49 @@ public class MysqlDao {
 	private String user = "greta";
 	private String password = "gretatest";
 
-	// retourne les vols sous forme d'une liste
-	public List<Vol> getAllVols() throws SQLException {
-		List<Vol> vols = new ArrayList<>();
-		// on se connecte à la BDD
-		Connection connection = DriverManager.getConnection(datasource, user,
-				password);
-		// on crée et exécute une requête préparée
-		String sql = "SELECT * FROM vol"; // à compléter
-		PreparedStatement stmt = connection.prepareStatement(sql);
-		ResultSet result = stmt.executeQuery();
-		while (result.next()) {
-			// à compléter
-		}
-		connection.close();
-		return vols;
-	}
+	// retourne les vols "programmés" sous forme d'une liste
+//	public List<Vol> getAllVolsProgrammes() throws SQLException {
+//		List<Vol> vols = new ArrayList<>();
+//		// on se connecte à la BDD
+//		Connection connection = DriverManager.getConnection(datasource, user,
+//				password);
+//		// on crée et exécute une requête préparée
+//		// TODO : compléter la requête pour avoir les destinations de départ ET d'arrivée
+//		// TODO suite : 2 requêtes ?
+//		String sql = "SELECT * FROM vol V INNER JOIN travailler T ON V.numvol = T.vol";
+//		PreparedStatement stmt = connection.prepareStatement(sql);
+//		ResultSet result = stmt.executeQuery();
+//		while (result.next()) {
+//			String id = result.getString("numvol");
+//			String villeDepart = result.getString("lieudep");
+//			String villeArrivee = result.getString("villeArrivee");
+//			Date dateHeureDepart = result.getDate("dateheuredep");
+//			Date dateHeureArrivee = result.getDate("dateheurearrivee");
+//			
+//			// pour calculer la durée du vol, on récupère d'abord les dates en millisecondes
+//			long departMillisecondes = dateHeureDepart.getTime();
+//			long arriveeMillisecondes = dateHeureArrivee.getTime();
+//			int duree = (int) (arriveeMillisecondes - departMillisecondes);
+//			
+//			float tarif = result.getFloat("tarif");
+//			String codePilote = result.getString("pilote");
+//			String codeCopilote = result.getString("copilote");
+//			String codeHotesseSt1 = result.getString("hotesse_steward1");
+//			String codeHotesseSt2 = result.getString("hotesse_steward2");
+//			String codeHotesseSt3 = result.getString("hotesse_steward3");
+//			
+//			// on crée les objet "Aeroport" de départ et d'arrivée avec les informations récupérées
+//			Aeroport aeroportDepart = new Aeroport(codeAeroport, ville, pays);
+//			Aeroport aeroportArrivee = new Aeroport(codeAeroport, ville, pays);
+//			
+//			// on crée un objet Vol avec les informations récupérées
+//			Vol v = new Vol(id, aeroportDepart, aeroportArrivee, dateHeureDepart, duree, tarif, codePilote, codeCopilote, codeHotesseSt1, codeHotesseSt2, codeHotesseSt3);
+//			// on l'ajoute à la liste
+//			vols.add(v);
+//		}
+//		connection.close();
+//		return vols;
+//	}
 
 	// retourne les aéroports sous forme d'une liste
 	public List<Aeroport> getAllAeroports() throws SQLException {

@@ -1,3 +1,6 @@
+-getAllVolsProgrammes() MysqlDao
+-vols en attente : on peut récupérer les infos du vol mais pas des employés !! Table travailler_tmp ?
+
 -notes papier
 -commentaires panelAeroport
 -commentaire "final"
