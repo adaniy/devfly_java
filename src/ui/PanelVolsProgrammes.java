@@ -9,34 +9,34 @@ import java.awt.BorderLayout;
 
 import javax.swing.JLabel;
 
-public class PanelVols extends JPanel {
-	private JTable tableVols;
+public class PanelVolsProgrammes extends JPanel {
+	private JTable tableVolsProgrammes;
 	private JScrollPane scrollPane; // conteneur pour avoir une barre de défilement
-	private PanelValiderAnnuler panelBoutonsVols;
+	private PanelValiderAnnuler panelBoutonsVolsProgrammes;
 	private JLabel labelMessage;
 
 	/**
 	 * Create the panel.
 	 */
-	public PanelVols() {
+	public PanelVolsProgrammes() {
 		setLayout(new BorderLayout(0, 0));
 		
 		// conteneur pour avoir une barre de défilement
 		scrollPane = new JScrollPane();
 		add(scrollPane, BorderLayout.CENTER);
 		
-		tableVols = new JTable();
+		tableVolsProgrammes = new JTable();
 		// pour que le tableau ne soit pas redimensionné automatiquement à la longueur de la fenêtre :
-		tableVols.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+		tableVolsProgrammes.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
 		// pour trier en cliquant sur les en-têtes
-		tableVols.setAutoCreateRowSorter(true);
-		scrollPane.setViewportView(tableVols);
+		tableVolsProgrammes.setAutoCreateRowSorter(true);
+		scrollPane.setViewportView(tableVolsProgrammes);
 		
 		// pour enlever le fait qu'on puisse déplacer les colonnes :
-		tableVols.getTableHeader().setReorderingAllowed(false);
+		tableVolsProgrammes.getTableHeader().setReorderingAllowed(false);
 		
-		panelBoutonsVols = new PanelValiderAnnuler();
-		add(panelBoutonsVols, BorderLayout.SOUTH);
+		panelBoutonsVolsProgrammes = new PanelValiderAnnuler();
+		add(panelBoutonsVolsProgrammes, BorderLayout.SOUTH);
 		
 		// Les en-têtes : (on trouve le N° de vol en début et fin de tableau pour faciliter la lecture)
 		String[]headers = {"n°", "ville départ", "pays dép.", "code dép.",
@@ -67,30 +67,30 @@ public class PanelVols extends JPanel {
 		};
 		
 		// On donne le model à la table :
-		tableVols.setModel(model);
+		tableVolsProgrammes.setModel(model);
 		
 		// Label qui pourra contenir les différents messages à afficher :
 		labelMessage = new JLabel("");
 		add(labelMessage, BorderLayout.NORTH);
 		
 		// On dimensionne les colonnes :
-		tableVols.getColumnModel().getColumn(0).setPreferredWidth(60);
-		tableVols.getColumnModel().getColumn(1).setPreferredWidth(80);
-		tableVols.getColumnModel().getColumn(2).setPreferredWidth(75);
-		tableVols.getColumnModel().getColumn(3).setPreferredWidth(70);
-		tableVols.getColumnModel().getColumn(4).setPreferredWidth(80);
-		tableVols.getColumnModel().getColumn(5).setPreferredWidth(75);
-		tableVols.getColumnModel().getColumn(6).setPreferredWidth(70);
-		tableVols.getColumnModel().getColumn(7).setPreferredWidth(130);
-		tableVols.getColumnModel().getColumn(8).setPreferredWidth(130);
-		tableVols.getColumnModel().getColumn(9).setPreferredWidth(85);
-		tableVols.getColumnModel().getColumn(10).setPreferredWidth(60);
-		tableVols.getColumnModel().getColumn(11).setPreferredWidth(90);
-		tableVols.getColumnModel().getColumn(12).setPreferredWidth(90);
-		tableVols.getColumnModel().getColumn(13).setPreferredWidth(90);
-		tableVols.getColumnModel().getColumn(14).setPreferredWidth(90);
-		tableVols.getColumnModel().getColumn(13).setPreferredWidth(90);
-		tableVols.getColumnModel().getColumn(14).setPreferredWidth(60);
+		tableVolsProgrammes.getColumnModel().getColumn(0).setPreferredWidth(60);
+		tableVolsProgrammes.getColumnModel().getColumn(1).setPreferredWidth(80);
+		tableVolsProgrammes.getColumnModel().getColumn(2).setPreferredWidth(75);
+		tableVolsProgrammes.getColumnModel().getColumn(3).setPreferredWidth(70);
+		tableVolsProgrammes.getColumnModel().getColumn(4).setPreferredWidth(80);
+		tableVolsProgrammes.getColumnModel().getColumn(5).setPreferredWidth(75);
+		tableVolsProgrammes.getColumnModel().getColumn(6).setPreferredWidth(70);
+		tableVolsProgrammes.getColumnModel().getColumn(7).setPreferredWidth(130);
+		tableVolsProgrammes.getColumnModel().getColumn(8).setPreferredWidth(130);
+		tableVolsProgrammes.getColumnModel().getColumn(9).setPreferredWidth(85);
+		tableVolsProgrammes.getColumnModel().getColumn(10).setPreferredWidth(60);
+		tableVolsProgrammes.getColumnModel().getColumn(11).setPreferredWidth(90);
+		tableVolsProgrammes.getColumnModel().getColumn(12).setPreferredWidth(90);
+		tableVolsProgrammes.getColumnModel().getColumn(13).setPreferredWidth(90);
+		tableVolsProgrammes.getColumnModel().getColumn(14).setPreferredWidth(90);
+		tableVolsProgrammes.getColumnModel().getColumn(13).setPreferredWidth(90);
+		tableVolsProgrammes.getColumnModel().getColumn(14).setPreferredWidth(60);
 		
 	}
 

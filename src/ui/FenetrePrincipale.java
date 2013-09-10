@@ -16,7 +16,8 @@ import javax.swing.ImageIcon;
 public class FenetrePrincipale extends JFrame {
 	private PanelBienvenue panelBienvenue;
 	private PanelBoutons panelBoutons;
-	private PanelVols panelVols;
+	private PanelVolsProgrammes panelVolsProgrammes;
+	private PanelVolsEnAttente panelVolsEnAttente;
 	private PanelDeconnexion panelDeconnexion;
 	private PanelNouveauVol panelNouveauVol;
 	private PanelNouvelAeroport panelNouvelAeroport;
@@ -73,7 +74,8 @@ public class FenetrePrincipale extends JFrame {
 		panelNouvelAeroport = new PanelNouvelAeroport();
 		panelAeroports = new PanelAeroports();
 		panelValiderAnnuler = new PanelValiderAnnuler();
-		panelVols = new PanelVols();
+		panelVolsProgrammes = new PanelVolsProgrammes();
+		panelVolsEnAttente = new PanelVolsEnAttente();
 		panelBoutons = new PanelBoutons();
 	}
 
@@ -85,8 +87,12 @@ public class FenetrePrincipale extends JFrame {
 		return panelBoutons;
 	}
 
-	public PanelVols getPanelVols() {
-		return panelVols;
+	public PanelVolsProgrammes getPanelVolsProgrammes() {
+		return panelVolsProgrammes;
+	}	
+
+	public PanelVolsEnAttente getPanelVolsEnAttente() {
+		return panelVolsEnAttente;
 	}
 
 	public JLabel getLblLogoGauche() {
@@ -127,7 +133,8 @@ public class FenetrePrincipale extends JFrame {
 		getPanelNouvelleDestination().setVisible(false);
 		getPanelDestinations().setVisible(false);
 		getPanelValiderAnnuler().setVisible(false);
-		getPanelVols().setVisible(false);
+		getPanelVolsProgrammes().setVisible(false);
+		getPanelVolsEnAttente().setVisible(false);
 		getLblLogoDroite().setVisible(false);
 		getLblLogoGauche().setVisible(false);				
 
@@ -138,28 +145,28 @@ public class FenetrePrincipale extends JFrame {
 	public void displayVolsProgrammes()
 	{
 		hideElements();
-		// on ajoute le panel de présentation des vols + les boutons
+		// on ajoute le panel de présentation des vols programmés + les boutons
 		getContentPane().add(getPanelBoutons(), BorderLayout.NORTH);
-		getContentPane().add(getPanelVols(), BorderLayout.CENTER);
+		getContentPane().add(getPanelVolsProgrammes(), BorderLayout.CENTER);
 
 		// on rend visible les éléments ajoutés
 		// et on fait un repaint pour avoir le nouvel affichage
 		getPanelBoutons().setVisible(true);
-		getPanelVols().setVisible(true);
+		getPanelVolsProgrammes().setVisible(true);
 		getContentPane().repaint();
 	}
 
 	public void displayVolsEnAttente()
 	{
 		hideElements();
-		// on ajoute le panel de présentation des vols + les boutons
+		// on ajoute le panel de présentation des vols en attente + les boutons
 		getContentPane().add(getPanelBoutons(), BorderLayout.NORTH);
-		getContentPane().add(getPanelVols(), BorderLayout.CENTER);
+		getContentPane().add(getPanelVolsEnAttente(), BorderLayout.CENTER);
 
 		// on rend visible les éléments ajoutés
 		// et on fait un repaint pour avoir le nouvel affichage
 		getPanelBoutons().setVisible(true);
-		getPanelVols().setVisible(true);
+		getPanelVolsEnAttente().setVisible(true);
 		getContentPane().repaint();
 	}
 

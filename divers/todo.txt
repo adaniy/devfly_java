@@ -2,7 +2,6 @@
 -notes papier
 -commentaires panelAeroport
 -commentaire "final"
--2 fichiers pour les vols ?
 -cahier des charges
 
 -commentaires
