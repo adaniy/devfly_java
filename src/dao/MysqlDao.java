@@ -49,7 +49,7 @@ public class MysqlDao {
 //			System.out.println(arriveeMillisecondes);
 //			System.out.println(dureeMillisecondes);
 			
-			int duree = (int) (dureeMillisecondes / 6000);
+			int duree = (int) (dureeMillisecondes / 60000); // en minutes
 			
 			float tarif = result1.getFloat("tarif");
 			String codePilote = result1.getString("pilote");
