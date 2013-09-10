@@ -32,4 +32,15 @@ public class TestMysqlDao {
 		// on teste que le premier élément de la liste est bien une instance d'Aeroport
 		Assert.assertTrue(aeroports.get(0) instanceof Aeroport);
 	}
+	
+	@Test
+	public void addNewAeroport() throws SQLException{
+		MysqlDao dao = new MysqlDao();
+		// à remodifier à chaque test :
+		Aeroport aeroportTest = new Aeroport("SXB", "Strasbourg", "France");
+		int result = dao.addNewAeroport(aeroportTest);
+		Assert.assertEquals(1, result); // une seule ligne doit être impactée
+		//Aeroport a = dao.getAeroportById(41);
+		//Assert.assertEquals(aeroportTest, a);
+	}
 }

@@ -10,3 +10,7 @@
 -enlever les lignes TODO
 -postfixer pour le tarif
 -enlever les lignes commentées automatiquement
+
+Rqs :
+- heure du pays de départ
+- prévoir le fait que 2 villes puissent avoir le même nom

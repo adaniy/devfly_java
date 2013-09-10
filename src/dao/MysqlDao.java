@@ -55,4 +55,20 @@ public class MysqlDao {
 		connection.close();
 		return aeroports;
 	}
+	
+	// ajoute un nouvel aéroport en base
+	public int addNewAeroport(Aeroport a) throws SQLException{
+		// on se connecte à la BDD
+		Connection connection = DriverManager.getConnection(datasource, user,
+				password);
+		// on crée et exécute une requête préparée
+		String sql = "INSERT INTO destination values(?, ?, ?)";
+		PreparedStatement stmt = connection.prepareStatement(sql);
+		stmt.setString(1, a.getCodeAeroport());
+		stmt.setString(2, a.getVille());
+		stmt.setString(3, a.getPays());
+		int result = stmt.executeUpdate(); // renvoie le nb d'enregistrements impactés
+		connection.close();
+		return result; // doit renvoyer 1
+	}
 }
