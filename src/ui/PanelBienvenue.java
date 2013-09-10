@@ -22,6 +22,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import javax.swing.JPasswordField;
+import java.awt.Color;
 
 public class PanelBienvenue extends JPanel {
 	private JTextField textFieldIdentifiant;
@@ -52,9 +53,10 @@ public class PanelBienvenue extends JPanel {
 
 		// Label qui pourra contenir les différents messages à afficher :
 		labelMessage = new JLabel("");
+		labelMessage.setForeground(Color.RED);
 		GridBagConstraints gbc_labelMessage = new GridBagConstraints();
 		gbc_labelMessage.insets = new Insets(0, 0, 5, 5);
-		gbc_labelMessage.gridx = 0;
+		gbc_labelMessage.gridx = 1;
 		gbc_labelMessage.gridy = 1;
 		add(labelMessage, gbc_labelMessage);
 

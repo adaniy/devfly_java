@@ -14,6 +14,8 @@ import javax.swing.JLabel;
 
 import dao.MysqlDao;
 import model.Aeroport;
+import java.awt.Color;
+import javax.swing.SwingConstants;
 
 public class PanelAeroports extends JPanel {
 	private JTable tableAeroports;
@@ -61,6 +63,8 @@ public class PanelAeroports extends JPanel {
 		
 		// Label qui pourra contenir les différents messages à afficher :
 		labelMessage = new JLabel("");
+		labelMessage.setHorizontalAlignment(SwingConstants.CENTER);
+		labelMessage.setForeground(Color.RED);
 		add(labelMessage, BorderLayout.NORTH);
 		
 //		// On dimensionne les colonnes :

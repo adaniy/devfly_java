@@ -8,6 +8,8 @@ import javax.swing.JScrollPane;
 import java.awt.BorderLayout;
 
 import javax.swing.JLabel;
+import java.awt.Color;
+import javax.swing.SwingConstants;
 
 public class PanelVolsEnAttente extends JPanel {
 	private JTable tableVolsEnAttente;
@@ -71,6 +73,8 @@ public class PanelVolsEnAttente extends JPanel {
 		
 		// Label qui pourra contenir les différents messages à afficher :
 		labelMessage = new JLabel("");
+		labelMessage.setHorizontalAlignment(SwingConstants.CENTER);
+		labelMessage.setForeground(Color.RED);
 		add(labelMessage, BorderLayout.NORTH);
 		
 		// On dimensionne les colonnes :

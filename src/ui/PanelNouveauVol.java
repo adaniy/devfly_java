@@ -39,7 +39,7 @@ public class PanelNouveauVol extends JPanel {
 		GridBagConstraints gbc_labelMessage = new GridBagConstraints();
 		gbc_labelMessage.anchor = GridBagConstraints.NORTHWEST;
 		gbc_labelMessage.insets = new Insets(0, 0, 5, 5);
-		gbc_labelMessage.gridx = 1;
+		gbc_labelMessage.gridx = 2;
 		gbc_labelMessage.gridy = 0;
 		add(labelMessage, gbc_labelMessage);
 		

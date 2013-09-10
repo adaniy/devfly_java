@@ -2,10 +2,12 @@ package ui;
 
 import javax.swing.JPanel;
 import javax.swing.JTable;
+import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.JScrollPane;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 
 import javax.swing.JLabel;
 
@@ -71,6 +73,8 @@ public class PanelVolsProgrammes extends JPanel {
 		
 		// Label qui pourra contenir les différents messages à afficher :
 		labelMessage = new JLabel("");
+		labelMessage.setHorizontalAlignment(SwingConstants.CENTER);
+		labelMessage.setForeground(Color.RED);
 		add(labelMessage, BorderLayout.NORTH);
 		
 		// On dimensionne les colonnes :

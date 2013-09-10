@@ -1,10 +1,15 @@
 package ui;
 
 import javax.swing.JPanel;
+
 import java.awt.GridBagLayout;
+
 import javax.swing.JLabel;
+
+import java.awt.Color;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
+
 import javax.swing.JButton;
 
 public class PanelDeconnexion extends JPanel {
@@ -25,9 +30,10 @@ public class PanelDeconnexion extends JPanel {
 		
 		// Label qui pourra contenir les différents messages à afficher :
 		labelMessage = new JLabel("");
+		labelMessage.setForeground(Color.RED);
 		GridBagConstraints gbc_labelMessage = new GridBagConstraints();
-		gbc_labelMessage.insets = new Insets(0, 0, 5, 5);
-		gbc_labelMessage.gridx = 0;
+		gbc_labelMessage.insets = new Insets(0, 0, 5, 0);
+		gbc_labelMessage.gridx = 1;
 		gbc_labelMessage.gridy = 0;
 		add(labelMessage, gbc_labelMessage);
 		
