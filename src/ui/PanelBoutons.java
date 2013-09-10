@@ -4,11 +4,8 @@ import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 
-import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Font;
-import java.awt.GridLayout;
-import java.awt.SystemColor;
 
 import javax.swing.JButton;
 
@@ -35,7 +32,7 @@ public class PanelBoutons extends JPanel {
 		
 		btnVolsProgrammes = new JButton("vols programmés");
 		// par défaut, c'est ce bouton qui est "sélectionné" :
-		btnVolsProgrammes.setBackground(SystemColor.activeCaption);
+		btnVolsProgrammes.setBackground(new Color(173, 216, 230)); // bleu clair
 		btnVolsProgrammes.setFont(new Font("Tahoma", Font.BOLD, 12));
 		btnVolsProgrammes.setForeground(Color.BLUE);
 		
@@ -184,7 +181,7 @@ public class PanelBoutons extends JPanel {
 		btnAeroports.setForeground(Color.BLACK);
 		
 		// On applique un stype particulier au bouton sélectionné :
-		monBouton.setBackground(SystemColor.activeCaption);
+		monBouton.setBackground(new Color(173, 216, 230)); // bleu clair
 		monBouton.setFont(new Font("Tahoma", Font.BOLD, 12));
 		monBouton.setForeground(Color.BLUE);
 	}
