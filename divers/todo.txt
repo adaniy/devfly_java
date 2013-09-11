@@ -4,9 +4,10 @@ BDD : prévenir changements + changer sur le serveur
 
 -voir l'intérêt de laisser "public Class<?> getColumnClass(int arg0)" : plante dans Vol...
 
+-CAHIER DES CHARGES
+-DSPP
 -notes papier
 -commentaire "final"
--cahier des charges
 
 -commentaires
 -vérifier les imports
@@ -15,5 +16,6 @@ BDD : prévenir changements + changer sur le serveur
 -enlever les lignes commentées automatiquement
 
 Rqs :
+- traiter les exceptions
 - heure du pays de départ
 - prévoir le fait que 2 villes puissent avoir le même nom

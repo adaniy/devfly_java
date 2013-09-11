@@ -1,17 +1,30 @@
 package ui;
 
 import javax.swing.JPanel;
+
 import java.awt.GridBagLayout;
+
 import javax.swing.JLabel;
+
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
+
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JComboBox;
 import javax.swing.JTextField;
 import javax.swing.JButton;
+
+import model.Aeroport;
+import dao.MysqlDao;
+
 import java.awt.Font;
 import java.awt.Color;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.sql.SQLException;
+import java.util.Arrays;
+import java.util.Iterator;
+import java.util.List;
 
 public class PanelNouveauVol extends JPanel {
 	private JTextField textFieldDateDeDepart;
@@ -22,11 +35,13 @@ public class PanelNouveauVol extends JPanel {
 	private JComboBox comboBoxVilleDeDepart;
 	private JComboBox comboBoxVilleDarrivee;
 	private PanelValiderAnnuler panelValiderAnnuler;
+	private MysqlDao dao = new MysqlDao();
 
 	/**
 	 * Create the panel.
+	 * @throws SQLException 
 	 */
-	public PanelNouveauVol() {
+	public PanelNouveauVol() throws SQLException {
 		GridBagLayout gridBagLayout = new GridBagLayout();
 		// on joue sur les dimensions de la grille pour positionner les éléments :
 		gridBagLayout.columnWidths = new int[]{300, 0, 145, 0};
@@ -65,6 +80,7 @@ public class PanelNouveauVol extends JPanel {
 		gbc_lblVilleDeDepart.gridy = 3;
 		add(lblVilleDeDepart, gbc_lblVilleDeDepart);
 		
+		// Une combobox présentant les villes de départ possibles :
 		comboBoxVilleDeDepart = new JComboBox();
 		GridBagConstraints gbc_comboBoxVilleDeDepart = new GridBagConstraints();
 		gbc_comboBoxVilleDeDepart.insets = new Insets(0, 0, 5, 0);
@@ -72,6 +88,30 @@ public class PanelNouveauVol extends JPanel {
 		gbc_comboBoxVilleDeDepart.gridx = 2;
 		gbc_comboBoxVilleDeDepart.gridy = 3;
 		add(comboBoxVilleDeDepart, gbc_comboBoxVilleDeDepart);
+		
+		// Les données dans la combobox vont provenir des données en base.
+		// On récupère la liste des objets Aeroport :
+		List<Aeroport> aeroports = dao.getAllAeroports();
+		
+		// On initialise un tableau de chaîne de caractères de la taille
+		// de la liste, on y placera les villes.
+		String[]villes = new String[aeroports.size()];
+		
+		// On parcourt la liste :
+		for(int i = 0 ; i < aeroports.size(); i++){
+			String ville = aeroports.get(i).getVille(); // on récupère la ville
+			// On ajoute la ville dans le tableau :
+			villes[i] = ville;
+		}
+		
+		Arrays.sort(villes); // pour trier les villes par ordre alphabétique
+		
+		// on donne le tableau de villes au model :
+		DefaultComboBoxModel<String>modelDepart = new DefaultComboBoxModel<>(villes);
+		// on ajoute le model à la combobox :
+		comboBoxVilleDeDepart.setModel(modelDepart);
+		// on pourra faire défiler les villes avec la molette de la souris :
+		comboBoxVilleDeDepart.setMaximumRowCount(6); // 6 villes visibles à chaque fois
 		
 		JLabel lblVilleDarrivee = new JLabel("Ville d'arrivée");
 		GridBagConstraints gbc_lblVilleDarrivee = new GridBagConstraints();
@@ -81,6 +121,7 @@ public class PanelNouveauVol extends JPanel {
 		gbc_lblVilleDarrivee.gridy = 4;
 		add(lblVilleDarrivee, gbc_lblVilleDarrivee);
 		
+		// Une combobox présentant les villes d'arrivée possibles :
 		comboBoxVilleDarrivee = new JComboBox();
 		GridBagConstraints gbc_comboBoxVilleDarrivee = new GridBagConstraints();
 		gbc_comboBoxVilleDarrivee.insets = new Insets(0, 0, 5, 0);
@@ -88,6 +129,16 @@ public class PanelNouveauVol extends JPanel {
 		gbc_comboBoxVilleDarrivee.gridx = 2;
 		gbc_comboBoxVilleDarrivee.gridy = 4;
 		add(comboBoxVilleDarrivee, gbc_comboBoxVilleDarrivee);
+		
+		// Les données dans la combobox proviennent également des données
+		// en base, on utilise les mêmes données que pour les villes de départ.
+		
+		// on donne le tableau de villes au model :
+		DefaultComboBoxModel<String>modelArrivee = new DefaultComboBoxModel<>(villes);
+		// on ajoute le model à la combobox :
+		comboBoxVilleDarrivee.setModel(modelArrivee);
+		// on pourra faire défiler les villes avec la molette de la souris :
+		comboBoxVilleDarrivee.setMaximumRowCount(6); // 6 villes visibles à chaque fois
 		
 		JLabel lblDateDeDepart = new JLabel("Date de départ");
 		GridBagConstraints gbc_lblDateDeDepart = new GridBagConstraints();
@@ -174,12 +225,14 @@ public class PanelNouveauVol extends JPanel {
 				
 				// On récupère les données saisies
 				// TODO à compléter ici
-//				String villeDepart = getComboBoxVilleDeDepart()...
-//				String villeArrivee = getComboBoxVilleDarrivee()...
-//				String dateDepart = getTextFieldDateDeDepart().getText();
-//				String heureDepart = getTextFieldHeureDeDepart().getText();
-//				String duree = getTextFieldDureeDuVol().getText();
-//				String tarif = getTextFieldTarif().getText();
+				String villeDepart = getComboBoxVilleDeDepart().getSelectedItem().toString();
+				String villeArrivee = getComboBoxVilleDarrivee().getSelectedItem().toString();
+				String dateDepart = getTextFieldDateDeDepart().getText();
+				String heureDepart = getTextFieldHeureDeDepart().getText();
+				String duree = getTextFieldDureeDuVol().getText();
+				String tarif = getTextFieldTarif().getText();
+				
+				System.out.println(villeDepart);
 			}
 		});
 		GridBagConstraints gbc_panelValiderAnnuler = new GridBagConstraints();
