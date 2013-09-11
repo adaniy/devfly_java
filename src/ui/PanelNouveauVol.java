@@ -211,7 +211,10 @@ public class PanelNouveauVol extends JPanel {
 		panelValiderAnnuler = new PanelValiderAnnuler();
 		panelValiderAnnuler.getBtnAnnuler().addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				// Un clic sur le bouton "annuler" efface les éléments saisis.
+				// Un clic sur le bouton "annuler" efface les éléments saisis
+				// et réinitialise les combobox.
+				getComboBoxVilleDeDepart().setSelectedIndex(0);
+				getComboBoxVilleDarrivee().setSelectedIndex(0);
 				getTextFieldDateDeDepart().setText("");
 				getTextFieldHeureDeDepart().setText("");
 				getTextFieldDureeDuVol().setText("");

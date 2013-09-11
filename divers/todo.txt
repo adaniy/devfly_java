@@ -1,4 +1,4 @@
--en cours : PanelNouveauVol -> compléter le bouton 'annuler' pour les 2 combos + intégrer l'ajout d'un vol
+-en cours : PanelNouveauVol -> intégrer l'ajout d'un vol
 
 BDD : prévenir changements + changer sur le serveur
 
