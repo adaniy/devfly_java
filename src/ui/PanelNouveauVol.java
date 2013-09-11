@@ -279,11 +279,9 @@ public class PanelNouveauVol extends JPanel {
 					}
 				}
 				
-				// TODO reprendre ici à la vérif de l'heure
 				// Les formats voulus pour la date et l'heure :
-				String regexDate = "^[0-9]{2}/[0-9]{2}/[0-9]{4}$";
-				// TODO vérifier la regex !
-				String regexHeure = "^([0-1][0-9]|2[0-3]):[0-9]{2}$";
+				String regexDate = "^(0[1-9]|1[0-9]|2[0-9]|30|31)/(0[1-9]|1[0-2])/[0-9]{4}";
+				String regexHeure = "^([0-1][0-9]|2[0-3]):[0-5][0-9]$";
 				
 				// Une fois qu'on a tous les éléments, on peut faire les vérifications :
 				
@@ -292,11 +290,10 @@ public class PanelNouveauVol extends JPanel {
 				if(!villeDepartPresente || !villeArriveePresente ||
 						villeDepart.equals(villeArrivee)){
 					getLabelMessage().setText("Le trajet indiqué n'est pas correct !");
-				}else if(!dateDepart.matches(regexDate)){
-					// si les dates et/ou ne sont pas au bon format :
+				}else if(!dateDepart.matches(regexDate) || !heureDepart.matches(regexHeure)){
+					// si la date et/ou l'heure ne sont pas au bon format :
 					getLabelMessage().setText("<html><p>Les dates et heures saisies doivent<br>"
 							+ "être cohérentes et au format indiqué.</p></html>");
-	
 				}
 				
 			}
