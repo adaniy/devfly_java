@@ -230,10 +230,35 @@ public class MysqlDao {
 		Connection connection = DriverManager.getConnection(datasource, user,
 				password);
 		// on crée et exécute une requête préparée pour insérer le vol
-		// TODO : voir cmt rentrer uniquement les 6 premières valeurs (fait planter le text !)
+		// TODO : voir cmt rentrer uniquement les 6 premières valeurs (fait planter le test !)
 		String sql = "INSERT INTO vol_tmp VALUES(?, ?, ?, ?, ?, ?, '', '', '', '', '')";
 		PreparedStatement stmt = connection.prepareStatement(sql);
-		stmt.setString(1, v.getId());
+		
+		// On récupère les numvol de la table vol_tmp.
+		String sql2 = "SELECT numvol FROM vol_tmp";
+		PreparedStatement stmt2 = connection.prepareStatement(sql2);
+		ResultSet result2 = stmt2.executeQuery();
+		// On va chercher l'id max de la table. On initialise idMax à zéro.
+		int idMax = 0;
+		// On parcourt les résultats de la requête.
+		while (result2.next()) {
+			// On ne prend que la fin de la chaîne. Ex : pour le vol "TMP12", on veut récupérer "12".
+			// On récupère donc la chaine à partir du 4ème caractère (on enlève "TMP")
+			String numvol = result2.getString("numvol").substring(3);
+
+			// On transforme la chaîne récupérée en int
+			int nb = Integer.parseInt(numvol);
+			
+			// On récupère la plus grande valeur de la liste
+			if(nb > idMax){
+				idMax = nb;
+			}
+		};		
+		
+		// le prochain ID à insérer correspondra à l'idMax + 1
+		int prochainId = idMax + 1;
+		stmt.setString(1, "TMP" + prochainId); // on ajoute le préfixe "TMP"
+		
 		stmt.setString(2, v.getAeroportDepart().getVille());
 		stmt.setString(3, v.getAeroportArrivee().getVille());
 		// on transforme la date util en date SQL. Pour cela, on utilise le timestamp des dates.

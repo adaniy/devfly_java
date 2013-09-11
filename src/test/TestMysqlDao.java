@@ -87,8 +87,8 @@ public class TestMysqlDao {
 		Aeroport aeroportTest1 = new Aeroport("CMN", "Casablanca", "Maroc");
 		Aeroport aeroportTest2 = new Aeroport("HNL", "Honolulu", "États-Unis");
 		
-		// à remodifier à chaque test :
-		Vol volTest = new Vol("TMP4242", aeroportTest1, aeroportTest2, dateDepart, dateArrivee, 1540, 974F);
+		// (On peut le modifier avant de relancer un test) :
+		Vol volTest = new Vol(aeroportTest1, aeroportTest2, dateDepart, dateArrivee, 1540, 974F);
 		
 		int result = dao.addNewVol(volTest);
 		Assert.assertEquals(1, result); // une seule ligne doit être impactée
