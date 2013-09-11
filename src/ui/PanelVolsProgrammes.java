@@ -3,24 +3,31 @@ package ui;
 import javax.swing.JPanel;
 import javax.swing.JTable;
 import javax.swing.SwingConstants;
-import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
 import javax.swing.JScrollPane;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.sql.SQLException;
+import java.util.List;
 
 import javax.swing.JLabel;
+
+import model.Vol;
+import dao.MysqlDao;
 
 public class PanelVolsProgrammes extends JPanel {
 	private JTable tableVolsProgrammes;
 	private JScrollPane scrollPane; // conteneur pour avoir une barre de défilement
 	private PanelValiderAnnuler panelBoutonsVolsProgrammes;
 	private JLabel labelMessage;
+	private MysqlDao dao = new MysqlDao();
 
 	/**
 	 * Create the panel.
+	 * @throws SQLException 
 	 */
-	public PanelVolsProgrammes() {
+	public PanelVolsProgrammes() throws SQLException {
 		setLayout(new BorderLayout(0, 0));
 		
 		scrollPane = new JScrollPane();
@@ -39,34 +46,16 @@ public class PanelVolsProgrammes extends JPanel {
 		panelBoutonsVolsProgrammes = new PanelValiderAnnuler();
 		add(panelBoutonsVolsProgrammes, BorderLayout.SOUTH);
 		
+		// On récupère les vols programmés :
+		List<Vol> volsProgrammes = dao.getAllVolsProgrammes();
 		// Les en-têtes : (on trouve le N° de vol en début et fin de tableau pour faciliter la lecture)
 		String[]headers = {"n°", "ville départ", "pays dép.", "code dép.",
 				"ville arrivée", "pays arr.", "code arr.", "date/heure départ",
 				"date/heure arrivée", "durée (mn)", "tarif (€)", "pilote", "copilote", "Hôtesse/St1", "Hôtesse/St2", "Hôtesse/St3", "n°"};
 		
-		// Le contenu, sous forme de tableau d'objets :
-		final Object[][]values = {
-				// chaque sous-tableau correspond à une ligne
-				{"DF5", "Berne", "Suisse", "BRN", "Sydney", "Australie", "SYD", "07/12/2013 06:50", "07/12/2013 20:05", 795, 1472, "P0005", "C0002", "H0004", "H0008", "H0013", "DF5"},
-				{"DF6", "Berne", "Suisse", "BRN", "Sydney", "Australie", "SYD", "14/12/2013 06:50", "14/12/2013 20:05", 795, 1472, "P0005", "C0002", "H0004", "H0008", "H0013", "DF6"}
-		};
-		
-		// TODO commenter + compléter
-		DefaultTableModel model = new DefaultTableModel(values, headers)
-		{
-			// pour qu'on ne puisse pas éditer les cellules directement :
-			@Override
-			public boolean isCellEditable(int arg0, int arg1) {
-				return false;
-			}
-			
-//			@Override
-//			public Class<?> getColumnClass(int arg0){
-//				// va indiquer la classe des éléments contenus dans chaque colonne de la première ligne :
-//				return values[0][arg0].getClass();
-//			}
-		};
-		
+		// Le contenu (on utilise la méthode statique définie dans la classe Vol)
+		TableModel model = Vol.createTableModelVols(headers, volsProgrammes);
+				
 		// On donne le model à la table :
 		tableVolsProgrammes.setModel(model);
 		

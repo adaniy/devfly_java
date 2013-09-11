@@ -95,7 +95,6 @@ public class MysqlDao {
 			vols.add(v);
 		}
 		connection.close();
-		System.out.println(vols);
 		return vols;
 	}
 

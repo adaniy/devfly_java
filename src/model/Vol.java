@@ -1,6 +1,10 @@
 package model;
 
 import java.util.Date;
+import java.util.List;
+
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
 
 public class Vol {
 	private String id; // ex : DF1
@@ -130,9 +134,57 @@ public class Vol {
 		this.codeHotesseSt3 = codeHotesseSt3;
 	}
 	
-	// TODO : à compléter si utilisé
-//	// retourne un tableau d'objets avec ...
-//	public Object[] toArray(){
-//		return new Object[]{id,aeroportDepart ... };
+//	// retourne un tableau d'objets avec les différents infos
+//	private Object[] toArray(){ // utilisée uniquement dans ce panel
+//		return new Object[]{id,aeroportDepart, aeroportArrivee, dateHeureDepart, duree,
+//				tarif, codePilote, codeCopilote, codeHotesseSt1, codeHotesseSt2, codeHotesseSt3};
 //	}
+	
+	// TODO : voir si bien placé ?
+	// Retourne un model à donner à la table
+	// On lui passera une liste de vols récupérée du dao :
+	public static TableModel createTableModelVols(String[]enTete, List<Vol> listeVols) {
+		// le nombre de lignes sera égal aux nombres de vols dans la liste,
+		// le nombre de colonnes sera égal à la taille du tableau d'en-têtes
+		final Object[][] myValues = new Object[listeVols.size()][enTete.length];
+		// on parcourt les lignes :
+		for (int i = 0; i < listeVols.size(); i++) {
+			// on récupère chaque vol
+			Vol v = listeVols.get(i);
+			// le sous-tableau vient directement du vol récupéré
+			myValues[i][0] = v.getId();
+			myValues[i][1] = v.getAeroportDepart().getVille();
+			myValues[i][2] = v.getAeroportDepart().getPays();
+			myValues[i][3] = v.getAeroportDepart().getCodeAeroport();
+			myValues[i][4] = v.getAeroportArrivee().getVille();
+			myValues[i][5] = v.getAeroportArrivee().getPays();
+			myValues[i][6] = v.getAeroportArrivee().getCodeAeroport();
+			myValues[i][7] = v.getDateHeureDepart();
+			myValues[i][8] = v.getDuree();
+			myValues[i][9] = v.getTarif();
+			myValues[i][10] = v.getCodePilote();
+			myValues[i][11] = v.getCodeCopilote();
+			myValues[i][12] = v.getCodeHotesseSt1();
+			myValues[i][13] = v.getCodeHotesseSt2();
+			myValues[i][14] = v.getCodeHotesseSt3();		
+		}
+		
+		DefaultTableModel myModel = new DefaultTableModel(myValues, enTete) {
+			// pour renseigner la JTable avec le type exact contenu dans la colonne
+			// (elle appelera cette méthode sur le model)
+			// Principe : on prend la première ligne, et on lui donne le type des éléments
+			// contenus dans chaque colonne.
+			@Override
+			public Class<?> getColumnClass(int arg0) {
+				return myValues[0][arg0].getClass();
+			}
+
+			// pour qu'on ne puisse pas éditer les cellules directement :
+			@Override
+			public boolean isCellEditable(int arg0, int arg1) {
+				return false;
+			}
+		};
+		return myModel;
+	}
 }
