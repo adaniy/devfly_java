@@ -1,5 +1,6 @@
 package model;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
@@ -11,7 +12,8 @@ public class Vol {
 	private Aeroport aeroportDepart;
 	private Aeroport aeroportArrivee;
 	private Date dateHeureDepart;
-	private int duree; // en minutes
+	private Date dateHeureArrivee;
+	private int duree; // calculée en minutes
 	private float tarif;
 	private String codePilote;
 	private String codeCopilote;
@@ -21,13 +23,14 @@ public class Vol {
 	
 	// un constructeur complet
 	public Vol(String id, Aeroport aeroportDepart, Aeroport aeroportArrivee,
-			Date dateHeureDepart, int duree, float tarif, String codePilote,
+			Date dateHeureDepart, Date dateHeureArrivee, int duree, float tarif, String codePilote,
 			String codeCopilote, String codeHotesseSt1, String codeHotesseSt2,
 			String codeHotesseSt3) {
 		this.id = id;
 		this.aeroportDepart = aeroportDepart;
 		this.aeroportArrivee = aeroportArrivee;
 		this.dateHeureDepart = dateHeureDepart;
+		this.dateHeureArrivee = dateHeureArrivee;
 		this.duree = duree;
 		this.tarif = tarif;
 		this.codePilote = codePilote;
@@ -76,6 +79,14 @@ public class Vol {
 
 	public void setDateHeureDepart(Date dateHeureDepart) {
 		this.dateHeureDepart = dateHeureDepart;
+	}
+
+	public Date getDateHeureArrivee() {
+		return dateHeureArrivee;
+	}
+
+	public void setDateHeureArrivee(Date dateHeureArrivee) {
+		this.dateHeureArrivee = dateHeureArrivee;
 	}
 
 	public int getDuree() {
@@ -134,12 +145,6 @@ public class Vol {
 		this.codeHotesseSt3 = codeHotesseSt3;
 	}
 	
-//	// retourne un tableau d'objets avec les différents infos
-//	private Object[] toArray(){ // utilisée uniquement dans ce panel
-//		return new Object[]{id,aeroportDepart, aeroportArrivee, dateHeureDepart, duree,
-//				tarif, codePilote, codeCopilote, codeHotesseSt1, codeHotesseSt2, codeHotesseSt3};
-//	}
-	
 	// TODO : voir si bien placé ?
 	// Retourne un model à donner à la table
 	// On lui passera une liste de vols récupérée du dao :
@@ -159,14 +164,19 @@ public class Vol {
 			myValues[i][4] = v.getAeroportArrivee().getVille();
 			myValues[i][5] = v.getAeroportArrivee().getPays();
 			myValues[i][6] = v.getAeroportArrivee().getCodeAeroport();
-			myValues[i][7] = v.getDateHeureDepart();
-			myValues[i][8] = v.getDuree();
-			myValues[i][9] = v.getTarif();
-			myValues[i][10] = v.getCodePilote();
-			myValues[i][11] = v.getCodeCopilote();
-			myValues[i][12] = v.getCodeHotesseSt1();
-			myValues[i][13] = v.getCodeHotesseSt2();
-			myValues[i][14] = v.getCodeHotesseSt3();		
+			// on formate les dates pour les afficher correctement :
+			myValues[i][7] = new SimpleDateFormat("dd/MM/yyyy - H:mm").format(v.getDateHeureDepart());
+			myValues[i][8] = new SimpleDateFormat("dd/MM/yyyy - H:mm").format(v.getDateHeureArrivee());
+			myValues[i][9] = v.getDuree();
+			// on formate le tarif pour avoir 2 chiffres après la virgule :
+			myValues[i][10] = String.format("%.2f",v.getTarif());
+			myValues[i][11] = v.getCodePilote();
+			myValues[i][12] = v.getCodeCopilote();
+			myValues[i][13] = v.getCodeHotesseSt1();
+			myValues[i][14] = v.getCodeHotesseSt2();
+			myValues[i][15] = v.getCodeHotesseSt3();
+			// on répète l'id du vol en fin de tableau pour plus de lisibilité
+			myValues[i][16] = v.getId();
 		}
 		
 		DefaultTableModel myModel = new DefaultTableModel(myValues, enTete) {
@@ -174,10 +184,11 @@ public class Vol {
 			// (elle appelera cette méthode sur le model)
 			// Principe : on prend la première ligne, et on lui donne le type des éléments
 			// contenus dans chaque colonne.
-			@Override
-			public Class<?> getColumnClass(int arg0) {
-				return myValues[0][arg0].getClass();
-			}
+			// TODO : voir si utile ? Plante si décommenté...
+//			@Override
+//			public Class<?> getColumnClass(int arg0) {
+//				return myValues[0][arg0].getClass();
+//			}
 
 			// pour qu'on ne puisse pas éditer les cellules directement :
 			@Override

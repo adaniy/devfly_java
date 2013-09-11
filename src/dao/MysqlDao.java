@@ -17,7 +17,6 @@ public class MysqlDao {
 	private String user = "greta";
 	private String password = "gretatest";
 
-	// TODO : à CORRIGER (durée...) et optimiser
 	// retourne les vols "programmés" sous forme d'une liste
 	public List<Vol> getAllVolsProgrammes() throws SQLException {
 		List<Vol> vols = new ArrayList<>();
@@ -35,19 +34,15 @@ public class MysqlDao {
 			String id = result1.getString("numvol");
 			String villeDepart = result1.getString("lieudep");
 			String villeArrivee = result1.getString("lieuarriv");
-			Date dateHeureDepart = result1.getDate("dateheuredep");
-			Date dateHeureArrivee = result1.getDate("dateheurearrivee");
 			
-			// pour calculer la durée du vol, on récupère d'abord le nombre de millisecondes
-			// écoulées entre le 1er janvier 1970 et les dates concernées (timestamp)
+			// On récupère les dates sous forme de timestamp. On formatera à l'affichage.
+			Date dateHeureDepart = result1.getTimestamp("dateheuredep");
+			Date dateHeureArrivee = result1.getTimestamp("dateheurearrivee");
+			
+			// pour calculer la durée du vol, on fait la différence entre les 2 timestamp
 			long departMillisecondes = dateHeureDepart.getTime();
 			long arriveeMillisecondes = dateHeureArrivee.getTime();
 			long dureeMillisecondes = arriveeMillisecondes - departMillisecondes;
-//			System.out.println(dateHeureDepart);
-//			System.out.println(dateHeureArrivee);
-//			System.out.println(departMillisecondes);
-//			System.out.println(arriveeMillisecondes);
-//			System.out.println(dureeMillisecondes);
 			
 			int duree = (int) (dureeMillisecondes / 60000); // en minutes
 			
@@ -90,7 +85,7 @@ public class MysqlDao {
 			Aeroport aeroportArrivee = new Aeroport(codeArrivee, villeArrivee, paysArrivee);
 			
 			// on crée un objet Vol avec les informations récupérées
-			Vol v = new Vol(id, aeroportDepart, aeroportArrivee, dateHeureDepart, duree, tarif, codePilote, codeCopilote, codeHotesseSt1, codeHotesseSt2, codeHotesseSt3);
+			Vol v = new Vol(id, aeroportDepart, aeroportArrivee, dateHeureDepart, dateHeureArrivee, duree, tarif, codePilote, codeCopilote, codeHotesseSt1, codeHotesseSt2, codeHotesseSt3);
 			// on l'ajoute à la liste
 			vols.add(v);
 		}

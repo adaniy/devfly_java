@@ -1,10 +1,9 @@
--getAllVolsProgrammes() MysqlDao
+6- voir l'intérêt de laisser "public Class<?> getColumnClass(int arg0)" : plante dans Vol...
 -vols en attente : on peut récupérer les infos du vol mais pas des employés !! Table travailler_tmp ?
 
 -notes papier
 -commentaire "final"
 -cahier des charges
-6- voir l'intérêt de laisser "public Class<?> getColumnClass(int arg0)"
 
 -commentaires
 -vérifier les imports
