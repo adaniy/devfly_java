@@ -219,4 +219,24 @@ public class MysqlDao {
 		connection.close();
 		return result2; // doit renvoyer "1"
 	}
+	
+	// ajoute un nouveau vol en base (table vol_tmp)
+	public int addNewVol(Vol v) throws SQLException{
+		// on se connecte à la BDD
+		Connection connection = DriverManager.getConnection(datasource, user,
+				password);
+		// on crée et exécute une requête préparée pour insérer le vol
+		String sql = "INSERT INTO vol_tmp values(?, ?, ?, ?, ?, ?)";
+		PreparedStatement stmt = connection.prepareStatement(sql);
+		stmt.setString(1, v.getId());
+		stmt.setString(2, v.getAeroportDepart().getVille());
+		stmt.setString(3, v.getAeroportArrivee().getVille());
+		// on transforme la date util en date SQL. Pour cela, on utilise le timestamp des dates.
+		stmt.setDate(4, new java.sql.Date(v.getDateHeureDepart().getTime()));
+		stmt.setDate(5, new java.sql.Date(v.getDateHeureArrivee().getTime()));
+		stmt.setFloat(6, v.getTarif());
+		int result = stmt.executeUpdate(); // renvoie le nb d'enregistrements impactés
+		connection.close();
+		return result; // doit renvoyer "1"
+	}
 }
