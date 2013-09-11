@@ -81,8 +81,8 @@ public class PanelVolsProgrammes extends JPanel {
 		tableVolsProgrammes.getColumnModel().getColumn(12).setPreferredWidth(90);
 		tableVolsProgrammes.getColumnModel().getColumn(13).setPreferredWidth(90);
 		tableVolsProgrammes.getColumnModel().getColumn(14).setPreferredWidth(90);
-		tableVolsProgrammes.getColumnModel().getColumn(13).setPreferredWidth(90);
-		tableVolsProgrammes.getColumnModel().getColumn(14).setPreferredWidth(60);
+		tableVolsProgrammes.getColumnModel().getColumn(15).setPreferredWidth(90);
+		tableVolsProgrammes.getColumnModel().getColumn(16).setPreferredWidth(60);
 		
 	}
 
