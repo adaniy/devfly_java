@@ -22,6 +22,7 @@ import java.awt.Color;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
@@ -140,7 +141,7 @@ public class PanelNouveauVol extends JPanel {
 		// on pourra faire défiler les villes avec la molette de la souris :
 		comboBoxVilleDarrivee.setMaximumRowCount(6); // 6 villes visibles à chaque fois
 		
-		JLabel lblDateDeDepart = new JLabel("Date de départ");
+		JLabel lblDateDeDepart = new JLabel("Date de départ (jj/mm/aaaa)");
 		GridBagConstraints gbc_lblDateDeDepart = new GridBagConstraints();
 		gbc_lblDateDeDepart.anchor = GridBagConstraints.EAST;
 		gbc_lblDateDeDepart.insets = new Insets(0, 0, 5, 5);
@@ -157,7 +158,7 @@ public class PanelNouveauVol extends JPanel {
 		add(textFieldDateDeDepart, gbc_textFieldDateDeDepart);
 		textFieldDateDeDepart.setColumns(10);
 		
-		JLabel lblHeureDeDepart = new JLabel("Heure de départ");
+		JLabel lblHeureDeDepart = new JLabel("Heure de départ (hh:mm)");
 		GridBagConstraints gbc_lblHeureDeDepart = new GridBagConstraints();
 		gbc_lblHeureDeDepart.anchor = GridBagConstraints.EAST;
 		gbc_lblHeureDeDepart.insets = new Insets(0, 0, 5, 5);
@@ -224,10 +225,12 @@ public class PanelNouveauVol extends JPanel {
 		
 		panelValiderAnnuler.getBtnValider().addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				// au clic sur le bouton "valider", on ajoute un vol en base.
+				// au clic sur le bouton "valider", on ajoute un vol en base si les données saisies sont ok.
+				
+				// On réinitialise le message éventuellement inscrit :
+				getLabelMessage().setText("");
 				
 				// On récupère les données saisies
-				// TODO à compléter ici
 				String villeDepart = getComboBoxVilleDeDepart().getSelectedItem().toString();
 				String villeArrivee = getComboBoxVilleDarrivee().getSelectedItem().toString();
 				String dateDepart = getTextFieldDateDeDepart().getText();
@@ -235,7 +238,67 @@ public class PanelNouveauVol extends JPanel {
 				String duree = getTextFieldDureeDuVol().getText();
 				String tarif = getTextFieldTarif().getText();
 				
-				System.out.println(villeDepart);
+				// TODO : à optimiser ?
+				// On vérifie la validité des informations saisies,
+				// on affiche un message si la saisie est incorrecte.
+				
+				// On regarde si les villes de départ et d'arrivée correspondent
+				// à celles prévues par la compagnie.
+				
+				// On récupère les aéroports enregistrés
+				List<Aeroport> aeroportsEnregistres = new ArrayList<>();
+				
+				try {
+					aeroportsEnregistres = dao.getAllAeroports();
+				} catch (SQLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				// On initialise un tableau de chaîne de caractères de la taille
+				// de la liste pour y placer les villes de départ / arrivée prévues
+				// par la compagnie.
+				String[]villesPrevues = new String[aeroportsEnregistres.size()];
+				
+				// On parcourt la liste :
+				for(int i = 0 ; i < aeroportsEnregistres.size(); i++){
+					String villePrevue = aeroportsEnregistres.get(i).getVille(); // on récupère la ville
+					// On ajoute la ville dans le tableau :
+					villesPrevues[i] = villePrevue;
+				}
+				// On initialise 2 booléens à false :
+				boolean villeDepartPresente = false;
+				boolean villeArriveePresente = false;
+				
+				// On vérifie si les villes sélectionnées sont ok :
+				for(String v : villesPrevues){
+					if(v.equals(villeDepart)){
+						villeDepartPresente = true;
+					}
+					if(v.equals(villeArrivee)){
+						villeArriveePresente = true;
+					}
+				}
+				
+				// TODO reprendre ici à la vérif de l'heure
+				// Les formats voulus pour la date et l'heure :
+				String regexDate = "^[0-9]{2}/[0-9]{2}/[0-9]{4}$";
+				// TODO vérifier la regex !
+				String regexHeure = "^([0-1][0-9]|2[0-3]):[0-9]{2}$";
+				
+				// Une fois qu'on a tous les éléments, on peut faire les vérifications :
+				
+				// Si l'une des villes n'est pas ok, ou que les villes de
+				// départ et d'arrivée sont similaires :
+				if(!villeDepartPresente || !villeArriveePresente ||
+						villeDepart.equals(villeArrivee)){
+					getLabelMessage().setText("Le trajet indiqué n'est pas correct !");
+				}else if(!dateDepart.matches(regexDate)){
+					// si les dates et/ou ne sont pas au bon format :
+					getLabelMessage().setText("<html><p>Les dates et heures saisies doivent<br>"
+							+ "être cohérentes et au format indiqué.</p></html>");
+	
+				}
+				
 			}
 		});
 		GridBagConstraints gbc_panelValiderAnnuler = new GridBagConstraints();
@@ -244,6 +307,14 @@ public class PanelNouveauVol extends JPanel {
 		gbc_panelValiderAnnuler.gridy = 10;
 		add(panelValiderAnnuler, gbc_panelValiderAnnuler);
 
+	}
+
+	public JLabel getLabelMessage() {
+		return labelMessage;
+	}
+
+	public void setLabelMessage(JLabel labelMessage) {
+		this.labelMessage = labelMessage;
 	}
 
 	public JTextField getTextFieldDateDeDepart() {

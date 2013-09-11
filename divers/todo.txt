@@ -1,4 +1,4 @@
--en cours : PanelNouveauVol -> intégrer l'ajout d'un vol
+-en cours : PanelNouveauVol -> faire les vérifs + intégrer l'ajout d'un vol
 
 BDD : prévenir changements + changer sur le serveur
 

@@ -164,6 +164,9 @@ public class PanelNouvelAeroport extends JPanel {
 			public void actionPerformed(ActionEvent arg0) {
 				// au clic sur le bouton "valider", on ajoute un aéroport en base.
 				
+				// On réinitialise le message éventuellement inscrit :
+				getLabelMessage().setText("");
+				
 				// On récupère les données saisies
 				// Le code aéroport est passé en majuscules
 				String codeAita = getTextFieldAita().getText().toUpperCase();
@@ -211,10 +214,10 @@ public class PanelNouvelAeroport extends JPanel {
 				}else{
 					// si tous les champs ne sont pas remplis, on affiche un
 					// message (et on ne vide pas les champs !)
-					getLabelMessage().setText("<html>Attention, veuillez vous assurer que :<br>"
+					getLabelMessage().setText("<html><p>Attention, veuillez vous assurer que :<br>"
 							+ "- tous les champs sont remplis<br>"
 							+ "- la ville et le pays sont constitués de lettres<br>"
-							+ "- le code aéroport contient 3 lettres.</html>");
+							+ "- le code aéroport contient 3 lettres.</p></html>");
 				}
 			}
 		});
