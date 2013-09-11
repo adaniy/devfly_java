@@ -101,8 +101,7 @@ public class MysqlDao {
 					password);
 			// on crée et exécute une requête préparée pour récupérer les informations
 			// sur le vol
-			String sql1 = "SELECT numvol, lieudep, lieuarriv, dateheuredep,"
-					+ "dateheurearrivee, tarif FROM vol_tmp";
+			String sql1 = "SELECT * FROM vol_tmp";
 			PreparedStatement stmt1 = connection.prepareStatement(sql1);
 			ResultSet result1 = stmt1.executeQuery();
 			while (result1.next()) {
@@ -122,6 +121,12 @@ public class MysqlDao {
 				int duree = (int) (dureeMillisecondes / 60000); // en minutes
 				
 				float tarif = result1.getFloat("tarif");
+				
+				String codePilote = result1.getString("pilote");
+				String codeCopilote = result1.getString("copilote");
+				String codeHotesseSt1 = result1.getString("hotesse_steward1");
+				String codeHotesseSt2 = result1.getString("hotesse_steward2");
+				String codeHotesseSt3 = result1.getString("hotesse_steward3");
 				
 				// on récupère les éléments sur l'aéroport de départ
 				String sql2 = "SELECT codeaeroport, pays FROM destination WHERE ville = ?";
@@ -155,7 +160,8 @@ public class MysqlDao {
 				Aeroport aeroportArrivee = new Aeroport(codeArrivee, villeArrivee, paysArrivee);
 				
 				// on crée un objet Vol avec les informations récupérées
-				Vol v = new Vol(id, aeroportDepart, aeroportArrivee, dateHeureDepart, dateHeureArrivee, duree, tarif);
+				Vol v = new Vol(id, aeroportDepart, aeroportArrivee, dateHeureDepart, dateHeureArrivee, duree, tarif,
+						codePilote, codeCopilote, codeHotesseSt1, codeHotesseSt2, codeHotesseSt3);
 				// on l'ajoute à la liste
 				vols.add(v);
 			}

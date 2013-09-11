@@ -1,5 +1,8 @@
 BDD : prévenir changements + changer sur le serveur
 
+-problème de l'id du vol qui doit être le bon "TMP+__"
+-méthode addNewVol à compléter depuis le modèle des aéroports si ça a du sens (cf l'id n'est pas choisi par le client a priori)
+
 -voir l'intérêt de laisser "public Class<?> getColumnClass(int arg0)" : plante dans Vol...
 -vols en attente : on peut récupérer les infos du vol mais pas des employés !! Table travailler_tmp ?
 
