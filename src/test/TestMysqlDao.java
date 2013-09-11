@@ -66,4 +66,33 @@ public class TestMysqlDao {
 		// on teste que le premier élément de la liste est bien une instance de Vol
 		Assert.assertTrue(vols.get(0) instanceof Vol);
 	}
+	
+	@Test
+	public void addNewVol() throws SQLException{
+		MysqlDao dao = new MysqlDao();
+		
+		// On transforme les chaînes de caractères en dates selon le motif.
+		// On déclare les dates à l'extérieur du try / catch
+		Date dateDepart = null;
+		Date dateArrivee = null;
+		
+		try {
+			dateDepart = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse("2014-03-24 02:20:00");
+			dateArrivee = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse("2014-03-24 18:34:00");
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		Aeroport aeroportTest1 = new Aeroport("CMN", "Casablanca", "Maroc");
+		Aeroport aeroportTest2 = new Aeroport("HNL", "Honolulu", "États-Unis");
+		
+		// à remodifier à chaque test :
+		Vol volTest = new Vol("TMP4242", aeroportTest1, aeroportTest2, dateDepart, dateArrivee, 1540, 974F);
+		
+		int result = dao.addNewVol(volTest);
+		Assert.assertEquals(1, result); // une seule ligne doit être impactée
+		//Vol v = dao.getVolById(5);
+		//Assert.assertEquals(volTest, v);
+	}
 }

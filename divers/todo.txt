@@ -1,6 +1,7 @@
-6- voir l'intérêt de laisser "public Class<?> getColumnClass(int arg0)" : plante dans Vol...
+BDD : prévenir changements + changer sur le serveur
+
+-voir l'intérêt de laisser "public Class<?> getColumnClass(int arg0)" : plante dans Vol...
 -vols en attente : on peut récupérer les infos du vol mais pas des employés !! Table travailler_tmp ?
-- BDD : à changer en dateheurearrivee dans vol_tmp
 
 -notes papier
 -commentaire "final"

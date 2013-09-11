@@ -101,9 +101,8 @@ public class MysqlDao {
 					password);
 			// on crée et exécute une requête préparée pour récupérer les informations
 			// sur le vol
-			// TODO changer en dateheurearrivee une fois corrigé dans la BDD
 			String sql1 = "SELECT numvol, lieudep, lieuarriv, dateheuredep,"
-					+ "dateheurearriv, tarif FROM vol_tmp";
+					+ "dateheurearrivee, tarif FROM vol_tmp";
 			PreparedStatement stmt1 = connection.prepareStatement(sql1);
 			ResultSet result1 = stmt1.executeQuery();
 			while (result1.next()) {
@@ -113,8 +112,7 @@ public class MysqlDao {
 				
 				// On récupère les dates sous forme de timestamp. On formatera à l'affichage.
 				Date dateHeureDepart = result1.getTimestamp("dateheuredep");
-				// TODO changer en dateheurearrivee une fois corrigé dans la BDD
-				Date dateHeureArrivee = result1.getTimestamp("dateheurearriv");
+				Date dateHeureArrivee = result1.getTimestamp("dateheurearrivee");
 				
 				// pour calculer la durée du vol, on fait la différence entre les 2 timestamp
 				long departMillisecondes = dateHeureDepart.getTime();
@@ -226,7 +224,8 @@ public class MysqlDao {
 		Connection connection = DriverManager.getConnection(datasource, user,
 				password);
 		// on crée et exécute une requête préparée pour insérer le vol
-		String sql = "INSERT INTO vol_tmp values(?, ?, ?, ?, ?, ?)";
+		// TODO : voir cmt rentrer uniquement les 6 premières valeurs (fait planter le text !)
+		String sql = "INSERT INTO vol_tmp VALUES(?, ?, ?, ?, ?, ?, '', '', '', '', '')";
 		PreparedStatement stmt = connection.prepareStatement(sql);
 		stmt.setString(1, v.getId());
 		stmt.setString(2, v.getAeroportDepart().getVille());
@@ -235,6 +234,7 @@ public class MysqlDao {
 		stmt.setDate(4, new java.sql.Date(v.getDateHeureDepart().getTime()));
 		stmt.setDate(5, new java.sql.Date(v.getDateHeureArrivee().getTime()));
 		stmt.setFloat(6, v.getTarif());
+		
 		int result = stmt.executeUpdate(); // renvoie le nb d'enregistrements impactés
 		connection.close();
 		return result; // doit renvoyer "1"
