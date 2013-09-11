@@ -32,13 +32,11 @@ public class PanelAeroports extends JPanel {
 				
 		setLayout(new BorderLayout(0, 0));
 		
-		// conteneur pour avoir une barre de défilement
 		scrollPane = new JScrollPane();
 		add(scrollPane, BorderLayout.CENTER);
 		
 		tableAeroports = new JTable();
-//		// pour que le tableau ne soit pas redimensionné automatiquement à la longueur de la fenêtre :
-//		tableAeroports.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+
 		// pour trier en cliquant sur les en-têtes :
 		tableAeroports.setAutoCreateRowSorter(true);
 		scrollPane.setViewportView(tableAeroports);
@@ -55,7 +53,7 @@ public class PanelAeroports extends JPanel {
 		String[]headers = {"code AITA", "ville", "pays"};
 		
 		// Le contenu, sous forme de tableau d'objets :
-		// (on utilise la méthode createTableModel défine plus loin)
+		// (on utilise la méthode createTableModel définie plus loin)
 		TableModel model = createTableModel(headers, aeroports);
 		
 		// On donne le model à la table :
@@ -66,14 +64,9 @@ public class PanelAeroports extends JPanel {
 		labelMessage.setHorizontalAlignment(SwingConstants.CENTER);
 		labelMessage.setForeground(Color.RED);
 		add(labelMessage, BorderLayout.NORTH);
-		
-//		// On dimensionne les colonnes :
-//		tableAeroports.getColumnModel().getColumn(0).setPreferredWidth(80);
-//		tableAeroports.getColumnModel().getColumn(1).setPreferredWidth(120);
-//		tableAeroports.getColumnModel().getColumn(2).setPreferredWidth(120);
 	}
 	
-	// méthode private qui ne servira que dans ce panel.
+	// méthode private qui ne servira que dans ce panel. Retourne un model.
 	// On lui passera la liste d'aéroports récupérée du dao :
 	TableModel createTableModel(String[]enTete, List<Aeroport> listeAeroports) {
 		// le nombre de lignes est égal aux nombres d'aéroports dans la liste,
@@ -86,8 +79,12 @@ public class PanelAeroports extends JPanel {
 			// le sous-tableau (code, ville, pays) vient directement de l'aéroport récupéré
 			myValues[i] = a.toArray();
 		}
-		// TODO : reprendre et commenter ici
+		
 		DefaultTableModel myModel = new DefaultTableModel(myValues, enTete) {
+			// pour renseigner la JTable avec le type exact contenu dans la colonne
+			// (elle appelera cette méthode sur le model)
+			// Principe : on prend la première ligne, et on lui donne le type des éléments
+			// contenus dans chaque colonne.
 			@Override
 			public Class<?> getColumnClass(int arg0) {
 				return myValues[0][arg0].getClass();

@@ -23,7 +23,6 @@ public class PanelVolsProgrammes extends JPanel {
 	public PanelVolsProgrammes() {
 		setLayout(new BorderLayout(0, 0));
 		
-		// conteneur pour avoir une barre de défilement
 		scrollPane = new JScrollPane();
 		add(scrollPane, BorderLayout.CENTER);
 		
