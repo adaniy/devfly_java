@@ -151,12 +151,21 @@ public class PanelNouvelAeroport extends JPanel {
 		textFieldPays.setColumns(10);
 		
 		panelValiderAnnuler = new PanelValiderAnnuler();
+		panelValiderAnnuler.getBtnAnnuler().addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				// Un clic sur le bouton "annuler" efface les éléments saisis.
+				getTextFieldAita().setText("");
+				getTextFieldVille().setText("");
+				getTextFieldPays().setText("");
+			}
+		});
+		
 		panelValiderAnnuler.getBtnValider().addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				// au clic sur le bouton "valider", on ajoute un aéroport en base.
 				
 				// On récupère les données saisies
-				// La code aéroport est passé en majuscules
+				// Le code aéroport est passé en majuscules
 				String codeAita = getTextFieldAita().getText().toUpperCase();
 				String ville = getTextFieldVille().getText();
 				String pays = getTextFieldPays().getText();

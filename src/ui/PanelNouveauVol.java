@@ -10,6 +10,8 @@ import javax.swing.JTextField;
 import javax.swing.JButton;
 import java.awt.Font;
 import java.awt.Color;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class PanelNouveauVol extends JPanel {
 	private JTextField textFieldDateDeDepart;
@@ -156,12 +158,84 @@ public class PanelNouveauVol extends JPanel {
 		textFieldTarif.setColumns(10);
 		
 		panelValiderAnnuler = new PanelValiderAnnuler();
+		panelValiderAnnuler.getBtnAnnuler().addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				// Un clic sur le bouton "annuler" efface les éléments saisis.
+				getTextFieldDateDeDepart().setText("");
+				getTextFieldHeureDeDepart().setText("");
+				getTextFieldDureeDuVol().setText("");
+				getTextFieldTarif().setText("");
+			}
+		});
+		
+		panelValiderAnnuler.getBtnValider().addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				// au clic sur le bouton "valider", on ajoute un vol en base.
+				
+				// On récupère les données saisies
+				// TODO à compléter ici
+//				String villeDepart = getComboBoxVilleDeDepart()...
+//				String villeArrivee = getComboBoxVilleDarrivee()...
+//				String dateDepart = getTextFieldDateDeDepart().getText();
+//				String heureDepart = getTextFieldHeureDeDepart().getText();
+//				String duree = getTextFieldDureeDuVol().getText();
+//				String tarif = getTextFieldTarif().getText();
+			}
+		});
 		GridBagConstraints gbc_panelValiderAnnuler = new GridBagConstraints();
 		gbc_panelValiderAnnuler.fill = GridBagConstraints.BOTH;
 		gbc_panelValiderAnnuler.gridx = 2;
 		gbc_panelValiderAnnuler.gridy = 10;
 		add(panelValiderAnnuler, gbc_panelValiderAnnuler);
 
+	}
+
+	public JTextField getTextFieldDateDeDepart() {
+		return textFieldDateDeDepart;
+	}
+
+	public void setTextFieldDateDeDepart(JTextField textFieldDateDeDepart) {
+		this.textFieldDateDeDepart = textFieldDateDeDepart;
+	}
+
+	public JTextField getTextFieldHeureDeDepart() {
+		return textFieldHeureDeDepart;
+	}
+
+	public void setTextFieldHeureDeDepart(JTextField textFieldHeureDeDepart) {
+		this.textFieldHeureDeDepart = textFieldHeureDeDepart;
+	}
+
+	public JTextField getTextFieldDureeDuVol() {
+		return textFieldDureeDuVol;
+	}
+
+	public void setTextFieldDureeDuVol(JTextField textFieldDureeDuVol) {
+		this.textFieldDureeDuVol = textFieldDureeDuVol;
+	}
+
+	public JTextField getTextFieldTarif() {
+		return textFieldTarif;
+	}
+
+	public void setTextFieldTarif(JTextField textFieldTarif) {
+		this.textFieldTarif = textFieldTarif;
+	}
+
+	public JComboBox getComboBoxVilleDeDepart() {
+		return comboBoxVilleDeDepart;
+	}
+
+	public void setComboBoxVilleDeDepart(JComboBox comboBoxVilleDeDepart) {
+		this.comboBoxVilleDeDepart = comboBoxVilleDeDepart;
+	}
+
+	public JComboBox getComboBoxVilleDarrivee() {
+		return comboBoxVilleDarrivee;
+	}
+
+	public void setComboBoxVilleDarrivee(JComboBox comboBoxVilleDarrivee) {
+		this.comboBoxVilleDarrivee = comboBoxVilleDarrivee;
 	}
 
 }
