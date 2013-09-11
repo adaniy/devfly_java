@@ -22,8 +22,11 @@ import java.awt.Color;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.sql.SQLException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 
@@ -292,10 +295,26 @@ public class PanelNouveauVol extends JPanel {
 					getLabelMessage().setText("Le trajet indiqué n'est pas correct !");
 				}else if(!dateDepart.matches(regexDate) || !heureDepart.matches(regexHeure)){
 					// si la date et/ou l'heure ne sont pas au bon format :
-					getLabelMessage().setText("<html><p>Les dates et heures saisies doivent<br>"
-							+ "être cohérentes et au format indiqué.</p></html>");
-				}
+					getLabelMessage().setText("<html><p>Les dates et heures saisies<br>"
+							+ "doivent être au format indiqué.</p></html>");
+				}//elseif(..){
+//					// On ne passe ici que si la date a un format valide !
+//					getLabelMessage().setText("<html><p>Vous ne pouvez pas enregistrer<br>"
+//							+ "un vol antérieur à demain."</p></html>);
+//				}
 				
+				// TODO tests à compléter
+				// On crée une date à partir de la chaîne récupérée :
+//				Date dateDepartFormatee = null;
+//				try {
+//					dateDepartFormatee = new SimpleDateFormat("dd/MM/yyyy")
+//						.parse(dateDepart);
+//				} catch (ParseException e1) {
+//					// TODO Auto-generated catch block
+//					e1.printStackTrace();
+//				}
+//				long TimeStampDateDepart = dateDepartFormatee.getTime();
+//				System.out.println(TimeStampDateDepart);
 			}
 		});
 		GridBagConstraints gbc_panelValiderAnnuler = new GridBagConstraints();
