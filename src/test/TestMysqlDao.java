@@ -55,4 +55,15 @@ public class TestMysqlDao {
 		// on teste que le premier élément de la liste est bien une instance de Vol
 		Assert.assertTrue(vols.get(0) instanceof Vol);
 	}
+	
+	@Test
+	public void getAllVolsEnAttente() throws SQLException{
+		MysqlDao dao = new MysqlDao();
+		List<Vol>vols = dao.getAllVolsEnAttente();
+		// on peut tester que le nombre de vols retournés correspond bien
+		// au nombre de vols en base (à réajuster au fur et à mesure) :
+		Assert.assertEquals(4, vols.size());
+		// on teste que le premier élément de la liste est bien une instance de Vol
+		Assert.assertTrue(vols.get(0) instanceof Vol);
+	}
 }

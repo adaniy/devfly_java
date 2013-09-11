@@ -92,6 +92,78 @@ public class MysqlDao {
 		connection.close();
 		return vols;
 	}
+	
+	// retourne les vols "en attente" sous forme d'une liste
+		public List<Vol> getAllVolsEnAttente() throws SQLException {
+			List<Vol> vols = new ArrayList<>();
+			// on se connecte à la BDD
+			Connection connection = DriverManager.getConnection(datasource, user,
+					password);
+			// on crée et exécute une requête préparée pour récupérer les informations
+			// sur le vol
+			// TODO changer en dateheurearrivee une fois corrigé dans la BDD
+			String sql1 = "SELECT numvol, lieudep, lieuarriv, dateheuredep,"
+					+ "dateheurearriv, tarif FROM vol_tmp";
+			PreparedStatement stmt1 = connection.prepareStatement(sql1);
+			ResultSet result1 = stmt1.executeQuery();
+			while (result1.next()) {
+				String id = result1.getString("numvol");
+				String villeDepart = result1.getString("lieudep");
+				String villeArrivee = result1.getString("lieuarriv");
+				
+				// On récupère les dates sous forme de timestamp. On formatera à l'affichage.
+				Date dateHeureDepart = result1.getTimestamp("dateheuredep");
+				// TODO changer en dateheurearrivee une fois corrigé dans la BDD
+				Date dateHeureArrivee = result1.getTimestamp("dateheurearriv");
+				
+				// pour calculer la durée du vol, on fait la différence entre les 2 timestamp
+				long departMillisecondes = dateHeureDepart.getTime();
+				long arriveeMillisecondes = dateHeureArrivee.getTime();
+				long dureeMillisecondes = arriveeMillisecondes - departMillisecondes;
+				
+				int duree = (int) (dureeMillisecondes / 60000); // en minutes
+				
+				float tarif = result1.getFloat("tarif");
+				
+				// on récupère les éléments sur l'aéroport de départ
+				String sql2 = "SELECT codeaeroport, pays FROM destination WHERE ville = ?";
+				PreparedStatement stmt2 = connection.prepareStatement(sql2);
+				// on valorise le paramètre
+				stmt2.setString(1, villeDepart);
+				ResultSet result2 = stmt2.executeQuery();
+				// on initialise les variables en dehors de la boucle
+				String codeDepart = null;
+				String paysDepart = null;
+				while (result2.next()) {
+					codeDepart = result2.getString("codeaeroport");
+					paysDepart = result2.getString("pays");
+				}
+				
+				// on récupère les éléments sur l'aéroport de destination (même requête)
+				PreparedStatement stmt3 = connection.prepareStatement(sql2);
+				// on valorise le paramètre
+				stmt3.setString(1, villeArrivee);
+				ResultSet result3 = stmt3.executeQuery();
+				// on initialise les variables en dehors de la boucle
+				String codeArrivee = null;
+				String paysArrivee = null;
+				while (result3.next()) {
+					codeArrivee = result3.getString("codeaeroport");
+					paysArrivee = result3.getString("pays");
+				}
+				
+				// on crée les objet "Aeroport" de départ et d'arrivée avec les informations récupérées
+				Aeroport aeroportDepart = new Aeroport(codeDepart, villeDepart, paysDepart);
+				Aeroport aeroportArrivee = new Aeroport(codeArrivee, villeArrivee, paysArrivee);
+				
+				// on crée un objet Vol avec les informations récupérées
+				Vol v = new Vol(id, aeroportDepart, aeroportArrivee, dateHeureDepart, dateHeureArrivee, duree, tarif);
+				// on l'ajoute à la liste
+				vols.add(v);
+			}
+			connection.close();
+			return vols;
+		}
 
 	// retourne les aéroports sous forme d'une liste
 	public List<Aeroport> getAllAeroports() throws SQLException {

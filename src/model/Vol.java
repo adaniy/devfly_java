@@ -42,11 +42,12 @@ public class Vol {
 
 	// un constructeur sans les codes "employés"
 	public Vol(String id, Aeroport aeroportDepart, Aeroport aeroportArrivee,
-			Date dateHeureDepart, int duree, float tarif) {
+			Date dateHeureDepart, Date dateHeureArrivee, int duree, float tarif) {
 		this.id = id;
 		this.aeroportDepart = aeroportDepart;
 		this.aeroportArrivee = aeroportArrivee;
 		this.dateHeureDepart = dateHeureDepart;
+		this.dateHeureArrivee = dateHeureArrivee;
 		this.duree = duree;
 		this.tarif = tarif;
 	}
@@ -165,8 +166,8 @@ public class Vol {
 			myValues[i][5] = v.getAeroportArrivee().getPays();
 			myValues[i][6] = v.getAeroportArrivee().getCodeAeroport();
 			// on formate les dates pour les afficher correctement :
-			myValues[i][7] = new SimpleDateFormat("dd/MM/yyyy - H:mm").format(v.getDateHeureDepart());
-			myValues[i][8] = new SimpleDateFormat("dd/MM/yyyy - H:mm").format(v.getDateHeureArrivee());
+			myValues[i][7] = new SimpleDateFormat("dd/MM/yyyy - HH:mm").format(v.getDateHeureDepart());
+			myValues[i][8] = new SimpleDateFormat("dd/MM/yyyy - HH:mm").format(v.getDateHeureArrivee());
 			myValues[i][9] = v.getDuree();
 			// on formate le tarif pour avoir 2 chiffres après la virgule :
 			myValues[i][10] = String.format("%.2f",v.getTarif());
