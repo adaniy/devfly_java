@@ -6,7 +6,10 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -256,13 +259,10 @@ public class MysqlDao {
 		
 		stmt.setString(2, v.getAeroportDepart().getVille());
 		stmt.setString(3, v.getAeroportArrivee().getVille());
-		// on transforme la date util en date SQL. Pour cela, on utilise le timestamp des dates.
-		stmt.setDate(4, new java.sql.Date(v.getDateHeureDepart().getTime()));
-		stmt.setDate(5, new java.sql.Date(v.getDateHeureArrivee().getTime()));
-		
-//		Timestamp DateHeureDepartTimeStamp = new java.sql.Timestamp(v.getDateHeureDepart().getTime());
-//		stmt.setDate(4, new java.sql.Date(DateHeureDepartTimeStamp.getTime()));
-//		System.out.println(new java.sql.Date(DateHeureDepartTimeStamp.getTime()));
+		// on transforme la date util en timestamp SQL. Pour cela, on utilise le timestamp des dates.
+		// (rq : avec une java.sql.Date, on ne récupèrerait pas les heures et minutes)
+		stmt.setTimestamp(4, new java.sql.Timestamp(v.getDateHeureDepart().getTime()));
+		stmt.setTimestamp(5, new java.sql.Timestamp(v.getDateHeureArrivee().getTime()));
 		
 		stmt.setFloat(6, v.getTarif());
 		

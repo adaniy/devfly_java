@@ -21,7 +21,7 @@ import dao.MysqlDao;
 //@FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class TestMysqlDao {
 	
-	@Test
+	//@Test
 	public void getAllAeroports() throws SQLException{
 		MysqlDao dao = new MysqlDao();
 		List<Aeroport>aeroports = dao.getAllAeroports();
@@ -32,7 +32,7 @@ public class TestMysqlDao {
 		Assert.assertTrue(aeroports.get(0) instanceof Aeroport);
 	}
 	
-	@Test
+	//@Test
 	public void addNewAeroport() throws SQLException{
 		MysqlDao dao = new MysqlDao();
 		// à remodifier à chaque test :
@@ -44,7 +44,7 @@ public class TestMysqlDao {
 		Assert.assertEquals(aeroportTest.getCodeAeroport(), a.getCodeAeroport());
 	}
 	
-	@Test
+	//@Test
 	public void getAllVolsProgrammes() throws SQLException{
 		MysqlDao dao = new MysqlDao();
 		List<Vol>vols = dao.getAllVolsProgrammes();
@@ -55,7 +55,7 @@ public class TestMysqlDao {
 		Assert.assertTrue(vols.get(0) instanceof Vol);
 	}
 	
-	@Test
+	//@Test
 	public void getAllVolsEnAttente() throws SQLException{
 		MysqlDao dao = new MysqlDao();
 		List<Vol>vols = dao.getAllVolsEnAttente();
@@ -66,7 +66,7 @@ public class TestMysqlDao {
 		Assert.assertTrue(vols.get(0) instanceof Vol);
 	}
 	
-	@Test
+	//@Test
 	public void addNewVol() throws SQLException{
 		MysqlDao dao = new MysqlDao();
 		
@@ -95,7 +95,7 @@ public class TestMysqlDao {
 		//Assert.assertEquals(volTest.getId(), v.getId());
 	}
 	
-	@Test
+	//@Test
 	public void getAeroportByVille() throws SQLException{
 		MysqlDao dao = new MysqlDao();
 		Aeroport aeroportRecupere = dao.getAeroportByVille("Berne");

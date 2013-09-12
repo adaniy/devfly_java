@@ -243,7 +243,7 @@ public class PanelNouveauVol extends JPanel {
 				// On remplace l'éventuelle virgule saisie par un point (sera nécessaire pour convertir en float)
 				String tarif = tarifRecupere.replace(",", ".");
 				
-				// TODO : à optimiser ?
+				// TODO : à optimiser
 				// On vérifie la validité des informations saisies,
 				// on affiche un message si la saisie est incorrecte.
 				
@@ -298,8 +298,7 @@ public class PanelNouveauVol extends JPanel {
 					Date dateDArrivee = null;
 					try {
 						dateDeDepart = new SimpleDateFormat("dd/MM/yyyy HH:mm").parse(dateHeureDepart);
-						// TODO corriger la date d'arrivée
-						// TODO indiquer l'heure de départ + d'arrivée
+						// TODO corriger la date d'arrivée (+ heure)
 						// TODO corriger la prise en compte de la durée
 						dateDArrivee = new SimpleDateFormat("dd/MM/yyyy HH:mm").parse(dateHeureDepart);
 					} catch (ParseException e2) {
