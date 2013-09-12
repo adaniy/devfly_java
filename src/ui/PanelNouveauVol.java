@@ -100,12 +100,8 @@ public class PanelNouveauVol extends JPanel {
 		// On récupère les villes proposées par la compagnie
 		String[]villes = getVillesProposees();
 		
-		// on donne le tableau de villes au model :
-		DefaultComboBoxModel<String>modelDepart = new DefaultComboBoxModel<>(villes);
-		// on ajoute le model à la combobox :
-		comboBoxVilleDeDepart.setModel(modelDepart);
-		// on pourra faire défiler les villes avec la molette de la souris :
-		comboBoxVilleDeDepart.setMaximumRowCount(6); // 6 villes visibles à chaque fois
+		// On insère les villes dans la comboBox (méthode définie plus bas)
+		comboBoxCreation(villes, comboBoxVilleDeDepart);
 		
 		JLabel lblVilleDarrivee = new JLabel("Ville d'arrivée");
 		GridBagConstraints gbc_lblVilleDarrivee = new GridBagConstraints();
@@ -124,15 +120,9 @@ public class PanelNouveauVol extends JPanel {
 		gbc_comboBoxVilleDarrivee.gridy = 4;
 		add(comboBoxVilleDarrivee, gbc_comboBoxVilleDarrivee);
 		
-		// Les données dans la combobox proviennent également des données
-		// en base, on utilise les mêmes données que pour les villes de départ.
-		
-		// on donne le tableau de villes au model :
-		DefaultComboBoxModel<String>modelArrivee = new DefaultComboBoxModel<>(villes);
-		// on ajoute le model à la combobox :
-		comboBoxVilleDarrivee.setModel(modelArrivee);
-		// on pourra faire défiler les villes avec la molette de la souris :
-		comboBoxVilleDarrivee.setMaximumRowCount(6); // 6 villes visibles à chaque fois
+		// Les données dans la combobox proviennent également des données en base
+		// On insère les villes dans la comboBox (méthode définie plus bas)
+		comboBoxCreation(villes, comboBoxVilleDarrivee);
 		
 		JLabel lblDateDeDepart = new JLabel("Date de départ (jj/mm/aaaa)");
 		GridBagConstraints gbc_lblDateDeDepart = new GridBagConstraints();
@@ -486,6 +476,17 @@ public class PanelNouveauVol extends JPanel {
 			}
 		}
 		return villePresente;
+	}
+	
+	// prend en paramètres un tableau de villes (String) et une JComboBox
+	// insère les villes dans la comboBox
+	private void comboBoxCreation(String[]villes, JComboBox maComboBox){
+		// on donne le tableau de villes au model :
+		DefaultComboBoxModel<String>model = new DefaultComboBoxModel<>(villes);
+		// on ajoute le model à la combobox :
+		maComboBox.setModel(model);
+		// on pourra faire défiler les villes avec la molette de la souris :
+		maComboBox.setMaximumRowCount(6); // 6 villes visibles à chaque fois
 	}
 
 }
