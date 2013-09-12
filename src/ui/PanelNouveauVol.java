@@ -195,7 +195,7 @@ public class PanelNouveauVol extends JPanel {
 		add(textFieldDureeDuVol, gbc_textFieldDureeDuVol);
 		textFieldDureeDuVol.setColumns(10);
 		
-		JLabel lblTarif = new JLabel("Tarif en euros au format __,xx");
+		JLabel lblTarif = new JLabel("Tarif en euros au format __.xx");
 		GridBagConstraints gbc_lblTarif = new GridBagConstraints();
 		gbc_lblTarif.anchor = GridBagConstraints.EAST;
 		gbc_lblTarif.insets = new Insets(0, 0, 5, 5);
@@ -251,7 +251,7 @@ public class PanelNouveauVol extends JPanel {
 				String regexDuree = "^[1-9][0-9]+$"; // la durée du vol ne peut pas être inférieure à 10 min
 				// Le tarif est un nombre décimal (rq : on laisse la possibilité à la compagnie d'indiquer
 				// un tarif à zéro pour les événements particuliers).
-				String regexTarif = "^[0-9]+,[0-9]{2}$";
+				String regexTarif = "^[0-9]+.[0-9]{2}$";
 				
 				if(!villePrevue(villeDepart) || !villePrevue(villeArrivee) ||
 						villeDepart.equals(villeArrivee)){
@@ -272,25 +272,53 @@ public class PanelNouveauVol extends JPanel {
 					getLabelMessage().setText("Vérifiez la durée du vol svp !");
 				}else if(!tarif.matches(regexTarif)){
 					// si le tarif n'est pas au bon format :
-					getLabelMessage().setText("Vérifiez le format du tarif (ex : 230,00)");
-				}//else{
-//					// si on arrive ici, tout est ok, on insère le vol en base
-//					
-//					// on sait que la ville passée en paramètre est bien correcte
-//					Aeroport aeroportDepart = dao.getAeroportByVille(villeDepart);
-//					Aeroport aeroportArrivee = dao.getAeroportByVille(villeArrivee);
-//					
-//					Date dateDeDepart = new SimpleDateFormat("dd/MM/yyyy").parse(dateDepart);
-//					// TODO corriger
-//					Date dateDArrivee = new SimpleDateFormat("dd/MM/yyyy").parse(dateDepart);
-//					
-//					int dureeInt =
-//							
-//					float tarifFloat = 
-//					
-//					Vol volTest = new Vol(aeroportDepart, aeroportArrivee, dateDeDepart, dateDArrivee, duree, tarif);
-//					dao.addNewVol(volTest);
-//				}
+					getLabelMessage().setText("Vérifiez le format du tarif (ex : 230.00)");
+				}else{
+					// si on arrive ici, tout est ok, on insère le vol en base
+					
+					// on récupère les objets Aeroport
+					// (on sait que les villes passées en paramètre sont bien correctes)
+					Aeroport aeroportDepart = null;
+					Aeroport aeroportArrivee = null;
+					try {
+						aeroportDepart = dao.getAeroportByVille(villeDepart);
+						aeroportArrivee = dao.getAeroportByVille(villeArrivee);
+					} catch (SQLException e2) {
+						// TODO Auto-generated catch block
+						e2.printStackTrace();
+					}					
+					
+					// On tranforme les dates de String en Date
+					Date dateDeDepart = null;
+					Date dateDArrivee = null;
+					try {
+						dateDeDepart = new SimpleDateFormat("dd/MM/yyyy").parse(dateDepart);
+						// TODO corriger la date d'arrivée
+						// TODO indiquer l'heure de départ + d'arrivée
+						// TODO corriger la vérification de la saisie du tarif
+						// TODO corriger la prise en compte de la durée
+						dateDArrivee = new SimpleDateFormat("dd/MM/yyyy").parse(dateDepart);
+					} catch (ParseException e2) {
+						// TODO Auto-generated catch block
+						e2.printStackTrace();
+					}					
+					
+					// On transforme la durée récupérée en int
+					int dureeInt = Integer.parseInt(duree);
+					
+					// On transforme le tarif récupéré en float
+					float tarifFloat = Float.parseFloat(tarif);
+					
+					Vol volTest = new Vol(aeroportDepart, aeroportArrivee, dateDeDepart, dateDArrivee, dureeInt, tarifFloat);
+					try {
+						dao.addNewVol(volTest);
+						// On affiche un message pour prévenir que tout s'est bien passé
+						getLabelMessage().setText("Le vol a bien été ajouté !");
+					} catch (SQLException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+				}
 			}
 		});
 		GridBagConstraints gbc_panelValiderAnnuler = new GridBagConstraints();
