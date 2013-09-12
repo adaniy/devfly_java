@@ -1,5 +1,4 @@
 -PanelNouveauVol -> gérer la date d'arrivée qui n'est pas correcte
--VolsenAttente + VolsProgrammes + Aeroport : recharger les vues !
 -vérifier l'affichage des formulaires depuis Linux
 
 BDD : prévenir changements + changer sur le serveur
@@ -8,6 +7,7 @@ BDD : prévenir changements + changer sur le serveur
 
 -CAHIER DES CHARGES (rappel : tarif à zéro autorisé pour les événements particuliers)
 -DSPP
+-une fois la méthode pour les vols confirmés codée, penser à recharger la liste !
 -notes papier
 -commentaire "final"
 -voir les try/catch
@@ -23,3 +23,4 @@ Rqs :
 - traiter les exceptions
 - heure du pays de départ
 - prévoir le fait que 2 villes puissent avoir le même nom
+- le numéro de vol n'a pas d'importance sémantique (le 6 peut partir avant le 2)...

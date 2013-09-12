@@ -85,7 +85,10 @@ public class PanelVolsEnAttente extends JPanel {
 		tableVolsEnAttente.getColumnModel().getColumn(14).setPreferredWidth(90);
 		tableVolsEnAttente.getColumnModel().getColumn(15).setPreferredWidth(90);
 		tableVolsEnAttente.getColumnModel().getColumn(16).setPreferredWidth(60);
-		
+	}
+
+	public JTable getTableVolsEnAttente() {
+		return tableVolsEnAttente;
 	}
 
 }

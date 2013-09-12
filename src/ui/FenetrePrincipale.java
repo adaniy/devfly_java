@@ -210,11 +210,6 @@ public class FenetrePrincipale extends JFrame {
 		getPanelBoutons().setVisible(true);
 		getPanelAeroports().setVisible(true);
 		getContentPane().repaint();
-		//TODO supprimer une fois le test fini
-//		getContentPane().repaint();
-//		getContentPane().revalidate();
-//		getPanelAeroports().repaint();
-//		getPanelAeroports().revalidate();
 	}
 
 	public void displayDeconnexion()

@@ -21,6 +21,8 @@ import dao.MysqlDao;
 //@FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class TestMysqlDao {
 	
+	// Décommenter le mot @Test pour lancer le test correspondant
+	
 	//@Test
 	public void getAllAeroports() throws SQLException{
 		MysqlDao dao = new MysqlDao();
@@ -95,7 +97,7 @@ public class TestMysqlDao {
 		//Assert.assertEquals(volTest.getId(), v.getId());
 	}
 	
-	//@Test
+	@Test
 	public void getAeroportByVille() throws SQLException{
 		MysqlDao dao = new MysqlDao();
 		Aeroport aeroportRecupere = dao.getAeroportByVille("Berne");

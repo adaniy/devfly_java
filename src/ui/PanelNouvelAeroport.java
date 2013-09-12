@@ -11,6 +11,7 @@ import java.awt.GridBagConstraints;
 import java.awt.Insets;
 
 import javax.swing.JTextField;
+import javax.swing.table.TableModel;
 
 import model.Aeroport;
 import dao.MysqlDao;
@@ -19,6 +20,7 @@ import java.awt.Font;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.sql.SQLException;
+import java.util.List;
 import java.awt.Color;
 
 public class PanelNouvelAeroport extends JPanel {
@@ -196,15 +198,18 @@ public class PanelNouvelAeroport extends JPanel {
 							getTextFieldVille().setText("");
 							getTextFieldPays().setText("");
 							
-							// TODO à supprimer une fois le test terminé
-//							// on récupère la frame principale
-//							FenetrePrincipale frame = 
-//							(FenetrePrincipale) 
-//							SwingUtilities.getRoot(PanelNouvelAeroport.this);
-//							frame.getPanelAeroports().repaint();
-//							frame.getPanelAeroports().revalidate();
-//							frame.getContentPane().repaint();
-//							frame.getContentPane().revalidate();
+							// on va recharger la liste des aéroports pour que le nouvel aéroport apparaisse
+							
+							// On récupère les aéroports, et on crée le model
+							List<Aeroport> aeroports = dao.getAllAeroports();
+							String[]headers = {"code AITA", "ville", "pays"};
+							TableModel model = Aeroport.createTableModelAeroports(headers, aeroports);
+							
+							// on récupère la frame principale
+							FenetrePrincipale frame = (FenetrePrincipale) SwingUtilities.getRoot(PanelNouvelAeroport.this);
+							
+							// On donne le model à la table :
+							frame.getPanelAeroports().getTableAeroports().setModel(model);
 							
 						}else if(retour == 2){
 							getLabelMessage().setText("Le code aéroport " + codeAita + " existe déjà.");
