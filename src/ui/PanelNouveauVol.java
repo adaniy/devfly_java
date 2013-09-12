@@ -11,6 +11,7 @@ import java.awt.Insets;
 
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JComboBox;
+import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.SwingUtilities;
 import javax.swing.table.TableModel;
@@ -342,23 +343,22 @@ public class PanelNouveauVol extends JPanel {
 					
 					// on va recharger la liste des vols en attente pour que le nouveau vol apparaisse
 					
-					// On récupère les vol, et on crée le model
+					// On récupère les vols en attente
 					List<Vol> volsEnAttente;
 					try {
 						volsEnAttente = dao.getAllVolsEnAttente();
-						String[]headers = {"n°", "ville départ", "pays dép.", "code dép.",
-								"ville arrivée", "pays arr.", "code arr.", "date/heure départ",
-								"date/heure arrivée", "durée (mn)", "tarif (€)", "pilote", "copilote", "Hôtesse/St1", "Hôtesse/St2", "Hôtesse/St3", "n°"};
-						TableModel model = Vol.createTableModelVols(headers, volsEnAttente);
 						
 						// on récupère la frame principale
 						FenetrePrincipale frame = (FenetrePrincipale) SwingUtilities.getRoot(PanelNouveauVol.this);
+						// on récupère la JTable
+						JTable table = frame.getPanelVolsEnAttente().getTableVolsEnAttente();
 						
-						// On donne le model à la table :
-						frame.getPanelVolsEnAttente().getTableVolsEnAttente().setModel(model);
+						// On crée le model avec les bonnes données et on le donne à la JTable
+						// On utilise la méthode statique définie dans Vol
+						Vol.TableCreation(volsEnAttente, table);
 						
 						// On dimensionne les colonnes :
-						Vol.columnSizeVols(frame.getPanelVolsEnAttente().getTableVolsEnAttente());
+						Vol.columnSizeVols(table);
 					} catch (SQLException e1) {
 						// TODO Auto-generated catch block
 						e1.printStackTrace();

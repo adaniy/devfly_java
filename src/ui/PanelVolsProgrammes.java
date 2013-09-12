@@ -48,16 +48,10 @@ public class PanelVolsProgrammes extends JPanel {
 		
 		// On récupère les vols programmés :
 		List<Vol> volsProgrammes = dao.getAllVolsProgrammes();
-		// Les en-têtes : (on trouve le N° de vol en début et fin de tableau pour faciliter la lecture)
-		String[]headers = {"n°", "ville départ", "pays dép.", "code dép.",
-				"ville arrivée", "pays arr.", "code arr.", "date/heure départ",
-				"date/heure arrivée", "durée (mn)", "tarif (€)", "pilote", "copilote", "Hôtesse/St1", "Hôtesse/St2", "Hôtesse/St3", "n°"};
 		
-		// Le contenu (on utilise la méthode statique définie dans la classe Vol)
-		TableModel model = Vol.createTableModelVols(headers, volsProgrammes);
-				
-		// On donne le model à la table :
-		tableVolsProgrammes.setModel(model);
+		// On crée le model avec les bonnes données et on le donne à la JTable
+		// On utilise la méthode statique définie dans Vol
+		Vol.TableCreation(volsProgrammes, tableVolsProgrammes);
 		
 		// Label qui pourra contenir les différents messages à afficher :
 		labelMessage = new JLabel("");

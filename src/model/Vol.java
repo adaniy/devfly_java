@@ -221,4 +221,20 @@ public class Vol {
 		maTable.getColumnModel().getColumn(15).setPreferredWidth(90);
 		maTable.getColumnModel().getColumn(16).setPreferredWidth(60);
 	}
+	
+	// TODO : voir si bien placé ?
+	// prend en paramètre une liste de vols et une JTable
+	// crée le model avec les bonnes données et le donne à la JTable
+	public static void TableCreation(List<Vol> listeVols, JTable maJTable){
+		// Les en-têtes : (on trouve le N° de vol en début et fin de tableau pour faciliter la lecture)
+		String[]headers = {"n°", "ville départ", "pays dép.", "code dép.",
+				"ville arrivée", "pays arr.", "code arr.", "date/heure départ",
+				"date/heure arrivée", "durée (mn)", "tarif (€)", "pilote", "copilote", "Hôtesse/St1", "Hôtesse/St2", "Hôtesse/St3", "n°"};
+		
+		// Le contenu (on utilise la méthode statique définie dans la classe Vol)
+		TableModel model = createTableModelVols(headers, listeVols);
+				
+		// On donne le model à la table :
+		maJTable.setModel(model);
+	}
 }
