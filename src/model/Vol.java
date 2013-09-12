@@ -4,6 +4,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
+import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 
@@ -197,5 +198,27 @@ public class Vol {
 			}
 		};
 		return myModel;
+	}
+	
+	// TODO : voir si bien placé ?
+	// dimensionne les colonnes à la bonne taille pour présenter les vols
+	public static void columnSizeVols(JTable maTable){
+		maTable.getColumnModel().getColumn(0).setPreferredWidth(60);
+		maTable.getColumnModel().getColumn(1).setPreferredWidth(80);
+		maTable.getColumnModel().getColumn(2).setPreferredWidth(75);
+		maTable.getColumnModel().getColumn(3).setPreferredWidth(70);
+		maTable.getColumnModel().getColumn(4).setPreferredWidth(80);
+		maTable.getColumnModel().getColumn(5).setPreferredWidth(75);
+		maTable.getColumnModel().getColumn(6).setPreferredWidth(70);
+		maTable.getColumnModel().getColumn(7).setPreferredWidth(130);
+		maTable.getColumnModel().getColumn(8).setPreferredWidth(130);
+		maTable.getColumnModel().getColumn(9).setPreferredWidth(85);
+		maTable.getColumnModel().getColumn(10).setPreferredWidth(60);
+		maTable.getColumnModel().getColumn(11).setPreferredWidth(90);
+		maTable.getColumnModel().getColumn(12).setPreferredWidth(90);
+		maTable.getColumnModel().getColumn(13).setPreferredWidth(90);
+		maTable.getColumnModel().getColumn(14).setPreferredWidth(90);
+		maTable.getColumnModel().getColumn(15).setPreferredWidth(90);
+		maTable.getColumnModel().getColumn(16).setPreferredWidth(60);
 	}
 }

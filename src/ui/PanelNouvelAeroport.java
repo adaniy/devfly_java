@@ -172,16 +172,16 @@ public class PanelNouvelAeroport extends JPanel {
 				
 				// TODO : à optimiser ?
 				// On définit des expressions régulières.
-				String regexLettresAccents = "^[A-Za-zàâäéèêëìîïôöòùûüçÀÂÄÉÈËÏÎÌÔÖÙÛÜÇ-]+$";
-				String regexLettre = "^[A-Z]+$";
+				String regexLettresAccentsTirets = "^[A-Za-zàâäéèêëìîïôöòùûüçÀÂÄÉÈËÏÎÌÔÖÙÛÜÇ-]+$";
+				String regexLettres = "^[A-Z]+$";
 				
 				// On vérifie que les 3 champs ne sont pas vides,
 				// qu'ils contiennent des lettres,
 				// et que le code aéroport est composé de 3 lettres
 				// (on utilise les regex).
 				if(codeAita.length() == 3 && ville.length()!=0 && pays.length()!=0
-						&& codeAita.matches(regexLettre) && ville.matches(regexLettresAccents)
-						&& pays.matches(regexLettresAccents)){
+						&& codeAita.matches(regexLettres) && ville.matches(regexLettresAccentsTirets)
+						&& pays.matches(regexLettresAccentsTirets)){
 					// On crée un objet Aeroport avec ces données
 					Aeroport nouvelAeroport = new Aeroport(codeAita, ville, pays);
 					

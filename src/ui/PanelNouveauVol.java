@@ -356,6 +356,9 @@ public class PanelNouveauVol extends JPanel {
 						
 						// On donne le model à la table :
 						frame.getPanelVolsEnAttente().getTableVolsEnAttente().setModel(model);
+						
+						// On dimensionne les colonnes :
+						Vol.columnSizeVols(frame.getPanelVolsEnAttente().getTableVolsEnAttente());
 					} catch (SQLException e1) {
 						// TODO Auto-generated catch block
 						e1.printStackTrace();

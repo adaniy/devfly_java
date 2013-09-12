@@ -68,23 +68,7 @@ public class PanelVolsEnAttente extends JPanel {
 		add(labelMessage, BorderLayout.NORTH);
 		
 		// On dimensionne les colonnes :
-		tableVolsEnAttente.getColumnModel().getColumn(0).setPreferredWidth(60);
-		tableVolsEnAttente.getColumnModel().getColumn(1).setPreferredWidth(80);
-		tableVolsEnAttente.getColumnModel().getColumn(2).setPreferredWidth(75);
-		tableVolsEnAttente.getColumnModel().getColumn(3).setPreferredWidth(70);
-		tableVolsEnAttente.getColumnModel().getColumn(4).setPreferredWidth(80);
-		tableVolsEnAttente.getColumnModel().getColumn(5).setPreferredWidth(75);
-		tableVolsEnAttente.getColumnModel().getColumn(6).setPreferredWidth(70);
-		tableVolsEnAttente.getColumnModel().getColumn(7).setPreferredWidth(130);
-		tableVolsEnAttente.getColumnModel().getColumn(8).setPreferredWidth(130);
-		tableVolsEnAttente.getColumnModel().getColumn(9).setPreferredWidth(85);
-		tableVolsEnAttente.getColumnModel().getColumn(10).setPreferredWidth(60);
-		tableVolsEnAttente.getColumnModel().getColumn(11).setPreferredWidth(90);
-		tableVolsEnAttente.getColumnModel().getColumn(12).setPreferredWidth(90);
-		tableVolsEnAttente.getColumnModel().getColumn(13).setPreferredWidth(90);
-		tableVolsEnAttente.getColumnModel().getColumn(14).setPreferredWidth(90);
-		tableVolsEnAttente.getColumnModel().getColumn(15).setPreferredWidth(90);
-		tableVolsEnAttente.getColumnModel().getColumn(16).setPreferredWidth(60);
+		Vol.columnSizeVols(tableVolsEnAttente);
 	}
 
 	public JTable getTableVolsEnAttente() {

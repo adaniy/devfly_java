@@ -66,23 +66,7 @@ public class PanelVolsProgrammes extends JPanel {
 		add(labelMessage, BorderLayout.NORTH);
 		
 		// On dimensionne les colonnes :
-		tableVolsProgrammes.getColumnModel().getColumn(0).setPreferredWidth(60);
-		tableVolsProgrammes.getColumnModel().getColumn(1).setPreferredWidth(80);
-		tableVolsProgrammes.getColumnModel().getColumn(2).setPreferredWidth(75);
-		tableVolsProgrammes.getColumnModel().getColumn(3).setPreferredWidth(70);
-		tableVolsProgrammes.getColumnModel().getColumn(4).setPreferredWidth(80);
-		tableVolsProgrammes.getColumnModel().getColumn(5).setPreferredWidth(75);
-		tableVolsProgrammes.getColumnModel().getColumn(6).setPreferredWidth(70);
-		tableVolsProgrammes.getColumnModel().getColumn(7).setPreferredWidth(130);
-		tableVolsProgrammes.getColumnModel().getColumn(8).setPreferredWidth(130);
-		tableVolsProgrammes.getColumnModel().getColumn(9).setPreferredWidth(85);
-		tableVolsProgrammes.getColumnModel().getColumn(10).setPreferredWidth(60);
-		tableVolsProgrammes.getColumnModel().getColumn(11).setPreferredWidth(90);
-		tableVolsProgrammes.getColumnModel().getColumn(12).setPreferredWidth(90);
-		tableVolsProgrammes.getColumnModel().getColumn(13).setPreferredWidth(90);
-		tableVolsProgrammes.getColumnModel().getColumn(14).setPreferredWidth(90);
-		tableVolsProgrammes.getColumnModel().getColumn(15).setPreferredWidth(90);
-		tableVolsProgrammes.getColumnModel().getColumn(16).setPreferredWidth(60);
+		Vol.columnSizeVols(tableVolsProgrammes);
 		
 	}
 
