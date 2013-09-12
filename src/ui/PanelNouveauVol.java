@@ -97,21 +97,8 @@ public class PanelNouveauVol extends JPanel {
 		add(comboBoxVilleDeDepart, gbc_comboBoxVilleDeDepart);
 		
 		// Les données dans la combobox vont provenir des données en base.
-		// On récupère la liste des objets Aeroport :
-		List<Aeroport> aeroports = dao.getAllAeroports();
-		
-		// On initialise un tableau de chaînes de caractères de la taille
-		// de la liste, on y placera les villes.
-		String[]villes = new String[aeroports.size()];
-		
-		// On parcourt la liste :
-		for(int i = 0 ; i < aeroports.size(); i++){
-			String ville = aeroports.get(i).getVille(); // on récupère la ville
-			// On ajoute la ville dans le tableau :
-			villes[i] = ville;
-		}
-		
-		Arrays.sort(villes); // pour trier les villes par ordre alphabétique
+		// On récupère les villes proposées par la compagnie
+		String[]villes = getVillesProposees();
 		
 		// on donne le tableau de villes au model :
 		DefaultComboBoxModel<String>modelDepart = new DefaultComboBoxModel<>(villes);
@@ -258,7 +245,7 @@ public class PanelNouveauVol extends JPanel {
 				// un tarif à zéro pour les événements particuliers).
 				String regexTarif = "^[0-9]+\\.[0-9]{2}$";
 				
-				if(!villePrevue(villeDepart) || !villePrevue(villeArrivee) ||
+				if(!isVillePrevue(villeDepart) || !isVillePrevue(villeArrivee) ||
 						villeDepart.equals(villeArrivee)){
 					// si l'une des villes n'est pas ok, ou que les villes de
 					// départ et d'arrivée sont similaires :
@@ -455,29 +442,40 @@ public class PanelNouveauVol extends JPanel {
 		}
 	}
 	
-	// utilisée pour vérifier si les villes de départ et d'arrivée
-	// correspondent à celles prévues par la compagnie.
-	private boolean villePrevue(String ville){
-		// On récupère les aéroports enregistrés
-		List<Aeroport> aeroportsEnregistres = new ArrayList<>();
+	// renvoie les villes proposées par la compagnie sous forme
+	// d'un tableau de chaînes de caractères trié par ordre alphabétique
+	private String[] getVillesProposees() throws SQLException{
+		// On récupère la liste des objets Aeroport :
+		List<Aeroport> aeroports = dao.getAllAeroports();
 		
-		try {
-			aeroportsEnregistres = dao.getAllAeroports();
-		} catch (SQLException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
 		// On initialise un tableau de chaînes de caractères de la taille
-		// de la liste pour y placer les villes de départ / arrivée prévues
-		// par la compagnie.
-		String[]villesPrevues = new String[aeroportsEnregistres.size()];
+		// de la liste, on y placera les villes.
+		String[]villes = new String[aeroports.size()];
 		
 		// On parcourt la liste :
-		for(int i = 0 ; i < aeroportsEnregistres.size(); i++){
-			String villePrevue = aeroportsEnregistres.get(i).getVille(); // on récupère la ville
+		for(int i = 0 ; i < aeroports.size(); i++){
+			String ville = aeroports.get(i).getVille(); // on récupère la ville
 			// On ajoute la ville dans le tableau :
-			villesPrevues[i] = villePrevue;
+			villes[i] = ville;
 		}
+		
+		Arrays.sort(villes); // pour trier les villes par ordre alphabétique
+		
+		return villes;
+	}
+	
+	// utilisée pour vérifier si les villes de départ et d'arrivée
+	// correspondent à celles prévues par la compagnie.
+	private boolean isVillePrevue(String ville){
+		// On récupère les villes proposées par la compagnie
+		String[] villesPrevues = null;
+		try {
+			villesPrevues = getVillesProposees();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 		// On initialise 1 booléen à false :
 		boolean villePresente = false;
 		
