@@ -6,20 +6,15 @@ import java.awt.GridBagLayout;
 
 import javax.swing.JLabel;
 
-import java.awt.BorderLayout;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
 
-import javax.swing.JComboBox;
 import javax.swing.JTextField;
-import javax.swing.JButton;
 import javax.swing.SwingUtilities;
 
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 
 import javax.swing.JPasswordField;
 import java.awt.Color;
