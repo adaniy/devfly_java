@@ -97,7 +97,7 @@ public class PanelNouveauVol extends JPanel {
 		// On récupère la liste des objets Aeroport :
 		List<Aeroport> aeroports = dao.getAllAeroports();
 		
-		// On initialise un tableau de chaîne de caractères de la taille
+		// On initialise un tableau de chaînes de caractères de la taille
 		// de la liste, on y placera les villes.
 		String[]villes = new String[aeroports.size()];
 		
@@ -245,58 +245,19 @@ public class PanelNouveauVol extends JPanel {
 				// On vérifie la validité des informations saisies,
 				// on affiche un message si la saisie est incorrecte.
 				
-				// On regarde si les villes de départ et d'arrivée correspondent
-				// à celles prévues par la compagnie.
-				
-				// On récupère les aéroports enregistrés
-				List<Aeroport> aeroportsEnregistres = new ArrayList<>();
-				
-				try {
-					aeroportsEnregistres = dao.getAllAeroports();
-				} catch (SQLException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
-				// On initialise un tableau de chaîne de caractères de la taille
-				// de la liste pour y placer les villes de départ / arrivée prévues
-				// par la compagnie.
-				String[]villesPrevues = new String[aeroportsEnregistres.size()];
-				
-				// On parcourt la liste :
-				for(int i = 0 ; i < aeroportsEnregistres.size(); i++){
-					String villePrevue = aeroportsEnregistres.get(i).getVille(); // on récupère la ville
-					// On ajoute la ville dans le tableau :
-					villesPrevues[i] = villePrevue;
-				}
-				// On initialise 2 booléens à false :
-				boolean villeDepartPresente = false;
-				boolean villeArriveePresente = false;
-				
-				// On vérifie si les villes sélectionnées sont ok :
-				for(String v : villesPrevues){
-					if(v.equals(villeDepart)){
-						villeDepartPresente = true;
-					}
-					if(v.equals(villeArrivee)){
-						villeArriveePresente = true;
-					}
-				}
-				
-				// Les formats voulus pour la date et l'heure :
+				// On définit les formats voulus pour la date et l'heure :
 				String regexDate = "^(0[1-9]|1[0-9]|2[0-9]|30|31)/(0[1-9]|1[0-2])/[0-9]{4}";
 				String regexHeure = "^([0-1][0-9]|2[0-3]):[0-5][0-9]$";
 				
-				// Une fois qu'on a tous les éléments, on peut faire les vérifications :
-				
-				// Si l'une des villes n'est pas ok, ou que les villes de
-				// départ et d'arrivée sont similaires :
-				if(!villeDepartPresente || !villeArriveePresente ||
+				if(!villePrevue(villeDepart) || !villePrevue(villeArrivee) ||
 						villeDepart.equals(villeArrivee)){
+					// Si l'une des villes n'est pas ok, ou que les villes de
+					// départ et d'arrivée sont similaires :
 					getLabelMessage().setText("Le trajet indiqué n'est pas correct !");
 				}else if(!dateDepart.matches(regexDate)){
 					// si la date n'est pas au bon format :
 					getLabelMessage().setText("Vérifiez le format de la date svp !");
-				}else if(!dateFuture(dateDepart)){
+				}else if(!futureDate(dateDepart)){
 					// On ne passe ici que si la date a un format valide !
 					getLabelMessage().setText("La date ne peut être antérieure à demain !");
 				}else if(!heureDepart.matches(regexHeure)){
@@ -369,15 +330,13 @@ public class PanelNouveauVol extends JPanel {
 		this.comboBoxVilleDarrivee = comboBoxVilleDarrivee;
 	}
 	
-	// on n'utilise cette méthode que dans ce panel
 	// Prend en paramètre une date sous forme de chaîne de caractères jj/mm/aaaa
 	// Renvoie vrai si la date indiquée est dans le futur
-	private boolean dateFuture(String laDate){
+	private boolean futureDate(String laDate){ // on n'utilise cette méthode que dans ce panel
 		// On crée une date à partir de la chaîne récupérée :
 		Date laDateFormatee = null;
 		try {
-			laDateFormatee = new SimpleDateFormat("dd/MM/yyyy")
-				.parse(laDate);
+			laDateFormatee = new SimpleDateFormat("dd/MM/yyyy").parse(laDate);
 		} catch (ParseException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
@@ -396,6 +355,39 @@ public class PanelNouveauVol extends JPanel {
 		}
 	}
 	
-	// TODO déplacer les autres méthodes ici
+	// utilisée pour vérifier si les villes de départ et d'arrivée
+	// correspondent à celles prévues par la compagnie.
+	private boolean villePrevue(String ville){
+		// On récupère les aéroports enregistrés
+		List<Aeroport> aeroportsEnregistres = new ArrayList<>();
+		
+		try {
+			aeroportsEnregistres = dao.getAllAeroports();
+		} catch (SQLException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		// On initialise un tableau de chaînes de caractères de la taille
+		// de la liste pour y placer les villes de départ / arrivée prévues
+		// par la compagnie.
+		String[]villesPrevues = new String[aeroportsEnregistres.size()];
+		
+		// On parcourt la liste :
+		for(int i = 0 ; i < aeroportsEnregistres.size(); i++){
+			String villePrevue = aeroportsEnregistres.get(i).getVille(); // on récupère la ville
+			// On ajoute la ville dans le tableau :
+			villesPrevues[i] = villePrevue;
+		}
+		// On initialise 1 booléen à false :
+		boolean villePresente = false;
+		
+		// On vérifie si la ville sélectionnée est présente dans le tableau :
+		for(String v : villesPrevues){
+			if(v.equals(ville)){
+				villePresente = true;
+			}
+		}
+		return villePresente;
+	}
 
 }

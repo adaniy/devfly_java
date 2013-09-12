@@ -1,5 +1,4 @@
 -en cours : PanelNouveauVol -> faire les vérifs + intégrer l'ajout d'un vol
-Reprendre aux tests sur la date
 
 BDD : prévenir changements + changer sur le serveur
 
