@@ -39,8 +39,9 @@ public class TestMysqlDao {
 		Aeroport aeroportTest = new Aeroport("SXB", "Strasbourg", "France");
 		int result = dao.addNewAeroport(aeroportTest);
 		Assert.assertEquals(1, result); // une seule ligne doit être impactée
-		//Aeroport a = dao.getAeroportById(41);
-		//Assert.assertEquals(aeroportTest, a);
+		// à réajuster à chaque test :
+		Aeroport a = dao.getAeroportByVille("Strasbourg");
+		Assert.assertEquals(aeroportTest.getCodeAeroport(), a.getCodeAeroport());
 	}
 	
 	@Test
@@ -91,6 +92,14 @@ public class TestMysqlDao {
 		int result = dao.addNewVol(volTest);
 		Assert.assertEquals(1, result); // une seule ligne doit être impactée
 		//Vol v = dao.getVolById(5);
-		//Assert.assertEquals(volTest, v);
+		//Assert.assertEquals(volTest.getId(), v.getId());
+	}
+	
+	@Test
+	public void getAeroportByVille() throws SQLException{
+		MysqlDao dao = new MysqlDao();
+		Aeroport aeroportRecupere = dao.getAeroportByVille("Berne");
+		Aeroport aeroportTest = new Aeroport("BRN", "Berne", "Suissse");
+		Assert.assertEquals(aeroportRecupere.getCodeAeroport(), aeroportTest.getCodeAeroport());
 	}
 }

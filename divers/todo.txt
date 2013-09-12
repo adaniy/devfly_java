@@ -9,6 +9,7 @@ BDD : prévenir changements + changer sur le serveur
 -DSPP
 -notes papier
 -commentaire "final"
+-voir Add @SuppressWarnings
 
 -commentaires
 -vérifier les imports

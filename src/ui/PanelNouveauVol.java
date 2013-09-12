@@ -275,8 +275,10 @@ public class PanelNouveauVol extends JPanel {
 					getLabelMessage().setText("Vérifiez le format du tarif (ex : 230,00)");
 				}//else{
 //					// si on arrive ici, tout est ok, on insère le vol en base
-//					Aeroport aeroportTest1 = new Aeroport("CMN", "Casablanca", "Maroc");
-//					Aeroport aeroportTest2 = new Aeroport("HNL", "Honolulu", "États-Unis");
+//					
+//					// on sait que la ville passée en paramètre est bien correcte
+//					Aeroport aeroportDepart = dao.getAeroportByVille(villeDepart);
+//					Aeroport aeroportArrivee = dao.getAeroportByVille(villeArrivee);
 //					
 //					Date dateDeDepart = new SimpleDateFormat("dd/MM/yyyy").parse(dateDepart);
 //					// TODO corriger
@@ -286,7 +288,7 @@ public class PanelNouveauVol extends JPanel {
 //							
 //					float tarifFloat = 
 //					
-//					Vol volTest = new Vol(aeroportTest1, aeroportTest2, dateDeDepart, dateDArrivee, duree, tarif);
+//					Vol volTest = new Vol(aeroportDepart, aeroportArrivee, dateDeDepart, dateDArrivee, duree, tarif);
 //					dao.addNewVol(volTest);
 //				}
 			}

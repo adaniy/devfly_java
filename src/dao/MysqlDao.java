@@ -21,8 +21,7 @@ public class MysqlDao {
 	public List<Vol> getAllVolsProgrammes() throws SQLException {
 		List<Vol> vols = new ArrayList<>();
 		// on se connecte à la BDD
-		Connection connection = DriverManager.getConnection(datasource, user,
-				password);
+		Connection connection = DriverManager.getConnection(datasource, user, password);
 		// on crée et exécute une requête préparée pour récupérer les informations
 		// sur le vol et ses employés
 		String sql1 = "SELECT V.numvol, V.lieudep, V.lieuarriv, V.dateheuredep,"
@@ -97,8 +96,7 @@ public class MysqlDao {
 		public List<Vol> getAllVolsEnAttente() throws SQLException {
 			List<Vol> vols = new ArrayList<>();
 			// on se connecte à la BDD
-			Connection connection = DriverManager.getConnection(datasource, user,
-					password);
+			Connection connection = DriverManager.getConnection(datasource, user, password);
 			// on crée et exécute une requête préparée pour récupérer les informations
 			// sur le vol
 			String sql1 = "SELECT * FROM vol_tmp";
@@ -173,8 +171,7 @@ public class MysqlDao {
 	public List<Aeroport> getAllAeroports() throws SQLException {
 		List<Aeroport> aeroports = new ArrayList<>();
 		// on se connecte à la BDD
-		Connection connection = DriverManager.getConnection(datasource, user,
-				password);
+		Connection connection = DriverManager.getConnection(datasource, user, password);
 		// on crée et exécute une requête préparée
 		String sql = "SELECT * FROM destination";
 		PreparedStatement stmt = connection.prepareStatement(sql);
@@ -196,8 +193,7 @@ public class MysqlDao {
 	// ajoute un nouvel aéroport en base
 	public int addNewAeroport(Aeroport a) throws SQLException{
 		// on se connecte à la BDD
-		Connection connection = DriverManager.getConnection(datasource, user,
-				password);
+		Connection connection = DriverManager.getConnection(datasource, user, password);
 		// on regarde si le code aéroport existe déjà en base, avec une requête préparée
 		String sql1 = "SELECT * from destination WHERE codeaeroport = ?";
 		PreparedStatement stmt1 = connection.prepareStatement(sql1);
@@ -211,7 +207,6 @@ public class MysqlDao {
 				return 2;
 			}
 		}
-		
 		// s'il n'existe pas déjà, on crée et exécute une requête
 		// préparée pour insérer l'aéroport
 		String sql2 = "INSERT INTO destination values(?, ?, ?)";
@@ -227,8 +222,7 @@ public class MysqlDao {
 	// ajoute un nouveau vol en base (table vol_tmp)
 	public int addNewVol(Vol v) throws SQLException{
 		// on se connecte à la BDD
-		Connection connection = DriverManager.getConnection(datasource, user,
-				password);
+		Connection connection = DriverManager.getConnection(datasource, user, password);
 		// on crée et exécute une requête préparée pour insérer le vol
 		// TODO : voir cmt rentrer uniquement les 6 premières valeurs (fait planter le test !)
 		String sql = "INSERT INTO vol_tmp VALUES(?, ?, ?, ?, ?, ?, '', '', '', '', '')";
@@ -269,5 +263,23 @@ public class MysqlDao {
 		int result = stmt.executeUpdate(); // renvoie le nb d'enregistrements impactés
 		connection.close();
 		return result; // doit renvoyer "1"
+	}
+	
+	// renvoie un objet Aeroport correspondant à la ville en paramètre
+	public Aeroport getAeroportByVille(String ville) throws SQLException{
+		// on se connecte à la BDD
+		Connection connection = DriverManager.getConnection(datasource, user, password);
+		// on crée et exécute une requête préparée
+		String sql = "SELECT * FROM destination WHERE ville = ?";
+		PreparedStatement stmt = connection.prepareStatement(sql);
+		// on valorise le paramètre
+		stmt.setString(1, ville);
+		ResultSet result = stmt.executeQuery();
+		// On récupère le résultat de la requête
+		result.next();
+		String code = result.getString("codeaeroport");
+		String pays = result.getString("pays");
+		// on crée un objet Aeroport avec les éléments récupérés :
+		return new Aeroport(code, ville, pays);
 	}
 }
