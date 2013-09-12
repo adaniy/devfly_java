@@ -5,6 +5,7 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -258,6 +259,11 @@ public class MysqlDao {
 		// on transforme la date util en date SQL. Pour cela, on utilise le timestamp des dates.
 		stmt.setDate(4, new java.sql.Date(v.getDateHeureDepart().getTime()));
 		stmt.setDate(5, new java.sql.Date(v.getDateHeureArrivee().getTime()));
+		
+//		Timestamp DateHeureDepartTimeStamp = new java.sql.Timestamp(v.getDateHeureDepart().getTime());
+//		stmt.setDate(4, new java.sql.Date(DateHeureDepartTimeStamp.getTime()));
+//		System.out.println(new java.sql.Date(DateHeureDepartTimeStamp.getTime()));
+		
 		stmt.setFloat(6, v.getTarif());
 		
 		int result = stmt.executeUpdate(); // renvoie le nb d'enregistrements impactés

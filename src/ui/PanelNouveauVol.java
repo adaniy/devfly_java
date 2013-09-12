@@ -195,7 +195,7 @@ public class PanelNouveauVol extends JPanel {
 		add(textFieldDureeDuVol, gbc_textFieldDureeDuVol);
 		textFieldDureeDuVol.setColumns(10);
 		
-		JLabel lblTarif = new JLabel("Tarif en euros au format __.xx");
+		JLabel lblTarif = new JLabel("Tarif en euros au format __,xx");
 		GridBagConstraints gbc_lblTarif = new GridBagConstraints();
 		gbc_lblTarif.anchor = GridBagConstraints.EAST;
 		gbc_lblTarif.insets = new Insets(0, 0, 5, 5);
@@ -239,7 +239,9 @@ public class PanelNouveauVol extends JPanel {
 				String dateDepart = getTextFieldDateDeDepart().getText();
 				String heureDepart = getTextFieldHeureDeDepart().getText();
 				String duree = getTextFieldDureeDuVol().getText();
-				String tarif = getTextFieldTarif().getText();
+				String tarifRecupere = getTextFieldTarif().getText();
+				// On remplace l'éventuelle virgule saisie par un point (sera nécessaire pour convertir en float)
+				String tarif = tarifRecupere.replace(",", ".");
 				
 				// TODO : à optimiser ?
 				// On vérifie la validité des informations saisies,
@@ -251,11 +253,11 @@ public class PanelNouveauVol extends JPanel {
 				String regexDuree = "^[1-9][0-9]+$"; // la durée du vol ne peut pas être inférieure à 10 min
 				// Le tarif est un nombre décimal (rq : on laisse la possibilité à la compagnie d'indiquer
 				// un tarif à zéro pour les événements particuliers).
-				String regexTarif = "^[0-9]+.[0-9]{2}$";
+				String regexTarif = "^[0-9]+\\.[0-9]{2}$";
 				
 				if(!villePrevue(villeDepart) || !villePrevue(villeArrivee) ||
 						villeDepart.equals(villeArrivee)){
-					// Si l'une des villes n'est pas ok, ou que les villes de
+					// si l'une des villes n'est pas ok, ou que les villes de
 					// départ et d'arrivée sont similaires :
 					getLabelMessage().setText("Le trajet indiqué n'est pas correct !");
 				}else if(!dateDepart.matches(regexDate)){
@@ -272,7 +274,7 @@ public class PanelNouveauVol extends JPanel {
 					getLabelMessage().setText("Vérifiez la durée du vol svp !");
 				}else if(!tarif.matches(regexTarif)){
 					// si le tarif n'est pas au bon format :
-					getLabelMessage().setText("Vérifiez le format du tarif (ex : 230.00)");
+					getLabelMessage().setText("Vérifiez le format du tarif (ex : 230,00)");
 				}else{
 					// si on arrive ici, tout est ok, on insère le vol en base
 					
@@ -288,20 +290,22 @@ public class PanelNouveauVol extends JPanel {
 						e2.printStackTrace();
 					}					
 					
-					// On tranforme les dates de String en Date
+					// On concatène la date et l'heure
+					String dateHeureDepart = dateDepart + " " + heureDepart;
+					
+					// On tranforme la dates de String en Date
 					Date dateDeDepart = null;
 					Date dateDArrivee = null;
 					try {
-						dateDeDepart = new SimpleDateFormat("dd/MM/yyyy").parse(dateDepart);
+						dateDeDepart = new SimpleDateFormat("dd/MM/yyyy HH:mm").parse(dateHeureDepart);
 						// TODO corriger la date d'arrivée
 						// TODO indiquer l'heure de départ + d'arrivée
-						// TODO corriger la vérification de la saisie du tarif
 						// TODO corriger la prise en compte de la durée
-						dateDArrivee = new SimpleDateFormat("dd/MM/yyyy").parse(dateDepart);
+						dateDArrivee = new SimpleDateFormat("dd/MM/yyyy HH:mm").parse(dateHeureDepart);
 					} catch (ParseException e2) {
 						// TODO Auto-generated catch block
 						e2.printStackTrace();
-					}					
+					}
 					
 					// On transforme la durée récupérée en int
 					int dureeInt = Integer.parseInt(duree);
@@ -318,6 +322,14 @@ public class PanelNouveauVol extends JPanel {
 						// TODO Auto-generated catch block
 						e1.printStackTrace();
 					}
+					
+					// On réinitialise ensuite les champs et les combobox.
+					getComboBoxVilleDeDepart().setSelectedIndex(0);
+					getComboBoxVilleDarrivee().setSelectedIndex(0);
+					getTextFieldDateDeDepart().setText("");
+					getTextFieldHeureDeDepart().setText("");
+					getTextFieldDureeDuVol().setText("");
+					getTextFieldTarif().setText("");
 				}
 			}
 		});
