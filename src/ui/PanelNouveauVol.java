@@ -14,6 +14,7 @@ import javax.swing.JComboBox;
 import javax.swing.JTextField;
 
 import model.Aeroport;
+import model.Vol;
 import dao.MysqlDao;
 
 import java.awt.Font;
@@ -194,7 +195,7 @@ public class PanelNouveauVol extends JPanel {
 		add(textFieldDureeDuVol, gbc_textFieldDureeDuVol);
 		textFieldDureeDuVol.setColumns(10);
 		
-		JLabel lblTarif = new JLabel("Tarif en euros");
+		JLabel lblTarif = new JLabel("Tarif en euros au format __,xx");
 		GridBagConstraints gbc_lblTarif = new GridBagConstraints();
 		gbc_lblTarif.anchor = GridBagConstraints.EAST;
 		gbc_lblTarif.insets = new Insets(0, 0, 5, 5);
@@ -248,9 +249,9 @@ public class PanelNouveauVol extends JPanel {
 				String regexDate = "^(0[1-9]|1[0-9]|2[0-9]|30|31)/(0[1-9]|1[0-2])/[0-9]{4}";
 				String regexHeure = "^([0-1][0-9]|2[0-3]):[0-5][0-9]$";
 				String regexDuree = "^[1-9][0-9]+$"; // la durée du vol ne peut pas être inférieure à 10 min
-				// Le tarif est un entier (rq : on laisse la possibilité à la compagnie d'indiquer un tarif à zéro
-				// pour les événements particuliers).
-				String regexTarif = "^[0-9]+$";
+				// Le tarif est un nombre décimal (rq : on laisse la possibilité à la compagnie d'indiquer
+				// un tarif à zéro pour les événements particuliers).
+				String regexTarif = "^[0-9]+,[0-9]{2}$";
 				
 				if(!villePrevue(villeDepart) || !villePrevue(villeArrivee) ||
 						villeDepart.equals(villeArrivee)){
@@ -271,8 +272,23 @@ public class PanelNouveauVol extends JPanel {
 					getLabelMessage().setText("Vérifiez la durée du vol svp !");
 				}else if(!tarif.matches(regexTarif)){
 					// si le tarif n'est pas au bon format :
-					getLabelMessage().setText("Vérifiez le tarif indiqué svp !");
-				}
+					getLabelMessage().setText("Vérifiez le format du tarif (ex : 230,00)");
+				}//else{
+//					// si on arrive ici, tout est ok, on insère le vol en base
+//					Aeroport aeroportTest1 = new Aeroport("CMN", "Casablanca", "Maroc");
+//					Aeroport aeroportTest2 = new Aeroport("HNL", "Honolulu", "États-Unis");
+//					
+//					Date dateDeDepart = new SimpleDateFormat("dd/MM/yyyy").parse(dateDepart);
+//					// TODO corriger
+//					Date dateDArrivee = new SimpleDateFormat("dd/MM/yyyy").parse(dateDepart);
+//					
+//					int dureeInt =
+//							
+//					float tarifFloat = 
+//					
+//					Vol volTest = new Vol(aeroportTest1, aeroportTest2, dateDeDepart, dateDArrivee, duree, tarif);
+//					dao.addNewVol(volTest);
+//				}
 			}
 		});
 		GridBagConstraints gbc_panelValiderAnnuler = new GridBagConstraints();
