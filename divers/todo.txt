@@ -1,4 +1,5 @@
--en cours : PanelNouveauVol -> intégrer l'ajout d'un vol
+-PanelNouveauVol -> gérer la date d'arrivée qui n'est pas correcte
+-VolsenAttente + VolsProgrammes + Aeroport : recharger les vues !
 -vérifier l'affichage des formulaires depuis Linux
 
 BDD : prévenir changements + changer sur le serveur

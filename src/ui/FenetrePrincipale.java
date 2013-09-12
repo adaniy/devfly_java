@@ -111,7 +111,7 @@ public class FenetrePrincipale extends JFrame {
 		return panelNouveauVol;
 	}
 
-	public PanelNouvelAeroport getPanelNouvelleDestination() {
+	public PanelNouvelAeroport getPanelNouvelAeroport() {
 		return panelNouvelAeroport;
 	}
 
@@ -119,7 +119,7 @@ public class FenetrePrincipale extends JFrame {
 		return panelValiderAnnuler;
 	}
 	
-	public PanelAeroports getPanelDestinations() {
+	public PanelAeroports getPanelAeroports() {
 		return panelAeroports;
 	}
 
@@ -130,8 +130,8 @@ public class FenetrePrincipale extends JFrame {
 		getPanelBienvenue().setVisible(false);
 		getPanelBoutons().setVisible(false);
 		getPanelNouveauVol().setVisible(false);
-		getPanelNouvelleDestination().setVisible(false);
-		getPanelDestinations().setVisible(false);
+		getPanelNouvelAeroport().setVisible(false);
+		getPanelAeroports().setVisible(false);
 		getPanelValiderAnnuler().setVisible(false);
 		getPanelVolsProgrammes().setVisible(false);
 		getPanelVolsEnAttente().setVisible(false);
@@ -189,12 +189,12 @@ public class FenetrePrincipale extends JFrame {
 		hideElements();
 		// on ajoute le panel de création d'un aéroport + les boutons
 		getContentPane().add(getPanelBoutons(), BorderLayout.NORTH);
-		getContentPane().add(getPanelNouvelleDestination(), BorderLayout.CENTER);
+		getContentPane().add(getPanelNouvelAeroport(), BorderLayout.CENTER);
 
 		// on rend visible les éléments ajoutés
 		// et on fait un repaint pour avoir le nouvel affichage
 		getPanelBoutons().setVisible(true);
-		getPanelNouvelleDestination().setVisible(true);
+		getPanelNouvelAeroport().setVisible(true);
 		getContentPane().repaint();
 	}
 	
@@ -203,12 +203,12 @@ public class FenetrePrincipale extends JFrame {
 		hideElements();
 		// on ajoute le panel des aéroports + les boutons
 		getContentPane().add(getPanelBoutons(), BorderLayout.NORTH);
-		getContentPane().add(getPanelDestinations(), BorderLayout.CENTER);
+		getContentPane().add(getPanelAeroports(), BorderLayout.CENTER);
 
 		// on rend visible les éléments ajoutés
 		// et on fait un repaint pour avoir le nouvel affichage
 		getPanelBoutons().setVisible(true);
-		getPanelDestinations().setVisible(true);
+		getPanelAeroports().setVisible(true);
 		getContentPane().repaint();
 	}
 

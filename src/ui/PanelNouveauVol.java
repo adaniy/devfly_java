@@ -22,6 +22,7 @@ import java.awt.Color;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -290,17 +291,14 @@ public class PanelNouveauVol extends JPanel {
 						e2.printStackTrace();
 					}					
 					
-					// On concatène la date et l'heure
+					// On concatène la date et l'heure de départ
 					String dateHeureDepart = dateDepart + " " + heureDepart;
 					
-					// On tranforme la dates de String en Date
+					// On tranforme le résultat de String en Date
 					Date dateDeDepart = null;
-					Date dateDArrivee = null;
 					try {
 						dateDeDepart = new SimpleDateFormat("dd/MM/yyyy HH:mm").parse(dateHeureDepart);
 						// TODO corriger la date d'arrivée (+ heure)
-						// TODO corriger la prise en compte de la durée
-						dateDArrivee = new SimpleDateFormat("dd/MM/yyyy HH:mm").parse(dateHeureDepart);
 					} catch (ParseException e2) {
 						// TODO Auto-generated catch block
 						e2.printStackTrace();
@@ -308,6 +306,17 @@ public class PanelNouveauVol extends JPanel {
 					
 					// On transforme la durée récupérée en int
 					int dureeInt = Integer.parseInt(duree);
+					
+					// pour calculer la date d'arrivée, on convertit la date de départ en timestamp
+					// et la durée en millisecondes, et on les additionne
+					long departMillisecondes = dateDeDepart.getTime();
+					long dureeMillisecondes = dureeInt * 1000;
+					
+					long arriveeMillisecondes = departMillisecondes + dureeMillisecondes;
+					//long arriveeSecondes = arriveeMillisecondes / 1000;
+					// On convertit le TimeStamp obtenu en date util :
+					//Date dateDArrivee = new Date(arriveeMillisecondes); // ou * 1000
+					Timestamp dateDArrivee = new Timestamp(arriveeMillisecondes); // semble être en heure ?
 					
 					// On transforme le tarif récupéré en float
 					float tarifFloat = Float.parseFloat(tarif);
