@@ -47,7 +47,7 @@ public class FenetrePrincipale extends JFrame {
 	 * Create the frame.
 	 * @throws SQLException 
 	 */
-	public FenetrePrincipale() throws SQLException { // throws SQLException pour le panelDestination notamment
+	public FenetrePrincipale() throws SQLException {
 		// la fenêtre n'est pas redimensionnable
 		setResizable(false);
 		// on fixe sa position et sa taille :

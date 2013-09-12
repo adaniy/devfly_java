@@ -1,5 +1,5 @@
 -PanelNouveauVol -> gérer la date d'arrivée qui n'est pas correcte
--vérifier l'affichage des formulaires depuis Linux
+-vérifier affichage ok depuis Windows
 
 BDD : prévenir changements + changer sur le serveur
 
@@ -11,7 +11,7 @@ BDD : prévenir changements + changer sur le serveur
 -notes papier
 -commentaire "final"
 -voir les try/catch
--voir Add @SuppressWarnings
+-voir Add @SuppressWarnings ("permet de signaler au compilateur que l'on a conscience de réaliser une opération risquée, et qu'il peut donc arrêter de signaler un éventuel problème")
 
 -commentaires
 -vérifier les imports

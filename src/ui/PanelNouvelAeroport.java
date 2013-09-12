@@ -176,7 +176,7 @@ public class PanelNouvelAeroport extends JPanel {
 				String regexLettres = "^[A-Z]+$";
 				
 				// On vérifie que les 3 champs ne sont pas vides,
-				// qu'ils contiennent des lettres,
+				// qu'ils contiennent des lettres (accentuées ou non) ou tirets,
 				// et que le code aéroport est composé de 3 lettres
 				// (on utilise les regex).
 				if(codeAita.length() == 3 && ville.length()!=0 && pays.length()!=0
