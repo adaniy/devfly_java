@@ -49,14 +49,10 @@ public class PanelAeroports extends JPanel {
 		
 		// On récupère les aéroports :
 		List<Aeroport> aeroports = dao.getAllAeroports();
-		// Les en-têtes :
-		String[]headers = {"code AITA", "ville", "pays"};
 		
-		// Le contenu (on utilise la méthode statique définie dans la classe Aeroport)
-		TableModel model = Aeroport.createTableModelAeroports(headers, aeroports);
-		
-		// On donne le model à la table :
-		tableAeroports.setModel(model);
+		// On crée le model avec les bonnes données et on le donne à la JTable
+		// On utilise pour cela la méthode statique définie dans Aeroport
+		Aeroport.TableCreation(aeroports, tableAeroports);
 		
 		// Label qui pourra contenir les différents messages à afficher :
 		labelMessage = new JLabel("");

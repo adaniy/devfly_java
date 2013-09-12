@@ -2,6 +2,7 @@ package model;
 
 import java.util.List;
 
+import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 
@@ -78,5 +79,19 @@ public class Aeroport {
 			}
 		};
 		return myModel;
+	}
+	
+	// TODO : voir si bien placé ?
+	// prend en paramètre une liste d'aéroports et une JTable
+	// crée le model avec les bonnes données et le donne à la JTable
+	public static void TableCreation(List<Aeroport> listeAeroports, JTable maJTable){
+		// Les en-têtes :
+		String[]headers = {"code AITA", "ville", "pays"};
+		
+		// Le model avec les bonnes données (on utilise la méthode statique définie dans la classe Aeroport)
+		TableModel model = Aeroport.createTableModelAeroports(headers, listeAeroports);
+		
+		// On donne le model à la table :
+		maJTable.setModel(model);
 	}
 }

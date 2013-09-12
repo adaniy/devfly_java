@@ -231,7 +231,7 @@ public class Vol {
 				"ville arrivée", "pays arr.", "code arr.", "date/heure départ",
 				"date/heure arrivée", "durée (mn)", "tarif (€)", "pilote", "copilote", "Hôtesse/St1", "Hôtesse/St2", "Hôtesse/St3", "n°"};
 		
-		// Le contenu (on utilise la méthode statique définie dans la classe Vol)
+		// Le model avec les bonnes données (on utilise la méthode statique définie dans la classe Vol)
 		TableModel model = createTableModelVols(headers, listeVols);
 				
 		// On donne le model à la table :

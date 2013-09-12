@@ -50,7 +50,7 @@ public class PanelVolsProgrammes extends JPanel {
 		List<Vol> volsProgrammes = dao.getAllVolsProgrammes();
 		
 		// On crée le model avec les bonnes données et on le donne à la JTable
-		// On utilise la méthode statique définie dans Vol
+		// On utilise pour cela la méthode statique définie dans Vol
 		Vol.TableCreation(volsProgrammes, tableVolsProgrammes);
 		
 		// Label qui pourra contenir les différents messages à afficher :

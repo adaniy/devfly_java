@@ -1,6 +1,7 @@
 package ui;
 
 import javax.swing.JPanel;
+import javax.swing.JTable;
 import javax.swing.SwingUtilities;
 
 import java.awt.GridBagLayout;
@@ -200,16 +201,16 @@ public class PanelNouvelAeroport extends JPanel {
 							
 							// on va recharger la liste des aéroports pour que le nouvel aéroport apparaisse
 							
-							// On récupère les aéroports, et on crée le model
+							// On récupère les aéroports
 							List<Aeroport> aeroports = dao.getAllAeroports();
-							String[]headers = {"code AITA", "ville", "pays"};
-							TableModel model = Aeroport.createTableModelAeroports(headers, aeroports);
-							
 							// on récupère la frame principale
 							FenetrePrincipale frame = (FenetrePrincipale) SwingUtilities.getRoot(PanelNouvelAeroport.this);
+							// on récupère la JTable
+							JTable table = frame.getPanelAeroports().getTableAeroports();
 							
-							// On donne le model à la table :
-							frame.getPanelAeroports().getTableAeroports().setModel(model);
+							// On crée le model avec les bonnes données et on le donne à la JTable
+							// On utilise pour cela la méthode statique définie dans Aeroport
+							Aeroport.TableCreation(aeroports, table);
 							
 						}else if(retour == 2){
 							getLabelMessage().setText("Le code aéroport " + codeAita + " existe déjà.");
