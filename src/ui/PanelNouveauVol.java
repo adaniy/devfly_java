@@ -293,28 +293,16 @@ public class PanelNouveauVol extends JPanel {
 				if(!villeDepartPresente || !villeArriveePresente ||
 						villeDepart.equals(villeArrivee)){
 					getLabelMessage().setText("Le trajet indiqué n'est pas correct !");
-				}else if(!dateDepart.matches(regexDate) || !heureDepart.matches(regexHeure)){
-					// si la date et/ou l'heure ne sont pas au bon format :
-					getLabelMessage().setText("<html><p>Les dates et heures saisies<br>"
-							+ "doivent être au format indiqué.</p></html>");
-				}//elseif(..){
-//					// On ne passe ici que si la date a un format valide !
-//					getLabelMessage().setText("<html><p>Vous ne pouvez pas enregistrer<br>"
-//							+ "un vol antérieur à demain."</p></html>);
-//				}
-				
-				// TODO tests à compléter
-				// On crée une date à partir de la chaîne récupérée :
-//				Date dateDepartFormatee = null;
-//				try {
-//					dateDepartFormatee = new SimpleDateFormat("dd/MM/yyyy")
-//						.parse(dateDepart);
-//				} catch (ParseException e1) {
-//					// TODO Auto-generated catch block
-//					e1.printStackTrace();
-//				}
-//				long TimeStampDateDepart = dateDepartFormatee.getTime();
-//				System.out.println(TimeStampDateDepart);
+				}else if(!dateDepart.matches(regexDate)){
+					// si la date n'est pas au bon format :
+					getLabelMessage().setText("Vérifiez le format de la date svp !");
+				}else if(!dateFuture(dateDepart)){
+					// On ne passe ici que si la date a un format valide !
+					getLabelMessage().setText("La date ne peut être antérieure à demain !");
+				}else if(!heureDepart.matches(regexHeure)){
+					// si l'heure n'est pas au bon format :
+					getLabelMessage().setText("Vérifiez le format de l'heure svp !");
+				}
 			}
 		});
 		GridBagConstraints gbc_panelValiderAnnuler = new GridBagConstraints();
@@ -380,5 +368,34 @@ public class PanelNouveauVol extends JPanel {
 	public void setComboBoxVilleDarrivee(JComboBox comboBoxVilleDarrivee) {
 		this.comboBoxVilleDarrivee = comboBoxVilleDarrivee;
 	}
+	
+	// on n'utilise cette méthode que dans ce panel
+	// Prend en paramètre une date sous forme de chaîne de caractères jj/mm/aaaa
+	// Renvoie vrai si la date indiquée est dans le futur
+	private boolean dateFuture(String laDate){
+		// On crée une date à partir de la chaîne récupérée :
+		Date laDateFormatee = null;
+		try {
+			laDateFormatee = new SimpleDateFormat("dd/MM/yyyy")
+				.parse(laDate);
+		} catch (ParseException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		// On récupère le timestamp de la date indiquée :
+		long timeStampLaDate = laDateFormatee.getTime();
+		// On récupère le timestamp actuel :
+		Date d = new Date();
+		long timeStampActuel = d.getTime();
+		
+		// On fait la différence entre les 2 timeStamp
+		if(timeStampLaDate - timeStampActuel > 0){
+			return true; // date future
+		}else{
+			return false;
+		}
+	}
+	
+	// TODO déplacer les autres méthodes ici
 
 }
