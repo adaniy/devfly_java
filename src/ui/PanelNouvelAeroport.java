@@ -1,5 +1,6 @@
 package ui;
 
+import javax.swing.JComboBox;
 import javax.swing.JPanel;
 import javax.swing.JTable;
 import javax.swing.SwingUtilities;
@@ -204,18 +205,24 @@ public class PanelNouvelAeroport extends JPanel {
 							getTextFieldVille().setText("");
 							getTextFieldPays().setText("");
 							
-							// on va recharger la liste des aéroports pour que le nouvel aéroport apparaisse
-							
+							// on va recharger la liste des aéroports pour que le nouvel aéroport apparaisse dans la section "aéroports"
 							// On récupère les aéroports
 							List<Aeroport> aeroports = dao.getAllAeroports();
 							// on récupère la frame principale
 							FenetrePrincipale frame = (FenetrePrincipale) SwingUtilities.getRoot(PanelNouvelAeroport.this);
 							// on récupère la JTable
 							JTable table = frame.getPanelAeroports().getTableAeroports();
-							
 							// On crée le model avec les bonnes données et on le donne à la JTable
 							// On utilise pour cela la méthode statique définie dans Aeroport
 							Aeroport.TableCreation(aeroports, table);
+							
+							// on va également recharger la liste des villes proposées dans le formulaire de création d'un vol
+							String[]villes = frame.getPanelNouveauVol().getVillesProposees();
+							// On insère les villes dans les comboBox
+							JComboBox comboBoxDepart = frame.getPanelNouveauVol().getComboBoxVilleDeDepart();
+							JComboBox comboBoxArrivee = frame.getPanelNouveauVol().getComboBoxVilleDarrivee();
+							frame.getPanelNouveauVol().comboBoxCreation(villes, comboBoxDepart);
+							frame.getPanelNouveauVol().comboBoxCreation(villes, comboBoxArrivee);
 							
 						}else if(retour == 2){
 							getLabelMessage().setText("Le code aéroport " + codeAita + " existe déjà.");

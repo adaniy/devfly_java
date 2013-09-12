@@ -434,7 +434,7 @@ public class PanelNouveauVol extends JPanel {
 	
 	// renvoie les villes proposées par la compagnie sous forme
 	// d'un tableau de chaînes de caractères trié par ordre alphabétique
-	private String[] getVillesProposees() throws SQLException{
+	public String[] getVillesProposees() throws SQLException{ // méthode appelée depuis ce panel directement + via le panelNouvelAeroport
 		// On récupère la liste des objets Aeroport :
 		List<Aeroport> aeroports = dao.getAllAeroports();
 		
@@ -480,7 +480,7 @@ public class PanelNouveauVol extends JPanel {
 	
 	// prend en paramètres un tableau de villes (String) et une JComboBox
 	// insère les villes dans la comboBox
-	private void comboBoxCreation(String[]villes, JComboBox maComboBox){
+	public void comboBoxCreation(String[]villes, JComboBox maComboBox){ // méthode appelée depuis ce panel directement + via le panelNouvelAeroport
 		// on donne le tableau de villes au model :
 		DefaultComboBoxModel<String>model = new DefaultComboBoxModel<>(villes);
 		// on ajoute le model à la combobox :
