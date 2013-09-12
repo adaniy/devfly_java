@@ -284,18 +284,16 @@ public class PanelNouveauVol extends JPanel {
 					}
 					
 					// On transforme la durée récupérée en int
-					int dureeInt = Integer.parseInt(duree);
+					int dureeInt = Integer.parseInt(duree); // en minutes
 					
 					// pour calculer la date d'arrivée, on convertit la date de départ en timestamp
 					// et la durée en millisecondes, et on les additionne
 					long departMillisecondes = dateDeDepart.getTime();
-					long dureeMillisecondes = dureeInt * 1000;
+					long dureeMillisecondes = dureeInt * 60_000;
 					
 					long arriveeMillisecondes = departMillisecondes + dureeMillisecondes;
-					//long arriveeSecondes = arriveeMillisecondes / 1000;
-					// On convertit le TimeStamp obtenu en date util :
-					//Date dateDArrivee = new Date(arriveeMillisecondes); // ou * 1000
-					Timestamp dateDArrivee = new Timestamp(arriveeMillisecondes); // semble être en heure ?
+					// On transforme le long obtenu en Timestamp
+					Timestamp dateDArrivee = new Timestamp(arriveeMillisecondes);
 					
 					// On transforme le tarif récupéré en float
 					float tarifFloat = Float.parseFloat(tarif);

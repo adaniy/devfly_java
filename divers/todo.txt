@@ -1,4 +1,3 @@
--PanelNouveauVol -> gérer la date d'arrivée qui n'est pas correcte
 -vérifier affichage ok depuis Windows
 
 BDD : prévenir changements + changer sur le serveur
