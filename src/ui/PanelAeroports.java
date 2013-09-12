@@ -47,6 +47,9 @@ public class PanelAeroports extends JPanel {
 		panelBoutonsAeroports = new PanelValiderAnnuler();
 		add(panelBoutonsAeroports, BorderLayout.SOUTH);
 		
+		//TODO test à effacer
+//		List<Aeroport> aeroports = null;
+		
 		// On récupère les aéroports :
 		List<Aeroport> aeroports = dao.getAllAeroports();
 		// Les en-têtes :

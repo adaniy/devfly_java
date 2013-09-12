@@ -1,6 +1,7 @@
 package ui;
 
 import javax.swing.JPanel;
+import javax.swing.SwingUtilities;
 
 import java.awt.GridBagLayout;
 
@@ -190,6 +191,21 @@ public class PanelNouvelAeroport extends JPanel {
 						// et on affiche un message en conséquence.
 						if(retour == 1){
 							getLabelMessage().setText("L'aéroport " + codeAita + " a bien été ajouté !");
+							// On vide les champs texte :
+							getTextFieldAita().setText("");
+							getTextFieldVille().setText("");
+							getTextFieldPays().setText("");
+							
+							// TODO à supprimer une fois le test terminé
+//							// on récupère la frame principale
+//							FenetrePrincipale frame = 
+//							(FenetrePrincipale) 
+//							SwingUtilities.getRoot(PanelNouvelAeroport.this);
+//							frame.getPanelAeroports().repaint();
+//							frame.getPanelAeroports().revalidate();
+//							frame.getContentPane().repaint();
+//							frame.getContentPane().revalidate();
+							
 						}else if(retour == 2){
 							getLabelMessage().setText("Le code aéroport " + codeAita + " existe déjà.");
 						}else{
@@ -201,12 +217,8 @@ public class PanelNouvelAeroport extends JPanel {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
-					// On vide les champs texte :
-					getTextFieldAita().setText("");
-					getTextFieldVille().setText("");
-					getTextFieldPays().setText("");
 				}else{
-					// si tous les champs ne sont pas remplis, on affiche un
+					// si tous les champs ne sont pas ok, on affiche un
 					// message (et on ne vide pas les champs !)
 					getLabelMessage().setText("<html><p>Attention, veuillez vous assurer que :<br>"
 							+ "- tous les champs sont remplis<br>"
