@@ -178,7 +178,7 @@ public class PanelNouveauVol extends JPanel {
 		add(textFieldHeureDeDepart, gbc_textFieldHeureDeDepart);
 		textFieldHeureDeDepart.setColumns(10);
 		
-		JLabel lblDureeDuVol = new JLabel("Durée du vol en minutes");
+		JLabel lblDureeDuVol = new JLabel("Durée du vol en minutes (> 9 min)");
 		GridBagConstraints gbc_lblDureeDuVol = new GridBagConstraints();
 		gbc_lblDureeDuVol.anchor = GridBagConstraints.EAST;
 		gbc_lblDureeDuVol.insets = new Insets(0, 0, 5, 5);
@@ -245,9 +245,13 @@ public class PanelNouveauVol extends JPanel {
 				// On vérifie la validité des informations saisies,
 				// on affiche un message si la saisie est incorrecte.
 				
-				// On définit les formats voulus pour la date et l'heure :
+				// On définit les formats voulus pour la date, l'heure, la durée du vol :
 				String regexDate = "^(0[1-9]|1[0-9]|2[0-9]|30|31)/(0[1-9]|1[0-2])/[0-9]{4}";
 				String regexHeure = "^([0-1][0-9]|2[0-3]):[0-5][0-9]$";
+				String regexDuree = "^[1-9][0-9]+$"; // la durée du vol ne peut pas être inférieure à 10 min
+				// Le tarif est un entier (rq : on laisse la possibilité à la compagnie d'indiquer un tarif à zéro
+				// pour les événements particuliers).
+				String regexTarif = "^[0-9]+$";
 				
 				if(!villePrevue(villeDepart) || !villePrevue(villeArrivee) ||
 						villeDepart.equals(villeArrivee)){
@@ -263,6 +267,12 @@ public class PanelNouveauVol extends JPanel {
 				}else if(!heureDepart.matches(regexHeure)){
 					// si l'heure n'est pas au bon format :
 					getLabelMessage().setText("Vérifiez le format de l'heure svp !");
+				}else if(!duree.matches(regexDuree)){
+					// si la durée n'est pas au bon format :
+					getLabelMessage().setText("Vérifiez la durée du vol svp !");
+				}else if(!tarif.matches(regexTarif)){
+					// si le tarif n'est pas au bon format :
+					getLabelMessage().setText("Vérifiez le tarif indiqué svp !");
 				}
 			}
 		});

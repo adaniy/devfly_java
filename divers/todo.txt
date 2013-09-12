@@ -1,10 +1,10 @@
--en cours : PanelNouveauVol -> faire les vérifs + intégrer l'ajout d'un vol
+-en cours : PanelNouveauVol -> intégrer l'ajout d'un vol
 
 BDD : prévenir changements + changer sur le serveur
 
 -voir l'intérêt de laisser "public Class<?> getColumnClass(int arg0)" : plante dans Vol...
 
--CAHIER DES CHARGES
+-CAHIER DES CHARGES (rappel : tarif à zéro autorisé pour les événements particuliers)
 -DSPP
 -notes papier
 -commentaire "final"
