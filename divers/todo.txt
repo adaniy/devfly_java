@@ -2,6 +2,7 @@ Reprendre la méthode de connexion !!
 BDD : prévenir changements + changer sur le serveur
 
 -voir l'intérêt de laisser "public Class<?> getColumnClass(int arg0)" : plante dans Vol...
+-> pour le tri. Il ne faut pas qu'une colonne soit nulle !
 
 -CAHIER DES CHARGES (rappel : tarif à zéro autorisé pour les événements particuliers)
 -DSPP

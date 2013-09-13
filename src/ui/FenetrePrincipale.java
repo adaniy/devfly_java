@@ -22,6 +22,7 @@ public class FenetrePrincipale extends JFrame {
 	private PanelNouveauVol panelNouveauVol;
 	private PanelNouvelAeroport panelNouvelAeroport;
 	private PanelAeroports panelAeroports;
+	private PanelModifAeroport panelModifAeroport;
 	private PanelValiderAnnuler panelValiderAnnuler;
 
 	private JLabel lblLogoGauche;
@@ -76,6 +77,7 @@ public class FenetrePrincipale extends JFrame {
 		panelValiderAnnuler = new PanelValiderAnnuler();
 		panelVolsProgrammes = new PanelVolsProgrammes();
 		panelVolsEnAttente = new PanelVolsEnAttente();
+		panelModifAeroport = new PanelModifAeroport();
 		panelBoutons = new PanelBoutons();
 	}
 
@@ -123,6 +125,10 @@ public class FenetrePrincipale extends JFrame {
 		return panelAeroports;
 	}
 
+	public PanelModifAeroport getPanelModifAeroport() {
+		return panelModifAeroport;
+	}
+
 	public void hideElements()
 	{
 		// on nettoie la page en rendant invisible tous les éléments :
@@ -135,6 +141,7 @@ public class FenetrePrincipale extends JFrame {
 		getPanelValiderAnnuler().setVisible(false);
 		getPanelVolsProgrammes().setVisible(false);
 		getPanelVolsEnAttente().setVisible(false);
+		getPanelModifAeroport().setVisible(false);
 		getLblLogoDroite().setVisible(false);
 		getLblLogoGauche().setVisible(false);				
 

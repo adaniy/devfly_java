@@ -2,19 +2,26 @@ package ui;
 
 import javax.swing.JPanel;
 import javax.swing.JTable;
+import javax.swing.SwingUtilities;
 import javax.swing.table.TableModel;
 import javax.swing.JScrollPane;
 
 import java.awt.BorderLayout;
+import java.awt.Point;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import javax.swing.JLabel;
 
 import dao.MysqlDao;
 import model.Aeroport;
+
 import java.awt.Color;
+
 import javax.swing.SwingConstants;
+
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.GridBagLayout;
@@ -24,7 +31,7 @@ public class PanelAeroports extends JPanel {
 	private JScrollPane scrollPane; // conteneur pour avoir une barre de défilement
 	private JLabel labelMessage;
 	private MysqlDao dao = new MysqlDao();
-	private PanelFormAeroport panelFormAeroport;
+	private PanelModifAeroport panelFormAeroport;
 
 	/**
 	 * Create the panel.
@@ -41,7 +48,21 @@ public class PanelAeroports extends JPanel {
 		tableAeroports.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
+				// on récupère l'endroit où a eu lieu l'événement (= le clic)
+				Point p = arg0.getPoint();
+				int row = tableAeroports.rowAtPoint(p); // renvoie la ligne sous le point
+				// On convertit les row du tableau en row du modèle pour maintenir la cohérence 
+				// entre les cellules de la présentation et les cellules du model (source de données)
+				int modelRow = tableAeroports.convertRowIndexToModel(row);
+				TableModel model = tableAeroports.getModel();
+				String code = (String) model.getValueAt(modelRow, 0); // String qui représente la valeur récupérée
+				String ville = (String) model.getValueAt(modelRow, 1);
+				String pays = (String) model.getValueAt(modelRow, 2);
 				
+				// On place les valeurs récupérées dans les champs du formulaire
+				panelFormAeroport.getTextFieldCode().setText(code);
+				panelFormAeroport.getTextFieldVille().setText(ville);
+				panelFormAeroport.getTextFieldPays().setText(pays);
 			}
 		});
 
@@ -66,7 +87,7 @@ public class PanelAeroports extends JPanel {
 		labelMessage.setForeground(Color.RED);
 		add(labelMessage, BorderLayout.NORTH);
 		
-		panelFormAeroport = new PanelFormAeroport();
+		panelFormAeroport = new PanelModifAeroport();
 		GridBagLayout gridBagLayout = (GridBagLayout) panelFormAeroport.getLayout();
 		gridBagLayout.rowHeights = new int[]{24, 21, 0, 0, 0, 0, 34};
 		gridBagLayout.columnWidths = new int[]{21, 0, 0, 0, 0};

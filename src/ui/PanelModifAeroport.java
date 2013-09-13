@@ -13,15 +13,28 @@ import java.awt.Font;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
-public class PanelFormAeroport extends JPanel {
+public class PanelModifAeroport extends JPanel {
 	private JTextField textFieldCode;
 	private JTextField textFieldVille;
 	private JTextField textFieldPays;
 
+	public JTextField getTextFieldCode() {
+		return textFieldCode;
+	}
+
+	public JTextField getTextFieldVille() {
+		return textFieldVille;
+	}
+
+	public JTextField getTextFieldPays() {
+		return textFieldPays;
+	}
+
 	/**
 	 * Create the panel.
 	 */
-	public PanelFormAeroport() {
+	public PanelModifAeroport() {
+		// on joue sur les dimensions de la grille pour positionner les éléments :
 		GridBagLayout gridBagLayout = new GridBagLayout();
 		gridBagLayout.columnWidths = new int[]{0, 0, 0, 0, 0, 0};
 		gridBagLayout.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 46, 0};
@@ -41,6 +54,8 @@ public class PanelFormAeroport extends JPanel {
 		gbc_lblMessage.gridx = 1;
 		gbc_lblMessage.gridy = 1;
 		add(lblMessage, gbc_lblMessage);
+		
+		// Les différents éléments du formulaires :
 		
 		JLabel lblCode = new JLabel("code AITA");
 		lblCode.setHorizontalAlignment(SwingConstants.CENTER);
