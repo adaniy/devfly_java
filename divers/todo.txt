@@ -1,4 +1,3 @@
-Reprendre la mise à jour des aéroports !!
 Reprendre la méthode de connexion !!
 BDD : prévenir changements + changer sur le serveur
 
@@ -14,7 +13,7 @@ BDD : prévenir changements + changer sur le serveur
 -commentaires
 -vérifier les imports
 -enlever les lignes TODO
--postfixer pour le tarif
+-vérifier rendu Windows
 -enlever les lignes commentées automatiquement
 
 Rqs :

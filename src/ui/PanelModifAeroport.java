@@ -9,9 +9,12 @@ import javax.swing.JLabel;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
 
+import javax.swing.JComboBox;
+import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.JButton;
+import javax.swing.SwingUtilities;
 import javax.swing.table.TableModel;
 
 import dao.MysqlDao;
@@ -74,11 +77,11 @@ public class PanelModifAeroport extends JPanel {
 		
 		
 		// Label qui pourra contenir les différents messages à afficher :
-		JLabel lblMessage = new JLabel("");
+		final JLabel lblMessage = new JLabel("");
 		lblMessage.setHorizontalAlignment(SwingConstants.CENTER);
 		lblMessage.setForeground(Color.RED);
 		GridBagConstraints gbc_lblMessage = new GridBagConstraints();
-		gbc_lblMessage.gridwidth = 2;
+		gbc_lblMessage.gridwidth = 3;
 		gbc_lblMessage.anchor = GridBagConstraints.EAST;
 		gbc_lblMessage.insets = new Insets(0, 0, 5, 5);
 		gbc_lblMessage.gridx = 1;
@@ -152,11 +155,41 @@ public class PanelModifAeroport extends JPanel {
 				
 				Aeroport a = new Aeroport(codeAita, ville, pays);
 				try {
-					dao.updateAeroport(a);
-//					List<Aeroport> aeroports = dao.getAllAeroports();
-//					String[] headers = { ...a };
-//					TableModel model = createTableModel(headers, aeroports);
-//					panelTable.getTable().setModel(model);
+					if(dao.updateAeroport(a)){ // si la mise à jour s'est bien passée
+						// On affiche un message :
+						lblMessage.setText("La mise à jour a bien été effectuée !");
+						
+						// On vide les champs texte :
+						getTextFieldCode().setText("");
+						getTextFieldVille().setText("");
+						getTextFieldPays().setText("");
+						
+						// on recharge la liste des aéroports pour que la mise à jour apparaisse
+						List<Aeroport> aeroports = dao.getAllAeroports();
+						
+						// on récupère la frame principale
+						FenetrePrincipale frame = (FenetrePrincipale) SwingUtilities.getRoot(PanelModifAeroport.this);
+						// on récupère la JTable
+						JTable table = frame.getPanelAeroports().getTableAeroports();
+						// On crée le model avec les bonnes données et on le donne à la JTable
+						// On utilise pour cela la méthode statique définie dans Aeroport
+						Aeroport.TableCreation(aeroports, table);
+						
+						// on va également recharger la liste des villes proposées dans le formulaire de création d'un vol
+						String[]villes = frame.getPanelNouveauVol().getVillesProposees();
+						// On insère les villes dans les comboBox
+						JComboBox comboBoxDepart = frame.getPanelNouveauVol().getComboBoxVilleDeDepart();
+						JComboBox comboBoxArrivee = frame.getPanelNouveauVol().getComboBoxVilleDarrivee();
+						frame.getPanelNouveauVol().comboBoxCreation(villes, comboBoxDepart);
+						frame.getPanelNouveauVol().comboBoxCreation(villes, comboBoxArrivee);
+					}else{
+						// En cas d'erreur, on affiche un message (cause probable = saisie ds le formulaire
+						// sans avoir sélectionné un aéroport, donc pas de code AITA...)
+						lblMessage.setText("<html><p>La mise à jour n'a pas pu être effectuée !<br>"
+								+ "Veuillez sélectionnez un aéroport ci-dessus<br>"
+								+ "et renouvelez l'opération.</p></html>");
+					}
+					
 				} catch (SQLException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();

@@ -146,9 +146,9 @@ public class TestMysqlDao {
 		MysqlDao dao = new MysqlDao();
 		// (On peut le modifier avant de relancer un test) :
 		Aeroport a = new Aeroport("ANI", "Ailleurs", "Tunisie");
-		int result = dao.updateAeroport(a);
+		boolean result = dao.updateAeroport(a);
 		Aeroport a1 = dao.getAeroportByVille("Ailleurs");
-		Assert.assertEquals(1, result); // le nb de lignes impactées doit être "1"
+		Assert.assertEquals(true, result);
 		Assert.assertEquals(a.getCodeAeroport(), a1.getCodeAeroport());
 	}
 	

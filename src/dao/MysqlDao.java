@@ -304,7 +304,8 @@ public class MysqlDao {
 	}
 	
 	// met à jour l'aéroport en paramètre
-	public int updateAeroport(Aeroport a) throws SQLException {
+	// renvoie "vrai" si la mise à jour s'est bien passée
+	public boolean updateAeroport(Aeroport a) throws SQLException {
 		// on se connecte à la BDD
 		Connection connection = DriverManager.getConnection(datasource,user,password);
 		// requête SQL pour mettre à jour l'aéroport :
@@ -314,7 +315,11 @@ public class MysqlDao {
 		stmt.setString(2, a.getPays());
 		stmt.setString(3, a.getCodeAeroport());
 		int result = stmt.executeUpdate(); // retourne le nb d'enregistrements impactés
+		if(result == 1){ // la mise à jour s'est bien passée
+			connection.close();
+			return true;
+		}		
 		connection.close();
-		return result; // doit retourner 1
+		return false; 
 	}
 }
