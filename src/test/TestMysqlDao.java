@@ -21,7 +21,7 @@ import dao.MysqlDao;
 //@FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class TestMysqlDao {
 	
-	// Décommenter le mot @Test pour lancer le test correspondant
+	// Décommenter le mot @Test pour lancer le(s) test(s) correspondant(s)
 	
 	//@Test
 	public void getAllAeroports() throws SQLException{
@@ -42,7 +42,7 @@ public class TestMysqlDao {
 		boolean result = dao.addNewAeroport(aeroportTest);
 		Assert.assertEquals(true, result);
 		// à réajuster à chaque test :
-		Aeroport a = dao.getAeroportByVille("Strasbourg");
+		Aeroport a = dao.getAeroportByCode("SXB");
 		Assert.assertEquals(aeroportTest.getCodeAeroport(), a.getCodeAeroport());
 	}
 	
@@ -98,12 +98,21 @@ public class TestMysqlDao {
 	}
 	
 	
-	//@Test
+//	@Test
 	public void getAeroportByVille() throws SQLException{
 		MysqlDao dao = new MysqlDao();
 		// doit renvoyer un objet Aeroport correspondant à la ville en paramètre
 		Aeroport aeroportRecupere = dao.getAeroportByVille("Berne");
-		Aeroport aeroportTest = new Aeroport("BRN", "Berne", "Suissse");
+		Aeroport aeroportTest = new Aeroport("BRN", "Berne", "Suisse");
+		Assert.assertEquals(aeroportRecupere.getCodeAeroport(), aeroportTest.getCodeAeroport());
+	}
+	
+//	@Test
+	public void getAeroportByCode() throws SQLException{
+		MysqlDao dao = new MysqlDao();
+		// doit renvoyer un objet Aeroport correspondant au code en paramètre
+		Aeroport aeroportRecupere = dao.getAeroportByCode("CMN");
+		Aeroport aeroportTest = new Aeroport("CMN", "Casblanca", "Maroc");
 		Assert.assertEquals(aeroportRecupere.getCodeAeroport(), aeroportTest.getCodeAeroport());
 	}
 	
@@ -147,7 +156,7 @@ public class TestMysqlDao {
 		// (On peut le modifier avant de relancer un test) :
 		Aeroport a = new Aeroport("ANI", "Ailleurs", "Tunisie");
 		boolean result = dao.updateAeroport(a);
-		Aeroport a1 = dao.getAeroportByVille("Ailleurs");
+		Aeroport a1 = dao.getAeroportByCode("ANI");
 		Assert.assertEquals(true, result);
 		Assert.assertEquals(a.getCodeAeroport(), a1.getCodeAeroport());
 	}

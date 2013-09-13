@@ -197,6 +197,24 @@ public class MysqlDao {
 		return new Aeroport(code, ville, pays);
 	}
 	
+	// renvoie un objet Aeroport correspondant au code AITA en paramètre
+	public Aeroport getAeroportByCode(String code) throws SQLException{
+		// on se connecte à la BDD
+		Connection connection = DriverManager.getConnection(datasource, user, password);
+		// on crée et exécute une requête préparée
+		String sql = "SELECT * FROM destination WHERE codeaeroport = ?";
+		PreparedStatement stmt = connection.prepareStatement(sql);
+		// on valorise le paramètre
+		stmt.setString(1, code);
+		ResultSet result = stmt.executeQuery();
+		// On récupère le résultat de la requête
+		result.next();
+		String ville = result.getString("ville");
+		String pays = result.getString("pays");
+		// on crée un objet Aeroport avec les éléments récupérés :
+		return new Aeroport(code, ville, pays);
+	}
+	
 	// renvoie la durée du vol en min par rapport aux dates de départ et d'arrivée en paramètres
 	public int getDureeVol(Date dateHeureDepart, Date dateHeureArrivee){
 		// on fait la différence entre les timestamps des 2 dates

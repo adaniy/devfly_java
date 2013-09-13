@@ -35,7 +35,7 @@ public class PanelModifAeroport extends JPanel {
 	private JTextField textFieldVille;
 	private JTextField textFieldPays;
 	private JButton btnMettreAJour;
-	private JButton btnAnnuler;
+	private JButton btnReinitialiser;
 	private JButton btnSupprimer;
 	private MysqlDao dao = new MysqlDao();
 
@@ -55,8 +55,8 @@ public class PanelModifAeroport extends JPanel {
 		return btnMettreAJour;
 	}
 
-	public JButton getBtnAnnuler() {
-		return btnAnnuler;
+	public JButton getBtnReinitialiser() {
+		return btnReinitialiser;
 	}
 
 	public JButton getBtnSupprimer() {
@@ -202,12 +202,30 @@ public class PanelModifAeroport extends JPanel {
 		gbc_btnMettreAJour.gridy = 5;
 		add(btnMettreAJour, gbc_btnMettreAJour);
 		
-		btnAnnuler = new JButton("annuler");
+		btnReinitialiser = new JButton("réinitialiser");
+		btnReinitialiser.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				// au clic sur "réinitialiser", on réinitalise les champs à leur valeur initiale
+				// On récupère le code de l'aéroport en cours de modification
+				String codeAita = getTextFieldCode().getText();
+				// On récupère les données de l'aéroport correspondant :
+				try {
+					Aeroport a = dao.getAeroportByCode(codeAita);
+					// On réinitialise les champs ville et pays :
+					getTextFieldVille().setText(a.getVille());
+					getTextFieldPays().setText(a.getPays());
+					
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		});
 		GridBagConstraints gbc_btnAnnuler = new GridBagConstraints();
 		gbc_btnAnnuler.insets = new Insets(0, 0, 5, 5);
 		gbc_btnAnnuler.gridx = 3;
 		gbc_btnAnnuler.gridy = 5;
-		add(btnAnnuler, gbc_btnAnnuler);
+		add(btnReinitialiser, gbc_btnAnnuler);
 		
 		btnSupprimer = new JButton("supprimer");
 		btnSupprimer.addActionListener(new ActionListener() {
