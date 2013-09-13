@@ -194,11 +194,11 @@ public class PanelNouvelAeroport extends JPanel {
 					
 					// On ajoute l'aéroport à la base
 					try {
-						int retour = dao.addNewAeroport(nouvelAeroport);
+						boolean ajout = dao.addNewAeroport(nouvelAeroport);
 						
 						// On vérifie que l'ajout s'est bien passé
 						// et on affiche un message en conséquence.
-						if(retour == 1){
+						if(ajout){
 							getLabelMessage().setText("L'aéroport " + codeAita + " a bien été ajouté !");
 							// On vide les champs texte :
 							getTextFieldAita().setText("");
@@ -224,11 +224,8 @@ public class PanelNouvelAeroport extends JPanel {
 							frame.getPanelNouveauVol().comboBoxCreation(villes, comboBoxDepart);
 							frame.getPanelNouveauVol().comboBoxCreation(villes, comboBoxArrivee);
 							
-						}else if(retour == 2){
-							getLabelMessage().setText("Le code aéroport " + codeAita + " existe déjà.");
 						}else{
-							// TODO : dans quel cas ?
-							getLabelMessage().setText("L'aéroport n'a pas pu être ajouté !");
+							getLabelMessage().setText("Le code aéroport " + codeAita + " existe déjà.");
 						}
 						
 					} catch (SQLException e) {

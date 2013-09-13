@@ -39,8 +39,8 @@ public class TestMysqlDao {
 		MysqlDao dao = new MysqlDao();
 		// à remodifier à chaque test :
 		Aeroport aeroportTest = new Aeroport("SXB", "Strasbourg", "France");
-		int result = dao.addNewAeroport(aeroportTest);
-		Assert.assertEquals(1, result); // une seule ligne doit être impactée
+		boolean result = dao.addNewAeroport(aeroportTest);
+		Assert.assertEquals(true, result);
 		// à réajuster à chaque test :
 		Aeroport a = dao.getAeroportByVille("Strasbourg");
 		Assert.assertEquals(aeroportTest.getCodeAeroport(), a.getCodeAeroport());
@@ -91,17 +91,62 @@ public class TestMysqlDao {
 		// (On peut le modifier avant de relancer un test) :
 		Vol volTest = new Vol(aeroportTest1, aeroportTest2, dateDepart, dateArrivee, 1540, 974F);
 		
-		int result = dao.addNewVol(volTest);
+		int result = dao.addNewVol(volTest); // doit ajouter le vol en base (table vol_tmp)
 		Assert.assertEquals(1, result); // une seule ligne doit être impactée
 		//Vol v = dao.getVolById(5);
 		//Assert.assertEquals(volTest.getId(), v.getId());
 	}
 	
-	@Test
+	
+	//@Test
 	public void getAeroportByVille() throws SQLException{
 		MysqlDao dao = new MysqlDao();
+		// doit renvoyer un objet Aeroport correspondant à la ville en paramètre
 		Aeroport aeroportRecupere = dao.getAeroportByVille("Berne");
 		Aeroport aeroportTest = new Aeroport("BRN", "Berne", "Suissse");
 		Assert.assertEquals(aeroportRecupere.getCodeAeroport(), aeroportTest.getCodeAeroport());
+	}
+	
+	@Test
+	public void getDureeVol(){ // doit renvoyer la durée du vol en min
+		MysqlDao dao = new MysqlDao();
+		Date dateDepart = null;
+		Date dateArrivee = null;
+		
+		try {
+			dateDepart = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse("2014-03-24 02:20:00");
+			dateArrivee = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse("2014-03-24 04:30:00");
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		int duree = dao.getDureeVol(dateDepart, dateArrivee);
+		Assert.assertEquals(130, duree);		
+	}
+	
+	@Test
+	public void doesAirportAlreadyExist() throws SQLException{ // doit renvoyer vrai si l'aéroport existe déjà en base
+		MysqlDao dao = new MysqlDao();
+		boolean test1 = dao.doesAirportAlreadyExist("BRN");
+		boolean test2 = dao.doesAirportAlreadyExist("LLL");
+		Assert.assertEquals(true, test1);
+		Assert.assertEquals(false, test2);
+	}
+	
+	//@Test
+	public void getNextId() throws SQLException{ // doit renvoyer le prochain ID à insérer dans la table vol_tmp
+		MysqlDao dao = new MysqlDao();
+		String nextId = dao.getNextId();
+		// à adapter à chaque test
+		Assert.assertEquals("TMP7", nextId);
+	}
+	
+	@Test
+	public void connection() throws Exception{ // doit renvoyer vrai si le couple login + password est correct
+		MysqlDao dao = new MysqlDao();
+		boolean test1 = dao.connection("admin", "admin");
+		boolean test2 = dao.connection("admin", "bidule");
+		Assert.assertEquals(true, test1);
+		Assert.assertEquals(false, test2);		
 	}
 }

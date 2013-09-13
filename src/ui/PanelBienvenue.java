@@ -17,6 +17,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.JPasswordField;
+
+import dao.MysqlDao;
+
 import java.awt.Color;
 
 public class PanelBienvenue extends JPanel {
@@ -24,6 +27,7 @@ public class PanelBienvenue extends JPanel {
 	private JLabel labelMessage;
 	private JPasswordField passwordFieldMotDePasse;
 	private PanelValiderAnnuler panelValiderAnnuler;
+	private MysqlDao dao = new MysqlDao();
 
 	/**
 	 * Create the panel.
@@ -111,7 +115,6 @@ public class PanelBienvenue extends JPanel {
 		// Action déclenchée au clic sur "valider" :
 		panelValiderAnnuler.getBtnValider().addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-
 				// on récupère la frame principale
 				FenetrePrincipale frame = 
 						(FenetrePrincipale) 

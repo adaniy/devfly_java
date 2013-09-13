@@ -1,5 +1,8 @@
 package dao;
 
+import java.io.UnsupportedEncodingException;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -38,12 +41,8 @@ public class MysqlDao {
 			Date dateHeureDepart = result1.getTimestamp("dateheuredep");
 			Date dateHeureArrivee = result1.getTimestamp("dateheurearrivee");
 			
-			// pour calculer la durée du vol, on fait la différence entre les 2 timestamp
-			long departMillisecondes = dateHeureDepart.getTime();
-			long arriveeMillisecondes = dateHeureArrivee.getTime();
-			long dureeMillisecondes = arriveeMillisecondes - departMillisecondes;
-			
-			int duree = (int) (dureeMillisecondes / 60000); // en minutes
+			// on calcule la durée du vol
+			int duree = getDureeVol(dateHeureDepart, dateHeureArrivee);
 			
 			float tarif = result1.getFloat("tarif");
 			String codePilote = result1.getString("pilote");
@@ -52,36 +51,9 @@ public class MysqlDao {
 			String codeHotesseSt2 = result1.getString("hotesse_steward2");
 			String codeHotesseSt3 = result1.getString("hotesse_steward3");
 			
-			// on récupère les éléments sur l'aéroport de départ
-			String sql2 = "SELECT codeaeroport, pays FROM destination WHERE ville = ?";
-			PreparedStatement stmt2 = connection.prepareStatement(sql2);
-			// on valorise le paramètre
-			stmt2.setString(1, villeDepart);
-			ResultSet result2 = stmt2.executeQuery();
-			// on initialise les variables en dehors de la boucle
-			String codeDepart = null;
-			String paysDepart = null;
-			while (result2.next()) {
-				codeDepart = result2.getString("codeaeroport");
-				paysDepart = result2.getString("pays");
-			}
-			
-			// on récupère les éléments sur l'aéroport de destination (même requête)
-			PreparedStatement stmt3 = connection.prepareStatement(sql2);
-			// on valorise le paramètre
-			stmt3.setString(1, villeArrivee);
-			ResultSet result3 = stmt3.executeQuery();
-			// on initialise les variables en dehors de la boucle
-			String codeArrivee = null;
-			String paysArrivee = null;
-			while (result3.next()) {
-				codeArrivee = result3.getString("codeaeroport");
-				paysArrivee = result3.getString("pays");
-			}
-			
-			// on crée les objet "Aeroport" de départ et d'arrivée avec les informations récupérées
-			Aeroport aeroportDepart = new Aeroport(codeDepart, villeDepart, paysDepart);
-			Aeroport aeroportArrivee = new Aeroport(codeArrivee, villeArrivee, paysArrivee);
+			// on récupère les aéroports de départ et d'arrivée
+			Aeroport aeroportDepart = getAeroportByVille(villeDepart);
+			Aeroport aeroportArrivee = getAeroportByVille(villeArrivee);
 			
 			// on crée un objet Vol avec les informations récupérées
 			Vol v = new Vol(id, aeroportDepart, aeroportArrivee, dateHeureDepart, dateHeureArrivee, duree, tarif, codePilote, codeCopilote, codeHotesseSt1, codeHotesseSt2, codeHotesseSt3);
@@ -93,79 +65,47 @@ public class MysqlDao {
 	}
 	
 	// retourne les vols "en attente" sous forme d'une liste
-		public List<Vol> getAllVolsEnAttente() throws SQLException {
-			List<Vol> vols = new ArrayList<>();
-			// on se connecte à la BDD
-			Connection connection = DriverManager.getConnection(datasource, user, password);
-			// on crée et exécute une requête préparée pour récupérer les informations
-			// sur le vol
-			String sql1 = "SELECT * FROM vol_tmp";
-			PreparedStatement stmt1 = connection.prepareStatement(sql1);
-			ResultSet result1 = stmt1.executeQuery();
-			while (result1.next()) {
-				String id = result1.getString("numvol");
-				String villeDepart = result1.getString("lieudep");
-				String villeArrivee = result1.getString("lieuarriv");
-				
-				// On récupère les dates sous forme de timestamp. On formatera à l'affichage.
-				Date dateHeureDepart = result1.getTimestamp("dateheuredep");
-				Date dateHeureArrivee = result1.getTimestamp("dateheurearrivee");
-				
-				// pour calculer la durée du vol, on fait la différence entre les 2 timestamp
-				long departMillisecondes = dateHeureDepart.getTime();
-				long arriveeMillisecondes = dateHeureArrivee.getTime();
-				long dureeMillisecondes = arriveeMillisecondes - departMillisecondes;
-				
-				int duree = (int) (dureeMillisecondes / 60000); // en minutes
-				
-				float tarif = result1.getFloat("tarif");
-				
-				String codePilote = result1.getString("pilote");
-				String codeCopilote = result1.getString("copilote");
-				String codeHotesseSt1 = result1.getString("hotesse_steward1");
-				String codeHotesseSt2 = result1.getString("hotesse_steward2");
-				String codeHotesseSt3 = result1.getString("hotesse_steward3");
-				
-				// on récupère les éléments sur l'aéroport de départ
-				String sql2 = "SELECT codeaeroport, pays FROM destination WHERE ville = ?";
-				PreparedStatement stmt2 = connection.prepareStatement(sql2);
-				// on valorise le paramètre
-				stmt2.setString(1, villeDepart);
-				ResultSet result2 = stmt2.executeQuery();
-				// on initialise les variables en dehors de la boucle
-				String codeDepart = null;
-				String paysDepart = null;
-				while (result2.next()) {
-					codeDepart = result2.getString("codeaeroport");
-					paysDepart = result2.getString("pays");
-				}
-				
-				// on récupère les éléments sur l'aéroport de destination (même requête)
-				PreparedStatement stmt3 = connection.prepareStatement(sql2);
-				// on valorise le paramètre
-				stmt3.setString(1, villeArrivee);
-				ResultSet result3 = stmt3.executeQuery();
-				// on initialise les variables en dehors de la boucle
-				String codeArrivee = null;
-				String paysArrivee = null;
-				while (result3.next()) {
-					codeArrivee = result3.getString("codeaeroport");
-					paysArrivee = result3.getString("pays");
-				}
-				
-				// on crée les objet "Aeroport" de départ et d'arrivée avec les informations récupérées
-				Aeroport aeroportDepart = new Aeroport(codeDepart, villeDepart, paysDepart);
-				Aeroport aeroportArrivee = new Aeroport(codeArrivee, villeArrivee, paysArrivee);
-				
-				// on crée un objet Vol avec les informations récupérées
-				Vol v = new Vol(id, aeroportDepart, aeroportArrivee, dateHeureDepart, dateHeureArrivee, duree, tarif,
-						codePilote, codeCopilote, codeHotesseSt1, codeHotesseSt2, codeHotesseSt3);
-				// on l'ajoute à la liste
-				vols.add(v);
-			}
-			connection.close();
-			return vols;
+	public List<Vol> getAllVolsEnAttente() throws SQLException {
+		List<Vol> vols = new ArrayList<>();
+		// on se connecte à la BDD
+		Connection connection = DriverManager.getConnection(datasource, user, password);
+		// on crée et exécute une requête préparée pour récupérer les informations sur le vol
+		String sql1 = "SELECT * FROM vol_tmp";
+		PreparedStatement stmt1 = connection.prepareStatement(sql1);
+		ResultSet result1 = stmt1.executeQuery();
+		while (result1.next()) {
+			String id = result1.getString("numvol");
+			String villeDepart = result1.getString("lieudep");
+			String villeArrivee = result1.getString("lieuarriv");
+			
+			// On récupère les dates sous forme de timestamp. On formatera à l'affichage.
+			Date dateHeureDepart = result1.getTimestamp("dateheuredep");
+			Date dateHeureArrivee = result1.getTimestamp("dateheurearrivee");
+			
+			// on calcule la durée du vol
+			int duree = getDureeVol(dateHeureDepart, dateHeureArrivee);
+			
+			float tarif = result1.getFloat("tarif");
+			
+			String codePilote = result1.getString("pilote");
+			String codeCopilote = result1.getString("copilote");
+			String codeHotesseSt1 = result1.getString("hotesse_steward1");
+			String codeHotesseSt2 = result1.getString("hotesse_steward2");
+			String codeHotesseSt3 = result1.getString("hotesse_steward3");
+			
+			// on récupère les aéroports de départ et d'arrivée
+			Aeroport aeroportDepart = getAeroportByVille(villeDepart);
+			Aeroport aeroportArrivee = getAeroportByVille(villeArrivee);
+			
+			// on crée un objet Vol avec les informations récupérées
+			Vol v = new Vol(id, aeroportDepart, aeroportArrivee, dateHeureDepart, dateHeureArrivee, duree, tarif,
+					codePilote, codeCopilote, codeHotesseSt1, codeHotesseSt2, codeHotesseSt3);
+			// on l'ajoute à la liste
+			vols.add(v);
 		}
+		connection.close();
+		return vols;
+	}
 
 	// retourne les aéroports sous forme d'une liste
 	public List<Aeroport> getAllAeroports() throws SQLException {
@@ -189,34 +129,30 @@ public class MysqlDao {
 		return aeroports;
 	}
 	
-	// TODO : à optimiser ?
-	// ajoute un nouvel aéroport en base
-	public int addNewAeroport(Aeroport a) throws SQLException{
+	// ajoute un nouvel aéroport en base et renvoie "vrai" si l'insertion s'est bien passée
+	public boolean addNewAeroport(Aeroport a) throws SQLException{
 		// on se connecte à la BDD
 		Connection connection = DriverManager.getConnection(datasource, user, password);
-		// on regarde si le code aéroport existe déjà en base, avec une requête préparée
-		String sql1 = "SELECT * from destination WHERE codeaeroport = ?";
-		PreparedStatement stmt1 = connection.prepareStatement(sql1);
-		// on valorise le paramètre
-		stmt1.setString(1, a.getCodeAeroport());
-		ResultSet result1 = stmt1.executeQuery();
-		// si l'aéroport existe déjà, on sort de la fonction et on renvoie "2".
-		if (result1.next()) {
-			String id = result1.getString("codeaeroport");
-			if(id.equals(a.getCodeAeroport())){
-				return 2;
+		// on regarde si le code aéroport existe déjà en base
+		if(doesAirportAlreadyExist(a.getCodeAeroport())){
+			connection.close();
+			return false; // s'il existe déjà, l'ajout ne se fait pas, on renvoie "false"
+		}else{
+			// sinon, on crée et exécute une requête préparée pour insérer l'aéroport
+			String sql = "INSERT INTO destination values(?, ?, ?)";
+			PreparedStatement stmt = connection.prepareStatement(sql);
+			stmt.setString(1, a.getCodeAeroport());
+			stmt.setString(2, a.getVille());
+			stmt.setString(3, a.getPays());
+			if(stmt.executeUpdate() == 1){ // si le nombre d'enregistrements impactés est "1", c'est ok
+				connection.close();
+				return true;
 			}
+			// TODO voir dans quel cas ?
+			// S'il y a eu un problème quelconque
+			connection.close();
+			return false;
 		}
-		// s'il n'existe pas déjà, on crée et exécute une requête
-		// préparée pour insérer l'aéroport
-		String sql2 = "INSERT INTO destination values(?, ?, ?)";
-		PreparedStatement stmt2 = connection.prepareStatement(sql2);
-		stmt2.setString(1, a.getCodeAeroport());
-		stmt2.setString(2, a.getVille());
-		stmt2.setString(3, a.getPays());
-		int result2 = stmt2.executeUpdate(); // renvoie le nb d'enregistrements impactés
-		connection.close();
-		return result2; // doit renvoyer "1"
 	}
 	
 	// ajoute un nouveau vol en base (table vol_tmp)
@@ -228,30 +164,8 @@ public class MysqlDao {
 		String sql = "INSERT INTO vol_tmp VALUES(?, ?, ?, ?, ?, ?, '', '', '', '', '')";
 		PreparedStatement stmt = connection.prepareStatement(sql);
 		
-		// On récupère les numvol de la table vol_tmp.
-		String sql2 = "SELECT numvol FROM vol_tmp";
-		PreparedStatement stmt2 = connection.prepareStatement(sql2);
-		ResultSet result2 = stmt2.executeQuery();
-		// On va chercher l'id max de la table. On initialise idMax à zéro.
-		int idMax = 0;
-		// On parcourt les résultats de la requête.
-		while (result2.next()) {
-			// On ne prend que la fin de la chaîne. Ex : pour le vol "TMP12", on veut récupérer "12".
-			// On récupère donc la chaine à partir du 4ème caractère (on enlève "TMP")
-			String numvol = result2.getString("numvol").substring(3);
-
-			// On transforme la chaîne récupérée en int
-			int nb = Integer.parseInt(numvol);
-			
-			// On récupère la plus grande valeur de la liste
-			if(nb > idMax){
-				idMax = nb;
-			}
-		};		
-		
-		// le prochain ID à insérer correspondra à l'idMax + 1
-		int prochainId = idMax + 1;
-		stmt.setString(1, "TMP" + prochainId); // on ajoute le préfixe "TMP"
+		// On récupère la valeur du prochain id à insérer dans la table vol_tmp.
+		stmt.setString(1, getNextId());
 		
 		stmt.setString(2, v.getAeroportDepart().getVille());
 		stmt.setString(3, v.getAeroportArrivee().getVille());
@@ -283,5 +197,111 @@ public class MysqlDao {
 		String pays = result.getString("pays");
 		// on crée un objet Aeroport avec les éléments récupérés :
 		return new Aeroport(code, ville, pays);
+	}
+	
+	// renvoie la durée du vol en min par rapport aux dates de départ et d'arrivée en paramètres
+	public int getDureeVol(Date dateHeureDepart, Date dateHeureArrivee){
+		// on fait la différence entre les timestamps des 2 dates
+		long departMillisecondes = dateHeureDepart.getTime();
+		long arriveeMillisecondes = dateHeureArrivee.getTime();
+		long dureeMillisecondes = arriveeMillisecondes - departMillisecondes;
+		
+		return (int) (dureeMillisecondes / 60_000); // en minutes
+	}
+	
+	// renvoie vrai si l'aéroport existe déjà en base
+	public boolean doesAirportAlreadyExist(String codeAeroport) throws SQLException{
+		// on se connecte à la BDD
+		Connection connection = DriverManager.getConnection(datasource, user, password);
+		// on cherche l'aéroport, avec une requête préparée (rappel = le code aéroport est la clé primaire)
+		String sql = "SELECT * from destination WHERE codeaeroport = ?";
+		PreparedStatement stmt = connection.prepareStatement(sql);
+		// on valorise le paramètre
+		stmt.setString(1, codeAeroport);
+		ResultSet result = stmt.executeQuery();
+		// si l'aéroport existe déjà, on renvoie vrai.
+		if (result.next()) {
+			connection.close();
+			return true;
+		}
+		connection.close();
+		return false;
+	}
+	
+	// renvoie le prochain ID à insérer dans la table vol_tmp
+	public String getNextId() throws SQLException{
+		// on se connecte à la BDD
+		Connection connection = DriverManager.getConnection(datasource, user, password);
+		// On récupère les numvol de la table vol_tmp.
+		String sql = "SELECT numvol FROM vol_tmp";
+		PreparedStatement stmt = connection.prepareStatement(sql);
+		ResultSet result = stmt.executeQuery();
+		// On va chercher l'id max de la table. On initialise idMax à zéro.
+		int idMax = 0;
+		// On parcourt les résultats de la requête.
+		while (result.next()) {
+			// On ne prend que la fin de la chaîne. Ex : pour le vol "TMP12", on veut récupérer "12".
+			// On récupère donc la chaine à partir du 4ème caractère (on enlève "TMP")
+			String numvol = result.getString("numvol").substring(3);
+
+			// On transforme la chaîne récupérée en int
+			int nb = Integer.parseInt(numvol);
+			
+			// On récupère la plus grande valeur de la liste
+			if(nb > idMax){
+				idMax = nb;
+			}
+		};		
+		
+		// le prochain ID à insérer correspondra à l'idMax + 1
+		int prochainId = idMax + 1;
+		String prochainIdString = "TMP" + prochainId; // on ajoute le préfixe "TMP"
+		connection.close();
+		return prochainIdString;
+	}
+	
+	// renvoie "true" si la connexion s'est bien passée, "false" sinon
+	public boolean connection(String identifiant, String mdp) throws Exception{
+		// on se connecte à la BDD
+		Connection connection = DriverManager.getConnection(datasource, user, password);
+		String sql = "SELECT login FROM user WHERE login=? and password=?";
+		PreparedStatement stmt = connection.prepareStatement(sql);
+		// on valorise les paramètres
+		stmt.setString(1, identifiant);
+		
+		// le mot de passe est chiffré en base (sha256), on chiffre également
+		// le mot de passe saisi pour le comparer
+		
+		// le grain de sel :
+		String chaineSalt = "$5$ABCDEFGHIJKLM";
+		
+		
+//		MessageDigest md = MessageDigest.getInstance("SHA-256");
+//		byte[] salt = md.digest(chaineSalt.getBytes("UTF-8"));
+		 
+		//byte[]hash = getHash(mdp, salt);
+
+		byte[]salt = chaineSalt.getBytes();
+        MessageDigest md = MessageDigest.getInstance("SHA-256");
+        //md.reset();
+        md.update(salt);
+        // On convertit le String en byte, et on le hash
+        byte[] hash = md.digest(password.getBytes("UTF-8"));
+
+		
+		// On transforme le tableau de byte récupéré en String
+		String mdpChiffre = new String(hash);
+		
+		stmt.setString(2, mdpChiffre);
+		System.out.println(mdpChiffre); // test pour débug
+		
+		ResultSet result = stmt.executeQuery();
+		// si la requête renvoie un résultat, les données saisies sont OK, on renvoie vrai.
+		if (result.next()) {
+			connection.close();
+			return true;
+		}
+		connection.close();
+		return false; // sinon, on renvoie faux, l'utilisateur ne sera pas connecté
 	}
 }

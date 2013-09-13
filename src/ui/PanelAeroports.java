@@ -2,26 +2,37 @@ package ui;
 
 import javax.swing.JPanel;
 import javax.swing.JTable;
+import javax.swing.SwingUtilities;
 import javax.swing.table.TableModel;
 import javax.swing.JScrollPane;
 
 import java.awt.BorderLayout;
+import java.awt.Point;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import javax.swing.JLabel;
 
 import dao.MysqlDao;
 import model.Aeroport;
+
 import java.awt.Color;
+
 import javax.swing.SwingConstants;
+
+import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.GridBagLayout;
 
 public class PanelAeroports extends JPanel {
 	private JTable tableAeroports;
 	private JScrollPane scrollPane; // conteneur pour avoir une barre de défilement
-	private PanelValiderAnnuler panelBoutonsAeroports;
 	private JLabel labelMessage;
 	private MysqlDao dao = new MysqlDao();
+	private PanelModifAeroport panelModifAeroport;
 
 	/**
 	 * Create the panel.
@@ -35,6 +46,26 @@ public class PanelAeroports extends JPanel {
 		add(scrollPane, BorderLayout.CENTER);
 		
 		tableAeroports = new JTable();
+		tableAeroports.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				// on récupère l'endroit où a eu lieu l'événement (= le clic)
+				Point p = arg0.getPoint();
+				int row = tableAeroports.rowAtPoint(p); // renvoie la ligne sous le point
+				// On convertit les row du tableau en row du modèle pour maintenir la cohérence 
+				// entre les cellules de la présentation et les cellules du model (source de données)
+				int modelRow = tableAeroports.convertRowIndexToModel(row);
+				TableModel model = tableAeroports.getModel();
+				String code = (String) model.getValueAt(modelRow, 0); // String qui représente la valeur récupérée
+				String ville = (String) model.getValueAt(modelRow, 1);
+				String pays = (String) model.getValueAt(modelRow, 2);
+				
+				// On place les valeurs récupérées dans les champs du formulaire
+				panelModifAeroport.getTextFieldCode().setText(code);
+				panelModifAeroport.getTextFieldVille().setText(ville);
+				panelModifAeroport.getTextFieldPays().setText(pays);
+			}
+		});
 
 		// pour trier en cliquant sur les en-têtes :
 		tableAeroports.setAutoCreateRowSorter(true);
@@ -43,9 +74,6 @@ public class PanelAeroports extends JPanel {
 		
 		// pour enlever le fait qu'on puisse déplacer les colonnes :
 		tableAeroports.getTableHeader().setReorderingAllowed(false);
-		
-		panelBoutonsAeroports = new PanelValiderAnnuler();
-		add(panelBoutonsAeroports, BorderLayout.SOUTH);
 		
 		// On récupère les aéroports :
 		List<Aeroport> aeroports = dao.getAllAeroports();
@@ -59,6 +87,36 @@ public class PanelAeroports extends JPanel {
 		labelMessage.setHorizontalAlignment(SwingConstants.CENTER);
 		labelMessage.setForeground(Color.RED);
 		add(labelMessage, BorderLayout.NORTH);
+		
+		panelModifAeroport = new PanelModifAeroport();
+		GridBagLayout gridBagLayout = (GridBagLayout) panelModifAeroport.getLayout();
+		gridBagLayout.rowHeights = new int[]{24, 21, 0, 0, 0, 0, 34};
+		gridBagLayout.columnWidths = new int[]{21, 0, 0, 0, 0};
+		gridBagLayout.columnWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0};
+		add(panelModifAeroport, BorderLayout.SOUTH);
+
+		// TODO reprendre le test ici
+//		panelModifAeroport.getBtnMettreAJour().addActionListener(new ActionListener() {
+//			public void actionPerformed(ActionEvent arg0) {
+//				String codeAita = getTextFieldCode().getText();
+//				String ville = getTextFieldVille().getText();
+//				String pays = getTextFieldPays().getText();
+//				
+//				Aeroport a = new Aeroport(codeAita, ville, pays);
+//				try {
+//					dao.updateAeroport(a);
+//					List<Aeroport> aeroports = dao.getAllAeroports();
+//					String[] headers = { ...a };
+//					TableModel model = createTableModel(headers, aeroports);
+//					panelTable.getTable().setModel(model);
+//				} catch (SQLException e) {
+//					// TODO Auto-generated catch block
+//					e.printStackTrace();
+//				}
+//			}
+//			}
+//		});
+	
 	}
 
 	public JTable getTableAeroports() {
