@@ -182,14 +182,14 @@ public class Vol {
 		
 		DefaultTableModel myModel = new DefaultTableModel(myValues, enTete) {
 			// pour renseigner la JTable avec le type exact contenu dans la colonne
-			// (elle appelera cette méthode sur le model)
+			// pour avoir un tri cohérent
 			// Principe : on prend la première ligne, et on lui donne le type des éléments
 			// contenus dans chaque colonne.
-			// TODO : voir si utile ? Plante si décommenté...
-//			@Override
-//			public Class<?> getColumnClass(int arg0) {
-//				return myValues[0][arg0].getClass();
-//			}
+			// TODO : Attention, il ne faut pas de colonne nulle !
+			@Override
+			public Class<?> getColumnClass(int arg0) {
+				return myValues[0][arg0].getClass();
+			}
 
 			// pour qu'on ne puisse pas éditer les cellules directement :
 			@Override

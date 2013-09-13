@@ -22,6 +22,7 @@ import java.awt.Color;
 
 import javax.swing.SwingConstants;
 
+import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -93,30 +94,7 @@ public class PanelAeroports extends JPanel {
 		gridBagLayout.rowHeights = new int[]{24, 21, 0, 0, 0, 0, 34};
 		gridBagLayout.columnWidths = new int[]{21, 0, 0, 0, 0};
 		gridBagLayout.columnWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0};
-		add(panelModifAeroport, BorderLayout.SOUTH);
-
-		// TODO reprendre le test ici
-//		panelModifAeroport.getBtnMettreAJour().addActionListener(new ActionListener() {
-//			public void actionPerformed(ActionEvent arg0) {
-//				String codeAita = getTextFieldCode().getText();
-//				String ville = getTextFieldVille().getText();
-//				String pays = getTextFieldPays().getText();
-//				
-//				Aeroport a = new Aeroport(codeAita, ville, pays);
-//				try {
-//					dao.updateAeroport(a);
-//					List<Aeroport> aeroports = dao.getAllAeroports();
-//					String[] headers = { ...a };
-//					TableModel model = createTableModel(headers, aeroports);
-//					panelTable.getTable().setModel(model);
-//				} catch (SQLException e) {
-//					// TODO Auto-generated catch block
-//					e.printStackTrace();
-//				}
-//			}
-//			}
-//		});
-	
+		add(panelModifAeroport, BorderLayout.SOUTH);	
 	}
 
 	public JTable getTableAeroports() {

@@ -1,8 +1,6 @@
 package dao;
 
-import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -303,5 +301,20 @@ public class MysqlDao {
 		}
 		connection.close();
 		return false; // sinon, on renvoie faux, l'utilisateur ne sera pas connecté
+	}
+	
+	// met à jour l'aéroport en paramètre
+	public int updateAeroport(Aeroport a) throws SQLException {
+		// on se connecte à la BDD
+		Connection connection = DriverManager.getConnection(datasource,user,password);
+		// requête SQL pour mettre à jour l'aéroport :
+		String sql = "UPDATE destination SET ville=?, pays=? WHERE codeaeroport=?";
+		PreparedStatement stmt = connection.prepareStatement(sql);
+		stmt.setString(1, a.getVille());
+		stmt.setString(2, a.getPays());
+		stmt.setString(3, a.getCodeAeroport());
+		int result = stmt.executeUpdate(); // retourne le nb d'enregistrements impactés
+		connection.close();
+		return result; // doit retourner 1
 	}
 }

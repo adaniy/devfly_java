@@ -14,6 +14,9 @@ import javax.swing.SwingConstants;
 import javax.swing.JButton;
 import javax.swing.table.TableModel;
 
+import dao.MysqlDao;
+import model.Aeroport;
+
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionListener;
@@ -31,6 +34,7 @@ public class PanelModifAeroport extends JPanel {
 	private JButton btnMettreAJour;
 	private JButton btnAnnuler;
 	private JButton btnSupprimer;
+	private MysqlDao dao = new MysqlDao();
 
 	public JTextField getTextFieldCode() {
 		return textFieldCode;
@@ -139,6 +143,26 @@ public class PanelModifAeroport extends JPanel {
 		textFieldPays.setColumns(10);
 		
 		btnMettreAJour = new JButton("mettre à jour");
+		btnMettreAJour.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				
+				String codeAita = getTextFieldCode().getText();
+				String ville = getTextFieldVille().getText();
+				String pays = getTextFieldPays().getText();
+				
+				Aeroport a = new Aeroport(codeAita, ville, pays);
+				try {
+					dao.updateAeroport(a);
+//					List<Aeroport> aeroports = dao.getAllAeroports();
+//					String[] headers = { ...a };
+//					TableModel model = createTableModel(headers, aeroports);
+//					panelTable.getTable().setModel(model);
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}			
+			}
+		});
 		GridBagConstraints gbc_btnMettreAJour = new GridBagConstraints();
 		gbc_btnMettreAJour.insets = new Insets(0, 0, 5, 5);
 		gbc_btnMettreAJour.gridx = 2;

@@ -64,7 +64,7 @@ public class Aeroport {
 		
 		DefaultTableModel myModel = new DefaultTableModel(myValues, enTete) {
 			// pour renseigner la JTable avec le type exact contenu dans la colonne
-			// (elle appelera cette méthode sur le model)
+			// pour avoir un tri cohérent
 			// Principe : on prend la première ligne, et on lui donne le type des éléments
 			// contenus dans chaque colonne.
 			@Override

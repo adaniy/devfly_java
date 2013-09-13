@@ -141,7 +141,18 @@ public class TestMysqlDao {
 		Assert.assertEquals("TMP7", nextId);
 	}
 	
-	@Test
+	//@Test
+	public void updateAeroport() throws Exception{
+		MysqlDao dao = new MysqlDao();
+		// (On peut le modifier avant de relancer un test) :
+		Aeroport a = new Aeroport("ANI", "Ailleurs", "Tunisie");
+		int result = dao.updateAeroport(a);
+		Aeroport a1 = dao.getAeroportByVille("Ailleurs");
+		Assert.assertEquals(1, result); // le nb de lignes impactées doit être "1"
+		Assert.assertEquals(a.getCodeAeroport(), a1.getCodeAeroport());
+	}
+	
+	//@Test
 	public void connection() throws Exception{ // doit renvoyer vrai si le couple login + password est correct
 		MysqlDao dao = new MysqlDao();
 		boolean test1 = dao.connection("admin", "admin");
