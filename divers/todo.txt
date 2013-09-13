@@ -1,3 +1,4 @@
+vérifier isAirportUsed pour les modifs et suppression
 Reprendre la méthode de connexion !!
 BDD : prévenir changements + changer sur le serveur
 

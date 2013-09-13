@@ -237,4 +237,15 @@ public class Vol {
 		// On donne le model à la table :
 		maJTable.setModel(model);
 	}
+	
+
+	// renvoie la durée du vol en min par rapport aux dates de départ et d'arrivée en paramètres
+	public static int getDureeVol(Date dateHeureDepart, Date dateHeureArrivee){
+		// on fait la différence entre les timestamps des 2 dates
+		long departMillisecondes = dateHeureDepart.getTime();
+		long arriveeMillisecondes = dateHeureArrivee.getTime();
+		long dureeMillisecondes = arriveeMillisecondes - departMillisecondes;
+		
+		return (int) (dureeMillisecondes / 60_000); // en minutes
+	}
 }

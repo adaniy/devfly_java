@@ -118,7 +118,6 @@ public class TestMysqlDao {
 	
 	@Test
 	public void getDureeVol(){ // doit renvoyer la durée du vol en min
-		MysqlDao dao = new MysqlDao();
 		Date dateDepart = null;
 		Date dateArrivee = null;
 		
@@ -129,7 +128,7 @@ public class TestMysqlDao {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		int duree = dao.getDureeVol(dateDepart, dateArrivee);
+		int duree = Vol.getDureeVol(dateDepart, dateArrivee);
 		Assert.assertEquals(130, duree);		
 	}
 	

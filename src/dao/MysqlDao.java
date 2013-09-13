@@ -40,7 +40,7 @@ public class MysqlDao {
 			Date dateHeureArrivee = result1.getTimestamp("dateheurearrivee");
 			
 			// on calcule la durée du vol
-			int duree = getDureeVol(dateHeureDepart, dateHeureArrivee);
+			int duree = Vol.getDureeVol(dateHeureDepart, dateHeureArrivee);
 			
 			float tarif = result1.getFloat("tarif");
 			String codePilote = result1.getString("pilote");
@@ -81,7 +81,7 @@ public class MysqlDao {
 			Date dateHeureArrivee = result1.getTimestamp("dateheurearrivee");
 			
 			// on calcule la durée du vol
-			int duree = getDureeVol(dateHeureDepart, dateHeureArrivee);
+			int duree = Vol.getDureeVol(dateHeureDepart, dateHeureArrivee);
 			
 			float tarif = result1.getFloat("tarif");
 			
@@ -215,16 +215,6 @@ public class MysqlDao {
 		connection.close();
 		// on crée un objet Aeroport avec les éléments récupérés :
 		return new Aeroport(code, ville, pays);
-	}
-	
-	// renvoie la durée du vol en min par rapport aux dates de départ et d'arrivée en paramètres
-	public int getDureeVol(Date dateHeureDepart, Date dateHeureArrivee){
-		// on fait la différence entre les timestamps des 2 dates
-		long departMillisecondes = dateHeureDepart.getTime();
-		long arriveeMillisecondes = dateHeureArrivee.getTime();
-		long dureeMillisecondes = arriveeMillisecondes - departMillisecondes;
-		
-		return (int) (dureeMillisecondes / 60_000); // en minutes
 	}
 	
 	// renvoie vrai si l'aéroport existe déjà en base
