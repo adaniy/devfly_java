@@ -169,6 +169,16 @@ public class TestMysqlDao {
 		Assert.assertTrue(result); // renvoie vrai si l'aéroport a été supprimé
 	}
 	
+	//@Test
+	public void isAirportUsed() throws SQLException{ // doit renvoyer vrai si l'aéroport est utilisé
+		MysqlDao dao = new MysqlDao();
+		// à réajuster à chaque test :
+		boolean test1 = dao.isAirportUsed("BRN");
+		boolean test2 = dao.isAirportUsed("ORD");
+		Assert.assertTrue(test1);
+		Assert.assertFalse(test2);
+	}
+	
 	@Test
 	public void connection() throws Exception{ // doit renvoyer vrai si le couple login + password est correct
 		MysqlDao dao = new MysqlDao();

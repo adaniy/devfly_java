@@ -23,8 +23,8 @@ public class MysqlDao {
 		List<Vol> vols = new ArrayList<>();
 		// on se connecte à la BDD
 		Connection connection = DriverManager.getConnection(datasource, user, password);
-		// on crée et exécute une requête préparée pour récupérer les informations
-		// sur le vol et ses employés
+		// on crée et exécute une requête préparée pour récupérer
+		// les informations sur le vol et ses employés
 		String sql1 = "SELECT V.numvol, V.lieudep, V.lieuarriv, V.dateheuredep,"
 				+ "V.dateheurearrivee, V.tarif, T.pilote, T.copilote,"
 				+ "T.hotesse_steward1, T.hotesse_steward2, T.hotesse_steward3 FROM vol V INNER JOIN travailler T ON V.numvol = T.vol";
@@ -193,6 +193,7 @@ public class MysqlDao {
 		result.next();
 		String code = result.getString("codeaeroport");
 		String pays = result.getString("pays");
+		connection.close();
 		// on crée un objet Aeroport avec les éléments récupérés :
 		return new Aeroport(code, ville, pays);
 	}
@@ -211,6 +212,7 @@ public class MysqlDao {
 		result.next();
 		String ville = result.getString("ville");
 		String pays = result.getString("pays");
+		connection.close();
 		// on crée un objet Aeroport avec les éléments récupérés :
 		return new Aeroport(code, ville, pays);
 	}
@@ -288,11 +290,10 @@ public class MysqlDao {
 		stmt.setString(2, a.getPays());
 		stmt.setString(3, a.getCodeAeroport());
 		int result = stmt.executeUpdate(); // retourne le nb d'enregistrements impactés
-		if(result == 1){ // la mise à jour s'est bien passée
-			connection.close();
-			return true;
-		}		
 		connection.close();
+		if(result == 1){ // la mise à jour s'est bien passée
+			return true;
+		}
 		return false; 
 	}
 	
@@ -307,12 +308,39 @@ public class MysqlDao {
 		// on valorise le paramètre
 		stmt.setString(1, code);
 		int result = stmt.executeUpdate(); // retourne le nb d'enregistrements impactés
+		connection.close();
 		if(result == 1){ // la suppression s'est bien passée
-			connection.close();
 			return true;
 		}		
-		connection.close();
 		return false; 
+	}
+	
+	// renvoie vrai si un aéroport est utilisé au moins 1 fois (dans les vols programmés ou en attente)
+	public boolean isAirportUsed(String codeAeroport) throws SQLException{
+		// on se connecte à la BDD
+		Connection connection = DriverManager.getConnection(datasource, user, password);
+		// on cherche l'aéroport dans les 2 tables
+		String sql1 = "SELECT numvol FROM vol V INNER JOIN destination D ON V.lieudep = D.ville WHERE D.codeaeroport = ?";
+		String sql2 = "SELECT numvol FROM vol_tmp V INNER JOIN destination D ON V.lieudep = D.ville WHERE D.codeaeroport = ?";
+		PreparedStatement stmt1 = connection.prepareStatement(sql1);
+		PreparedStatement stmt2 = connection.prepareStatement(sql2);
+		// on valorise le paramètre
+		stmt1.setString(1, codeAeroport);
+		stmt2.setString(1, codeAeroport);
+		// On exécute les 2 requêtes :
+		ResultSet result1 = stmt1.executeQuery();
+		ResultSet result2 = stmt2.executeQuery();
+		// si l'aéroport est utilisé, on renvoie vrai.
+		if (result1.next()) {
+			connection.close();
+			return true;
+		}else if (result2.next()){
+			connection.close();
+			return true;
+		}else{
+			connection.close();
+			return false;
+		}
 	}
 	
 	// renvoie "true" si la connexion s'est bien passée, "false" sinon
