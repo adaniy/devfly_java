@@ -2,6 +2,7 @@ package dao;
 
 import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -259,7 +260,7 @@ public class MysqlDao {
 		return prochainIdString;
 	}
 	
-	// renvoie "vrai" si la connexion s'est bien passée, false sinon
+	// renvoie "true" si la connexion s'est bien passée, "false" sinon
 	public boolean connection(String identifiant, String mdp) throws Exception{
 		// on se connecte à la BDD
 		Connection connection = DriverManager.getConnection(datasource, user, password);
@@ -271,38 +272,28 @@ public class MysqlDao {
 		// le mot de passe est chiffré en base (sha256), on chiffre également
 		// le mot de passe saisi pour le comparer
 		
-//		// le grain de sel :
-//		String chaineSalt = "$5$ABCDEFGHIJKLM";
-//		
-//		MessageDigest md = MessageDigest.getInstance("SHA-256");
-//		// On convertit le String en byte, et on le hash
-//		byte[] hash = md.digest(mdp.getBytes("UTF-8"));
+		// le grain de sel :
+		String chaineSalt = "$5$ABCDEFGHIJKLM";
 		
 		
-//		// le grain de sel :
-//		String chaineSalt = "$5$ABCDEFGHIJKLM";
 //		MessageDigest md = MessageDigest.getInstance("SHA-256");
 //		byte[] salt = md.digest(chaineSalt.getBytes("UTF-8"));
-//
-//       //MessageDigest digest = MessageDigest.getInstance("SHA-256");
-//		md.reset();
-//		md.update(salt);
-//		byte[] hash = md.digest(password.getBytes("UTF-8"));
 		 
-		byte[]salt = mdp.getBytes();
-        MessageDigest md = MessageDigest.getInstance("SHA-256");
-        md.reset();
-        md.update(salt);
-        byte[] hash = md.digest(mdp.getBytes("UTF-8"));
+		//byte[]hash = getHash(mdp, salt);
 
-		
-		
+		byte[]salt = chaineSalt.getBytes();
+        MessageDigest md = MessageDigest.getInstance("SHA-256");
+        //md.reset();
+        md.update(salt);
+        // On convertit le String en byte, et on le hash
+        byte[] hash = md.digest(password.getBytes("UTF-8"));
+
 		
 		// On transforme le tableau de byte récupéré en String
 		String mdpChiffre = new String(hash);
 		
 		stmt.setString(2, mdpChiffre);
-		System.out.println(mdpChiffre);
+		System.out.println(mdpChiffre); // test pour débug
 		
 		ResultSet result = stmt.executeQuery();
 		// si la requête renvoie un résultat, les données saisies sont OK, on renvoie vrai.

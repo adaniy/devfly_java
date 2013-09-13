@@ -133,7 +133,7 @@ public class TestMysqlDao {
 		Assert.assertEquals(false, test2);
 	}
 	
-	@Test
+	//@Test
 	public void getNextId() throws SQLException{ // doit renvoyer le prochain ID à insérer dans la table vol_tmp
 		MysqlDao dao = new MysqlDao();
 		String nextId = dao.getNextId();

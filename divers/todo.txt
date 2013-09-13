@@ -1,3 +1,4 @@
+Reprendre la méthode de connexion !!
 BDD : prévenir changements + changer sur le serveur
 
 -voir l'intérêt de laisser "public Class<?> getColumnClass(int arg0)" : plante dans Vol...

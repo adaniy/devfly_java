@@ -115,14 +115,6 @@ public class PanelBienvenue extends JPanel {
 		// Action déclenchée au clic sur "valider" :
 		panelValiderAnnuler.getBtnValider().addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				// TODO test à effacer une fois fini
-//				try {
-//					dao.connection("admin", "admin");
-//				} catch (Exception e1) {
-//					// TODO Auto-generated catch block
-//					e1.printStackTrace();
-//				}
-
 				// on récupère la frame principale
 				FenetrePrincipale frame = 
 						(FenetrePrincipale) 
