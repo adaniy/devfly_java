@@ -1,22 +1,36 @@
 package ui;
 
 import javax.swing.JPanel;
+
 import java.awt.GridBagLayout;
+
 import javax.swing.JLabel;
+
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
+
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.JButton;
+import javax.swing.table.TableModel;
+
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.sql.SQLException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.List;
 
 public class PanelModifAeroport extends JPanel {
 	private JTextField textFieldCode;
 	private JTextField textFieldVille;
 	private JTextField textFieldPays;
+	private JButton btnMettreAJour;
+	private JButton btnAnnuler;
+	private JButton btnSupprimer;
 
 	public JTextField getTextFieldCode() {
 		return textFieldCode;
@@ -28,6 +42,18 @@ public class PanelModifAeroport extends JPanel {
 
 	public JTextField getTextFieldPays() {
 		return textFieldPays;
+	}
+
+	public JButton getBtnMettreAJour() {
+		return btnMettreAJour;
+	}
+
+	public JButton getBtnAnnuler() {
+		return btnAnnuler;
+	}
+
+	public JButton getBtnSupprimer() {
+		return btnSupprimer;
 	}
 
 	/**
@@ -66,6 +92,7 @@ public class PanelModifAeroport extends JPanel {
 		add(lblCode, gbc_lblCode);
 		
 		textFieldCode = new JTextField();
+		textFieldCode.setEditable(false); // on empêche la modification de l'id
 		GridBagConstraints gbc_textFieldCode = new GridBagConstraints();
 		gbc_textFieldCode.gridwidth = 2;
 		gbc_textFieldCode.insets = new Insets(0, 0, 5, 5);
@@ -111,21 +138,21 @@ public class PanelModifAeroport extends JPanel {
 		add(textFieldPays, gbc_textFieldPays);
 		textFieldPays.setColumns(10);
 		
-		JButton btnMettreAJour = new JButton("mettre à jour");
+		btnMettreAJour = new JButton("mettre à jour");
 		GridBagConstraints gbc_btnMettreAJour = new GridBagConstraints();
 		gbc_btnMettreAJour.insets = new Insets(0, 0, 5, 5);
 		gbc_btnMettreAJour.gridx = 2;
 		gbc_btnMettreAJour.gridy = 5;
 		add(btnMettreAJour, gbc_btnMettreAJour);
 		
-		JButton btnAnnuler = new JButton("annuler");
+		btnAnnuler = new JButton("annuler");
 		GridBagConstraints gbc_btnAnnuler = new GridBagConstraints();
 		gbc_btnAnnuler.insets = new Insets(0, 0, 5, 5);
 		gbc_btnAnnuler.gridx = 3;
 		gbc_btnAnnuler.gridy = 5;
 		add(btnAnnuler, gbc_btnAnnuler);
 		
-		JButton btnSupprimer = new JButton("supprimer");
+		btnSupprimer = new JButton("supprimer");
 		btnSupprimer.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 			}
