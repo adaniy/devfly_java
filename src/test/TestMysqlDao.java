@@ -140,4 +140,13 @@ public class TestMysqlDao {
 		// à adapter à chaque test
 		Assert.assertEquals("TMP7", nextId);
 	}
+	
+	@Test
+	public void connection() throws Exception{ // doit renvoyer vrai si le couple login + password est correct
+		MysqlDao dao = new MysqlDao();
+		boolean test1 = dao.connection("admin", "admin");
+		boolean test2 = dao.connection("admin", "bidule");
+		Assert.assertEquals(true, test1);
+		Assert.assertEquals(false, test2);		
+	}
 }
