@@ -15,13 +15,16 @@ import dao.MysqlDao;
 import model.Aeroport;
 import java.awt.Color;
 import javax.swing.SwingConstants;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.GridBagLayout;
 
 public class PanelAeroports extends JPanel {
 	private JTable tableAeroports;
 	private JScrollPane scrollPane; // conteneur pour avoir une barre de défilement
-	private PanelValiderAnnuler panelBoutonsAeroports;
 	private JLabel labelMessage;
 	private MysqlDao dao = new MysqlDao();
+	private PanelFormAeroport panelFormAeroport;
 
 	/**
 	 * Create the panel.
@@ -35,6 +38,12 @@ public class PanelAeroports extends JPanel {
 		add(scrollPane, BorderLayout.CENTER);
 		
 		tableAeroports = new JTable();
+		tableAeroports.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				
+			}
+		});
 
 		// pour trier en cliquant sur les en-têtes :
 		tableAeroports.setAutoCreateRowSorter(true);
@@ -43,9 +52,6 @@ public class PanelAeroports extends JPanel {
 		
 		// pour enlever le fait qu'on puisse déplacer les colonnes :
 		tableAeroports.getTableHeader().setReorderingAllowed(false);
-		
-		panelBoutonsAeroports = new PanelValiderAnnuler();
-		add(panelBoutonsAeroports, BorderLayout.SOUTH);
 		
 		// On récupère les aéroports :
 		List<Aeroport> aeroports = dao.getAllAeroports();
@@ -59,6 +65,13 @@ public class PanelAeroports extends JPanel {
 		labelMessage.setHorizontalAlignment(SwingConstants.CENTER);
 		labelMessage.setForeground(Color.RED);
 		add(labelMessage, BorderLayout.NORTH);
+		
+		panelFormAeroport = new PanelFormAeroport();
+		GridBagLayout gridBagLayout = (GridBagLayout) panelFormAeroport.getLayout();
+		gridBagLayout.rowHeights = new int[]{24, 21, 0, 0, 0, 0, 34};
+		gridBagLayout.columnWidths = new int[]{21, 0, 0, 0, 0};
+		gridBagLayout.columnWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0};
+		add(panelFormAeroport, BorderLayout.SOUTH);
 	}
 
 	public JTable getTableAeroports() {
