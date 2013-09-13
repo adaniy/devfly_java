@@ -40,7 +40,7 @@ public class TestMysqlDao {
 		// à remodifier à chaque test :
 		Aeroport aeroportTest = new Aeroport("SXB", "Strasbourg", "France");
 		boolean result = dao.addNewAeroport(aeroportTest);
-		Assert.assertEquals(true, result);
+		Assert.assertTrue(result);
 		// à réajuster à chaque test :
 		Aeroport a = dao.getAeroportByCode("SXB");
 		Assert.assertEquals(aeroportTest.getCodeAeroport(), a.getCodeAeroport());
@@ -138,8 +138,8 @@ public class TestMysqlDao {
 		MysqlDao dao = new MysqlDao();
 		boolean test1 = dao.doesAirportAlreadyExist("BRN");
 		boolean test2 = dao.doesAirportAlreadyExist("LLL");
-		Assert.assertEquals(true, test1);
-		Assert.assertEquals(false, test2);
+		Assert.assertTrue(test1);
+		Assert.assertFalse(test2);
 	}
 	
 	//@Test
@@ -150,23 +150,32 @@ public class TestMysqlDao {
 		Assert.assertEquals("TMP7", nextId);
 	}
 	
-	//@Test
+	@Test
 	public void updateAeroport() throws Exception{
 		MysqlDao dao = new MysqlDao();
 		// (On peut le modifier avant de relancer un test) :
 		Aeroport a = new Aeroport("ANI", "Ailleurs", "Tunisie");
 		boolean result = dao.updateAeroport(a);
 		Aeroport a1 = dao.getAeroportByCode("ANI");
-		Assert.assertEquals(true, result);
+		Assert.assertTrue(result);
 		Assert.assertEquals(a.getCodeAeroport(), a1.getCodeAeroport());
 	}
 	
 	//@Test
+	public void deleteAeroport() throws Exception{ // doit supprimer l'aéroport dont le code est en paramètre
+		MysqlDao dao = new MysqlDao();
+		// À modifier avant de relancer un test :
+		boolean result = dao.deleteAeroport("ALG");
+		Assert.assertTrue(result); // renvoie vrai si l'aéroport a été supprimé
+	}
+	
+	@Test
 	public void connection() throws Exception{ // doit renvoyer vrai si le couple login + password est correct
 		MysqlDao dao = new MysqlDao();
 		boolean test1 = dao.connection("admin", "admin");
 		boolean test2 = dao.connection("admin", "bidule");
-		Assert.assertEquals(true, test1);
-		Assert.assertEquals(false, test2);		
+		Assert.assertTrue(test1);
+		Assert.assertFalse(test2);
+		//Assert.assertEquals(true,test1);
 	}
 }

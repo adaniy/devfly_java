@@ -15,7 +15,6 @@ import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.JButton;
 import javax.swing.SwingUtilities;
-import javax.swing.table.TableModel;
 
 import dao.MysqlDao;
 import model.Aeroport;
@@ -25,9 +24,6 @@ import java.awt.Font;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.sql.SQLException;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
 
 public class PanelModifAeroport extends JPanel {
@@ -148,11 +144,14 @@ public class PanelModifAeroport extends JPanel {
 		btnMettreAJour = new JButton("mettre à jour");
 		btnMettreAJour.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				// au clic sur le bouton, on va mettre à jour l'aéroport
 				
+				// On récupère les informations du formulaire :
 				String codeAita = getTextFieldCode().getText();
 				String ville = getTextFieldVille().getText();
 				String pays = getTextFieldPays().getText();
 				
+				// On crée un objet Aeroport, et on appelle la méthode du dao pour la mise à jour
 				Aeroport a = new Aeroport(codeAita, ville, pays);
 				try {
 					if(dao.updateAeroport(a)){ // si la mise à jour s'est bien passée
@@ -166,7 +165,6 @@ public class PanelModifAeroport extends JPanel {
 						
 						// on recharge la liste des aéroports pour que la mise à jour apparaisse
 						List<Aeroport> aeroports = dao.getAllAeroports();
-						
 						// on récupère la frame principale
 						FenetrePrincipale frame = (FenetrePrincipale) SwingUtilities.getRoot(PanelModifAeroport.this);
 						// on récupère la JTable
@@ -230,6 +228,50 @@ public class PanelModifAeroport extends JPanel {
 		btnSupprimer = new JButton("supprimer");
 		btnSupprimer.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				// au clic sur supprimer, on supprimer l'aéroport de la base
+				
+				// On récupère le code de l'aéroport à supprimer :
+				String codeAita = getTextFieldCode().getText();
+				// On supprime l'aéroport :
+				try {
+					if(dao.deleteAeroport(codeAita)){ // si la suppression s'est bien passée
+						// On affiche un message :
+						lblMessage.setText("L'aéroport a bien été supprimé !");
+						
+						// On vide les champs texte :
+						getTextFieldCode().setText("");
+						getTextFieldVille().setText("");
+						getTextFieldPays().setText("");
+						
+						// on recharge la liste des aéroports pour qu'il n'apparaisse plus
+						List<Aeroport> aeroports = dao.getAllAeroports();
+						// on récupère la frame principale
+						FenetrePrincipale frame = (FenetrePrincipale) SwingUtilities.getRoot(PanelModifAeroport.this);
+						// on récupère la JTable
+						JTable table = frame.getPanelAeroports().getTableAeroports();
+						// On crée le model avec les bonnes données et on le donne à la JTable
+						// On utilise pour cela la méthode statique définie dans Aeroport
+						Aeroport.TableCreation(aeroports, table);
+						
+						// on va également recharger la liste des villes proposées dans le formulaire de création d'un vol
+						String[]villes = frame.getPanelNouveauVol().getVillesProposees();
+						// On insère les villes dans les comboBox
+						JComboBox comboBoxDepart = frame.getPanelNouveauVol().getComboBoxVilleDeDepart();
+						JComboBox comboBoxArrivee = frame.getPanelNouveauVol().getComboBoxVilleDarrivee();
+						frame.getPanelNouveauVol().comboBoxCreation(villes, comboBoxDepart);
+						frame.getPanelNouveauVol().comboBoxCreation(villes, comboBoxArrivee);
+					}else{
+						// En cas d'erreur, on affiche un message (cause probable = saisie ds le formulaire
+						// sans avoir sélectionné un aéroport, donc pas de code AITA...)
+						lblMessage.setText("<html><p>La suppression n'a pas pu être effectuée !<br>"
+								+ "Veuillez sélectionnez un aéroport ci-dessus<br>"
+								+ "et renouvelez l'opération.</p></html>");
+					}
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				
 			}
 		});
 		btnSupprimer.setFont(new Font("Tahoma", Font.BOLD, 13));

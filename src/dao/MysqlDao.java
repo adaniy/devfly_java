@@ -276,6 +276,45 @@ public class MysqlDao {
 		return prochainIdString;
 	}
 	
+	// met à jour l'aéroport en paramètre
+	// renvoie "vrai" si la mise à jour s'est bien passée
+	public boolean updateAeroport(Aeroport a) throws SQLException {
+		// on se connecte à la BDD
+		Connection connection = DriverManager.getConnection(datasource,user,password);
+		// requête SQL pour mettre à jour l'aéroport :
+		String sql = "UPDATE destination SET ville=?, pays=? WHERE codeaeroport=?";
+		PreparedStatement stmt = connection.prepareStatement(sql);
+		stmt.setString(1, a.getVille());
+		stmt.setString(2, a.getPays());
+		stmt.setString(3, a.getCodeAeroport());
+		int result = stmt.executeUpdate(); // retourne le nb d'enregistrements impactés
+		if(result == 1){ // la mise à jour s'est bien passée
+			connection.close();
+			return true;
+		}		
+		connection.close();
+		return false; 
+	}
+	
+	// supprime l'aéroport dont le code est passé en paramètre
+	// renvoie vrai si la suppression s'est bien passée
+	public boolean deleteAeroport(String code) throws SQLException {
+		// on se connecte à la BDD
+		Connection connection = DriverManager.getConnection(datasource,user,password);
+		// requête SQL pour supprimer l'aéroport :
+		String sql = "DELETE FROM destination WHERE codeaeroport=?";
+		PreparedStatement stmt = connection.prepareStatement(sql);
+		// on valorise le paramètre
+		stmt.setString(1, code);
+		int result = stmt.executeUpdate(); // retourne le nb d'enregistrements impactés
+		if(result == 1){ // la suppression s'est bien passée
+			connection.close();
+			return true;
+		}		
+		connection.close();
+		return false; 
+	}
+	
 	// renvoie "true" si la connexion s'est bien passée, "false" sinon
 	public boolean connection(String identifiant, String mdp) throws Exception{
 		// on se connecte à la BDD
@@ -292,8 +331,8 @@ public class MysqlDao {
 		String chaineSalt = "$5$ABCDEFGHIJKLM";
 		
 		
-//		MessageDigest md = MessageDigest.getInstance("SHA-256");
-//		byte[] salt = md.digest(chaineSalt.getBytes("UTF-8"));
+		//MessageDigest md = MessageDigest.getInstance("SHA-256");
+		//byte[] salt = md.digest(chaineSalt.getBytes("UTF-8"));
 		 
 		//byte[]hash = getHash(mdp, salt);
 
@@ -319,25 +358,5 @@ public class MysqlDao {
 		}
 		connection.close();
 		return false; // sinon, on renvoie faux, l'utilisateur ne sera pas connecté
-	}
-	
-	// met à jour l'aéroport en paramètre
-	// renvoie "vrai" si la mise à jour s'est bien passée
-	public boolean updateAeroport(Aeroport a) throws SQLException {
-		// on se connecte à la BDD
-		Connection connection = DriverManager.getConnection(datasource,user,password);
-		// requête SQL pour mettre à jour l'aéroport :
-		String sql = "UPDATE destination SET ville=?, pays=? WHERE codeaeroport=?";
-		PreparedStatement stmt = connection.prepareStatement(sql);
-		stmt.setString(1, a.getVille());
-		stmt.setString(2, a.getPays());
-		stmt.setString(3, a.getCodeAeroport());
-		int result = stmt.executeUpdate(); // retourne le nb d'enregistrements impactés
-		if(result == 1){ // la mise à jour s'est bien passée
-			connection.close();
-			return true;
-		}		
-		connection.close();
-		return false; 
 	}
 }
