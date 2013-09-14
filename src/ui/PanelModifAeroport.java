@@ -186,15 +186,19 @@ public class PanelModifAeroport extends JPanel {
 				// au clic sur "réinitialiser", on réinitalise les champs à leur valeur initiale
 				// On récupère le code de l'aéroport en cours de modification
 				String codeAita = getTextFieldCode().getText();
-				// On récupère les données de l'aéroport correspondant :
-				try {
-					Aeroport a = dao.getAeroportByCode(codeAita);
-					// On réinitialise les champs ville et pays :
-					getTextFieldVille().setText(a.getVille());
-					getTextFieldPays().setText(a.getPays());
-					
-				} catch (SQLException e) {
-					lblMessage.setText(e.getMessage());
+				if(codeAita.isEmpty()){
+					lblMessage.setText("Vous devez sélectionner un aéroport ci-dessus !");
+				}else{
+					// On récupère les données de l'aéroport correspondant :
+					try {
+						Aeroport a = dao.getAeroportByCode(codeAita);
+						// On réinitialise les champs ville et pays :
+						getTextFieldVille().setText(a.getVille());
+						getTextFieldPays().setText(a.getPays());
+						
+					} catch (SQLException e) {
+						lblMessage.setText(e.getMessage());
+					}
 				}
 			}
 		});

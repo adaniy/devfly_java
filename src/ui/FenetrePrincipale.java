@@ -53,7 +53,7 @@ public class FenetrePrincipale extends JFrame {
 		// la fenêtre n'est pas redimensionnable
 		setResizable(false);
 		// on fixe sa position et sa taille :
-		setBounds(100, 100, 1000, 350);
+		setBounds(100, 100, 1000, 400);
 		// le processus s'arrête à la fermeture de la fenêtre :
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
