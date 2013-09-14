@@ -1,12 +1,13 @@
 srcdir=ui
+classpath=../lib/hamcrest-core-1.3.jar:../lib/junit-4.11.jar:../lib/mysql-connector-java-5.1.18-bin.jar:.
 
 all: clean compile test
 
 test :
-	java ui/FenetrePrincipale
+	java -cp $(classpath) ui/FenetrePrincipale
 
 compile :
-	javac $(srcdir)/*.java
+	javac -cp $(classpath) $(srcdir)/*.java
 
 clean :
-	-@rm $(srcdir)/*.class
+	-@rm */*.class 
