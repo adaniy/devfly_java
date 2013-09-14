@@ -341,7 +341,7 @@ public class MysqlDao {
 		}
 	}
 	
-	// renvoie "true" si la connexion s'est bien passée, "false" sinon
+	// renvoie "true" si le couple login + mdp est correct, "false" sinon
 	public boolean connection(String identifiant, String mdp) throws Exception{
 		// on se connecte à la BDD
 		Connection connection = DriverManager.getConnection(datasource, user, password);
@@ -353,7 +353,7 @@ public class MysqlDao {
 		// le mot de passe est chiffré en base (sha256), on chiffre également
 		// le mot de passe saisi pour le comparer
 		
-		// le grain de sel :
+		// le grain de sel (faut-il laisser le $5?) :
 		String chaineSalt = "$5$ABCDEFGHIJKLM";
 		
 		
@@ -383,6 +383,6 @@ public class MysqlDao {
 			return true;
 		}
 		connection.close();
-		return false; // sinon, on renvoie faux, l'utilisateur ne sera pas connecté
+		return false; // sinon, on renvoie faux, et l'utilisateur ne sera pas connecté
 	}
 }
