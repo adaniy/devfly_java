@@ -11,6 +11,7 @@ import javax.swing.JLabel;
 import java.sql.SQLException;
 
 import javax.swing.ImageIcon;
+import java.awt.GridBagLayout;
 
 
 @SuppressWarnings("serial")
@@ -53,11 +54,13 @@ public class FenetrePrincipale extends JFrame {
 		// la fenêtre n'est pas redimensionnable
 		setResizable(false);
 		// on fixe sa position et sa taille :
-		setBounds(100, 100, 1000, 400);
+		setBounds(100, 100, 1000, 600);
 		// le processus s'arrête à la fermeture de la fenêtre :
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 		panelBienvenue = new PanelBienvenue();
+		GridBagLayout gridBagLayout = (GridBagLayout) panelBienvenue.getLayout();
+		gridBagLayout.rowHeights = new int[]{130, 135, 0, 0, 0, 0, 0};
 		// le panelBienvenue est visible par défaut, on l'ajoute au centre du ContentPane
 		getContentPane().add(panelBienvenue, BorderLayout.CENTER);
 
