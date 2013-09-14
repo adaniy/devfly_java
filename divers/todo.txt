@@ -1,4 +1,3 @@
-vérifier isAirportUsed pour les modifs et suppression
 Reprendre la méthode de connexion !!
 BDD : prévenir changements + changer sur le serveur
 
@@ -17,8 +16,8 @@ BDD : prévenir changements + changer sur le serveur
 -vérifier rendu Windows
 -enlever les lignes commentées automatiquement
 
-Rqs :
-- traiter les exceptions
-- heure du pays de départ
-- prévoir le fait que 2 villes puissent avoir le même nom
+Rqs à intégrer dans le rapport :
+- fuseau horaire du pays de départ et non de destination
+- problème de conception avec la ville utilisée comme "clé" en PHP (=> 2 villes ne peuvent pas avoir le même nom + un aéroport "utilisé" ne peut pas être modifié sous peine de plantage...)
 - le numéro de vol n'a pas d'importance sémantique (le 6 peut partir avant le 2)...
+- gestion des exceptions

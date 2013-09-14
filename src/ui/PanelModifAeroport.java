@@ -161,11 +161,11 @@ public class PanelModifAeroport extends JPanel {
 						// On vide les champs texte et on rafraichit les données :
 						rafraichirDonnees();
 					}else{
-						// En cas d'erreur, on affiche un message (cause probable = saisie ds le formulaire
-						// sans avoir sélectionné un aéroport, donc pas de code AITA...)
+						// En cas d'erreur, on affiche un message (soit il y a eu saisie ds le formulaire
+						// sans avoir sélectionné un aéroport, soit celui-ci est déjà utilisé pour un vol)
 						lblMessage.setText("<html><p>La mise à jour n'a pas pu être effectuée !<br>"
-								+ "Veuillez sélectionnez un aéroport ci-dessus<br>"
-								+ "et renouvelez l'opération.</p></html>");
+								+ "Veuillez sélectionner un aéroport ci-dessus et renouveler l'opération.<br>"
+								+ "<u>ATTENTION, les aéroports utilisés pour un vol ne sont plus modifiables.</u></p></html>");
 					}
 					
 				} catch (SQLException e) {
@@ -222,11 +222,11 @@ public class PanelModifAeroport extends JPanel {
 						rafraichirDonnees();
 						
 					}else{
-						// En cas d'erreur, on affiche un message (cause probable = saisie ds le formulaire
-						// sans avoir sélectionné un aéroport, donc pas de code AITA...)
+						// En cas d'erreur, on affiche un message (soit il y a eu saisie ds le formulaire
+						// sans avoir sélectionné un aéroport, soit celui-ci est déjà utilisé pour un vol)
 						lblMessage.setText("<html><p>La suppression n'a pas pu être effectuée !<br>"
-								+ "Veuillez sélectionnez un aéroport ci-dessus<br>"
-								+ "et renouvelez l'opération.</p></html>");
+								+ "Veuillez sélectionner un aéroport ci-dessus et renouveler l'opération.<br>"
+								+ "<u>ATTENTION, les aéroports utilisés pour un vol ne sont plus modifiables.</u></p></html>");
 					}
 				} catch (SQLException e) {
 					// TODO Auto-generated catch block

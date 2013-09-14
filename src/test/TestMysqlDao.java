@@ -17,7 +17,7 @@ import org.junit.runners.JUnit4;
 import dao.MysqlDao;
 
 @RunWith(JUnit4.class)
-//TODO : à décommenter si nécessaire
+//TODO : à décommenter si nécessaire -> permet l'exécution des tests dans l'ordre alphabétique
 //@FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class TestMysqlDao {
 	
@@ -149,23 +149,33 @@ public class TestMysqlDao {
 		Assert.assertEquals("TMP7", nextId);
 	}
 	
-	@Test
+	//@Test
 	public void updateAeroport() throws Exception{
 		MysqlDao dao = new MysqlDao();
 		// (On peut le modifier avant de relancer un test) :
 		Aeroport a = new Aeroport("ANI", "Ailleurs", "Tunisie");
-		boolean result = dao.updateAeroport(a);
-		Aeroport a1 = dao.getAeroportByCode("ANI");
-		Assert.assertTrue(result);
-		Assert.assertEquals(a.getCodeAeroport(), a1.getCodeAeroport());
+		Aeroport b = new Aeroport("BRN", "Berne", "Suisse"); // cet aéroport déjà utilisé n'est plus modifiable
+		Aeroport c = new Aeroport("LLL", "Truc", "Pays"); // Cet aéroport n'existe pas et n'est donc pas modifiable
+		boolean result1 = dao.updateAeroport(a);
+		boolean result2 = dao.updateAeroport(b);
+		boolean result3 = dao.updateAeroport(c);
+		Aeroport a1 = dao.getAeroportByCode("ANI"); // on récupère l'aéroport modifié
+		Assert.assertTrue(result1); // true
+		Assert.assertFalse(result2); // false
+		Assert.assertFalse(result3); // false
+		Assert.assertEquals(a.getVille(), a1.getVille()); // les villes coïncident
 	}
 	
 	//@Test
 	public void deleteAeroport() throws Exception{ // doit supprimer l'aéroport dont le code est en paramètre
 		MysqlDao dao = new MysqlDao();
 		// À modifier avant de relancer un test :
-		boolean result = dao.deleteAeroport("ALG");
-		Assert.assertTrue(result); // renvoie vrai si l'aéroport a été supprimé
+		boolean result1 = dao.deleteAeroport("ALG"); // cet aéroport est supprimable
+		boolean result2 = dao.deleteAeroport("BRN"); // cet aéroport est déjà utilisé
+		boolean result3 = dao.deleteAeroport("LLL"); // cet aéroport n'existe pas
+		Assert.assertTrue(result1); // renvoie vrai si l'aéroport a été supprimé
+		Assert.assertFalse(result2); // non supprimable
+		Assert.assertFalse(result3); // non supprimable
 	}
 	
 	//@Test
@@ -178,7 +188,7 @@ public class TestMysqlDao {
 		Assert.assertFalse(test2);
 	}
 	
-	@Test
+	//@Test
 	public void connection() throws Exception{ // doit renvoyer vrai si le couple login + password est correct
 		MysqlDao dao = new MysqlDao();
 		boolean test1 = dao.connection("admin", "admin");

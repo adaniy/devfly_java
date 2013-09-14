@@ -14,7 +14,6 @@ import javax.swing.JComboBox;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.SwingUtilities;
-import javax.swing.table.TableModel;
 
 import model.Aeroport;
 import model.Vol;

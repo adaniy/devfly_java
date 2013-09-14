@@ -158,7 +158,7 @@ public class MysqlDao {
 		// on se connecte à la BDD
 		Connection connection = DriverManager.getConnection(datasource, user, password);
 		// on crée et exécute une requête préparée pour insérer le vol
-		// TODO : voir cmt rentrer uniquement les 6 premières valeurs (fait planter le test !)
+		// TODO : voir cmt rentrer uniquement les 6 premières valeurs (la syntaxe qui marche depuis phpmyadmin fait planter le test ici !)
 		String sql = "INSERT INTO vol_tmp VALUES(?, ?, ?, ?, ?, ?, '', '', '', '', '')";
 		PreparedStatement stmt = connection.prepareStatement(sql);
 		
@@ -273,6 +273,10 @@ public class MysqlDao {
 	public boolean updateAeroport(Aeroport a) throws SQLException {
 		// on se connecte à la BDD
 		Connection connection = DriverManager.getConnection(datasource,user,password);
+		// On vérifie que l'aéroport n'est pas déjà utilisé
+		if(isAirportUsed(a.getCodeAeroport())){ // si c'est le cas, on empêche sa mise à jour
+			return false;
+		}
 		// requête SQL pour mettre à jour l'aéroport :
 		String sql = "UPDATE destination SET ville=?, pays=? WHERE codeaeroport=?";
 		PreparedStatement stmt = connection.prepareStatement(sql);
@@ -292,6 +296,10 @@ public class MysqlDao {
 	public boolean deleteAeroport(String code) throws SQLException {
 		// on se connecte à la BDD
 		Connection connection = DriverManager.getConnection(datasource,user,password);
+		// On vérifie que l'aéroport n'est pas déjà utilisé
+		if(isAirportUsed(code)){ // si c'est le cas, on empêche sa suppression
+			return false;
+		}
 		// requête SQL pour supprimer l'aéroport :
 		String sql = "DELETE FROM destination WHERE codeaeroport=?";
 		PreparedStatement stmt = connection.prepareStatement(sql);

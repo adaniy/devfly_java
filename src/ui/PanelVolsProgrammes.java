@@ -3,7 +3,6 @@ package ui;
 import javax.swing.JPanel;
 import javax.swing.JTable;
 import javax.swing.SwingConstants;
-import javax.swing.table.TableModel;
 import javax.swing.JScrollPane;
 
 import java.awt.BorderLayout;

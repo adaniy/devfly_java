@@ -185,7 +185,7 @@ public class Vol {
 			// pour avoir un tri cohérent
 			// Principe : on prend la première ligne, et on lui donne le type des éléments
 			// contenus dans chaque colonne.
-			// TODO : Attention, il ne faut pas de colonne nulle !
+			// TODO : Attention, il ne faut pas de colonne nulle sous peine de faire planter l'appli !
 			@Override
 			public Class<?> getColumnClass(int arg0) {
 				return myValues[0][arg0].getClass();
