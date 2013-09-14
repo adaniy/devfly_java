@@ -27,7 +27,6 @@ import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
@@ -269,8 +268,7 @@ public class PanelNouveauVol extends JPanel {
 						aeroportDepart = dao.getAeroportByVille(villeDepart);
 						aeroportArrivee = dao.getAeroportByVille(villeArrivee);
 					} catch (SQLException e2) {
-						// TODO Auto-generated catch block
-						e2.printStackTrace();
+						getLabelMessage().setText(e2.getMessage());
 					}					
 					
 					// On concatène la date et l'heure de départ
@@ -281,8 +279,7 @@ public class PanelNouveauVol extends JPanel {
 					try {
 						dateDeDepart = new SimpleDateFormat("dd/MM/yyyy HH:mm").parse(dateHeureDepart);
 					} catch (ParseException e2) {
-						// TODO Auto-generated catch block
-						e2.printStackTrace();
+						getLabelMessage().setText(e2.getMessage());
 					}
 					
 					// On transforme la durée récupérée en int
@@ -306,8 +303,7 @@ public class PanelNouveauVol extends JPanel {
 						// On affiche un message pour prévenir que tout s'est bien passé
 						getLabelMessage().setText("Le vol a bien été ajouté !");
 					} catch (SQLException e1) {
-						// TODO Auto-generated catch block
-						e1.printStackTrace();
+						getLabelMessage().setText(e1.getMessage());
 					}
 					
 					// On réinitialise ensuite les champs et les combobox.
@@ -337,8 +333,7 @@ public class PanelNouveauVol extends JPanel {
 						// On dimensionne les colonnes :
 						Vol.columnSizeVols(table);
 					} catch (SQLException e1) {
-						// TODO Auto-generated catch block
-						e1.printStackTrace();
+						getLabelMessage().setText(e1.getMessage());
 					}
 				}
 			}
@@ -419,8 +414,7 @@ public class PanelNouveauVol extends JPanel {
 		try {
 			laDateFormatee = new SimpleDateFormat("dd/MM/yyyy").parse(laDate);
 		} catch (ParseException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
+			getLabelMessage().setText(e1.getMessage());
 		}
 		// On récupère le timestamp de la date indiquée :
 		long timeStampLaDate = laDateFormatee.getTime();
@@ -466,8 +460,7 @@ public class PanelNouveauVol extends JPanel {
 		try {
 			villesPrevues = getVillesProposees();
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			getLabelMessage().setText(e.getMessage());
 		}
 		
 		// On initialise 1 booléen à false :

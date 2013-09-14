@@ -160,6 +160,7 @@ public class PanelNouvelAeroport extends JPanel {
 		});
 		
 		panelValiderAnnuler.getBtnValider().addActionListener(new ActionListener() {
+			@SuppressWarnings("rawtypes")
 			public void actionPerformed(ActionEvent arg0) {
 				// au clic sur le bouton "valider", on ajoute un aéroport en base.
 				
@@ -230,8 +231,7 @@ public class PanelNouvelAeroport extends JPanel {
 						}
 						
 					} catch (SQLException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
+						getLabelMessage().setText(e.getMessage());
 					}
 				}else{
 					// si tous les champs ne sont pas ok, on affiche un
