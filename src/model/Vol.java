@@ -180,6 +180,7 @@ public class Vol {
 			myValues[i][16] = v.getId();
 		}
 		
+		@SuppressWarnings("serial")
 		DefaultTableModel myModel = new DefaultTableModel(myValues, enTete) {
 			// pour renseigner la JTable avec le type exact contenu dans la colonne
 			// pour avoir un tri cohérent

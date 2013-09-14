@@ -18,16 +18,17 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JPasswordField;
 
-import dao.MysqlDao;
+//import dao.MysqlDao;
 
 import java.awt.Color;
 
+@SuppressWarnings("serial")
 public class PanelBienvenue extends JPanel {
 	private JTextField textFieldIdentifiant;
 	private JLabel labelMessage;
 	private JPasswordField passwordFieldMotDePasse;
 	private PanelValiderAnnuler panelValiderAnnuler;
-	private MysqlDao dao = new MysqlDao();
+	//private MysqlDao dao = new MysqlDao();
 
 	/**
 	 * Create the panel.

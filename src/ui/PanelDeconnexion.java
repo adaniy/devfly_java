@@ -12,6 +12,7 @@ import java.awt.Insets;
 
 import javax.swing.JButton;
 
+@SuppressWarnings("serial")
 public class PanelDeconnexion extends JPanel {
 	private JLabel labelMessage;
 	private JButton btnConfirmer;

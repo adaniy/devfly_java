@@ -26,6 +26,7 @@ import java.awt.event.ActionEvent;
 import java.sql.SQLException;
 import java.util.List;
 
+@SuppressWarnings("serial")
 public class PanelModifAeroport extends JPanel {
 	private JTextField textFieldCode;
 	private JTextField textFieldVille;
@@ -247,6 +248,7 @@ public class PanelModifAeroport extends JPanel {
 	}
 
 	// méthode appelée après la mise à jour ou la suppression d'un aéroport
+	@SuppressWarnings("rawtypes")
 	private void rafraichirDonnees() throws SQLException{
 		// On vide les champs texte :
 		getTextFieldCode().setText("");

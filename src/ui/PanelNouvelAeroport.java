@@ -13,7 +13,6 @@ import java.awt.GridBagConstraints;
 import java.awt.Insets;
 
 import javax.swing.JTextField;
-import javax.swing.table.TableModel;
 
 import model.Aeroport;
 import dao.MysqlDao;
@@ -25,6 +24,7 @@ import java.sql.SQLException;
 import java.util.List;
 import java.awt.Color;
 
+@SuppressWarnings("serial")
 public class PanelNouvelAeroport extends JPanel {
 	private JTextField textFieldVille;
 	private JTextField textFieldPays;

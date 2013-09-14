@@ -23,6 +23,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.GridBagLayout;
 
+@SuppressWarnings("serial")
 public class PanelAeroports extends JPanel {
 	private JTable tableAeroports;
 	private JScrollPane scrollPane; // conteneur pour avoir une barre de défilement

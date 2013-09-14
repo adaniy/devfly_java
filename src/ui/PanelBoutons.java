@@ -13,6 +13,7 @@ import java.awt.FlowLayout;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
+@SuppressWarnings("serial")
 public class PanelBoutons extends JPanel {
 	private JButton btnVolsProgrammes;
 	private JButton btnVolsEnAttente;

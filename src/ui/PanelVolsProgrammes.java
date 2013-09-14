@@ -15,6 +15,7 @@ import javax.swing.JLabel;
 import model.Vol;
 import dao.MysqlDao;
 
+@SuppressWarnings("serial")
 public class PanelVolsProgrammes extends JPanel {
 	private JTable tableVolsProgrammes;
 	private JScrollPane scrollPane; // conteneur pour avoir une barre de défilement

@@ -62,6 +62,7 @@ public class Aeroport {
 			myValues[i] = a.toArray();
 		}
 		
+		@SuppressWarnings("serial")
 		DefaultTableModel myModel = new DefaultTableModel(myValues, enTete) {
 			// pour renseigner la JTable avec le type exact contenu dans la colonne
 			// pour avoir un tri cohérent

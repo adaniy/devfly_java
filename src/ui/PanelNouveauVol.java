@@ -32,13 +32,16 @@ import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
+@SuppressWarnings("serial")
 public class PanelNouveauVol extends JPanel {
 	private JTextField textFieldDateDeDepart;
 	private JTextField textFieldHeureDeDepart;
 	private JTextField textFieldDureeDuVol;
 	private JTextField textFieldTarif;
 	private JLabel labelMessage;
+	@SuppressWarnings("rawtypes")
 	private JComboBox comboBoxVilleDeDepart;
+	@SuppressWarnings("rawtypes")
 	private JComboBox comboBoxVilleDarrivee;
 	private PanelValiderAnnuler panelValiderAnnuler;
 	private MysqlDao dao = new MysqlDao();
@@ -47,6 +50,7 @@ public class PanelNouveauVol extends JPanel {
 	 * Create the panel.
 	 * @throws SQLException 
 	 */
+	@SuppressWarnings("rawtypes")
 	public PanelNouveauVol() throws SQLException {
 		GridBagLayout gridBagLayout = new GridBagLayout();
 		// on joue sur les dimensions de la grille pour positionner les éléments :
@@ -388,18 +392,22 @@ public class PanelNouveauVol extends JPanel {
 		this.textFieldTarif = textFieldTarif;
 	}
 
+	@SuppressWarnings("rawtypes")
 	public JComboBox getComboBoxVilleDeDepart() {
 		return comboBoxVilleDeDepart;
 	}
 
+	@SuppressWarnings("rawtypes")
 	public void setComboBoxVilleDeDepart(JComboBox comboBoxVilleDeDepart) {
 		this.comboBoxVilleDeDepart = comboBoxVilleDeDepart;
 	}
 
+	@SuppressWarnings("rawtypes")
 	public JComboBox getComboBoxVilleDarrivee() {
 		return comboBoxVilleDarrivee;
 	}
 
+	@SuppressWarnings("rawtypes")
 	public void setComboBoxVilleDarrivee(JComboBox comboBoxVilleDarrivee) {
 		this.comboBoxVilleDarrivee = comboBoxVilleDarrivee;
 	}
@@ -477,7 +485,7 @@ public class PanelNouveauVol extends JPanel {
 
 	// prend en paramètres un tableau de villes (String) et une JComboBox
 	// insère les villes dans la comboBox
-	@SuppressWarnings("unchecked")
+	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public void comboBoxCreation(String[]villes, JComboBox maComboBox){ // méthode appelée depuis ce panel directement + via le panelNouvelAeroport
 		// on donne le tableau de villes au model :
 		DefaultComboBoxModel<String>model = new DefaultComboBoxModel<>(villes);

@@ -13,6 +13,7 @@ import java.sql.SQLException;
 import javax.swing.ImageIcon;
 
 
+@SuppressWarnings("serial")
 public class FenetrePrincipale extends JFrame {
 	private PanelBienvenue panelBienvenue;
 	private PanelBoutons panelBoutons;
