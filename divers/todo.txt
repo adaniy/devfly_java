@@ -1,4 +1,5 @@
 Reprendre la méthode de connexion !!
+PanelModifVolEnAttente : mettre des setEditable à false en fonction du contexte...
 BDD : prévenir changements + changer sur le serveur
 
 -CAHIER DES CHARGES (rappel : tarif à zéro autorisé + date du vol à partir du lendemain + contraintes sur les modifs d'aéroports / vols)
