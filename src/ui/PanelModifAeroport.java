@@ -170,7 +170,7 @@ public class PanelModifAeroport extends JPanel {
 					}
 					
 				} catch (SQLException e) {
-					lblMessage.setText("Une erreur est survenue !");
+					lblMessage.setText(e.getMessage());
 				}			
 			}
 		});
@@ -194,7 +194,7 @@ public class PanelModifAeroport extends JPanel {
 					getTextFieldPays().setText(a.getPays());
 					
 				} catch (SQLException e) {
-					lblMessage.setText("Une erreur est survenue !");
+					lblMessage.setText(e.getMessage());
 				}
 			}
 		});
@@ -228,7 +228,7 @@ public class PanelModifAeroport extends JPanel {
 								+ "<u>ATTENTION, les aéroports déjà utilisés pour un vol ne sont plus supprimables.</u></p></html>");
 					}
 				} catch (SQLException e) {
-					lblMessage.setText("Une erreur est survenue !");
+					lblMessage.setText(e.getMessage());
 				}
 				
 			}
