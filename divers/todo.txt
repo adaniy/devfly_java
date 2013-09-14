@@ -24,5 +24,6 @@ Rqs à intégrer dans le rapport :
 - le numéro de vol n'a pas d'importance sémantique (le 6 peut partir avant le 2)...
 - gestion des exceptions
 
-Notes :
-Add @SuppressWarnings ("permet de signaler au compilateur que l'on a conscience de réaliser une opération risquée, et qu'il peut donc arrêter de signaler un éventuel problème")
+Notes / Voc :
+- Add @SuppressWarnings ("permet de signaler au compilateur que l'on a conscience de réaliser une opération risquée, et qu'il peut donc arrêter de signaler un éventuel problème")
+- propager une exception : lors de l'appel, on aura un try / catch
