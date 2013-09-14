@@ -19,9 +19,9 @@ import dao.MysqlDao;
 public class PanelVolsProgrammes extends JPanel {
 	private JTable tableVolsProgrammes;
 	private JScrollPane scrollPane; // conteneur pour avoir une barre de défilement
-	private PanelValiderAnnuler panelBoutonsVolsProgrammes;
 	private JLabel labelMessage;
 	private MysqlDao dao = new MysqlDao();
+	private PanelModifVol panelModifVolProgramme;
 
 	/**
 	 * Create the panel.
@@ -43,9 +43,6 @@ public class PanelVolsProgrammes extends JPanel {
 		// pour enlever le fait qu'on puisse déplacer les colonnes :
 		tableVolsProgrammes.getTableHeader().setReorderingAllowed(false);
 		
-		panelBoutonsVolsProgrammes = new PanelValiderAnnuler();
-		add(panelBoutonsVolsProgrammes, BorderLayout.SOUTH);
-		
 		// On récupère les vols programmés :
 		List<Vol> volsProgrammes = dao.getAllVolsProgrammes();
 		
@@ -61,6 +58,9 @@ public class PanelVolsProgrammes extends JPanel {
 		
 		// On dimensionne les colonnes :
 		Vol.columnSizeVols(tableVolsProgrammes);
+		
+		panelModifVolProgramme = new PanelModifVol();
+		add(panelModifVolProgramme, BorderLayout.SOUTH);
 		
 	}
 

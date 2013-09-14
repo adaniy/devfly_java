@@ -21,9 +21,9 @@ import dao.MysqlDao;
 public class PanelVolsEnAttente extends JPanel {
 	private JTable tableVolsEnAttente;
 	private JScrollPane scrollPane; // conteneur pour avoir une barre de défilement
-	private PanelValiderAnnuler panelBoutonsVolsEnAttente;
 	private JLabel labelMessage;
 	private MysqlDao dao = new MysqlDao();
+	private PanelModifVol panelModifVolEnAttente;
 
 	/**
 	 * Create the panel.
@@ -45,9 +45,6 @@ public class PanelVolsEnAttente extends JPanel {
 		// pour enlever le fait qu'on puisse déplacer les colonnes :
 		tableVolsEnAttente.getTableHeader().setReorderingAllowed(false);
 		
-		panelBoutonsVolsEnAttente = new PanelValiderAnnuler();
-		add(panelBoutonsVolsEnAttente, BorderLayout.SOUTH);
-		
 		// On récupère les vols en attente :
 		List<Vol> volsEnAttente = dao.getAllVolsEnAttente();
 		
@@ -63,6 +60,9 @@ public class PanelVolsEnAttente extends JPanel {
 		
 		// On dimensionne les colonnes :
 		Vol.columnSizeVols(tableVolsEnAttente);
+		
+		panelModifVolEnAttente = new PanelModifVol();
+		add(panelModifVolEnAttente, BorderLayout.SOUTH);
 	}
 
 	public JTable getTableVolsEnAttente() {

@@ -16,7 +16,7 @@ import javax.swing.JButton;
 import javax.swing.SwingConstants;
 
 @SuppressWarnings("serial")
-public class PanelModifVolEnAttente extends JPanel {
+public class PanelModifVol extends JPanel {
 	private JTextField textFieldNdeVol;
 	private JTextField textFieldVilleDeDepart;
 	private JTextField textFieldPaysDeDepart;
@@ -38,13 +38,13 @@ public class PanelModifVolEnAttente extends JPanel {
 	/**
 	 * Create the panel.
 	 */
-	public PanelModifVolEnAttente() {
+	public PanelModifVol() {
 		// on joue sur les dimensions de la grille pour positionner les éléments :
 		GridBagLayout gridBagLayout = new GridBagLayout();
-		gridBagLayout.columnWidths = new int[]{0, 0, 0, 0, 0, 0};
-		gridBagLayout.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
-		gridBagLayout.columnWeights = new double[]{0.0, 0.0, 1.0, 0.0, 1.0, Double.MIN_VALUE};
-		gridBagLayout.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
+		gridBagLayout.columnWidths = new int[]{0, 0, 0, 70, 0, 0, 0};
+		gridBagLayout.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+		gridBagLayout.columnWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
+		gridBagLayout.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
 		setLayout(gridBagLayout);
 		
 		// Label qui pourra contenir les différents messages à afficher :
@@ -52,8 +52,8 @@ public class PanelModifVolEnAttente extends JPanel {
 		lblMessage.setHorizontalAlignment(SwingConstants.CENTER);
 		lblMessage.setForeground(Color.RED);
 		GridBagConstraints gbc_lblMessage = new GridBagConstraints();
-		gbc_lblMessage.gridwidth = 5;
-		gbc_lblMessage.insets = new Insets(0, 0, 5, 5);
+		gbc_lblMessage.gridwidth = 6;
+		gbc_lblMessage.insets = new Insets(0, 0, 5, 0);
 		gbc_lblMessage.gridx = 0;
 		gbc_lblMessage.gridy = 0;
 		add(lblMessage, gbc_lblMessage);
@@ -82,7 +82,7 @@ public class PanelModifVolEnAttente extends JPanel {
 		GridBagConstraints gbc_lblDateHeureArriv = new GridBagConstraints();
 		gbc_lblDateHeureArriv.anchor = GridBagConstraints.EAST;
 		gbc_lblDateHeureArriv.insets = new Insets(0, 0, 5, 5);
-		gbc_lblDateHeureArriv.gridx = 3;
+		gbc_lblDateHeureArriv.gridx = 4;
 		gbc_lblDateHeureArriv.gridy = 1;
 		add(lblDateHeureArriv, gbc_lblDateHeureArriv);
 		
@@ -90,7 +90,7 @@ public class PanelModifVolEnAttente extends JPanel {
 		GridBagConstraints gbc_textFieldDateHeureArriv = new GridBagConstraints();
 		gbc_textFieldDateHeureArriv.insets = new Insets(0, 0, 5, 0);
 		gbc_textFieldDateHeureArriv.fill = GridBagConstraints.HORIZONTAL;
-		gbc_textFieldDateHeureArriv.gridx = 4;
+		gbc_textFieldDateHeureArriv.gridx = 5;
 		gbc_textFieldDateHeureArriv.gridy = 1;
 		add(textFieldDateHeureArriv, gbc_textFieldDateHeureArriv);
 		textFieldDateHeureArriv.setColumns(10);
@@ -116,7 +116,7 @@ public class PanelModifVolEnAttente extends JPanel {
 		GridBagConstraints gbc_lblDuree = new GridBagConstraints();
 		gbc_lblDuree.anchor = GridBagConstraints.EAST;
 		gbc_lblDuree.insets = new Insets(0, 0, 5, 5);
-		gbc_lblDuree.gridx = 3;
+		gbc_lblDuree.gridx = 4;
 		gbc_lblDuree.gridy = 2;
 		add(lblDuree, gbc_lblDuree);
 		
@@ -124,7 +124,7 @@ public class PanelModifVolEnAttente extends JPanel {
 		GridBagConstraints gbc_textFieldDuree = new GridBagConstraints();
 		gbc_textFieldDuree.insets = new Insets(0, 0, 5, 0);
 		gbc_textFieldDuree.fill = GridBagConstraints.HORIZONTAL;
-		gbc_textFieldDuree.gridx = 4;
+		gbc_textFieldDuree.gridx = 5;
 		gbc_textFieldDuree.gridy = 2;
 		add(textFieldDuree, gbc_textFieldDuree);
 		textFieldDuree.setColumns(10);
@@ -150,7 +150,7 @@ public class PanelModifVolEnAttente extends JPanel {
 		GridBagConstraints gbc_lblTarif = new GridBagConstraints();
 		gbc_lblTarif.anchor = GridBagConstraints.EAST;
 		gbc_lblTarif.insets = new Insets(0, 0, 5, 5);
-		gbc_lblTarif.gridx = 3;
+		gbc_lblTarif.gridx = 4;
 		gbc_lblTarif.gridy = 3;
 		add(lblTarif, gbc_lblTarif);
 		
@@ -158,7 +158,7 @@ public class PanelModifVolEnAttente extends JPanel {
 		GridBagConstraints gbc_textFieldTarif = new GridBagConstraints();
 		gbc_textFieldTarif.insets = new Insets(0, 0, 5, 0);
 		gbc_textFieldTarif.fill = GridBagConstraints.HORIZONTAL;
-		gbc_textFieldTarif.gridx = 4;
+		gbc_textFieldTarif.gridx = 5;
 		gbc_textFieldTarif.gridy = 3;
 		add(textFieldTarif, gbc_textFieldTarif);
 		textFieldTarif.setColumns(10);
@@ -184,7 +184,7 @@ public class PanelModifVolEnAttente extends JPanel {
 		GridBagConstraints gbc_lblPilote = new GridBagConstraints();
 		gbc_lblPilote.anchor = GridBagConstraints.EAST;
 		gbc_lblPilote.insets = new Insets(0, 0, 5, 5);
-		gbc_lblPilote.gridx = 3;
+		gbc_lblPilote.gridx = 4;
 		gbc_lblPilote.gridy = 4;
 		add(lblPilote, gbc_lblPilote);
 		
@@ -192,7 +192,7 @@ public class PanelModifVolEnAttente extends JPanel {
 		GridBagConstraints gbc_textFieldPilote = new GridBagConstraints();
 		gbc_textFieldPilote.insets = new Insets(0, 0, 5, 0);
 		gbc_textFieldPilote.fill = GridBagConstraints.HORIZONTAL;
-		gbc_textFieldPilote.gridx = 4;
+		gbc_textFieldPilote.gridx = 5;
 		gbc_textFieldPilote.gridy = 4;
 		add(textFieldPilote, gbc_textFieldPilote);
 		textFieldPilote.setColumns(10);
@@ -218,7 +218,7 @@ public class PanelModifVolEnAttente extends JPanel {
 		GridBagConstraints gbc_lblCopilote = new GridBagConstraints();
 		gbc_lblCopilote.anchor = GridBagConstraints.EAST;
 		gbc_lblCopilote.insets = new Insets(0, 0, 5, 5);
-		gbc_lblCopilote.gridx = 3;
+		gbc_lblCopilote.gridx = 4;
 		gbc_lblCopilote.gridy = 5;
 		add(lblCopilote, gbc_lblCopilote);
 		
@@ -226,7 +226,7 @@ public class PanelModifVolEnAttente extends JPanel {
 		GridBagConstraints gbc_textFieldCopilote = new GridBagConstraints();
 		gbc_textFieldCopilote.insets = new Insets(0, 0, 5, 0);
 		gbc_textFieldCopilote.fill = GridBagConstraints.HORIZONTAL;
-		gbc_textFieldCopilote.gridx = 4;
+		gbc_textFieldCopilote.gridx = 5;
 		gbc_textFieldCopilote.gridy = 5;
 		add(textFieldCopilote, gbc_textFieldCopilote);
 		textFieldCopilote.setColumns(10);
@@ -252,7 +252,7 @@ public class PanelModifVolEnAttente extends JPanel {
 		GridBagConstraints gbc_lblHotesseSt1 = new GridBagConstraints();
 		gbc_lblHotesseSt1.anchor = GridBagConstraints.EAST;
 		gbc_lblHotesseSt1.insets = new Insets(0, 0, 5, 5);
-		gbc_lblHotesseSt1.gridx = 3;
+		gbc_lblHotesseSt1.gridx = 4;
 		gbc_lblHotesseSt1.gridy = 6;
 		add(lblHotesseSt1, gbc_lblHotesseSt1);
 		
@@ -260,7 +260,7 @@ public class PanelModifVolEnAttente extends JPanel {
 		GridBagConstraints gbc_textFieldHotesseSt1 = new GridBagConstraints();
 		gbc_textFieldHotesseSt1.insets = new Insets(0, 0, 5, 0);
 		gbc_textFieldHotesseSt1.fill = GridBagConstraints.HORIZONTAL;
-		gbc_textFieldHotesseSt1.gridx = 4;
+		gbc_textFieldHotesseSt1.gridx = 5;
 		gbc_textFieldHotesseSt1.gridy = 6;
 		add(textFieldHotesseSt1, gbc_textFieldHotesseSt1);
 		textFieldHotesseSt1.setColumns(10);
@@ -286,7 +286,7 @@ public class PanelModifVolEnAttente extends JPanel {
 		GridBagConstraints gbc_lblHotesseSt2 = new GridBagConstraints();
 		gbc_lblHotesseSt2.anchor = GridBagConstraints.EAST;
 		gbc_lblHotesseSt2.insets = new Insets(0, 0, 5, 5);
-		gbc_lblHotesseSt2.gridx = 3;
+		gbc_lblHotesseSt2.gridx = 4;
 		gbc_lblHotesseSt2.gridy = 7;
 		add(lblHotesseSt2, gbc_lblHotesseSt2);
 		
@@ -294,7 +294,7 @@ public class PanelModifVolEnAttente extends JPanel {
 		GridBagConstraints gbc_textFieldHotesseSt2 = new GridBagConstraints();
 		gbc_textFieldHotesseSt2.insets = new Insets(0, 0, 5, 0);
 		gbc_textFieldHotesseSt2.fill = GridBagConstraints.HORIZONTAL;
-		gbc_textFieldHotesseSt2.gridx = 4;
+		gbc_textFieldHotesseSt2.gridx = 5;
 		gbc_textFieldHotesseSt2.gridy = 7;
 		add(textFieldHotesseSt2, gbc_textFieldHotesseSt2);
 		textFieldHotesseSt2.setColumns(10);
@@ -320,7 +320,7 @@ public class PanelModifVolEnAttente extends JPanel {
 		GridBagConstraints gbc_lblHotesseSt3 = new GridBagConstraints();
 		gbc_lblHotesseSt3.anchor = GridBagConstraints.EAST;
 		gbc_lblHotesseSt3.insets = new Insets(0, 0, 5, 5);
-		gbc_lblHotesseSt3.gridx = 3;
+		gbc_lblHotesseSt3.gridx = 4;
 		gbc_lblHotesseSt3.gridy = 8;
 		add(lblHotesseSt3, gbc_lblHotesseSt3);
 		
@@ -328,22 +328,24 @@ public class PanelModifVolEnAttente extends JPanel {
 		GridBagConstraints gbc_textFieldHotesseSt3 = new GridBagConstraints();
 		gbc_textFieldHotesseSt3.insets = new Insets(0, 0, 5, 0);
 		gbc_textFieldHotesseSt3.fill = GridBagConstraints.HORIZONTAL;
-		gbc_textFieldHotesseSt3.gridx = 4;
+		gbc_textFieldHotesseSt3.gridx = 5;
 		gbc_textFieldHotesseSt3.gridy = 8;
 		add(textFieldHotesseSt3, gbc_textFieldHotesseSt3);
 		textFieldHotesseSt3.setColumns(10);
 		
 		JButton btnMettreJour = new JButton("mettre à jour");
 		GridBagConstraints gbc_btnMettreJour = new GridBagConstraints();
+		gbc_btnMettreJour.anchor = GridBagConstraints.WEST;
 		gbc_btnMettreJour.insets = new Insets(0, 0, 5, 5);
-		gbc_btnMettreJour.gridx = 1;
+		gbc_btnMettreJour.gridx = 5;
 		gbc_btnMettreJour.gridy = 9;
 		add(btnMettreJour, gbc_btnMettreJour);
 		
 		JButton btnRinitialiser = new JButton("réinitialiser");
 		GridBagConstraints gbc_btnRinitialiser = new GridBagConstraints();
+		gbc_btnRinitialiser.anchor = GridBagConstraints.WEST;
 		gbc_btnRinitialiser.insets = new Insets(0, 0, 5, 5);
-		gbc_btnRinitialiser.gridx = 3;
+		gbc_btnRinitialiser.gridx = 6;
 		gbc_btnRinitialiser.gridy = 9;
 		add(btnRinitialiser, gbc_btnRinitialiser);
 		
@@ -352,9 +354,10 @@ public class PanelModifVolEnAttente extends JPanel {
 		btnSupprimer.setBackground(Color.PINK);
 		btnSupprimer.setForeground(Color.RED);
 		GridBagConstraints gbc_btnSupprimer = new GridBagConstraints();
-		gbc_btnSupprimer.insets = new Insets(0, 0, 5, 0);
-		gbc_btnSupprimer.gridx = 4;
-		gbc_btnSupprimer.gridy = 9;
+		gbc_btnSupprimer.anchor = GridBagConstraints.WEST;
+		gbc_btnSupprimer.insets = new Insets(0, 0, 5, 5);
+		gbc_btnSupprimer.gridx = 5;
+		gbc_btnSupprimer.gridy = 10;
 		add(btnSupprimer, gbc_btnSupprimer);
 
 	}
