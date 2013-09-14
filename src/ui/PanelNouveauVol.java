@@ -477,6 +477,7 @@ public class PanelNouveauVol extends JPanel {
 	
 	// prend en paramètres un tableau de villes (String) et une JComboBox
 	// insère les villes dans la comboBox
+	@SuppressWarnings("unchecked")
 	public void comboBoxCreation(String[]villes, JComboBox maComboBox){ // méthode appelée depuis ce panel directement + via le panelNouvelAeroport
 		// on donne le tableau de villes au model :
 		DefaultComboBoxModel<String>model = new DefaultComboBoxModel<>(villes);
