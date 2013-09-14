@@ -403,7 +403,7 @@ public class PanelNouveauVol extends JPanel {
 	public void setComboBoxVilleDarrivee(JComboBox comboBoxVilleDarrivee) {
 		this.comboBoxVilleDarrivee = comboBoxVilleDarrivee;
 	}
-	
+
 	// Prend en paramètre une date sous forme de chaîne de caractères jj/mm/aaaa
 	// Renvoie vrai si la date indiquée est dans le futur
 	private boolean futureDate(String laDate){ // on n'utilise cette méthode que dans ce panel
@@ -428,7 +428,7 @@ public class PanelNouveauVol extends JPanel {
 			return false;
 		}
 	}
-	
+
 	// renvoie les villes proposées par la compagnie sous forme
 	// d'un tableau de chaînes de caractères trié par ordre alphabétique
 	public String[] getVillesProposees() throws SQLException{ // méthode appelée depuis ce panel directement + via le panelNouvelAeroport
@@ -450,7 +450,7 @@ public class PanelNouveauVol extends JPanel {
 		
 		return villes;
 	}
-	
+
 	// utilisée pour vérifier si les villes de départ et d'arrivée
 	// correspondent à celles prévues par la compagnie.
 	private boolean isVillePrevue(String ville){
@@ -474,7 +474,7 @@ public class PanelNouveauVol extends JPanel {
 		}
 		return villePresente;
 	}
-	
+
 	// prend en paramètres un tableau de villes (String) et une JComboBox
 	// insère les villes dans la comboBox
 	@SuppressWarnings("unchecked")

@@ -61,7 +61,7 @@ public class MysqlDao {
 		connection.close();
 		return vols;
 	}
-	
+
 	// retourne les vols "en attente" sous forme d'une liste
 	public List<Vol> getAllVolsEnAttente() throws SQLException {
 		List<Vol> vols = new ArrayList<>();
@@ -126,7 +126,7 @@ public class MysqlDao {
 		connection.close();
 		return aeroports;
 	}
-	
+
 	// ajoute un nouvel aéroport en base et renvoie "vrai" si l'insertion s'est bien passée
 	public boolean addNewAeroport(Aeroport a) throws SQLException{
 		// on se connecte à la BDD
@@ -152,7 +152,7 @@ public class MysqlDao {
 			return false;
 		}
 	}
-	
+
 	// ajoute un nouveau vol en base (table vol_tmp)
 	public int addNewVol(Vol v) throws SQLException{
 		// on se connecte à la BDD
@@ -178,7 +178,7 @@ public class MysqlDao {
 		connection.close();
 		return result; // doit renvoyer "1"
 	}
-	
+
 	// renvoie un objet Aeroport correspondant à la ville en paramètre
 	public Aeroport getAeroportByVille(String ville) throws SQLException{
 		// on se connecte à la BDD
@@ -197,7 +197,7 @@ public class MysqlDao {
 		// on crée un objet Aeroport avec les éléments récupérés :
 		return new Aeroport(code, ville, pays);
 	}
-	
+
 	// renvoie un objet Aeroport correspondant au code AITA en paramètre
 	public Aeroport getAeroportByCode(String code) throws SQLException{
 		// on se connecte à la BDD
@@ -216,7 +216,7 @@ public class MysqlDao {
 		// on crée un objet Aeroport avec les éléments récupérés :
 		return new Aeroport(code, ville, pays);
 	}
-	
+
 	// renvoie vrai si l'aéroport existe déjà en base
 	public boolean doesAirportAlreadyExist(String codeAeroport) throws SQLException{
 		// on se connecte à la BDD
@@ -235,7 +235,7 @@ public class MysqlDao {
 		connection.close();
 		return false;
 	}
-	
+
 	// renvoie le prochain ID à insérer dans la table vol_tmp
 	public String getNextId() throws SQLException{
 		// on se connecte à la BDD
@@ -267,7 +267,7 @@ public class MysqlDao {
 		connection.close();
 		return prochainIdString;
 	}
-	
+
 	// met à jour l'aéroport en paramètre
 	// renvoie "vrai" si la mise à jour s'est bien passée
 	public boolean updateAeroport(Aeroport a) throws SQLException {
@@ -290,7 +290,7 @@ public class MysqlDao {
 		}
 		return false; 
 	}
-	
+
 	// supprime l'aéroport dont le code est passé en paramètre
 	// renvoie vrai si la suppression s'est bien passée
 	public boolean deleteAeroport(String code) throws SQLException {
@@ -312,7 +312,7 @@ public class MysqlDao {
 		}		
 		return false; 
 	}
-	
+
 	// renvoie vrai si un aéroport est utilisé au moins 1 fois (dans les vols programmés ou en attente)
 	public boolean isAirportUsed(String codeAeroport) throws SQLException{
 		// on se connecte à la BDD
@@ -340,7 +340,7 @@ public class MysqlDao {
 			return false;
 		}
 	}
-	
+
 	// renvoie "true" si le couple login + mdp est correct, "false" sinon
 	public boolean connection(String identifiant, String mdp) throws Exception{
 		// on se connecte à la BDD

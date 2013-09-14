@@ -10,7 +10,7 @@ public class Aeroport {
 	private String codeAeroport; // code AITA
 	private String ville;
 	private String pays;
-	
+
 	public Aeroport(String codeAeroport, String ville, String pays) {
 		this.codeAeroport = codeAeroport;
 		this.ville = ville;
@@ -40,13 +40,13 @@ public class Aeroport {
 	public void setPays(String pays) {
 		this.pays = pays;
 	}
-	
+
 	// retourne un tableau de chaines de caractères avec le
 	// code aéroport, la ville et le pays
 	private String[] toArray(){ // utilisée uniquement dans ce panel
 		return new String[]{codeAeroport,ville,pays};
 	}
-	
+
 	// TODO : voir si bien placé ?
 	// Retourne un model à donner à la table
 	// On lui passera la liste d'aéroports récupérée du dao :
@@ -80,7 +80,7 @@ public class Aeroport {
 		};
 		return myModel;
 	}
-	
+
 	// TODO : voir si bien placé ?
 	// prend en paramètre une liste d'aéroports et une JTable
 	// crée le model avec les bonnes données et le donne à la JTable

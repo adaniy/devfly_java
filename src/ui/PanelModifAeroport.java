@@ -245,7 +245,7 @@ public class PanelModifAeroport extends JPanel {
 		add(btnSupprimer, gbc_btnSupprimer);
 
 	}
-	
+
 	// méthode appelée après la mise à jour ou la suppression d'un aéroport
 	private void rafraichirDonnees() throws SQLException{
 		// On vide les champs texte :

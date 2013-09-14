@@ -20,9 +20,9 @@ import dao.MysqlDao;
 //TODO : à décommenter si nécessaire -> permet l'exécution des tests dans l'ordre alphabétique
 //@FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class TestMysqlDao {
-	
+
 	// Décommenter le mot @Test pour lancer le(s) test(s) correspondant(s)
-	
+
 	//@Test
 	public void getAllAeroports() throws SQLException{
 		MysqlDao dao = new MysqlDao();
@@ -33,7 +33,7 @@ public class TestMysqlDao {
 		// on teste que le premier élément de la liste est bien une instance d'Aeroport
 		Assert.assertTrue(aeroports.get(0) instanceof Aeroport);
 	}
-	
+
 	//@Test
 	public void addNewAeroport() throws SQLException{
 		MysqlDao dao = new MysqlDao();
@@ -45,7 +45,7 @@ public class TestMysqlDao {
 		Aeroport a = dao.getAeroportByCode("SXB");
 		Assert.assertEquals(aeroportTest.getCodeAeroport(), a.getCodeAeroport());
 	}
-	
+
 	//@Test
 	public void getAllVolsProgrammes() throws SQLException{
 		MysqlDao dao = new MysqlDao();
@@ -56,7 +56,7 @@ public class TestMysqlDao {
 		// on teste que le premier élément de la liste est bien une instance de Vol
 		Assert.assertTrue(vols.get(0) instanceof Vol);
 	}
-	
+
 	//@Test
 	public void getAllVolsEnAttente() throws SQLException{
 		MysqlDao dao = new MysqlDao();
@@ -67,7 +67,7 @@ public class TestMysqlDao {
 		// on teste que le premier élément de la liste est bien une instance de Vol
 		Assert.assertTrue(vols.get(0) instanceof Vol);
 	}
-	
+
 	//@Test
 	public void addNewVol() throws SQLException{
 		MysqlDao dao = new MysqlDao();
@@ -96,8 +96,8 @@ public class TestMysqlDao {
 		//Vol v = dao.getVolById(5);
 		//Assert.assertEquals(volTest.getId(), v.getId());
 	}
-	
-	
+
+
 //	@Test
 	public void getAeroportByVille() throws SQLException{
 		MysqlDao dao = new MysqlDao();
@@ -106,7 +106,7 @@ public class TestMysqlDao {
 		Aeroport aeroportTest = new Aeroport("BRN", "Berne", "Suisse");
 		Assert.assertEquals(aeroportRecupere.getCodeAeroport(), aeroportTest.getCodeAeroport());
 	}
-	
+
 //	@Test
 	public void getAeroportByCode() throws SQLException{
 		MysqlDao dao = new MysqlDao();
@@ -115,7 +115,7 @@ public class TestMysqlDao {
 		Aeroport aeroportTest = new Aeroport("CMN", "Casblanca", "Maroc");
 		Assert.assertEquals(aeroportRecupere.getCodeAeroport(), aeroportTest.getCodeAeroport());
 	}
-	
+
 	@Test
 	public void getDureeVol(){ // doit renvoyer la durée du vol en min
 		Date dateDepart = null;
@@ -131,7 +131,7 @@ public class TestMysqlDao {
 		int duree = Vol.getDureeVol(dateDepart, dateArrivee);
 		Assert.assertEquals(130, duree);		
 	}
-	
+
 	@Test
 	public void doesAirportAlreadyExist() throws SQLException{ // doit renvoyer vrai si l'aéroport existe déjà en base
 		MysqlDao dao = new MysqlDao();
@@ -140,7 +140,7 @@ public class TestMysqlDao {
 		Assert.assertTrue(test1);
 		Assert.assertFalse(test2);
 	}
-	
+
 	//@Test
 	public void getNextId() throws SQLException{ // doit renvoyer le prochain ID à insérer dans la table vol_tmp
 		MysqlDao dao = new MysqlDao();
@@ -148,7 +148,7 @@ public class TestMysqlDao {
 		// à adapter à chaque test
 		Assert.assertEquals("TMP7", nextId);
 	}
-	
+
 	//@Test
 	public void updateAeroport() throws Exception{
 		MysqlDao dao = new MysqlDao();
@@ -165,7 +165,7 @@ public class TestMysqlDao {
 		Assert.assertFalse(result3); // false
 		Assert.assertEquals(a.getVille(), a1.getVille()); // les villes coïncident
 	}
-	
+
 	//@Test
 	public void deleteAeroport() throws Exception{ // doit supprimer l'aéroport dont le code est en paramètre
 		MysqlDao dao = new MysqlDao();
@@ -177,7 +177,7 @@ public class TestMysqlDao {
 		Assert.assertFalse(result2); // non supprimable
 		Assert.assertFalse(result3); // non supprimable
 	}
-	
+
 	//@Test
 	public void isAirportUsed() throws SQLException{ // doit renvoyer vrai si l'aéroport est utilisé
 		MysqlDao dao = new MysqlDao();
@@ -187,7 +187,7 @@ public class TestMysqlDao {
 		Assert.assertTrue(test1);
 		Assert.assertFalse(test2);
 	}
-	
+
 	//@Test
 	public void connection() throws Exception{ // doit renvoyer vrai si le couple login + password est correct
 		MysqlDao dao = new MysqlDao();

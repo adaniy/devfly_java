@@ -251,7 +251,7 @@ public class PanelNouvelAeroport extends JPanel {
 		add(panelValiderAnnuler, gbc_panelValiderAnnuler);
 
 	}
-	
+
 	// passe la première lettre de la chaîne en majuscules
 	private String UpperFirstLetter(String chaine){
 		char[] charTable = chaine.toCharArray(); // on récupère un tableau de caractères

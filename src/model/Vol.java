@@ -21,7 +21,7 @@ public class Vol {
 	private String codeHotesseSt1;
 	private String codeHotesseSt2;
 	private String codeHotesseSt3;
-	
+
 	// un constructeur complet
 	public Vol(String id, Aeroport aeroportDepart, Aeroport aeroportArrivee,
 			Date dateHeureDepart, Date dateHeureArrivee, int duree, float tarif, String codePilote,
@@ -40,7 +40,7 @@ public class Vol {
 		this.codeHotesseSt2 = codeHotesseSt2;
 		this.codeHotesseSt3 = codeHotesseSt3;
 	}
-	
+
 	// un constructeur sans les codes "employés" ni l'"id" (pour les vols "en attente")
 	public Vol(Aeroport aeroportDepart, Aeroport aeroportArrivee,
 			Date dateHeureDepart, Date dateHeureArrivee, int duree, float tarif) {
@@ -51,7 +51,7 @@ public class Vol {
 		this.duree = duree;
 		this.tarif = tarif;
 	}	
-	
+
 	// Remarque : pas de setter sur l'id du vol qui ne doit pas être modifié.
 
 	public String getId() {
@@ -145,7 +145,7 @@ public class Vol {
 	public void setCodeHotesseSt3(String codeHotesseSt3) {
 		this.codeHotesseSt3 = codeHotesseSt3;
 	}
-	
+
 	// TODO : voir si bien placé ?
 	// Retourne un model à donner à la table
 	// On lui passera une liste de vols récupérée du dao :
@@ -199,7 +199,7 @@ public class Vol {
 		};
 		return myModel;
 	}
-	
+
 	// TODO : voir si bien placé ?
 	// dimensionne les colonnes à la bonne taille pour présenter les vols
 	public static void columnSizeVols(JTable maTable){
@@ -221,7 +221,7 @@ public class Vol {
 		maTable.getColumnModel().getColumn(15).setPreferredWidth(90);
 		maTable.getColumnModel().getColumn(16).setPreferredWidth(60);
 	}
-	
+
 	// TODO : voir si bien placé ?
 	// prend en paramètre une liste de vols et une JTable
 	// crée le model avec les bonnes données et le donne à la JTable
@@ -237,7 +237,7 @@ public class Vol {
 		// On donne le model à la table :
 		maJTable.setModel(model);
 	}
-	
+
 
 	// renvoie la durée du vol en min par rapport aux dates de départ et d'arrivée en paramètres
 	public static int getDureeVol(Date dateHeureDepart, Date dateHeureArrivee){
