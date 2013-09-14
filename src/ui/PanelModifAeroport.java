@@ -165,7 +165,7 @@ public class PanelModifAeroport extends JPanel {
 						// sans avoir sélectionné un aéroport, soit celui-ci est déjà utilisé pour un vol)
 						lblMessage.setText("<html><p>La mise à jour n'a pas pu être effectuée !<br>"
 								+ "Veuillez sélectionner un aéroport ci-dessus et renouveler l'opération.<br>"
-								+ "<u>ATTENTION, les aéroports utilisés pour un vol ne sont plus modifiables.</u></p></html>");
+								+ "<u>ATTENTION, les aéroports déjà utilisés pour un vol ne sont plus modifiables.</u></p></html>");
 					}
 					
 				} catch (SQLException e) {
@@ -226,7 +226,7 @@ public class PanelModifAeroport extends JPanel {
 						// sans avoir sélectionné un aéroport, soit celui-ci est déjà utilisé pour un vol)
 						lblMessage.setText("<html><p>La suppression n'a pas pu être effectuée !<br>"
 								+ "Veuillez sélectionner un aéroport ci-dessus et renouveler l'opération.<br>"
-								+ "<u>ATTENTION, les aéroports utilisés pour un vol ne sont plus modifiables.</u></p></html>");
+								+ "<u>ATTENTION, les aéroports déjà utilisés pour un vol ne sont plus supprimables.</u></p></html>");
 					}
 				} catch (SQLException e) {
 					// TODO Auto-generated catch block
