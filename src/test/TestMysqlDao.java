@@ -116,7 +116,7 @@ public class TestMysqlDao {
 		Assert.assertEquals(aeroportRecupere.getCodeAeroport(), aeroportTest.getCodeAeroport());
 	}
 
-	@Test
+	//@Test
 	public void getDureeVol(){ // doit renvoyer la durée du vol en min
 		Date dateDepart = null;
 		Date dateArrivee = null;
@@ -132,7 +132,7 @@ public class TestMysqlDao {
 		Assert.assertEquals(130, duree);		
 	}
 
-	@Test
+	//@Test
 	public void doesAirportAlreadyExist() throws SQLException{ // doit renvoyer vrai si l'aéroport existe déjà en base
 		MysqlDao dao = new MysqlDao();
 		boolean test1 = dao.doesAirportAlreadyExist("BRN");
@@ -188,7 +188,7 @@ public class TestMysqlDao {
 		Assert.assertFalse(test2);
 	}
 
-	//@Test
+	@Test
 	public void connection() throws Exception{ // doit renvoyer vrai si le couple login + password est correct
 		MysqlDao dao = new MysqlDao();
 		boolean test1 = dao.connection("admin", "admin");

@@ -280,7 +280,6 @@ public class PanelNouveauVol extends JPanel {
 					Date dateDeDepart = null;
 					try {
 						dateDeDepart = new SimpleDateFormat("dd/MM/yyyy HH:mm").parse(dateHeureDepart);
-						// TODO corriger la date d'arrivée (+ heure)
 					} catch (ParseException e2) {
 						// TODO Auto-generated catch block
 						e2.printStackTrace();

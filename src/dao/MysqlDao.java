@@ -10,6 +10,10 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+//import org.apache.commons.codec.binary.Base64;
+//import org.apache.commons.codec.binary.StringUtils;
+
+
 import model.Aeroport;
 import model.Vol;
 
@@ -343,39 +347,37 @@ public class MysqlDao {
 
 	// renvoie "true" si le couple login + mdp est correct, "false" sinon
 	public boolean connection(String identifiant, String mdp) throws Exception{
+		String chaineSalt = "ABCDEFGHIJKLM";
+		String mdpChiffre = null;
+		String sql = "SELECT login FROM user WHERE login=? and password=?";
+
+		MessageDigest digest = MessageDigest.getInstance("SHA-256");
+		digest.reset();
+		digest.update(chaineSalt.getBytes("UTF-8"));
+		mdpChiffre = new String(digest.digest(password.getBytes("UTF-8")));
+
+		/*
+		MessageDigest digest = MessageDigest.getInstance("SHA-256");
+		digest.reset();
+
+		byte[] salt = Base64.decodeBase64(chaineSalt);
+		digest.update(salt);
+		//digest.update(chaineSalt.getBytes("UTF-8"));
+
+		byte[] btPass = digest.digest(mdp.getBytes("UTF-8"));
+		mdpChiffre = new String(Base64.encodeBase64(btPass));
+
+		System.out.print("mdp : "); // test pour débug
+		System.out.println(mdp); // test pour débug
+		System.out.print("mdp chiffré : "); // test pour débug
+		System.out.println(mdpChiffre); // test pour débug
+		*/
+
 		// on se connecte à la BDD
 		Connection connection = DriverManager.getConnection(datasource, user, password);
-		String sql = "SELECT login FROM user WHERE login=? and password=?";
 		PreparedStatement stmt = connection.prepareStatement(sql);
-		// on valorise les paramètres
 		stmt.setString(1, identifiant);
-		
-		// le mot de passe est chiffré en base (sha256), on chiffre également
-		// le mot de passe saisi pour le comparer
-		
-		// le grain de sel (faut-il laisser le $5?) :
-		String chaineSalt = "$5$ABCDEFGHIJKLM";
-		
-		
-		//MessageDigest md = MessageDigest.getInstance("SHA-256");
-		//byte[] salt = md.digest(chaineSalt.getBytes("UTF-8"));
-		 
-		//byte[]hash = getHash(mdp, salt);
-
-		byte[]salt = chaineSalt.getBytes();
-        MessageDigest md = MessageDigest.getInstance("SHA-256");
-        //md.reset();
-        md.update(salt);
-        // On convertit le String en byte, et on le hash
-        byte[] hash = md.digest(password.getBytes("UTF-8"));
-
-		
-		// On transforme le tableau de byte récupéré en String
-		String mdpChiffre = new String(hash);
-		
 		stmt.setString(2, mdpChiffre);
-		System.out.println(mdpChiffre); // test pour débug
-		
 		ResultSet result = stmt.executeQuery();
 		// si la requête renvoie un résultat, les données saisies sont OK, on renvoie vrai.
 		if (result.next()) {
