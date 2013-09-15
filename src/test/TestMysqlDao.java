@@ -187,7 +187,7 @@ public class TestMysqlDao {
 		Assert.assertFalse(test2);
 	}
 	
-	//@Test
+	@Test
 	public void getVolEnAttenteById() throws SQLException{ // doit renvoyer un objet Vol correspondant à l'id en paramètre
 		MysqlDao dao = new MysqlDao();
 		Vol volRecupere = dao.getVolEnAttenteById("TMP9");
@@ -206,6 +206,7 @@ public class TestMysqlDao {
 		Vol volTest = new Vol("TMP9", aeroportDepart, aeroportArrivee, dateDepart, dateArrivee, 795, 1480, "P0001", "C0001", "", "", "");
 		Assert.assertEquals(volTest.getId(), volRecupere.getId());
 		Assert.assertEquals(volTest.getAeroportDepart().getCodeAeroport(), volRecupere.getAeroportDepart().getCodeAeroport());		
+		Assert.assertEquals(volTest.getDuree(), volRecupere.getDuree());
 	}
 
 	//@Test

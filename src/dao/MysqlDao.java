@@ -363,8 +363,10 @@ public class MysqlDao {
 		String villeArrivee = result.getString("lieuarriv");
 		// On récupère l'objet Aeroport correspondant à la ville d'arrivée :
 		Aeroport aeroportArrivee = getAeroportByVille(villeArrivee);
-		Date dateHeureDepart = result.getDate("dateheuredep");
-		Date dateHeureArrivee = result.getDate("dateheurearrivee");
+		// On récupère les dates sous forme de timestamp pour avoir les minutes et secondes
+		// (on formatera à l'affichage)
+		Date dateHeureDepart = result.getTimestamp("dateheuredep");
+		Date dateHeureArrivee = result.getTimestamp("dateheurearrivee");
 		// on calcule la durée du vol
 		int duree = Vol.getDureeVol(dateHeureDepart, dateHeureArrivee);
 		float tarif = result.getFloat("tarif");
