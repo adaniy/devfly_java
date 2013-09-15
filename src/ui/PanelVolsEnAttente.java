@@ -11,6 +11,8 @@ import javax.swing.JLabel;
 
 import java.awt.Color;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import javax.swing.SwingConstants;
@@ -145,16 +147,25 @@ public class PanelVolsEnAttente extends JPanel {
 						panelModifVolEnAttente.getTextFieldPaysDarrivee().setText(v.getAeroportArrivee().getPays());
 						panelModifVolEnAttente.getTextFieldCodeArriv().setText(v.getAeroportArrivee().getCodeAeroport());
 						
-						//panelModifVolEnAttente.getTextFieldDateDep().setText(dateHeureDep.substring(0,10));
-
-						//panelModifVolEnAttente.getTextFieldHeureDep().setText(dateHeureDep.substring(13));
-
-						//panelModifVolEnAttente.getTextFieldDateArriv().setText(dateHeureArriv.substring(0,10));
-
-						//panelModifVolEnAttente.getTextFieldHeureArriv().setText(dateHeureArriv.substring(13));
+						Date dateHeureDep = v.getDateHeureDepart();
+						Date dateHeureArriv = v.getDateHeureArrivee();
+						// On passe les dates récupérées en chaînes de caractères
+						String dateDepStr = new SimpleDateFormat("dd/MM/yyyy").format(dateHeureDep);
+						String heureDepStr = new SimpleDateFormat("HH:mm").format(dateHeureDep);
+						String dateArrivStr = new SimpleDateFormat("dd/MM/yyyy").format(dateHeureArriv);
+						String heureArrivStr = new SimpleDateFormat("HH:mm").format(dateHeureArriv);
+						
+						panelModifVolEnAttente.getTextFieldDateDep().setText(dateDepStr);
+						// TODO : à corriger (heure)
+						panelModifVolEnAttente.getTextFieldHeureDep().setText(heureDepStr);
+						panelModifVolEnAttente.getTextFieldDateArriv().setText(dateArrivStr);
+						// TODO : à corriger (heure)
+						panelModifVolEnAttente.getTextFieldHeureArriv().setText(heureArrivStr);
+						// TODO : à corriger (durée)
 						// pour la durée, on passe la valeur de l'entier en chaîne de caractères
 						panelModifVolEnAttente.getTextFieldDuree().setText(String.valueOf(v.getDuree()));
-						//panelModifVolEnAttente.getTextFieldTarif().setText(Float.valueOf(v.getTarif()));
+						// pour le tarif, on passe la valeur du float en chaîne de caractères
+						panelModifVolEnAttente.getTextFieldTarif().setText(String.valueOf(v.getTarif()));
 						panelModifVolEnAttente.getTextFieldPilote().setText(v.getCodePilote());
 						panelModifVolEnAttente.getTextFieldCopilote().setText(v.getCodeCopilote());
 						panelModifVolEnAttente.getTextFieldHotesseSt1().setText(v.getCodeHotesseSt1());
