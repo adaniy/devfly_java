@@ -27,6 +27,10 @@ public class PanelVolsProgrammes extends JPanel {
 	private MysqlDao dao = new MysqlDao();
 	private PanelModifVol panelModifVolProgramme;
 
+	public PanelModifVol getPanelModifVolProgramme() {
+		return panelModifVolProgramme;
+	}
+
 	/**
 	 * Create the panel.
 	 * @throws SQLException 
