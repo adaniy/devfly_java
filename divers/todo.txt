@@ -1,4 +1,4 @@
-Reprendre la méthode de connexion !!
+Reprendre la méthode de connexion !! -> demander pour chiffrement
 PanelModifVolEnAttente : mettre des setEditable à false en fonction du contexte...
 BDD : prévenir changements + changer sur le serveur
 
