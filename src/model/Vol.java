@@ -41,7 +41,7 @@ public class Vol {
 		this.codeHotesseSt3 = codeHotesseSt3;
 	}
 
-	// un constructeur sans les codes "employés" ni l'"id" (pour les vols "en attente")
+	// un constructeur sans les codes "employés" ni l'"id" (pour la création d'un vol "en attente")
 	public Vol(Aeroport aeroportDepart, Aeroport aeroportArrivee,
 			Date dateHeureDepart, Date dateHeureArrivee, int duree, float tarif) {
 		this.aeroportDepart = aeroportDepart;
