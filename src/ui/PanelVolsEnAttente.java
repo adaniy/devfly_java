@@ -50,54 +50,10 @@ public class PanelVolsEnAttente extends JPanel {
 			public void mouseClicked(MouseEvent arg0) {
 				// on récupère l'endroit où a eu lieu l'événement (= le clic)
 				Point p = arg0.getPoint();
-				int row = tableVolsEnAttente.rowAtPoint(p); // renvoie la ligne sous le point
-				// On convertit les row du tableau en row du modèle pour maintenir la cohérence 
-				// entre les cellules de la présentation et les cellules du model (source de données)
-				int modelRow = tableVolsEnAttente.convertRowIndexToModel(row);
-				TableModel model = tableVolsEnAttente.getModel();
-				String numVol = (String) model.getValueAt(modelRow, 0); // String qui représente la valeur récupérée
-				String villeDep = (String) model.getValueAt(modelRow, 1);
-				String paysDep = (String) model.getValueAt(modelRow, 2);
-				String codeDep = (String) model.getValueAt(modelRow, 3);
-				String villeArriv = (String) model.getValueAt(modelRow, 4);
-				String paysArriv = (String) model.getValueAt(modelRow, 5);
-				String codeArriv = (String) model.getValueAt(modelRow, 6);
-				String dateHeureDep = (String) model.getValueAt(modelRow, 7);
-				String dateHeureArriv = (String) model.getValueAt(modelRow, 8);
-				int duree = (int) model.getValueAt(modelRow, 9);
-				String tarif = (String) model.getValueAt(modelRow, 10);
-				String pilote = (String) model.getValueAt(modelRow, 11);
-				String copilote = (String) model.getValueAt(modelRow, 12);
-				String hotesseSt1 = (String) model.getValueAt(modelRow, 13);
-				String hotesseSt2 = (String) model.getValueAt(modelRow, 14);
-				String hotesseSt3 = (String) model.getValueAt(modelRow, 15);
-				
-				
-				// On place les valeurs récupérées dans les champs du formulaire
-				
-				panelModifVolEnAttente.getTextFieldNdeVol().setText(numVol);
-				panelModifVolEnAttente.getTextFieldVilleDeDepart().setText(villeDep);
-				panelModifVolEnAttente.getTextFieldPaysDeDepart().setText(paysDep);
-				panelModifVolEnAttente.getTextFieldCodeDep().setText(codeDep);
-				panelModifVolEnAttente.getTextFieldVilleDarrivee().setText(villeArriv);
-				panelModifVolEnAttente.getTextFieldPaysDarrivee().setText(paysArriv);
-				panelModifVolEnAttente.getTextFieldCodeArriv().setText(codeArriv);
-				// pour avoir la date uniquement, on récupère la sous-chaîne correspondante
-				panelModifVolEnAttente.getTextFieldDateDep().setText(dateHeureDep.substring(0,10));
-				// pour avoir l'heure uniquement, on commence à l'index 13
-				panelModifVolEnAttente.getTextFieldHeureDep().setText(dateHeureDep.substring(13));
-				// pour avoir la date uniquement, on récupère la sous-chaîne correspondante
-				panelModifVolEnAttente.getTextFieldDateArriv().setText(dateHeureArriv.substring(0,10));
-				// pour avoir l'heure uniquement, on commence à l'index 13
-				panelModifVolEnAttente.getTextFieldHeureArriv().setText(dateHeureArriv.substring(13));
-				// pour la durée, on passe la valeur de l'entier en chaîne de caractères
-				panelModifVolEnAttente.getTextFieldDuree().setText(String.valueOf(duree));
-				panelModifVolEnAttente.getTextFieldTarif().setText(tarif);
-				panelModifVolEnAttente.getTextFieldPilote().setText(pilote);
-				panelModifVolEnAttente.getTextFieldCopilote().setText(copilote);
-				panelModifVolEnAttente.getTextFieldHotesseSt1().setText(hotesseSt1);
-				panelModifVolEnAttente.getTextFieldHotesseSt2().setText(hotesseSt2);
-				panelModifVolEnAttente.getTextFieldHotesseSt3().setText(hotesseSt3);
+				PanelModifVol.fillTableWithPanelData(
+					panelModifVolEnAttente, 
+					p, 
+					tableVolsEnAttente);
 			}
 		});
 		
