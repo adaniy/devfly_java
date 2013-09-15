@@ -259,6 +259,7 @@ public class PanelModifVol extends JPanel {
 		add(lblPaysDeDepart, gbc_lblPaysDeDepart);
 		
 		textFieldPaysDeDepart = new JTextField();
+		textFieldPaysDeDepart.setEditable(false); // on empêche la modification du pays
 		GridBagConstraints gbc_textFieldPaysDeDepart = new GridBagConstraints();
 		gbc_textFieldPaysDeDepart.insets = new Insets(0, 0, 5, 5);
 		gbc_textFieldPaysDeDepart.fill = GridBagConstraints.HORIZONTAL;
@@ -293,6 +294,7 @@ public class PanelModifVol extends JPanel {
 		add(lblCodeDep, gbc_lblCodeDep);
 		
 		textFieldCodeDep = new JTextField();
+		textFieldCodeDep.setEditable(false); // on empêche la modification du code aéroport
 		GridBagConstraints gbc_textFieldCodeDep = new GridBagConstraints();
 		gbc_textFieldCodeDep.insets = new Insets(0, 0, 5, 5);
 		gbc_textFieldCodeDep.fill = GridBagConstraints.HORIZONTAL;
@@ -364,6 +366,7 @@ public class PanelModifVol extends JPanel {
 		add(lblPaysDarrivee, gbc_lblPaysDarrivee);
 		
 		textFieldPaysDarrivee = new JTextField();
+		textFieldPaysDarrivee.setEditable(false); // on empêche la modification du pays
 		GridBagConstraints gbc_textFieldPaysDarrivee = new GridBagConstraints();
 		gbc_textFieldPaysDarrivee.insets = new Insets(0, 0, 5, 5);
 		gbc_textFieldPaysDarrivee.fill = GridBagConstraints.HORIZONTAL;
@@ -398,6 +401,7 @@ public class PanelModifVol extends JPanel {
 		add(lblCodeArriv, gbc_lblCodeArriv);
 		
 		textFieldCodeArriv = new JTextField();
+		textFieldCodeArriv.setEditable(false); // on empêche la modification du code aéroport
 		GridBagConstraints gbc_textFieldCodeArriv = new GridBagConstraints();
 		gbc_textFieldCodeArriv.insets = new Insets(0, 0, 5, 5);
 		gbc_textFieldCodeArriv.fill = GridBagConstraints.HORIZONTAL;

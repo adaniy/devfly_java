@@ -1,5 +1,7 @@
+todo : reprendre à ui
 Reprendre la méthode de connexion !! -> demander pour chiffrement
 PanelModifVolEnAttente : mettre des setEditable à false en fonction du contexte...
+"Réinitialiser" à mettre en méthode + ds Volsprogrammes
 BDD : prévenir changements + changer sur le serveur
 
 -CAHIER DES CHARGES (rappel : tarif à zéro autorisé + date du vol à partir du lendemain + contraintes sur les modifs d'aéroports / vols)
