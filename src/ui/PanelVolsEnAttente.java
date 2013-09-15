@@ -96,10 +96,12 @@ public class PanelVolsEnAttente extends JPanel {
 						// EN COURS
 						Vol v = dao.getVolEnAttenteById(numVol);
 						// On réinitialise les champs du formulaire :
-						panelModifVolEnAttente.getTextFieldVilleDeDepart().setText(v.getAeroportDepart().getVille());
+
+						panelModifVolEnAttente.getJComboBoxVilleDeDepart().setSelectedItem(v.getAeroportDepart().getVille());
 						panelModifVolEnAttente.getTextFieldPaysDeDepart().setText(v.getAeroportDepart().getPays());
 						panelModifVolEnAttente.getTextFieldCodeDep().setText(v.getAeroportDepart().getCodeAeroport());
-						panelModifVolEnAttente.getTextFieldVilleDarrivee().setText(v.getAeroportArrivee().getVille());
+
+						panelModifVolEnAttente.getJComboBoxVilleDarrivee().setSelectedItem(v.getAeroportArrivee().getVille());
 						panelModifVolEnAttente.getTextFieldPaysDarrivee().setText(v.getAeroportArrivee().getPays());
 						panelModifVolEnAttente.getTextFieldCodeArriv().setText(v.getAeroportArrivee().getCodeAeroport());
 						

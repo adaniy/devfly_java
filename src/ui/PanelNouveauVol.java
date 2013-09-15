@@ -9,8 +9,7 @@ import javax.swing.JLabel;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
 
-import javax.swing.DefaultComboBoxModel;
-import javax.swing.JComboBox;
+import javax.swing.*;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.SwingUtilities;
@@ -100,10 +99,10 @@ public class PanelNouveauVol extends JPanel {
 		
 		// Les données dans la combobox vont provenir des données en base.
 		// On récupère les villes proposées par la compagnie
-		String[]villes = getVillesProposees();
+		String[]villes = Aeroport.getVillesProposees();
 		
 		// On insère les villes dans la comboBox (méthode définie plus bas)
-		comboBoxCreation(villes, comboBoxVilleDeDepart);
+		Aeroport.comboBoxCreation(villes, comboBoxVilleDeDepart);
 		
 		JLabel lblVilleDarrivee = new JLabel("Ville d'arrivée");
 		GridBagConstraints gbc_lblVilleDarrivee = new GridBagConstraints();
@@ -124,7 +123,7 @@ public class PanelNouveauVol extends JPanel {
 		
 		// Les données dans la combobox proviennent également des données en base
 		// On insère les villes dans la comboBox (méthode définie plus bas)
-		comboBoxCreation(villes, comboBoxVilleDarrivee);
+		Aeroport.comboBoxCreation(villes, comboBoxVilleDarrivee);
 		
 		JLabel lblDateDeDepart = new JLabel("Date de départ (jj/mm/aaaa)");
 		GridBagConstraints gbc_lblDateDeDepart = new GridBagConstraints();
@@ -430,35 +429,13 @@ public class PanelNouveauVol extends JPanel {
 		}
 	}
 
-	// renvoie les villes proposées par la compagnie sous forme
-	// d'un tableau de chaînes de caractères trié par ordre alphabétique
-	public String[] getVillesProposees() throws SQLException{ // méthode appelée depuis ce panel directement + via le panelNouvelAeroport
-		// On récupère la liste des objets Aeroport :
-		List<Aeroport> aeroports = dao.getAllAeroports();
-		
-		// On initialise un tableau de chaînes de caractères de la taille
-		// de la liste, on y placera les villes.
-		String[]villes = new String[aeroports.size()];
-		
-		// On parcourt la liste :
-		for(int i = 0 ; i < aeroports.size(); i++){
-			String ville = aeroports.get(i).getVille(); // on récupère la ville
-			// On ajoute la ville dans le tableau :
-			villes[i] = ville;
-		}
-		
-		Arrays.sort(villes); // pour trier les villes par ordre alphabétique
-		
-		return villes;
-	}
-
 	// utilisée pour vérifier si les villes de départ et d'arrivée
 	// correspondent à celles prévues par la compagnie.
 	private boolean isVillePrevue(String ville){
 		// On récupère les villes proposées par la compagnie
 		String[] villesPrevues = null;
 		try {
-			villesPrevues = getVillesProposees();
+			villesPrevues = Aeroport.getVillesProposees();
 		} catch (SQLException e) {
 			getLabelMessage().setText(e.getMessage());
 		}
@@ -473,18 +450,6 @@ public class PanelNouveauVol extends JPanel {
 			}
 		}
 		return villePresente;
-	}
-
-	// prend en paramètres un tableau de villes (String) et une JComboBox
-	// insère les villes dans la comboBox
-	@SuppressWarnings({ "unchecked", "rawtypes" })
-	public void comboBoxCreation(String[]villes, JComboBox maComboBox){ // méthode appelée depuis ce panel directement + via le panelNouvelAeroport
-		// on donne le tableau de villes au model :
-		DefaultComboBoxModel<String>model = new DefaultComboBoxModel<>(villes);
-		// on ajoute le model à la combobox :
-		maComboBox.setModel(model);
-		// on pourra faire défiler les villes avec la molette de la souris :
-		maComboBox.setMaximumRowCount(6); // 6 villes visibles à chaque fois
 	}
 
 }

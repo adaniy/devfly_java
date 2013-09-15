@@ -267,11 +267,11 @@ public class PanelModifAeroport extends JPanel {
 		Aeroport.TableCreation(aeroports, table);
 		
 		// on va également recharger la liste des villes proposées dans le formulaire de création d'un vol
-		String[]villes = frame.getPanelNouveauVol().getVillesProposees();
+		String[]villes = Aeroport.getVillesProposees();
 		// On insère les villes dans les comboBox
 		JComboBox comboBoxDepart = frame.getPanelNouveauVol().getComboBoxVilleDeDepart();
 		JComboBox comboBoxArrivee = frame.getPanelNouveauVol().getComboBoxVilleDarrivee();
-		frame.getPanelNouveauVol().comboBoxCreation(villes, comboBoxDepart);
-		frame.getPanelNouveauVol().comboBoxCreation(villes, comboBoxArrivee);
+		Aeroport.comboBoxCreation(villes, comboBoxDepart);
+		Aeroport.comboBoxCreation(villes, comboBoxArrivee);
 	}
 }
