@@ -228,21 +228,21 @@ public class PanelModifVol extends JPanel {
 		// pour créer la comboxBox avec les villes prévues par la compagnie :
 		Aeroport.comboBoxCreation(villes, comboBoxVilleDeDepart);
 		comboBoxVilleDeDepart.addActionListener (new ActionListener () {
+			// lorsqu'une ville est sélectionnée dans la combobox, le code et le pays affichés changent en fonction
 			public void actionPerformed(ActionEvent e) {
 				MysqlDao dao = new MysqlDao();
 				try {
+					// on récupère le pays + le code associés à la ville récupérée
 					Aeroport a = dao.getAeroportByVille( 
-					(String) PanelModifVol.this
-					.getJComboBoxVilleDeDepart()
-					.getSelectedItem()
+						(String) PanelModifVol.this
+						.getJComboBoxVilleDeDepart()
+						.getSelectedItem() // renvoie un objet qu'on caste en String
 					);
-					PanelModifVol.this.getTextFieldPaysDeDepart().setText(
-						a.getPays()
-						);
+					// on place la ville récupérée dans le textField
+					PanelModifVol.this.getTextFieldPaysDeDepart().setText(a.getPays());
 
-					PanelModifVol.this.getTextFieldCodeDep().setText(
-						a.getCodeAeroport()
-						);
+					// on place le code récupéré dans le textField
+					PanelModifVol.this.getTextFieldCodeDep().setText(a.getCodeAeroport());
 				}
 				catch(SQLException ex) {
 					getLblMessage().setText(ex.getMessage());
@@ -357,21 +357,22 @@ public class PanelModifVol extends JPanel {
 		// pour créer la comboxBox avec les villes prévues par la compagnie :
 		Aeroport.comboBoxCreation(villes, comboBoxVilleDarrivee);
 		comboBoxVilleDarrivee.addActionListener (new ActionListener () {
+			// lorsqu'une ville est sélectionnée dans la combobox, le code et le pays affichés changent en fonction
 			public void actionPerformed(ActionEvent e) {
 				MysqlDao dao = new MysqlDao();
 				try {
+					// on récupère le pays + le code associés à la ville récupérée
 					Aeroport a = dao.getAeroportByVille( 
 						(String) PanelModifVol.this
 						.getJComboBoxVilleDarrivee()
-						.getSelectedItem()
+						.getSelectedItem() // renvoie un objet qu'on caste en String
 						);
-					PanelModifVol.this.getTextFieldPaysDarrivee().setText(
-						a.getPays()
-						);
+					
+					// on place la ville récupérée dans le textField
+					PanelModifVol.this.getTextFieldPaysDarrivee().setText(a.getPays());
 
-					PanelModifVol.this.getTextFieldCodeArriv().setText(
-						a.getCodeAeroport()
-						);
+					// on place le code récupéré dans le textField
+					PanelModifVol.this.getTextFieldCodeArriv().setText(a.getCodeAeroport());
 				}
 				catch(SQLException ex) {
 					getLblMessage().setText(ex.getMessage());
