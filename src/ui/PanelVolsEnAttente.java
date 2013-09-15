@@ -35,6 +35,10 @@ public class PanelVolsEnAttente extends JPanel {
 	private MysqlDao dao = new MysqlDao();
 	private PanelModifVol panelModifVolEnAttente;
 
+	public PanelModifVol getPanelModifVolEnAttente() {
+		return panelModifVolEnAttente;
+	}
+
 	/**
 	 * Create the panel.
 	 * @throws SQLException 
@@ -94,11 +98,14 @@ public class PanelVolsEnAttente extends JPanel {
 					try {
 						Vol v = dao.getVolEnAttenteById(numVol);
 						// On réinitialise les champs du formulaire :
-
+						
+						// pour la comboBox :
 						panelModifVolEnAttente.getJComboBoxVilleDeDepart().setSelectedItem(v.getAeroportDepart().getVille());
+						
 						panelModifVolEnAttente.getTextFieldPaysDeDepart().setText(v.getAeroportDepart().getPays());
 						panelModifVolEnAttente.getTextFieldCodeDep().setText(v.getAeroportDepart().getCodeAeroport());
-
+						
+						// pour la comboBox :
 						panelModifVolEnAttente.getJComboBoxVilleDarrivee().setSelectedItem(v.getAeroportArrivee().getVille());
 						panelModifVolEnAttente.getTextFieldPaysDarrivee().setText(v.getAeroportArrivee().getPays());
 						panelModifVolEnAttente.getTextFieldCodeArriv().setText(v.getAeroportArrivee().getCodeAeroport());

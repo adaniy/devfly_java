@@ -20,14 +20,17 @@ import javax.swing.JButton;
 import javax.swing.SwingConstants;
 
 import model.Aeroport;
+
 import java.sql.SQLException;
 
 @SuppressWarnings("serial")
 public class PanelModifVol extends JPanel {
 	private JTextField textFieldNdeVol;
+	@SuppressWarnings("rawtypes")
 	private JComboBox comboBoxVilleDeDepart;
 	private JTextField textFieldPaysDeDepart;
 	private JTextField textFieldCodeDep;
+	@SuppressWarnings("rawtypes")
 	private JComboBox comboBoxVilleDarrivee;
 	private JTextField textFieldPaysDarrivee;
 	private JTextField textFieldCodeArriv;
@@ -64,6 +67,7 @@ public class PanelModifVol extends JPanel {
 		return textFieldNdeVol;
 	}
 
+	@SuppressWarnings("rawtypes")
 	public JComboBox getJComboBoxVilleDeDepart() {
 		return comboBoxVilleDeDepart;
 	}
@@ -76,6 +80,7 @@ public class PanelModifVol extends JPanel {
 		return textFieldCodeDep;
 	}
 
+	@SuppressWarnings("rawtypes")
 	public JComboBox getJComboBoxVilleDarrivee() {
 		return comboBoxVilleDarrivee;
 	}
@@ -139,6 +144,7 @@ public class PanelModifVol extends JPanel {
 	/**
 	 * Create the panel.
 	 */
+	@SuppressWarnings("rawtypes")
 	public PanelModifVol() {
 		// on joue sur les dimensions de la grille pour positionner les éléments :
 		GridBagLayout gridBagLayout = new GridBagLayout();
@@ -216,6 +222,7 @@ public class PanelModifVol extends JPanel {
 			getLblMessage().setText(e.getMessage());
 		}
 		
+		// pour créer la comboxBox avec les villes prévues par la compagnie :
 		Aeroport.comboBoxCreation(villes, comboBoxVilleDeDepart);
 
 		GridBagConstraints gbc_textFieldVilleDeDepart = new GridBagConstraints();
@@ -320,6 +327,7 @@ public class PanelModifVol extends JPanel {
 		add(lblVilleDarrivee, gbc_lblVilleDarrivee);
 		
 		comboBoxVilleDarrivee = new JComboBox();
+		// pour créer la comboxBox avec les villes prévues par la compagnie :
 		Aeroport.comboBoxCreation(villes, comboBoxVilleDarrivee);
 
 		GridBagConstraints gbc_textFieldVilleDarrivee = new GridBagConstraints();
@@ -541,12 +549,12 @@ public class PanelModifVol extends JPanel {
 		// On place les valeurs récupérées dans les champs du formulaire
 		panelModifVol.getTextFieldNdeVol().setText(numVol);
 
-		panelModifVol.getJComboBoxVilleDeDepart().setSelectedItem(villeDep);
+		panelModifVol.getJComboBoxVilleDeDepart().setSelectedItem(villeDep); // pour la comboBox
 
 		panelModifVol.getTextFieldPaysDeDepart().setText(paysDep);
 		panelModifVol.getTextFieldCodeDep().setText(codeDep);
 
-		panelModifVol.getJComboBoxVilleDarrivee().setSelectedItem(villeArriv);
+		panelModifVol.getJComboBoxVilleDarrivee().setSelectedItem(villeArriv); // pour la comboBox
 
 		panelModifVol.getTextFieldPaysDarrivee().setText(paysArriv);
 		panelModifVol.getTextFieldCodeArriv().setText(codeArriv);

@@ -150,7 +150,6 @@ public class MysqlDao {
 				connection.close();
 				return true;
 			}
-			// TODO voir dans quel cas ?
 			// S'il y a eu un problème quelconque
 			connection.close();
 			return false;

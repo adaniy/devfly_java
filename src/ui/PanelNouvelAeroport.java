@@ -218,13 +218,23 @@ public class PanelNouvelAeroport extends JPanel {
 							// On utilise pour cela la méthode statique définie dans Aeroport
 							Aeroport.TableCreation(aeroports, table);
 							
-							// on va également recharger la liste des villes proposées dans le formulaire de création d'un vol
+							// on va également recharger la liste des villes proposées dans les formulaires
+							// de création d'un vol ET de modification d'un vol
 							String[]villes = Aeroport.getVillesProposees();
 							// On insère les villes dans les comboBox
-							JComboBox comboBoxDepart = frame.getPanelNouveauVol().getComboBoxVilleDeDepart();
-							JComboBox comboBoxArrivee = frame.getPanelNouveauVol().getComboBoxVilleDarrivee();
-							Aeroport.comboBoxCreation(villes, comboBoxDepart);
-							Aeroport.comboBoxCreation(villes, comboBoxArrivee);
+							JComboBox comboBoxCreationDepart = frame.getPanelNouveauVol().getComboBoxVilleDeDepart();
+							JComboBox comboBoxCreationArrivee = frame.getPanelNouveauVol().getComboBoxVilleDarrivee();
+							JComboBox comboBoxModificationDepart1 = frame.getPanelVolsEnAttente().getPanelModifVolEnAttente().getJComboBoxVilleDeDepart();
+							JComboBox comboBoxModificationArrivee1 = frame.getPanelVolsEnAttente().getPanelModifVolEnAttente().getJComboBoxVilleDarrivee();
+							JComboBox comboBoxModificationDepart2 = frame.getPanelVolsProgrammes().getPanelModifVolProgramme().getJComboBoxVilleDeDepart();
+							JComboBox comboBoxModificationArrivee2 = frame.getPanelVolsProgrammes().getPanelModifVolProgramme().getJComboBoxVilleDarrivee();
+							
+							Aeroport.comboBoxCreation(villes, comboBoxCreationDepart);
+							Aeroport.comboBoxCreation(villes, comboBoxCreationArrivee);
+							Aeroport.comboBoxCreation(villes, comboBoxModificationDepart1);
+							Aeroport.comboBoxCreation(villes, comboBoxModificationArrivee1);
+							Aeroport.comboBoxCreation(villes, comboBoxModificationDepart2);
+							Aeroport.comboBoxCreation(villes, comboBoxModificationArrivee2);
 							
 						}else{
 							getLabelMessage().setText("Le code aéroport " + codeAita + " existe déjà.");
