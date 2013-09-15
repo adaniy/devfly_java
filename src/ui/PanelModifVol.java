@@ -33,9 +33,101 @@ public class PanelModifVol extends JPanel {
 	private JTextField textFieldPilote;
 	private JTextField textFieldCopilote;
 	private JTextField textFieldHotesseSt1;
+	
+	public JButton getBtnMettreAJour() {
+		return btnMettreAJour;
+	}
+
+	public JButton getBtnReinitialiser() {
+		return btnReinitialiser;
+	}
+
+	public JButton getBtnSupprimer() {
+		return btnSupprimer;
+	}
+
 	private JTextField textFieldHotesseSt2;
 	private JTextField textFieldHotesseSt3;
 	private JLabel lblMessage;
+	private JButton btnMettreAJour;
+	private JButton btnReinitialiser;
+	private JButton btnSupprimer;
+
+	public JTextField getTextFieldNdeVol() {
+		return textFieldNdeVol;
+	}
+
+	public JTextField getTextFieldVilleDeDepart() {
+		return textFieldVilleDeDepart;
+	}
+
+	public JTextField getTextFieldPaysDeDepart() {
+		return textFieldPaysDeDepart;
+	}
+
+	public JTextField getTextFieldCodeDep() {
+		return textFieldCodeDep;
+	}
+
+	public JTextField getTextFieldVilleDarrivee() {
+		return textFieldVilleDarrivee;
+	}
+
+	public JTextField getTextFieldPaysDarrivee() {
+		return textFieldPaysDarrivee;
+	}
+
+	public JTextField getTextFieldCodeArriv() {
+		return textFieldCodeArriv;
+	}
+
+	public JTextField getTextFieldDateDep() {
+		return textFieldDateDep;
+	}
+
+	public JTextField getTextFieldHeureDep() {
+		return textFieldHeureDep;
+	}
+
+	public JTextField getTextFieldDateArriv() {
+		return textFieldDateArriv;
+	}
+
+	public JTextField getTextFieldHeureArriv() {
+		return textFieldHeureArriv;
+	}
+
+	public JTextField getTextFieldDuree() {
+		return textFieldDuree;
+	}
+
+	public JTextField getTextFieldTarif() {
+		return textFieldTarif;
+	}
+
+	public JTextField getTextFieldPilote() {
+		return textFieldPilote;
+	}
+
+	public JTextField getTextFieldCopilote() {
+		return textFieldCopilote;
+	}
+
+	public JTextField getTextFieldHotesseSt1() {
+		return textFieldHotesseSt1;
+	}
+
+	public JTextField getTextFieldHotesseSt2() {
+		return textFieldHotesseSt2;
+	}
+
+	public JTextField getTextFieldHotesseSt3() {
+		return textFieldHotesseSt3;
+	}
+
+	public JLabel getLblMessage() {
+		return lblMessage;
+	}
 
 	/**
 	 * Create the panel.
@@ -369,23 +461,23 @@ public class PanelModifVol extends JPanel {
 		add(textFieldHotesseSt3, gbc_textFieldHotesseSt3);
 		textFieldHotesseSt3.setColumns(10);
 		
-		JButton btnMettreJour = new JButton("mettre à jour");
-		GridBagConstraints gbc_btnMettreJour = new GridBagConstraints();
-		gbc_btnMettreJour.anchor = GridBagConstraints.WEST;
-		gbc_btnMettreJour.insets = new Insets(0, 0, 5, 5);
-		gbc_btnMettreJour.gridx = 5;
-		gbc_btnMettreJour.gridy = 10;
-		add(btnMettreJour, gbc_btnMettreJour);
+		btnMettreAJour = new JButton("mettre à jour");
+		GridBagConstraints gbc_btnMettreAJour = new GridBagConstraints();
+		gbc_btnMettreAJour.anchor = GridBagConstraints.WEST;
+		gbc_btnMettreAJour.insets = new Insets(0, 0, 5, 5);
+		gbc_btnMettreAJour.gridx = 5;
+		gbc_btnMettreAJour.gridy = 10;
+		add(btnMettreAJour, gbc_btnMettreAJour);
 		
-		JButton btnRinitialiser = new JButton("réinitialiser");
-		GridBagConstraints gbc_btnRinitialiser = new GridBagConstraints();
-		gbc_btnRinitialiser.anchor = GridBagConstraints.WEST;
-		gbc_btnRinitialiser.insets = new Insets(0, 0, 5, 0);
-		gbc_btnRinitialiser.gridx = 6;
-		gbc_btnRinitialiser.gridy = 10;
-		add(btnRinitialiser, gbc_btnRinitialiser);
+		btnReinitialiser = new JButton("réinitialiser");
+		GridBagConstraints gbc_btnReinitialiser = new GridBagConstraints();
+		gbc_btnReinitialiser.anchor = GridBagConstraints.WEST;
+		gbc_btnReinitialiser.insets = new Insets(0, 0, 5, 0);
+		gbc_btnReinitialiser.gridx = 6;
+		gbc_btnReinitialiser.gridy = 10;
+		add(btnReinitialiser, gbc_btnReinitialiser);
 		
-		JButton btnSupprimer = new JButton("supprimer");
+		btnSupprimer = new JButton("supprimer");
 		btnSupprimer.setFont(new Font("Tahoma", Font.BOLD, 13));
 		btnSupprimer.setBackground(Color.PINK);
 		btnSupprimer.setForeground(Color.RED);
