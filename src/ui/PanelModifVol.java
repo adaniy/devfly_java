@@ -40,6 +40,13 @@ public class PanelModifVol extends JPanel {
 	private JTextField textFieldPilote;
 	private JTextField textFieldCopilote;
 	private JTextField textFieldHotesseSt1;
+	private JTextField textFieldHotesseSt2;
+	private JTextField textFieldHotesseSt3;
+	private JLabel lblMessage;
+	private JButton btnMettreAJour;
+	private JButton btnReinitialiser;
+	private JButton btnSupprimer;
+
 	
 	public JButton getBtnMettreAJour() {
 		return btnMettreAJour;
@@ -52,14 +59,7 @@ public class PanelModifVol extends JPanel {
 	public JButton getBtnSupprimer() {
 		return btnSupprimer;
 	}
-
-	private JTextField textFieldHotesseSt2;
-	private JTextField textFieldHotesseSt3;
-	private JLabel lblMessage;
-	private JButton btnMettreAJour;
-	private JButton btnReinitialiser;
-	private JButton btnSupprimer;
-
+	
 	public JTextField getTextFieldNdeVol() {
 		return textFieldNdeVol;
 	}
@@ -512,11 +512,11 @@ public class PanelModifVol extends JPanel {
 
 	}
 
-	public static void fillTableWithPanelData(PanelModifVol panelModifVol, 
-			Point p, 
-			JTable tableVols ){
+	// au clic, remplit le formulaire avec les données du tableau
+	// prend en paramètre le panel de type PanelModifVol, le pointeur, et la JTable
+	public static void fillInForm(PanelModifVol panelModifVol, Point p, JTable tableVols){
 		// on récupère l'endroit où a eu lieu l'événement (= le clic)
-		int row = tableVols.rowAtPoint(p); // renvoie la ligne sous le point
+		int row = tableVols.rowAtPoint(p); // renvoie la ligne sous le pointeur
 		// On convertit les row du tableau en row du modèle pour maintenir la cohérence 
 		// entre les cellules de la présentation et les cellules du model (source de données)
 		int modelRow = tableVols.convertRowIndexToModel(row);
@@ -537,7 +537,6 @@ public class PanelModifVol extends JPanel {
 		String hotesseSt1 = (String) model.getValueAt(modelRow, 13);
 		String hotesseSt2 = (String) model.getValueAt(modelRow, 14);
 		String hotesseSt3 = (String) model.getValueAt(modelRow, 15);
-
 
 		// On place les valeurs récupérées dans les champs du formulaire
 		panelModifVol.getTextFieldNdeVol().setText(numVol);

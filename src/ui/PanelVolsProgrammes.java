@@ -7,6 +7,7 @@ import javax.swing.JScrollPane;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Point;
 import java.sql.SQLException;
 import java.util.List;
 
@@ -14,6 +15,9 @@ import javax.swing.JLabel;
 
 import model.Vol;
 import dao.MysqlDao;
+
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 @SuppressWarnings("serial")
 public class PanelVolsProgrammes extends JPanel {
@@ -34,6 +38,15 @@ public class PanelVolsProgrammes extends JPanel {
 		add(scrollPane, BorderLayout.CENTER);
 		
 		tableVolsProgrammes = new JTable();
+		tableVolsProgrammes.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				// on récupère l'endroit où a eu lieu l'événement (= le clic)
+				Point p = e.getPoint();
+				// on remplit le formulaire avec les données du tableau
+				PanelModifVol.fillInForm(panelModifVolProgramme, p, tableVolsProgrammes);
+			}
+		});
 		// pour que le tableau ne soit pas redimensionné automatiquement à la longueur de la fenêtre :
 		tableVolsProgrammes.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
 		// pour trier en cliquant sur les en-têtes
