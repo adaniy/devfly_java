@@ -85,8 +85,6 @@ public class Aeroport {
 		return myModel;
 	}
 
-<<<<<<< HEAD
-=======
 	// renvoie les villes proposées par la compagnie sous forme
 	// d'un tableau de chaînes de caractères trié par ordre alphabétique
 	public static String[] getVillesProposees() throws SQLException{ // méthode appelée depuis ce panel directement + via le panelNouvelAeroport
@@ -122,8 +120,6 @@ public class Aeroport {
 		maComboBox.setMaximumRowCount(6); // 6 villes visibles à chaque fois
 	}
 
-	// TODO : voir si bien placé ?
->>>>>>> 952ed32876feb7e32b9d31dc233b1889dd72bdef
 	// prend en paramètre une liste d'aéroports et une JTable
 	// crée le model avec les bonnes données et le donne à la JTable
 	public static void TableCreation(List<Aeroport> listeAeroports, JTable maJTable){
