@@ -8,6 +8,7 @@ import java.awt.Point;
 import javax.swing.JTable;
 import javax.swing.JLabel;
 import javax.swing.table.TableModel;
+import javax.swing.*;
 
 import java.awt.Color;
 import java.awt.Font;
@@ -18,13 +19,16 @@ import javax.swing.JTextField;
 import javax.swing.JButton;
 import javax.swing.SwingConstants;
 
+import model.Aeroport;
+import java.sql.SQLException;
+
 @SuppressWarnings("serial")
 public class PanelModifVol extends JPanel {
 	private JTextField textFieldNdeVol;
-	private JTextField textFieldVilleDeDepart;
+	private JComboBox comboBoxVilleDeDepart;
 	private JTextField textFieldPaysDeDepart;
 	private JTextField textFieldCodeDep;
-	private JTextField textFieldVilleDarrivee;
+	private JComboBox comboBoxVilleDarrivee;
 	private JTextField textFieldPaysDarrivee;
 	private JTextField textFieldCodeArriv;
 	private JTextField textFieldDateDep;
@@ -60,8 +64,8 @@ public class PanelModifVol extends JPanel {
 		return textFieldNdeVol;
 	}
 
-	public JTextField getTextFieldVilleDeDepart() {
-		return textFieldVilleDeDepart;
+	public JComboBox getJComboBoxVilleDeDepart() {
+		return comboBoxVilleDeDepart;
 	}
 
 	public JTextField getTextFieldPaysDeDepart() {
@@ -72,8 +76,8 @@ public class PanelModifVol extends JPanel {
 		return textFieldCodeDep;
 	}
 
-	public JTextField getTextFieldVilleDarrivee() {
-		return textFieldVilleDarrivee;
+	public JComboBox getJComboBoxVilleDarrivee() {
+		return comboBoxVilleDarrivee;
 	}
 
 	public JTextField getTextFieldPaysDarrivee() {
@@ -200,14 +204,27 @@ public class PanelModifVol extends JPanel {
 		gbc_lblVilleDeDepart.gridy = 2;
 		add(lblVilleDeDepart, gbc_lblVilleDeDepart);
 		
-		textFieldVilleDeDepart = new JTextField();
+		comboBoxVilleDeDepart = new JComboBox();
+
+		// Les données dans la combobox vont provenir des données en base.
+		// On récupère les villes proposées par la compagnie
+		String[] villes = null;
+		try {
+			 villes = Aeroport.getVillesProposees();
+		}
+		catch(SQLException e) {
+			getLblMessage().setText(e.getMessage());
+		}
+		
+		Aeroport.comboBoxCreation(villes, comboBoxVilleDeDepart);
+
 		GridBagConstraints gbc_textFieldVilleDeDepart = new GridBagConstraints();
 		gbc_textFieldVilleDeDepart.insets = new Insets(0, 0, 5, 5);
 		gbc_textFieldVilleDeDepart.fill = GridBagConstraints.HORIZONTAL;
 		gbc_textFieldVilleDeDepart.gridx = 2;
 		gbc_textFieldVilleDeDepart.gridy = 2;
-		add(textFieldVilleDeDepart, gbc_textFieldVilleDeDepart);
-		textFieldVilleDeDepart.setColumns(10);
+		add(comboBoxVilleDeDepart, gbc_textFieldVilleDeDepart);
+		// comboBoxVilleDeDepart.setColumns(10);
 		
 		JLabel lblHeureArriv = new JLabel("heure d'arrivée");
 		GridBagConstraints gbc_lblHeureArriv = new GridBagConstraints();
@@ -302,14 +319,16 @@ public class PanelModifVol extends JPanel {
 		gbc_lblVilleDarrivee.gridy = 5;
 		add(lblVilleDarrivee, gbc_lblVilleDarrivee);
 		
-		textFieldVilleDarrivee = new JTextField();
+		comboBoxVilleDarrivee = new JComboBox();
+		Aeroport.comboBoxCreation(villes, comboBoxVilleDarrivee);
+
 		GridBagConstraints gbc_textFieldVilleDarrivee = new GridBagConstraints();
 		gbc_textFieldVilleDarrivee.insets = new Insets(0, 0, 5, 5);
 		gbc_textFieldVilleDarrivee.fill = GridBagConstraints.HORIZONTAL;
 		gbc_textFieldVilleDarrivee.gridx = 2;
 		gbc_textFieldVilleDarrivee.gridy = 5;
-		add(textFieldVilleDarrivee, gbc_textFieldVilleDarrivee);
-		textFieldVilleDarrivee.setColumns(10);
+		add(comboBoxVilleDarrivee, gbc_textFieldVilleDarrivee);
+		// comboBoxVilleDarrivee.setColumns(10);
 		
 		JLabel lblPilote = new JLabel("pilote");
 		GridBagConstraints gbc_lblPilote = new GridBagConstraints();
@@ -521,10 +540,14 @@ public class PanelModifVol extends JPanel {
 
 		// On place les valeurs récupérées dans les champs du formulaire
 		panelModifVol.getTextFieldNdeVol().setText(numVol);
-		panelModifVol.getTextFieldVilleDeDepart().setText(villeDep);
+
+		panelModifVol.getJComboBoxVilleDeDepart().setSelectedItem(villeDep);
+
 		panelModifVol.getTextFieldPaysDeDepart().setText(paysDep);
 		panelModifVol.getTextFieldCodeDep().setText(codeDep);
-		panelModifVol.getTextFieldVilleDarrivee().setText(villeArriv);
+
+		panelModifVol.getJComboBoxVilleDarrivee().setSelectedItem(villeArriv);
+
 		panelModifVol.getTextFieldPaysDarrivee().setText(paysArriv);
 		panelModifVol.getTextFieldCodeArriv().setText(codeArriv);
 		// pour avoir la date uniquement, on récupère la sous-chaîne correspondante

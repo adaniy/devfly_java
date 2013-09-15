@@ -7,10 +7,9 @@ junit :
 	java -cp $(classpath) org.junit.runner.JUnitCore test.TestMysqlDao
 
 test :
-	java -cp $(classpath) ui/FenetrePrincipale
+	java -cp $(classpath) $(srcdir)/FenetrePrincipale
 
 compile :
-	javac -cp $(classpath) $(srcdir)/*.java
 	javac -cp $(classpath) */*.java
 
 clean :
