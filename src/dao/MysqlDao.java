@@ -345,7 +345,6 @@ public class MysqlDao {
 		}
 	}
 	
-	// TODO reprendre le code ici
 	// renvoie l'objet Vol correspondant à l'id en paramètre, pour un vol "en attente"
 	public Vol getVolEnAttenteById(String id) throws SQLException{
 		// on se connecte à la BDD
@@ -359,12 +358,16 @@ public class MysqlDao {
 		// On récupère le résultat de la requête
 		result.next();
 		String villeDepart = result.getString("lieudep");
+		// On récupère l'objet Aeroport correspondant à la ville de départ :
 		Aeroport aeroportDepart = getAeroportByVille(villeDepart);
 		String villeArrivee = result.getString("lieuarriv");
+		// On récupère l'objet Aeroport correspondant à la ville d'arrivée :
 		Aeroport aeroportArrivee = getAeroportByVille(villeArrivee);
-//		Date dateHeureDepart = 
-//		Date dateHeureArrivee = 
-//		int duree =
+		Date dateHeureDepart = result.getDate("dateheuredep");
+		Date dateHeureArrivee = result.getDate("dateheurearrivee");
+		// on calcule la durée du vol
+		int duree = Vol.getDureeVol(dateHeureDepart, dateHeureArrivee);
+		float tarif = result.getFloat("tarif");
 		String codePilote = result.getString("pilote");
 		String codeCopilote = result.getString("copilote");
 		String codeHotesseSt1 = result.getString("hotesse_steward1");
@@ -373,8 +376,7 @@ public class MysqlDao {
 		
 		connection.close();
 		// on crée un objet Vol avec les éléments récupérés :
-		//return new Vol(id, aeroportDepart, aeroportArrivee, dateHeureDepart, dateHeureArrivee, duree, tarif, codePilote, codeCopilote, codeHotesseSt1, codeHotesseSt2, codeHotesseSt3);
-		return null;
+		return new Vol(id, aeroportDepart, aeroportArrivee, dateHeureDepart, dateHeureArrivee, duree, tarif, codePilote, codeCopilote, codeHotesseSt1, codeHotesseSt2, codeHotesseSt3);
 	}
 
 	// renvoie "true" si le couple login + mdp est correct, "false" sinon

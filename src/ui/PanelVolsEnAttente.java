@@ -21,6 +21,8 @@ import dao.MysqlDao;
 
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 @SuppressWarnings("serial")
 public class PanelVolsEnAttente extends JPanel {
@@ -123,6 +125,48 @@ public class PanelVolsEnAttente extends JPanel {
 		Vol.columnSizeVols(tableVolsEnAttente);
 		
 		panelModifVolEnAttente = new PanelModifVol();
+		panelModifVolEnAttente.getBtnReinitialiser().addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				// au clic sur "réinitialiser", on réinitalise les champs à leur valeur initiale
+				// On récupère le code du vol en cours de modification
+				String numVol = panelModifVolEnAttente.getTextFieldNdeVol().getText();
+				if(numVol.isEmpty()){
+					panelModifVolEnAttente.getLblMessage().setText("Vous devez sélectionner un vol ci-dessus !");
+				}else{
+					// On récupère les données du vol correspondant :
+					try {
+						// EN COURS
+						Vol v = dao.getVolEnAttenteById(numVol);
+						// On réinitialise les champs du formulaire :
+						panelModifVolEnAttente.getTextFieldVilleDeDepart().setText(v.getAeroportDepart().getVille());
+						panelModifVolEnAttente.getTextFieldPaysDeDepart().setText(v.getAeroportDepart().getPays());
+						panelModifVolEnAttente.getTextFieldCodeDep().setText(v.getAeroportDepart().getCodeAeroport());
+						panelModifVolEnAttente.getTextFieldVilleDarrivee().setText(v.getAeroportArrivee().getVille());
+						panelModifVolEnAttente.getTextFieldPaysDarrivee().setText(v.getAeroportArrivee().getPays());
+						panelModifVolEnAttente.getTextFieldCodeArriv().setText(v.getAeroportArrivee().getCodeAeroport());
+						
+						//panelModifVolEnAttente.getTextFieldDateDep().setText(dateHeureDep.substring(0,10));
+
+						//panelModifVolEnAttente.getTextFieldHeureDep().setText(dateHeureDep.substring(13));
+
+						//panelModifVolEnAttente.getTextFieldDateArriv().setText(dateHeureArriv.substring(0,10));
+
+						//panelModifVolEnAttente.getTextFieldHeureArriv().setText(dateHeureArriv.substring(13));
+						// pour la durée, on passe la valeur de l'entier en chaîne de caractères
+						panelModifVolEnAttente.getTextFieldDuree().setText(String.valueOf(v.getDuree()));
+						//panelModifVolEnAttente.getTextFieldTarif().setText(Float.valueOf(v.getTarif()));
+						panelModifVolEnAttente.getTextFieldPilote().setText(v.getCodePilote());
+						panelModifVolEnAttente.getTextFieldCopilote().setText(v.getCodeCopilote());
+						panelModifVolEnAttente.getTextFieldHotesseSt1().setText(v.getCodeHotesseSt1());
+						panelModifVolEnAttente.getTextFieldHotesseSt2().setText(v.getCodeHotesseSt2());
+						panelModifVolEnAttente.getTextFieldHotesseSt3().setText(v.getCodeHotesseSt3());
+						
+					} catch (SQLException e) {
+						panelModifVolEnAttente.getLblMessage().setText(e.getMessage());
+					}
+				}
+			}
+		});
 		add(panelModifVolEnAttente, BorderLayout.SOUTH);
 	}
 

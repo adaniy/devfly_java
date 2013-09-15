@@ -97,22 +97,23 @@ public class TestMysqlDao {
 	}
 
 
-//	@Test
+	//@Test
 	public void getAeroportByVille() throws SQLException{
 		MysqlDao dao = new MysqlDao();
 		// doit renvoyer un objet Aeroport correspondant à la ville en paramètre
 		Aeroport aeroportRecupere = dao.getAeroportByVille("Berne");
 		Aeroport aeroportTest = new Aeroport("BRN", "Berne", "Suisse");
-		Assert.assertEquals(aeroportRecupere.getCodeAeroport(), aeroportTest.getCodeAeroport());
+		Assert.assertEquals(aeroportTest.getCodeAeroport(), aeroportRecupere.getCodeAeroport());
 	}
 
-//	@Test
+	//@Test
 	public void getAeroportByCode() throws SQLException{
 		MysqlDao dao = new MysqlDao();
 		// doit renvoyer un objet Aeroport correspondant au code en paramètre
 		Aeroport aeroportRecupere = dao.getAeroportByCode("CMN");
-		Aeroport aeroportTest = new Aeroport("CMN", "Casblanca", "Maroc");
-		Assert.assertEquals(aeroportRecupere.getCodeAeroport(), aeroportTest.getCodeAeroport());
+		Aeroport aeroportTest = new Aeroport("CMN", "Casablanca", "Maroc");
+		Assert.assertEquals(aeroportTest.getCodeAeroport(), aeroportRecupere.getCodeAeroport());
+		Assert.assertEquals(aeroportTest.getVille(), aeroportRecupere.getVille());
 	}
 
 	//@Test
@@ -130,7 +131,7 @@ public class TestMysqlDao {
 		Assert.assertEquals(130, duree);		
 	}
 
-	//@Test
+	@Test
 	public void doesAirportAlreadyExist() throws SQLException{ // doit renvoyer vrai si l'aéroport existe déjà en base
 		MysqlDao dao = new MysqlDao();
 		boolean test1 = dao.doesAirportAlreadyExist("BRN");
@@ -185,8 +186,29 @@ public class TestMysqlDao {
 		Assert.assertTrue(test1);
 		Assert.assertFalse(test2);
 	}
+	
+	//@Test
+	public void getVolEnAttenteById() throws SQLException{ // doit renvoyer un objet Vol correspondant à l'id en paramètre
+		MysqlDao dao = new MysqlDao();
+		Vol volRecupere = dao.getVolEnAttenteById("TMP9");
+		
+		Date dateDepart = null;
+		Date dateArrivee = null;
+		try {
+			dateDepart = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse("2014-03-30 02:00:00");
+			dateArrivee = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse("2014-03-30 15:15:00");
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+		Aeroport aeroportDepart = dao.getAeroportByVille("Sydney");
+		Aeroport aeroportArrivee = dao.getAeroportByVille("Berne");
+		// à réajuster à chaque test :
+		Vol volTest = new Vol("TMP9", aeroportDepart, aeroportArrivee, dateDepart, dateArrivee, 795, 1480, "P0001", "C0001", "", "", "");
+		Assert.assertEquals(volTest.getId(), volRecupere.getId());
+		Assert.assertEquals(volTest.getAeroportDepart().getCodeAeroport(), volRecupere.getAeroportDepart().getCodeAeroport());		
+	}
 
-	@Test
+	//@Test
 	public void connection() throws Exception{ // doit renvoyer vrai si le couple login + password est correct
 		MysqlDao dao = new MysqlDao();
 		boolean test1 = dao.connection("admin", "admin");
