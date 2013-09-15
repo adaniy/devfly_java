@@ -17,8 +17,6 @@ import org.junit.runners.JUnit4;
 import dao.MysqlDao;
 
 @RunWith(JUnit4.class)
-//TODO : à décommenter si nécessaire -> permet l'exécution des tests dans l'ordre alphabétique
-//@FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class TestMysqlDao {
 
 	// Décommenter le mot @Test pour lancer le(s) test(s) correspondant(s)

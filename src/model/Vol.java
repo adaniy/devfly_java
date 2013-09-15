@@ -223,7 +223,6 @@ public class Vol {
 		maTable.getColumnModel().getColumn(16).setPreferredWidth(60);
 	}
 
-	// TODO : voir si bien placé ?
 	// prend en paramètre une liste de vols et une JTable
 	// crée le model avec les bonnes données et le donne à la JTable
 	public static void TableCreation(List<Vol> listeVols, JTable maJTable){

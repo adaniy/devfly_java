@@ -47,7 +47,6 @@ public class Aeroport {
 		return new String[]{codeAeroport,ville,pays};
 	}
 
-	// TODO : voir si bien placé ?
 	// Retourne un model à donner à la table
 	// On lui passera la liste d'aéroports récupérée du dao :
 	public static TableModel createTableModelAeroports(String[]enTete, List<Aeroport> listeAeroports) {
@@ -82,7 +81,6 @@ public class Aeroport {
 		return myModel;
 	}
 
-	// TODO : voir si bien placé ?
 	// prend en paramètre une liste d'aéroports et une JTable
 	// crée le model avec les bonnes données et le donne à la JTable
 	public static void TableCreation(List<Aeroport> listeAeroports, JTable maJTable){

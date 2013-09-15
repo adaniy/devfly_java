@@ -162,7 +162,6 @@ public class MysqlDao {
 		// on se connecte à la BDD
 		Connection connection = DriverManager.getConnection(datasource, user, password);
 		// on crée et exécute une requête préparée pour insérer le vol
-		// TODO : voir cmt rentrer uniquement les 6 premières valeurs (la syntaxe qui marche depuis phpmyadmin fait planter le test ici !)
 		String sql = "INSERT INTO vol_tmp VALUES(?, ?, ?, ?, ?, ?, '', '', '', '', '')";
 		PreparedStatement stmt = connection.prepareStatement(sql);
 		
