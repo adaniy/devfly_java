@@ -25,6 +25,7 @@ public class PanelModifVol extends JPanel {
 	private JTextField textFieldPaysDarrivee;
 	private JTextField textFieldCodeArriv;
 	private JTextField textFieldDateDep;
+	private JTextField textFieldHeureDep;
 	private JTextField textFieldDateArriv;
 	private JTextField textFieldHeureArriv;
 	private JTextField textFieldDuree;
@@ -316,11 +317,6 @@ public class PanelModifVol extends JPanel {
 		gbc_textFieldDateDep.gridy = 8;
 		add(textFieldDateDep, gbc_textFieldDateDep);
 		textFieldDateDep.setColumns(10);
-		gbc_textFieldDateDep.insets = new Insets(0, 0, 5, 5);
-		gbc_textFieldDateDep.fill = GridBagConstraints.HORIZONTAL;
-		gbc_textFieldDateDep.gridx = 3;
-		gbc_textFieldDateDep.gridy = 8;
-		textFieldDateDep.setColumns(10);
 		
 		JLabel lblHotesseSt2 = new JLabel("hôtesse ou steward N°2");
 		GridBagConstraints gbc_lblHotesseSt2 = new GridBagConstraints();
@@ -346,6 +342,15 @@ public class PanelModifVol extends JPanel {
 		gbc_lblHeureDep.gridx = 1;
 		gbc_lblHeureDep.gridy = 9;
 		add(lblHeureDep, gbc_lblHeureDep);
+		
+		textFieldHeureDep = new JTextField();
+		GridBagConstraints gbc_textFieldHeureDep = new GridBagConstraints();
+		gbc_textFieldHeureDep.insets = new Insets(0, 0, 5, 5);
+		gbc_textFieldHeureDep.fill = GridBagConstraints.HORIZONTAL;
+		gbc_textFieldHeureDep.gridx = 2;
+		gbc_textFieldHeureDep.gridy = 9;
+		add(textFieldHeureDep, gbc_textFieldHeureDep);
+		textFieldHeureDep.setColumns(10);
 		
 		JLabel lblHotesseSt3 = new JLabel("hôtesse ou steward N°3");
 		GridBagConstraints gbc_lblHotesseSt3 = new GridBagConstraints();
