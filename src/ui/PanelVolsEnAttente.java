@@ -11,6 +11,8 @@ import javax.swing.JLabel;
 
 import java.awt.Color;
 import java.sql.SQLException;
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -111,10 +113,16 @@ public class PanelVolsEnAttente extends JPanel {
 						panelModifVolEnAttente.getTextFieldHeureDep().setText(heureDepStr);
 						panelModifVolEnAttente.getTextFieldDateArriv().setText(dateArrivStr);
 						panelModifVolEnAttente.getTextFieldHeureArriv().setText(heureArrivStr);
+						
 						// pour la durée, on passe la valeur de l'entier en chaîne de caractères
 						panelModifVolEnAttente.getTextFieldDuree().setText(String.valueOf(v.getDuree()));
-						// pour le tarif, on passe la valeur du float en chaîne de caractères
-						panelModifVolEnAttente.getTextFieldTarif().setText(String.valueOf(v.getTarif()));
+						
+						// Pour le tarif, on passe la valeur du float en chaîne de caractères
+						// On utilise NumberFormat pour demander explicitement 2 chiffres après la virgule
+						NumberFormat formatter = new DecimalFormat("#0.00");
+						String tarifStr = formatter.format(v.getTarif());
+						panelModifVolEnAttente.getTextFieldTarif().setText(tarifStr);
+						
 						panelModifVolEnAttente.getTextFieldPilote().setText(v.getCodePilote());
 						panelModifVolEnAttente.getTextFieldCopilote().setText(v.getCodeCopilote());
 						panelModifVolEnAttente.getTextFieldHotesseSt1().setText(v.getCodeHotesseSt1());
