@@ -10,8 +10,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import org.apache.commons.codec.binary.Base64;
-import org.apache.commons.codec.binary.StringUtils;
+//import org.apache.commons.codec.binary.Base64;
+//import org.apache.commons.codec.binary.StringUtils;
 
 
 import model.Aeroport;
@@ -396,7 +396,7 @@ public class MysqlDao {
 			//digest.update(chaineSalt.getBytes());	// salt
 			input = digest.digest(input);
 		}
-		mdpChiffre = new String(Base64.encodeBase64(input));
+		//mdpChiffre = new String(Base64.encodeBase64(input));
 
 		/*
 		StringBuffer sb = new StringBuffer();

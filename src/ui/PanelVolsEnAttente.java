@@ -90,7 +90,6 @@ public class PanelVolsEnAttente extends JPanel {
 				}else{
 					// On récupère les données du vol correspondant :
 					try {
-						// EN COURS
 						Vol v = dao.getVolEnAttenteById(numVol);
 						// On réinitialise les champs du formulaire :
 						panelModifVolEnAttente.getTextFieldVilleDeDepart().setText(v.getAeroportDepart().getVille());
@@ -109,12 +108,9 @@ public class PanelVolsEnAttente extends JPanel {
 						String heureArrivStr = new SimpleDateFormat("HH:mm").format(dateHeureArriv);
 						
 						panelModifVolEnAttente.getTextFieldDateDep().setText(dateDepStr);
-						// TODO : à corriger (heure)
 						panelModifVolEnAttente.getTextFieldHeureDep().setText(heureDepStr);
 						panelModifVolEnAttente.getTextFieldDateArriv().setText(dateArrivStr);
-						// TODO : à corriger (heure)
 						panelModifVolEnAttente.getTextFieldHeureArriv().setText(heureArrivStr);
-						// TODO : à corriger (durée)
 						// pour la durée, on passe la valeur de l'entier en chaîne de caractères
 						panelModifVolEnAttente.getTextFieldDuree().setText(String.valueOf(v.getDuree()));
 						// pour le tarif, on passe la valeur du float en chaîne de caractères

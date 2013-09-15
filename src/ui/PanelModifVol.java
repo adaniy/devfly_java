@@ -36,6 +36,13 @@ public class PanelModifVol extends JPanel {
 	private JTextField textFieldPilote;
 	private JTextField textFieldCopilote;
 	private JTextField textFieldHotesseSt1;
+	private JTextField textFieldHotesseSt2;
+	private JTextField textFieldHotesseSt3;
+	private JLabel lblMessage;
+	private JButton btnMettreAJour;
+	private JButton btnReinitialiser;
+	private JButton btnSupprimer;
+
 	
 	public JButton getBtnMettreAJour() {
 		return btnMettreAJour;
@@ -48,14 +55,7 @@ public class PanelModifVol extends JPanel {
 	public JButton getBtnSupprimer() {
 		return btnSupprimer;
 	}
-
-	private JTextField textFieldHotesseSt2;
-	private JTextField textFieldHotesseSt3;
-	private JLabel lblMessage;
-	private JButton btnMettreAJour;
-	private JButton btnReinitialiser;
-	private JButton btnSupprimer;
-
+	
 	public JTextField getTextFieldNdeVol() {
 		return textFieldNdeVol;
 	}
