@@ -3,8 +3,11 @@ package ui;
 import javax.swing.JPanel;
 
 import java.awt.GridBagLayout;
+import java.awt.Point;
 
+import javax.swing.JTable;
 import javax.swing.JLabel;
+import javax.swing.table.TableModel;
 
 import java.awt.Color;
 import java.awt.Font;
@@ -488,6 +491,59 @@ public class PanelModifVol extends JPanel {
 		gbc_btnSupprimer.gridy = 11;
 		add(btnSupprimer, gbc_btnSupprimer);
 
+	}
+
+	public static void fillTableWithPanelData(PanelModifVol panelModifVol, 
+			Point p, 
+			JTable tableVols ){
+		// on récupère l'endroit où a eu lieu l'événement (= le clic)
+		int row = tableVols.rowAtPoint(p); // renvoie la ligne sous le point
+		// On convertit les row du tableau en row du modèle pour maintenir la cohérence 
+		// entre les cellules de la présentation et les cellules du model (source de données)
+		int modelRow = tableVols.convertRowIndexToModel(row);
+		TableModel model = tableVols.getModel();
+		String numVol = (String) model.getValueAt(modelRow, 0); // String qui représente la valeur récupérée
+		String villeDep = (String) model.getValueAt(modelRow, 1);
+		String paysDep = (String) model.getValueAt(modelRow, 2);
+		String codeDep = (String) model.getValueAt(modelRow, 3);
+		String villeArriv = (String) model.getValueAt(modelRow, 4);
+		String paysArriv = (String) model.getValueAt(modelRow, 5);
+		String codeArriv = (String) model.getValueAt(modelRow, 6);
+		String dateHeureDep = (String) model.getValueAt(modelRow, 7);
+		String dateHeureArriv = (String) model.getValueAt(modelRow, 8);
+		int duree = (int) model.getValueAt(modelRow, 9);
+		String tarif = (String) model.getValueAt(modelRow, 10);
+		String pilote = (String) model.getValueAt(modelRow, 11);
+		String copilote = (String) model.getValueAt(modelRow, 12);
+		String hotesseSt1 = (String) model.getValueAt(modelRow, 13);
+		String hotesseSt2 = (String) model.getValueAt(modelRow, 14);
+		String hotesseSt3 = (String) model.getValueAt(modelRow, 15);
+
+
+		// On place les valeurs récupérées dans les champs du formulaire
+		panelModifVol.getTextFieldNdeVol().setText(numVol);
+		panelModifVol.getTextFieldVilleDeDepart().setText(villeDep);
+		panelModifVol.getTextFieldPaysDeDepart().setText(paysDep);
+		panelModifVol.getTextFieldCodeDep().setText(codeDep);
+		panelModifVol.getTextFieldVilleDarrivee().setText(villeArriv);
+		panelModifVol.getTextFieldPaysDarrivee().setText(paysArriv);
+		panelModifVol.getTextFieldCodeArriv().setText(codeArriv);
+		// pour avoir la date uniquement, on récupère la sous-chaîne correspondante
+		panelModifVol.getTextFieldDateDep().setText(dateHeureDep.substring(0,10));
+		// pour avoir l'heure uniquement, on commence à l'index 13
+		panelModifVol.getTextFieldHeureDep().setText(dateHeureDep.substring(13));
+		// pour avoir la date uniquement, on récupère la sous-chaîne correspondante
+		panelModifVol.getTextFieldDateArriv().setText(dateHeureArriv.substring(0,10));
+		// pour avoir l'heure uniquement, on commence à l'index 13
+		panelModifVol.getTextFieldHeureArriv().setText(dateHeureArriv.substring(13));
+		// pour la durée, on passe la valeur de l'entier en chaîne de caractères
+		panelModifVol.getTextFieldDuree().setText(String.valueOf(duree));
+		panelModifVol.getTextFieldTarif().setText(tarif);
+		panelModifVol.getTextFieldPilote().setText(pilote);
+		panelModifVol.getTextFieldCopilote().setText(copilote);
+		panelModifVol.getTextFieldHotesseSt1().setText(hotesseSt1);
+		panelModifVol.getTextFieldHotesseSt2().setText(hotesseSt2);
+		panelModifVol.getTextFieldHotesseSt3().setText(hotesseSt3);
 	}
 
 }

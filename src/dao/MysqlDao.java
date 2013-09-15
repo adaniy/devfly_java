@@ -10,8 +10,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-//import org.apache.commons.codec.binary.Base64;
-//import org.apache.commons.codec.binary.StringUtils;
+import org.apache.commons.codec.binary.Base64;
+import org.apache.commons.codec.binary.StringUtils;
 
 
 import model.Aeroport;
@@ -389,25 +389,28 @@ public class MysqlDao {
 
 		MessageDigest digest = MessageDigest.getInstance("SHA-256");
 		digest.reset();
-		digest.update(chaineSalt.getBytes("UTF-8"));
-		mdpChiffre = new String(digest.digest(password.getBytes("UTF-8")));
+		digest.update(chaineSalt.getBytes());	// salt
+		byte[] input = digest.digest(mdp.getBytes());
+		for (int i = 0; i < 4999; i++) {
+			//digest.reset();
+			//digest.update(chaineSalt.getBytes());	// salt
+			input = digest.digest(input);
+		}
+		mdpChiffre = new String(Base64.encodeBase64(input));
 
 		/*
-		MessageDigest digest = MessageDigest.getInstance("SHA-256");
-		digest.reset();
+		StringBuffer sb = new StringBuffer();
+		for(byte b : input) {
+			sb.append(String.format("%02x", b));
+		}
+		mdpChiffre = sb.toString();
+		*/
 
-		byte[] salt = Base64.decodeBase64(chaineSalt);
-		digest.update(salt);
-		//digest.update(chaineSalt.getBytes("UTF-8"));
-
-		byte[] btPass = digest.digest(mdp.getBytes("UTF-8"));
-		mdpChiffre = new String(Base64.encodeBase64(btPass));
 
 		System.out.print("mdp : "); // test pour débug
 		System.out.println(mdp); // test pour débug
 		System.out.print("mdp chiffré : "); // test pour débug
 		System.out.println(mdpChiffre); // test pour débug
-		*/
 
 		// on se connecte à la BDD
 		Connection connection = DriverManager.getConnection(datasource, user, password);
