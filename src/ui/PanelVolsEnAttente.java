@@ -16,7 +16,6 @@ import java.util.Date;
 import java.util.List;
 
 import javax.swing.SwingConstants;
-import javax.swing.table.TableModel;
 
 import model.Vol;
 import dao.MysqlDao;
@@ -50,10 +49,8 @@ public class PanelVolsEnAttente extends JPanel {
 			public void mouseClicked(MouseEvent arg0) {
 				// on récupère l'endroit où a eu lieu l'événement (= le clic)
 				Point p = arg0.getPoint();
-				PanelModifVol.fillTableWithPanelData(
-					panelModifVolEnAttente, 
-					p, 
-					tableVolsEnAttente);
+				// on remplit le formulaire avec les données du tableau
+				PanelModifVol.fillInForm(panelModifVolEnAttente, p, tableVolsEnAttente);
 			}
 		});
 		
