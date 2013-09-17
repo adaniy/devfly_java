@@ -100,8 +100,8 @@ public class PanelNouveauVol extends JPanel {
 		// On récupère les villes proposées par la compagnie
 		String[]villes = Aeroport.getVillesProposees();
 		
-		// On insère les villes dans la comboBox (méthode définie plus bas)
-		Aeroport.comboBoxCreation(villes, comboBoxVilleDeDepart);
+		// On insère les villes dans la comboBox
+		Vol.comboBoxCreation(villes, comboBoxVilleDeDepart);
 		
 		JLabel lblVilleDarrivee = new JLabel("Ville d'arrivée");
 		GridBagConstraints gbc_lblVilleDarrivee = new GridBagConstraints();
@@ -121,8 +121,8 @@ public class PanelNouveauVol extends JPanel {
 		add(comboBoxVilleDarrivee, gbc_comboBoxVilleDarrivee);
 		
 		// Les données dans la combobox proviennent également des données en base
-		// On insère les villes dans la comboBox (méthode définie plus bas)
-		Aeroport.comboBoxCreation(villes, comboBoxVilleDarrivee);
+		// On insère les villes dans la comboBox
+		Vol.comboBoxCreation(villes, comboBoxVilleDarrivee);
 		
 		JLabel lblDateDeDepart = new JLabel("Date de départ (jj/mm/aaaa)");
 		GridBagConstraints gbc_lblDateDeDepart = new GridBagConstraints();

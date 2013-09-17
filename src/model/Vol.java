@@ -4,6 +4,8 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.JComboBox;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
@@ -235,7 +237,18 @@ public class Vol {
 		// On donne le model à la table :
 		maJTable.setModel(model);
 	}
-
+	
+	// prend en paramètres un tableau de String (villes, codes employés...) et une JComboBox
+	// insère les villes / codes employés(...) dans la comboBox
+	@SuppressWarnings({ "unchecked", "rawtypes" })
+	public static void comboBoxCreation(String[]donnees, JComboBox maComboBox){
+		// on donne le tableau de données au model :
+		DefaultComboBoxModel<String>model = new DefaultComboBoxModel<>(donnees);
+		// on ajoute le model à la combobox :
+		maComboBox.setModel(model);
+		// on pourra faire défiler les données avec la molette de la souris :
+		maComboBox.setMaximumRowCount(6); // 6 données visibles à chaque fois
+	}
 
 	// renvoie la durée du vol en min par rapport aux dates de départ et d'arrivée en paramètres
 	public static int getDureeVol(Date dateHeureDepart, Date dateHeureArrivee){

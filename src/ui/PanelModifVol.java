@@ -29,6 +29,7 @@ import java.sql.SQLException;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
@@ -49,17 +50,57 @@ public class PanelModifVol extends JPanel {
 	private JTextField textFieldHeureArriv;
 	private JTextField textFieldDuree;
 	private JTextField textFieldTarif;
-	private JTextField textFieldPilote;
-	private JTextField textFieldCopilote;
-	private JTextField textFieldHotesseSt1;
-	private JTextField textFieldHotesseSt2;
-	private JTextField textFieldHotesseSt3;
+	@SuppressWarnings("rawtypes")
+	private JComboBox comboBoxPilote;
+	@SuppressWarnings("rawtypes")
+	private JComboBox comboBoxCopilote;
+	@SuppressWarnings("rawtypes")
+	private JComboBox comboBoxHotesseSt1;
+	@SuppressWarnings("rawtypes")
+	private JComboBox comboBoxHotesseSt2;
+	@SuppressWarnings("rawtypes")
+	private JComboBox comboBoxHotesseSt3;
 	private JLabel lblMessage;
 	private JButton btnMettreAJour;
 	private JButton btnReinitialiser;
 	private JButton btnSupprimer;
-
+	private MysqlDao dao = new MysqlDao();
 	
+	@SuppressWarnings("rawtypes")
+	public JComboBox getComboBoxVilleDeDepart() {
+		return comboBoxVilleDeDepart;
+	}
+
+	@SuppressWarnings("rawtypes")
+	public JComboBox getComboBoxVilleDarrivee() {
+		return comboBoxVilleDarrivee;
+	}
+
+	@SuppressWarnings("rawtypes")
+	public JComboBox getComboBoxPilote() {
+		return comboBoxPilote;
+	}
+
+	@SuppressWarnings("rawtypes")
+	public JComboBox getComboBoxCopilote() {
+		return comboBoxCopilote;
+	}
+
+	@SuppressWarnings("rawtypes")
+	public JComboBox getComboBoxHotesseSt1() {
+		return comboBoxHotesseSt1;
+	}
+
+	@SuppressWarnings("rawtypes")
+	public JComboBox getComboBoxHotesseSt2() {
+		return comboBoxHotesseSt2;
+	}
+
+	@SuppressWarnings("rawtypes")
+	public JComboBox getComboBoxHotesseSt3() {
+		return comboBoxHotesseSt3;
+	}
+
 	public JButton getBtnMettreAJour() {
 		return btnMettreAJour;
 	}
@@ -126,35 +167,16 @@ public class PanelModifVol extends JPanel {
 		return textFieldTarif;
 	}
 
-	public JTextField getTextFieldPilote() {
-		return textFieldPilote;
-	}
-
-	public JTextField getTextFieldCopilote() {
-		return textFieldCopilote;
-	}
-
-	public JTextField getTextFieldHotesseSt1() {
-		return textFieldHotesseSt1;
-	}
-
-	public JTextField getTextFieldHotesseSt2() {
-		return textFieldHotesseSt2;
-	}
-
-	public JTextField getTextFieldHotesseSt3() {
-		return textFieldHotesseSt3;
-	}
-
 	public JLabel getLblMessage() {
 		return lblMessage;
 	}
 
 	/**
 	 * Create the panel.
+	 * @throws SQLException 
 	 */
 	@SuppressWarnings("rawtypes")
-	public PanelModifVol() {
+	public PanelModifVol() throws SQLException {
 		// on joue sur les dimensions de la grille pour positionner les éléments :
 		GridBagLayout gridBagLayout = new GridBagLayout();
 		gridBagLayout.columnWidths = new int[]{0, 0, 50, 70, 0, 0, 0};
@@ -218,8 +240,6 @@ public class PanelModifVol extends JPanel {
 		gbc_lblVilleDeDepart.gridx = 1;
 		gbc_lblVilleDeDepart.gridy = 2;
 		add(lblVilleDeDepart, gbc_lblVilleDeDepart);
-		
-		comboBoxVilleDeDepart = new JComboBox();
 
 		// Les données dans la combobox vont provenir des données en base.
 		// On récupère les villes proposées par la compagnie
@@ -231,8 +251,9 @@ public class PanelModifVol extends JPanel {
 			getLblMessage().setText(e.getMessage());
 		}
 		
+		comboBoxVilleDeDepart = new JComboBox();
 		// pour créer la comboxBox avec les villes prévues par la compagnie :
-		Aeroport.comboBoxCreation(villes, comboBoxVilleDeDepart);
+		Vol.comboBoxCreation(villes, comboBoxVilleDeDepart);
 		comboBoxVilleDeDepart.addActionListener (new ActionListener () {
 			// lorsqu'une ville est sélectionnée dans la combobox, le code et le pays affichés changent en fonction
 			public void actionPerformed(ActionEvent e) {
@@ -256,13 +277,12 @@ public class PanelModifVol extends JPanel {
 			}
 		});
 
-		GridBagConstraints gbc_textFieldVilleDeDepart = new GridBagConstraints();
-		gbc_textFieldVilleDeDepart.insets = new Insets(0, 0, 5, 5);
-		gbc_textFieldVilleDeDepart.fill = GridBagConstraints.HORIZONTAL;
-		gbc_textFieldVilleDeDepart.gridx = 2;
-		gbc_textFieldVilleDeDepart.gridy = 2;
-		add(comboBoxVilleDeDepart, gbc_textFieldVilleDeDepart);
-		// comboBoxVilleDeDepart.setColumns(10);
+		GridBagConstraints gbc_comboBoxVilleDeDepart = new GridBagConstraints();
+		gbc_comboBoxVilleDeDepart.insets = new Insets(0, 0, 5, 5);
+		gbc_comboBoxVilleDeDepart.fill = GridBagConstraints.HORIZONTAL;
+		gbc_comboBoxVilleDeDepart.gridx = 2;
+		gbc_comboBoxVilleDeDepart.gridy = 2;
+		add(comboBoxVilleDeDepart, gbc_comboBoxVilleDeDepart);
 
 		JLabel lblHeureArriv = new JLabel("heure d'arrivée");
 		GridBagConstraints gbc_lblHeureArriv = new GridBagConstraints();
@@ -361,7 +381,7 @@ public class PanelModifVol extends JPanel {
 
 		comboBoxVilleDarrivee = new JComboBox();
 		// pour créer la comboxBox avec les villes prévues par la compagnie :
-		Aeroport.comboBoxCreation(villes, comboBoxVilleDarrivee);
+		Vol.comboBoxCreation(villes, comboBoxVilleDarrivee);
 		comboBoxVilleDarrivee.addActionListener (new ActionListener () {
 			// lorsqu'une ville est sélectionnée dans la combobox, le code et le pays affichés changent en fonction
 			public void actionPerformed(ActionEvent e) {
@@ -386,13 +406,12 @@ public class PanelModifVol extends JPanel {
 			}
 		});
 
-		GridBagConstraints gbc_textFieldVilleDarrivee = new GridBagConstraints();
-		gbc_textFieldVilleDarrivee.insets = new Insets(0, 0, 5, 5);
-		gbc_textFieldVilleDarrivee.fill = GridBagConstraints.HORIZONTAL;
-		gbc_textFieldVilleDarrivee.gridx = 2;
-		gbc_textFieldVilleDarrivee.gridy = 5;
-		add(comboBoxVilleDarrivee, gbc_textFieldVilleDarrivee);
-		// comboBoxVilleDarrivee.setColumns(10);
+		GridBagConstraints gbc_comboBoxVilleDarrivee = new GridBagConstraints();
+		gbc_comboBoxVilleDarrivee.insets = new Insets(0, 0, 5, 5);
+		gbc_comboBoxVilleDarrivee.fill = GridBagConstraints.HORIZONTAL;
+		gbc_comboBoxVilleDarrivee.gridx = 2;
+		gbc_comboBoxVilleDarrivee.gridy = 5;
+		add(comboBoxVilleDarrivee, gbc_comboBoxVilleDarrivee);
 
 		JLabel lblPilote = new JLabel("pilote");
 		GridBagConstraints gbc_lblPilote = new GridBagConstraints();
@@ -402,14 +421,18 @@ public class PanelModifVol extends JPanel {
 		gbc_lblPilote.gridy = 5;
 		add(lblPilote, gbc_lblPilote);
 
-		textFieldPilote = new JTextField();
-		GridBagConstraints gbc_textFieldPilote = new GridBagConstraints();
-		gbc_textFieldPilote.insets = new Insets(0, 0, 5, 5);
-		gbc_textFieldPilote.fill = GridBagConstraints.HORIZONTAL;
-		gbc_textFieldPilote.gridx = 5;
-		gbc_textFieldPilote.gridy = 5;
-		add(textFieldPilote, gbc_textFieldPilote);
-		textFieldPilote.setColumns(10);
+		comboBoxPilote = new JComboBox<>();
+		// pour créer la comboxBox avec les pilotes de la compagnie :
+		List<String> listePilotes = dao.getPilotes();
+		// on transforme la liste en tableau de String
+		String[]pilotes = getTableauEmployes(listePilotes);
+		Vol.comboBoxCreation(pilotes, comboBoxPilote);
+		GridBagConstraints gbc_comboBoxPilote = new GridBagConstraints();
+		gbc_comboBoxPilote.insets = new Insets(0, 0, 5, 5);
+		gbc_comboBoxPilote.fill = GridBagConstraints.HORIZONTAL;
+		gbc_comboBoxPilote.gridx = 5;
+		gbc_comboBoxPilote.gridy = 5;
+		add(comboBoxPilote, gbc_comboBoxPilote);
 
 		JLabel lblPaysDarrivee = new JLabel("pays d'arrivée");
 		GridBagConstraints gbc_lblPaysDarrivee = new GridBagConstraints();
@@ -437,14 +460,18 @@ public class PanelModifVol extends JPanel {
 		gbc_lblCopilote.gridy = 6;
 		add(lblCopilote, gbc_lblCopilote);
 
-		textFieldCopilote = new JTextField();
-		GridBagConstraints gbc_textFieldCopilote = new GridBagConstraints();
-		gbc_textFieldCopilote.insets = new Insets(0, 0, 5, 5);
-		gbc_textFieldCopilote.fill = GridBagConstraints.HORIZONTAL;
-		gbc_textFieldCopilote.gridx = 5;
-		gbc_textFieldCopilote.gridy = 6;
-		add(textFieldCopilote, gbc_textFieldCopilote);
-		textFieldCopilote.setColumns(10);
+		comboBoxCopilote = new JComboBox<>();
+		// pour créer la comboxBox avec les copilotes de la compagnie :
+		List<String> listeCopilotes = dao.getCopilotes();
+		// on transforme la liste en tableau de String
+		String[]copilotes = getTableauEmployes(listeCopilotes);
+		Vol.comboBoxCreation(copilotes, comboBoxCopilote);
+		GridBagConstraints gbc_comboBoxCopilote = new GridBagConstraints();
+		gbc_comboBoxCopilote.insets = new Insets(0, 0, 5, 5);
+		gbc_comboBoxCopilote.fill = GridBagConstraints.HORIZONTAL;
+		gbc_comboBoxCopilote.gridx = 5;
+		gbc_comboBoxCopilote.gridy = 6;
+		add(comboBoxCopilote, gbc_comboBoxCopilote);
 
 		JLabel lblCodeArriv = new JLabel("code aéroport d'arrivée");
 		GridBagConstraints gbc_lblCodeArriv = new GridBagConstraints();
@@ -472,14 +499,18 @@ public class PanelModifVol extends JPanel {
 		gbc_lblHotesseSt1.gridy = 7;
 		add(lblHotesseSt1, gbc_lblHotesseSt1);
 
-		textFieldHotesseSt1 = new JTextField();
-		GridBagConstraints gbc_textFieldHotesseSt1 = new GridBagConstraints();
-		gbc_textFieldHotesseSt1.insets = new Insets(0, 0, 5, 5);
-		gbc_textFieldHotesseSt1.fill = GridBagConstraints.HORIZONTAL;
-		gbc_textFieldHotesseSt1.gridx = 5;
-		gbc_textFieldHotesseSt1.gridy = 7;
-		add(textFieldHotesseSt1, gbc_textFieldHotesseSt1);
-		textFieldHotesseSt1.setColumns(10);
+		comboBoxHotesseSt1 = new JComboBox<>();
+		// pour créer la comboxBox avec les hôtesses/stewards de la compagnie :
+		List<String> listeHotessesSt = dao.getHotessesSt();
+		// on transforme la liste en tableau de String
+		String[]hotessesSt = getTableauEmployes(listeHotessesSt);
+		Vol.comboBoxCreation(hotessesSt, comboBoxHotesseSt1);
+		GridBagConstraints gbc_comboBoxHotesseSt1 = new GridBagConstraints();
+		gbc_comboBoxHotesseSt1.insets = new Insets(0, 0, 5, 5);
+		gbc_comboBoxHotesseSt1.fill = GridBagConstraints.HORIZONTAL;
+		gbc_comboBoxHotesseSt1.gridx = 5;
+		gbc_comboBoxHotesseSt1.gridy = 7;
+		add(comboBoxHotesseSt1, gbc_comboBoxHotesseSt1);
 
 		JLabel lblDateDep = new JLabel("date de départ");
 		GridBagConstraints gbc_lblDateDep = new GridBagConstraints();
@@ -506,14 +537,15 @@ public class PanelModifVol extends JPanel {
 		gbc_lblHotesseSt2.gridy = 8;
 		add(lblHotesseSt2, gbc_lblHotesseSt2);
 
-		textFieldHotesseSt2 = new JTextField();
-		GridBagConstraints gbc_textFieldHotesseSt2 = new GridBagConstraints();
-		gbc_textFieldHotesseSt2.insets = new Insets(0, 0, 5, 5);
-		gbc_textFieldHotesseSt2.fill = GridBagConstraints.HORIZONTAL;
-		gbc_textFieldHotesseSt2.gridx = 5;
-		gbc_textFieldHotesseSt2.gridy = 8;
-		add(textFieldHotesseSt2, gbc_textFieldHotesseSt2);
-		textFieldHotesseSt2.setColumns(10);
+		comboBoxHotesseSt2 = new JComboBox<>();
+		// On utilise les mêmes données que pour la comboBoxHotesseSt1
+		Vol.comboBoxCreation(hotessesSt, comboBoxHotesseSt2);
+		GridBagConstraints gbc_comboBoxHotesseSt2 = new GridBagConstraints();
+		gbc_comboBoxHotesseSt2.insets = new Insets(0, 0, 5, 5);
+		gbc_comboBoxHotesseSt2.fill = GridBagConstraints.HORIZONTAL;
+		gbc_comboBoxHotesseSt2.gridx = 5;
+		gbc_comboBoxHotesseSt2.gridy = 8;
+		add(comboBoxHotesseSt2, gbc_comboBoxHotesseSt2);
 
 		JLabel lblHeureDep = new JLabel("heure de départ");
 		GridBagConstraints gbc_lblHeureDep = new GridBagConstraints();
@@ -540,14 +572,15 @@ public class PanelModifVol extends JPanel {
 		gbc_lblHotesseSt3.gridy = 9;
 		add(lblHotesseSt3, gbc_lblHotesseSt3);
 
-		textFieldHotesseSt3 = new JTextField();
-		GridBagConstraints gbc_textFieldHotesseSt3 = new GridBagConstraints();
-		gbc_textFieldHotesseSt3.insets = new Insets(0, 0, 5, 5);
-		gbc_textFieldHotesseSt3.fill = GridBagConstraints.HORIZONTAL;
-		gbc_textFieldHotesseSt3.gridx = 5;
-		gbc_textFieldHotesseSt3.gridy = 9;
-		add(textFieldHotesseSt3, gbc_textFieldHotesseSt3);
-		textFieldHotesseSt3.setColumns(10);
+		comboBoxHotesseSt3 = new JComboBox<>();
+		// On utilise les mêmes données que pour la comboBoxHotesseSt1
+		Vol.comboBoxCreation(hotessesSt, comboBoxHotesseSt3);
+		GridBagConstraints gbc_comboBoxHotesseSt3 = new GridBagConstraints();
+		gbc_comboBoxHotesseSt3.insets = new Insets(0, 0, 5, 5);
+		gbc_comboBoxHotesseSt3.fill = GridBagConstraints.HORIZONTAL;
+		gbc_comboBoxHotesseSt3.gridx = 5;
+		gbc_comboBoxHotesseSt3.gridy = 9;
+		add(comboBoxHotesseSt3, gbc_comboBoxHotesseSt3);
 
 		btnMettreAJour = new JButton("mettre à jour");
 		GridBagConstraints gbc_btnMettreAJour = new GridBagConstraints();
@@ -606,14 +639,8 @@ public class PanelModifVol extends JPanel {
 
 		// On place les valeurs récupérées dans les champs du formulaire
 		panelModifVol.getTextFieldNdeVol().setText(numVol);
-
-		panelModifVol.getJComboBoxVilleDeDepart().setSelectedItem(villeDep); // pour la comboBox
-
 		panelModifVol.getTextFieldPaysDeDepart().setText(paysDep);
 		panelModifVol.getTextFieldCodeDep().setText(codeDep);
-
-		panelModifVol.getJComboBoxVilleDarrivee().setSelectedItem(villeArriv); // pour la comboBox
-
 		panelModifVol.getTextFieldPaysDarrivee().setText(paysArriv);
 		panelModifVol.getTextFieldCodeArriv().setText(codeArriv);
 		// pour avoir la date uniquement, on récupère la sous-chaîne correspondante
@@ -627,11 +654,14 @@ public class PanelModifVol extends JPanel {
 		// pour la durée, on passe la valeur de l'entier en chaîne de caractères
 		panelModifVol.getTextFieldDuree().setText(String.valueOf(duree));
 		panelModifVol.getTextFieldTarif().setText(tarif);
-		panelModifVol.getTextFieldPilote().setText(pilote);
-		panelModifVol.getTextFieldCopilote().setText(copilote);
-		panelModifVol.getTextFieldHotesseSt1().setText(hotesseSt1);
-		panelModifVol.getTextFieldHotesseSt2().setText(hotesseSt2);
-		panelModifVol.getTextFieldHotesseSt3().setText(hotesseSt3);
+		// pour les comboBoxes :
+		panelModifVol.getJComboBoxVilleDeDepart().setSelectedItem(villeDep);
+		panelModifVol.getJComboBoxVilleDarrivee().setSelectedItem(villeArriv); 
+		panelModifVol.getComboBoxPilote().setSelectedItem(pilote);
+		panelModifVol.getComboBoxCopilote().setSelectedItem(copilote);
+		panelModifVol.getComboBoxHotesseSt1().setSelectedItem(hotesseSt1);
+		panelModifVol.getComboBoxHotesseSt2().setSelectedItem(hotesseSt2);
+		panelModifVol.getComboBoxHotesseSt3().setSelectedItem(hotesseSt3);
 	}
 	
 	// au clic, réinitialise les champs du formulaire de modification d'un vol
@@ -669,11 +699,11 @@ public class PanelModifVol extends JPanel {
 		String tarifStr = formatter.format(v.getTarif());
 		panelModifVol.getTextFieldTarif().setText(tarifStr);
 		
-		panelModifVol.getTextFieldPilote().setText(v.getCodePilote());
-		panelModifVol.getTextFieldCopilote().setText(v.getCodeCopilote());
-		panelModifVol.getTextFieldHotesseSt1().setText(v.getCodeHotesseSt1());
-		panelModifVol.getTextFieldHotesseSt2().setText(v.getCodeHotesseSt2());
-		panelModifVol.getTextFieldHotesseSt3().setText(v.getCodeHotesseSt3());
+		panelModifVol.getComboBoxPilote().setSelectedItem(v.getCodePilote());
+		panelModifVol.getComboBoxCopilote().setSelectedItem(v.getCodeCopilote());
+		panelModifVol.getComboBoxHotesseSt1().setSelectedItem(v.getCodeHotesseSt1());
+		panelModifVol.getComboBoxHotesseSt2().setSelectedItem(v.getCodeHotesseSt2());
+		panelModifVol.getComboBoxHotesseSt3().setSelectedItem(v.getCodeHotesseSt3());
 	}
 	
 	// méthode appelée après la mise à jour ou la suppression d'un vol
@@ -692,11 +722,11 @@ public class PanelModifVol extends JPanel {
 		textFieldHeureArriv.setText("");
 		textFieldDuree.setText("");
 		textFieldTarif.setText("");
-		textFieldPilote.setText("");
-		textFieldCopilote.setText("");
-		textFieldHotesseSt1.setText("");
-		textFieldHotesseSt2.setText("");
-		textFieldHotesseSt3.setText("");
+		comboBoxPilote.setSelectedItem("");
+		comboBoxCopilote.setSelectedItem("");
+		comboBoxHotesseSt1.setSelectedItem("");
+		comboBoxHotesseSt2.setSelectedItem("");
+		comboBoxHotesseSt3.setSelectedItem("");
 		
 		// On récupère les villes proposées par la compagnie pour les comboboxes
 		String[] villes = null;
@@ -706,11 +736,27 @@ public class PanelModifVol extends JPanel {
 		catch(SQLException e) {
 			getLblMessage().setText(e.getMessage());
 		}
-		Aeroport.comboBoxCreation(villes, comboBoxVilleDeDepart);
-		Aeroport.comboBoxCreation(villes, comboBoxVilleDarrivee);
+		Vol.comboBoxCreation(villes, comboBoxVilleDeDepart);
+		Vol.comboBoxCreation(villes, comboBoxVilleDarrivee);
 		
 		// On crée le model avec les bonnes données et on le donne à la JTable
 		// On utilise pour cela la méthode statique définie dans Vol
 		Vol.TableCreation(listeVols, maJTable);
+	}
+	
+	// transforme une liste de numéros d'employés de la compagnie
+	// en un tableau de chaînes de caractères
+	private static String[] getTableauEmployes(List<String> listeEmployes) throws SQLException{
+		// On initialise un tableau de chaînes de caractères de la taille
+		// de la liste, on y placera les code employés.
+		String[]tableau = new String[listeEmployes.size()];
+		
+		// On parcourt la liste :
+		for(int i = 0 ; i < listeEmployes.size(); i++){
+			// On place les codes employés dans le tableau au fur et à mesure
+			tableau[i] = listeEmployes.get(i);
+		}
+		
+		return tableau;
 	}
 }

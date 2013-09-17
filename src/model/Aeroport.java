@@ -108,18 +108,6 @@ public class Aeroport {
 		return villes;
 	}
 
-	// prend en paramètres un tableau de villes (String) et une JComboBox
-	// insère les villes dans la comboBox
-	@SuppressWarnings({ "unchecked", "rawtypes" })
-	public static void comboBoxCreation(String[]villes, JComboBox maComboBox){ // méthode appelée depuis ce panel directement + via le panelNouvelAeroport
-		// on donne le tableau de villes au model :
-		DefaultComboBoxModel<String>model = new DefaultComboBoxModel<>(villes);
-		// on ajoute le model à la combobox :
-		maComboBox.setModel(model);
-		// on pourra faire défiler les villes avec la molette de la souris :
-		maComboBox.setMaximumRowCount(6); // 6 villes visibles à chaque fois
-	}
-
 	// prend en paramètre une liste d'aéroports et une JTable
 	// crée le model avec les bonnes données et le donne à la JTable
 	public static void TableCreation(List<Aeroport> listeAeroports, JTable maJTable){
