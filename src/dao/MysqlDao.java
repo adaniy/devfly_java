@@ -14,6 +14,7 @@ import java.util.List;
 //import org.apache.commons.codec.binary.StringUtils;
 
 
+
 import model.Aeroport;
 import model.Vol;
 
@@ -464,6 +465,38 @@ public class MysqlDao {
 			return true;
 		}
 		return false; 
+	}
+	
+	// renvoie une liste des codes des pilotes de la compagnie
+	public List<String> getPilotes() throws SQLException{
+		List<String> pilotes = new ArrayList<>();
+		// on se connecte à la BDD
+		Connection connection = DriverManager.getConnection(datasource,user,password);
+		// requête SQL pour récupérer les pilotes
+		String sql = "SELECT numemploye FROM employe WHERE lower(fonction) = 'pilote'";
+		PreparedStatement stmt = connection.prepareStatement(sql);
+		ResultSet result = stmt.executeQuery();
+		while (result.next()) {
+			pilotes.add(result.getString("numemploye")); // on ajoute chaque numéro de pilote à la liste
+		}
+		connection.close();
+		return pilotes;
+	}
+	
+	// renvoie une liste des codes des copilotes de la compagnie
+	public List<String> getCopilotes() throws SQLException{
+		List<String> copilotes = new ArrayList<>();
+		// on se connecte à la BDD
+		Connection connection = DriverManager.getConnection(datasource,user,password);
+		// requête SQL pour récupérer les copilotes
+		String sql = "SELECT numemploye FROM employe WHERE lower(fonction) = 'copilote'";
+		PreparedStatement stmt = connection.prepareStatement(sql);
+		ResultSet result = stmt.executeQuery();
+		while (result.next()) {
+			copilotes.add(result.getString("numemploye")); // on ajoute chaque numéro de copilote à la liste
+		}
+		connection.close();
+		return copilotes;
 	}
 
 	// renvoie "true" si le couple login + mdp est correct, "false" sinon

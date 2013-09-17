@@ -229,7 +229,7 @@ public class TestMysqlDao {
 		Assert.assertFalse(result2); // non supprimable
 	}
 	
-	@Test
+	//@Test
 	public void updateVolEnAttente() throws Exception{
 		MysqlDao dao = new MysqlDao();
 		// (On peut le modifier avant de relancer un test) :
@@ -250,6 +250,26 @@ public class TestMysqlDao {
 		Assert.assertEquals(volTest1.getCodePilote(), v1.getCodePilote()); // les codes pilotes coïcident
 	}
 
+	@Test
+	public void getPilotes() throws SQLException{
+		MysqlDao dao = new MysqlDao();
+		List<String> pilotes = dao.getPilotes();
+		boolean test1 = pilotes.contains("P0001"); // la liste doit contenir P0001
+		boolean test2 = pilotes.contains("autreChaine"); // la liste ne contient pas cette chaine
+		Assert.assertTrue(test1); // true
+		Assert.assertFalse(test2); // false
+	}
+	
+	@Test
+	public void getCopilotes() throws SQLException{
+		MysqlDao dao = new MysqlDao();
+		List<String> copilotes = dao.getCopilotes();
+		boolean test1 = copilotes.contains("C0001"); // la liste doit contenir C0001
+		boolean test2 = copilotes.contains("autreChaine"); // la liste ne contient pas cette chaine
+		Assert.assertTrue(test1); // true
+		Assert.assertFalse(test2); // false
+	}
+	
 	//@Test
 	public void connection() throws Exception{ // doit renvoyer vrai si le couple login + password est correct
 		MysqlDao dao = new MysqlDao();
