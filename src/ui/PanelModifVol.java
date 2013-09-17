@@ -424,6 +424,7 @@ public class PanelModifVol extends JPanel {
 		comboBoxPilote = new JComboBox<>();
 		// pour créer la comboxBox avec les pilotes de la compagnie :
 		List<String> listePilotes = dao.getPilotes();
+		listePilotes.add(0,"Choisissez un employé"); // on rajoute cette mention en première position dans la liste
 		// on transforme la liste en tableau de String
 		String[]pilotes = getTableauEmployes(listePilotes);
 		Vol.comboBoxCreation(pilotes, comboBoxPilote);
@@ -463,6 +464,7 @@ public class PanelModifVol extends JPanel {
 		comboBoxCopilote = new JComboBox<>();
 		// pour créer la comboxBox avec les copilotes de la compagnie :
 		List<String> listeCopilotes = dao.getCopilotes();
+		listeCopilotes.add(0,"Choisissez un employé"); // on rajoute cette mention en première position dans la liste
 		// on transforme la liste en tableau de String
 		String[]copilotes = getTableauEmployes(listeCopilotes);
 		Vol.comboBoxCreation(copilotes, comboBoxCopilote);
@@ -502,6 +504,7 @@ public class PanelModifVol extends JPanel {
 		comboBoxHotesseSt1 = new JComboBox<>();
 		// pour créer la comboxBox avec les hôtesses/stewards de la compagnie :
 		List<String> listeHotessesSt = dao.getHotessesSt();
+		listeHotessesSt.add(0,"Choisissez un employé"); // on rajoute cette mention en première position dans la liste
 		// on transforme la liste en tableau de String
 		String[]hotessesSt = getTableauEmployes(listeHotessesSt);
 		Vol.comboBoxCreation(hotessesSt, comboBoxHotesseSt1);
@@ -699,11 +702,32 @@ public class PanelModifVol extends JPanel {
 		String tarifStr = formatter.format(v.getTarif());
 		panelModifVol.getTextFieldTarif().setText(tarifStr);
 		
-		panelModifVol.getComboBoxPilote().setSelectedItem(v.getCodePilote());
-		panelModifVol.getComboBoxCopilote().setSelectedItem(v.getCodeCopilote());
-		panelModifVol.getComboBoxHotesseSt1().setSelectedItem(v.getCodeHotesseSt1());
-		panelModifVol.getComboBoxHotesseSt2().setSelectedItem(v.getCodeHotesseSt2());
-		panelModifVol.getComboBoxHotesseSt3().setSelectedItem(v.getCodeHotesseSt3());
+		// si il n'y avait pas d'employés enregistrés, on revient sur "Choisissez un employé"
+		if(v.getCodePilote().isEmpty()){
+			panelModifVol.getComboBoxPilote().setSelectedItem("Choisissez un employé");
+		}else{
+			panelModifVol.getComboBoxPilote().setSelectedItem(v.getCodePilote());
+		}
+		if(v.getCodeCopilote().isEmpty()){
+			panelModifVol.getComboBoxCopilote().setSelectedItem("Choisissez un employé");
+		}else{
+			panelModifVol.getComboBoxCopilote().setSelectedItem(v.getCodeCopilote());
+		}
+		if(v.getCodeHotesseSt1().isEmpty()){
+			panelModifVol.getComboBoxHotesseSt1().setSelectedItem("Choisissez un employé");
+		}else{
+			panelModifVol.getComboBoxHotesseSt1().setSelectedItem(v.getCodeHotesseSt1());
+		}
+		if(v.getCodeHotesseSt2().isEmpty()){
+			panelModifVol.getComboBoxHotesseSt2().setSelectedItem("Choisissez un employé");
+		}else{
+			panelModifVol.getComboBoxHotesseSt2().setSelectedItem(v.getCodeHotesseSt2());
+		}
+		if(v.getCodeHotesseSt3().isEmpty()){
+			panelModifVol.getComboBoxHotesseSt3().setSelectedItem("Choisissez un employé");
+		}else{
+			panelModifVol.getComboBoxHotesseSt3().setSelectedItem(v.getCodeHotesseSt3());
+		}
 	}
 	
 	// méthode appelée après la mise à jour ou la suppression d'un vol
@@ -722,11 +746,11 @@ public class PanelModifVol extends JPanel {
 		textFieldHeureArriv.setText("");
 		textFieldDuree.setText("");
 		textFieldTarif.setText("");
-		comboBoxPilote.setSelectedItem("");
-		comboBoxCopilote.setSelectedItem("");
-		comboBoxHotesseSt1.setSelectedItem("");
-		comboBoxHotesseSt2.setSelectedItem("");
-		comboBoxHotesseSt3.setSelectedItem("");
+		comboBoxPilote.setSelectedItem("Choisissez un employé");
+		comboBoxCopilote.setSelectedItem("Choisissez un employé");
+		comboBoxHotesseSt1.setSelectedItem("Choisissez un employé");
+		comboBoxHotesseSt2.setSelectedItem("Choisissez un employé");
+		comboBoxHotesseSt3.setSelectedItem("Choisissez un employé");
 		
 		// On récupère les villes proposées par la compagnie pour les comboboxes
 		String[] villes = null;
