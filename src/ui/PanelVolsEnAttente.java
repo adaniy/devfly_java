@@ -97,46 +97,10 @@ public class PanelVolsEnAttente extends JPanel {
 					// On récupère les données du vol correspondant :
 					try {
 						Vol v = dao.getVolEnAttenteById(numVol);
+						// On efface l'éventuel message saisi :
+						panelModifVolEnAttente.getLblMessage().setText("");
 						// On réinitialise les champs du formulaire :
-						
-						// pour la comboBox :
-						panelModifVolEnAttente.getJComboBoxVilleDeDepart().setSelectedItem(v.getAeroportDepart().getVille());
-						
-						panelModifVolEnAttente.getTextFieldPaysDeDepart().setText(v.getAeroportDepart().getPays());
-						panelModifVolEnAttente.getTextFieldCodeDep().setText(v.getAeroportDepart().getCodeAeroport());
-						
-						// pour la comboBox :
-						panelModifVolEnAttente.getJComboBoxVilleDarrivee().setSelectedItem(v.getAeroportArrivee().getVille());
-						panelModifVolEnAttente.getTextFieldPaysDarrivee().setText(v.getAeroportArrivee().getPays());
-						panelModifVolEnAttente.getTextFieldCodeArriv().setText(v.getAeroportArrivee().getCodeAeroport());
-						
-						Date dateHeureDep = v.getDateHeureDepart();
-						Date dateHeureArriv = v.getDateHeureArrivee();
-						// On passe les dates récupérées en chaînes de caractères
-						String dateDepStr = new SimpleDateFormat("dd/MM/yyyy").format(dateHeureDep);
-						String heureDepStr = new SimpleDateFormat("HH:mm").format(dateHeureDep);
-						String dateArrivStr = new SimpleDateFormat("dd/MM/yyyy").format(dateHeureArriv);
-						String heureArrivStr = new SimpleDateFormat("HH:mm").format(dateHeureArriv);
-						
-						panelModifVolEnAttente.getTextFieldDateDep().setText(dateDepStr);
-						panelModifVolEnAttente.getTextFieldHeureDep().setText(heureDepStr);
-						panelModifVolEnAttente.getTextFieldDateArriv().setText(dateArrivStr);
-						panelModifVolEnAttente.getTextFieldHeureArriv().setText(heureArrivStr);
-						
-						// pour la durée, on passe la valeur de l'entier en chaîne de caractères
-						panelModifVolEnAttente.getTextFieldDuree().setText(String.valueOf(v.getDuree()));
-						
-						// Pour le tarif, on passe la valeur du float en chaîne de caractères
-						// On utilise NumberFormat pour demander explicitement 2 chiffres après la virgule
-						NumberFormat formatter = new DecimalFormat("#0.00");
-						String tarifStr = formatter.format(v.getTarif());
-						panelModifVolEnAttente.getTextFieldTarif().setText(tarifStr);
-						
-						panelModifVolEnAttente.getTextFieldPilote().setText(v.getCodePilote());
-						panelModifVolEnAttente.getTextFieldCopilote().setText(v.getCodeCopilote());
-						panelModifVolEnAttente.getTextFieldHotesseSt1().setText(v.getCodeHotesseSt1());
-						panelModifVolEnAttente.getTextFieldHotesseSt2().setText(v.getCodeHotesseSt2());
-						panelModifVolEnAttente.getTextFieldHotesseSt3().setText(v.getCodeHotesseSt3());
+						PanelModifVol.formReset(panelModifVolEnAttente, v);
 						
 					} catch (SQLException e) {
 						panelModifVolEnAttente.getLblMessage().setText(e.getMessage());

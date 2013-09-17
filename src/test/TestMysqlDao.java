@@ -185,7 +185,7 @@ public class TestMysqlDao {
 		Assert.assertFalse(test2);
 	}
 	
-	@Test
+	//@Test
 	public void getVolEnAttenteById() throws Exception{ // doit renvoyer un objet Vol correspondant à l'id en paramètre
 		MysqlDao dao = new MysqlDao();
 		Vol volRecupere = dao.getVolEnAttenteById("TMP2");
@@ -200,6 +200,23 @@ public class TestMysqlDao {
 		Assert.assertEquals(volTest.getId(), volRecupere.getId());
 		Assert.assertEquals(volTest.getAeroportDepart().getCodeAeroport(), volRecupere.getAeroportDepart().getCodeAeroport());		
 		Assert.assertEquals(volTest.getDuree(), volRecupere.getDuree());
+	}
+	
+	//@Test
+	public void getVolProgrammeById() throws Exception{ // doit renvoyer un objet Vol correspondant à l'id en paramètre
+		MysqlDao dao = new MysqlDao();
+		Vol volRecupere = dao.getVolProgrammeById("DF3");
+		
+		Date dateDepart = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse("2013-12-24 02:20:00");
+		Date dateArrivee = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse("2013-12-24 18:34:00");
+		
+		Aeroport aeroportDepart = dao.getAeroportByVille("Casablanca");
+		Aeroport aeroportArrivee = dao.getAeroportByVille("Honolulu");
+		// à réajuster à chaque test :
+		Vol volTest = new Vol("DF3", aeroportDepart, aeroportArrivee, dateDepart, dateArrivee, 974, 1524, "P0001", "C0006", "H0002", "H0007", "H0006");
+		Assert.assertEquals(volTest.getId(), volRecupere.getId());
+		Assert.assertEquals(volTest.getAeroportDepart().getCodeAeroport(), volRecupere.getAeroportDepart().getCodeAeroport());		
+		Assert.assertEquals(volTest.getCodeCopilote(), volRecupere.getCodeCopilote());
 	}
 
 	//@Test

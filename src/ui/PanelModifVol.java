@@ -23,8 +23,13 @@ import javax.swing.SwingConstants;
 
 import dao.MysqlDao;
 import model.Aeroport;
+import model.Vol;
 
 import java.sql.SQLException;
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 @SuppressWarnings("serial")
 public class PanelModifVol extends JPanel {
@@ -627,5 +632,46 @@ public class PanelModifVol extends JPanel {
 		panelModifVol.getTextFieldHotesseSt2().setText(hotesseSt2);
 		panelModifVol.getTextFieldHotesseSt3().setText(hotesseSt3);
 	}
-
+	
+	// au clic, réinitialise les champs du formulaire de modification d'un vol
+	// prend en paramètre le panel de type PanelModifVol dont on doit réinitialiser les champs,
+	// et un objet Vol dont on obtient les données à remettre dans le formulaire
+	public static void formReset(PanelModifVol panelModifVol, Vol v){
+		// pour la comboBox ville de départ :
+		panelModifVol.getJComboBoxVilleDeDepart().setSelectedItem(v.getAeroportDepart().getVille());
+		panelModifVol.getTextFieldPaysDeDepart().setText(v.getAeroportDepart().getPays());
+		panelModifVol.getTextFieldCodeDep().setText(v.getAeroportDepart().getCodeAeroport());
+		// pour la comboBox ville d'arrivée :
+		panelModifVol.getJComboBoxVilleDarrivee().setSelectedItem(v.getAeroportArrivee().getVille());
+		panelModifVol.getTextFieldPaysDarrivee().setText(v.getAeroportArrivee().getPays());
+		panelModifVol.getTextFieldCodeArriv().setText(v.getAeroportArrivee().getCodeAeroport());
+		
+		Date dateHeureDep = v.getDateHeureDepart();
+		Date dateHeureArriv = v.getDateHeureArrivee();
+		// On passe les dates récupérées en chaînes de caractères
+		String dateDepStr = new SimpleDateFormat("dd/MM/yyyy").format(dateHeureDep);
+		String heureDepStr = new SimpleDateFormat("HH:mm").format(dateHeureDep);
+		String dateArrivStr = new SimpleDateFormat("dd/MM/yyyy").format(dateHeureArriv);
+		String heureArrivStr = new SimpleDateFormat("HH:mm").format(dateHeureArriv);
+		
+		panelModifVol.getTextFieldDateDep().setText(dateDepStr);
+		panelModifVol.getTextFieldHeureDep().setText(heureDepStr);
+		panelModifVol.getTextFieldDateArriv().setText(dateArrivStr);
+		panelModifVol.getTextFieldHeureArriv().setText(heureArrivStr);
+		
+		// pour la durée, on passe la valeur de l'entier en chaîne de caractères
+		panelModifVol.getTextFieldDuree().setText(String.valueOf(v.getDuree()));
+		
+		// Pour le tarif, on passe la valeur du float en chaîne de caractères
+		// On utilise NumberFormat pour demander explicitement 2 chiffres après la virgule
+		NumberFormat formatter = new DecimalFormat("#0.00");
+		String tarifStr = formatter.format(v.getTarif());
+		panelModifVol.getTextFieldTarif().setText(tarifStr);
+		
+		panelModifVol.getTextFieldPilote().setText(v.getCodePilote());
+		panelModifVol.getTextFieldCopilote().setText(v.getCodeCopilote());
+		panelModifVol.getTextFieldHotesseSt1().setText(v.getCodeHotesseSt1());
+		panelModifVol.getTextFieldHotesseSt2().setText(v.getCodeHotesseSt2());
+		panelModifVol.getTextFieldHotesseSt3().setText(v.getCodeHotesseSt3());
+	}
 }

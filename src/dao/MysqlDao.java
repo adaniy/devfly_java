@@ -378,6 +378,42 @@ public class MysqlDao {
 		// on crée un objet Vol avec les éléments récupérés :
 		return new Vol(id, aeroportDepart, aeroportArrivee, dateHeureDepart, dateHeureArrivee, duree, tarif, codePilote, codeCopilote, codeHotesseSt1, codeHotesseSt2, codeHotesseSt3);
 	}
+	
+	// renvoie l'objet Vol correspondant à l'id en paramètre, pour un vol "programmé"
+	public Vol getVolProgrammeById(String id) throws SQLException{
+		// on se connecte à la BDD
+		Connection connection = DriverManager.getConnection(datasource, user, password);
+		// on crée et exécute une requête préparée
+		String sql = "SELECT * FROM vol V INNER JOIN travailler T ON V.numvol = T.vol WHERE V.numvol = ?";
+		PreparedStatement stmt = connection.prepareStatement(sql);
+		// on valorise le paramètre
+		stmt.setString(1, id);
+		ResultSet result = stmt.executeQuery();
+		// On récupère le résultat de la requête
+		result.next();
+		String villeDepart = result.getString("lieudep");
+		// On récupère l'objet Aeroport correspondant à la ville de départ :
+		Aeroport aeroportDepart = getAeroportByVille(villeDepart);
+		String villeArrivee = result.getString("lieuarriv");
+		// On récupère l'objet Aeroport correspondant à la ville d'arrivée :
+		Aeroport aeroportArrivee = getAeroportByVille(villeArrivee);
+		// On récupère les dates sous forme de timestamp pour avoir les minutes et secondes
+		// (on formatera à l'affichage)
+		Date dateHeureDepart = result.getTimestamp("dateheuredep");
+		Date dateHeureArrivee = result.getTimestamp("dateheurearrivee");
+		// on calcule la durée du vol
+		int duree = Vol.getDureeVol(dateHeureDepart, dateHeureArrivee);
+		float tarif = result.getFloat("tarif");
+		String codePilote = result.getString("pilote");
+		String codeCopilote = result.getString("copilote");
+		String codeHotesseSt1 = result.getString("hotesse_steward1");
+		String codeHotesseSt2 = result.getString("hotesse_steward2");
+		String codeHotesseSt3 =	result.getString("hotesse_steward3");			
+		
+		connection.close();
+		// on crée un objet Vol avec les éléments récupérés :
+		return new Vol(id, aeroportDepart, aeroportArrivee, dateHeureDepart, dateHeureArrivee, duree, tarif, codePilote, codeCopilote, codeHotesseSt1, codeHotesseSt2, codeHotesseSt3);
+	}
 
 	// renvoie "true" si le couple login + mdp est correct, "false" sinon
 	public boolean connection(String identifiant, String mdp) throws Exception{

@@ -18,6 +18,8 @@ import dao.MysqlDao;
 
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 @SuppressWarnings("serial")
 public class PanelVolsProgrammes extends JPanel {
@@ -77,6 +79,28 @@ public class PanelVolsProgrammes extends JPanel {
 		Vol.columnSizeVols(tableVolsProgrammes);
 		
 		panelModifVolProgramme = new PanelModifVol();
+		panelModifVolProgramme.getBtnReinitialiser().addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				// au clic sur "réinitialiser", on réinitalise les champs à leur valeur initiale
+				// On récupère le code du vol en cours de modification
+				String numVol = panelModifVolProgramme.getTextFieldNdeVol().getText();
+				if(numVol.isEmpty()){
+					panelModifVolProgramme.getLblMessage().setText("Vous devez sélectionner un vol ci-dessus !");
+				}else{
+					// On récupère les données du vol correspondant :
+					try {
+						Vol v = dao.getVolProgrammeById(numVol);
+						// On efface l'éventuel message saisi :
+						panelModifVolProgramme.getLblMessage().setText("");
+						// On réinitialise les champs du formulaire :
+						PanelModifVol.formReset(panelModifVolProgramme, v);
+						
+					} catch (SQLException e) {
+						panelModifVolProgramme.getLblMessage().setText(e.getMessage());
+					}
+				}
+			}
+		});
 		add(panelModifVolProgramme, BorderLayout.SOUTH);
 		
 	}
