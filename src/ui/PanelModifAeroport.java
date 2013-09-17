@@ -156,15 +156,29 @@ public class PanelModifAeroport extends JPanel {
 				// (pas possible de créer 2 aéroports pour une même ville)
 				try {
 					String[]villesEnBase = Aeroport.getVillesProposees();
-					// On initialise un booléen à false
-					boolean villeExistante = false;
+					// On initialise 2 booléens à false
+					boolean villeExistante = false; // la ville existe-t-elle en base ?
+					boolean villeOk = false; // (si elle existe), correspond-elle à l'aéroport en cours de modif ?
 					for(String villeEnBase : villesEnBase){
 						if(villeEnBase.toUpperCase().equals(ville.toUpperCase())){
 							villeExistante = true;
 						}
+						if(villeExistante){
+							// si la ville existe déjà, je regarde si elle correspond à l'aéroport en cours de modification
+							// (dans ce cas, on ne bloque pas la modif ! On peut très bien modifier le pays pour cette ville)
+							// Je passe la première lettre de la ville en majuscule pour coller à la syntaxe en base
+							String villeBonFormat = PanelNouvelAeroport.UpperFirstLetter(ville);
+							Aeroport aeroportVilleEnCours = dao.getAeroportByVille(villeBonFormat);
+							// on regarde si le code de l'aéroport en cours de modif correspond au code aéroport de la ville en cours
+							
+							if(aeroportVilleEnCours.getCodeAeroport().equals(codeAita)){
+								villeOk = true; // les villes coïncident, on ne bloque pas les modifs
+							}
+						}
 					}
-					if(!villeExistante){
-						// si la ville n'existe pas déjà, on peut modifier l'aéroport
+					if(!villeExistante || villeOk){
+						// si la ville n'existe pas déjà, ou si elle correspond à l'aéroport en cours
+						// on peut modifier l'aéroport
 				
 						// On définit l'expression régulière.
 						String regexLettresAccentsTirets = "^[A-Za-zàâäéèêëìîïôöòùûüçÀÂÄÉÈËÏÎÌÔÖÙÛÜÇ-]+$";
@@ -203,7 +217,7 @@ public class PanelModifAeroport extends JPanel {
 							lblMessage.setText("Les champs doivent contenir des lettres !");
 						}	
 					}else{
-						// si la ville existe déjà, on affiche un message
+						// si la ville existe déjà pour un autre aéroport, on affiche un message
 						lblMessage.setText("La ville " + ville + " existe déjà.");
 					}
 				} catch (SQLException e1) {
