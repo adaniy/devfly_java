@@ -29,9 +29,10 @@ import java.sql.SQLException;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
-import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 
 @SuppressWarnings("serial")
 public class PanelModifVol extends JPanel {
@@ -225,6 +226,7 @@ public class PanelModifVol extends JPanel {
 		add(lblDateArriv, gbc_lblDateArriv);
 		
 		textFieldDateArriv = new JTextField();
+		textFieldDateArriv.setEditable(false); // on empêche la modification de la date d'arrivée
 		GridBagConstraints gbc_textFieldDateArriv = new GridBagConstraints();
 		gbc_textFieldDateArriv.insets = new Insets(0, 0, 5, 5);
 		gbc_textFieldDateArriv.fill = GridBagConstraints.HORIZONTAL;
@@ -293,6 +295,7 @@ public class PanelModifVol extends JPanel {
 		add(lblHeureArriv, gbc_lblHeureArriv);
 
 		textFieldHeureArriv = new JTextField();
+		textFieldHeureArriv.setEditable(false); // on empêche la modification de l'heure d'arrivée
 		GridBagConstraints gbc_textFieldHeureArriv = new GridBagConstraints();
 		gbc_textFieldHeureArriv.insets = new Insets(0, 0, 5, 5);
 		gbc_textFieldHeureArriv.fill = GridBagConstraints.HORIZONTAL;
@@ -326,8 +329,15 @@ public class PanelModifVol extends JPanel {
 		gbc_lblDuree.gridx = 4;
 		gbc_lblDuree.gridy = 3;
 		add(lblDuree, gbc_lblDuree);
-
+		
 		textFieldDuree = new JTextField();
+		// TODO
+//		textFieldDuree.addKeyListener(new KeyAdapter() {
+//			@Override
+//			public void keyPressed(KeyEvent e) {
+//				textFieldHeureArriv.setText(textFieldDuree.getText());
+//			}
+//		});
 		GridBagConstraints gbc_textFieldDuree = new GridBagConstraints();
 		gbc_textFieldDuree.insets = new Insets(0, 0, 5, 5);
 		gbc_textFieldDuree.fill = GridBagConstraints.HORIZONTAL;
