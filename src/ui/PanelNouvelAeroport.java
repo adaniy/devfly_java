@@ -173,8 +173,6 @@ public class PanelNouvelAeroport extends JPanel {
 				String ville = getTextFieldVille().getText();
 				String pays = getTextFieldPays().getText();
 				
-				// TODO : page à optimiser ?
-				
 				// On définit des expressions régulières.
 				String regexLettresAccentsTirets = "^[A-Za-zàâäéèêëìîïôöòùûüçÀÂÄÉÈËÏÎÌÔÖÙÛÜÇ-]+$";
 				String regexLettres = "^[A-Z]+$";

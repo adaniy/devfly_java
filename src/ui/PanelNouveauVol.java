@@ -221,9 +221,9 @@ public class PanelNouveauVol extends JPanel {
 				String duree = getTextFieldDureeDuVol().getText();
 				String tarifRecupere = getTextFieldTarif().getText();
 				// On remplace l'éventuelle virgule saisie par un point (sera nécessaire pour convertir en float)
+				// (-> on autorise indifféremment point et virgule)
 				String tarif = tarifRecupere.replace(",", ".");
 				
-				// TODO : à optimiser
 				// On vérifie la validité des informations saisies,
 				// on affiche un message si la saisie est incorrecte.
 				

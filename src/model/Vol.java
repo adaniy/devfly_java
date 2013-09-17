@@ -146,7 +146,6 @@ public class Vol {
 		this.codeHotesseSt3 = codeHotesseSt3;
 	}
 
-	// TODO : voir si bien placé ?
 	// Retourne un model à donner à la table
 	// On lui passera une liste de vols récupérée du dao :
 	public static TableModel createTableModelVols(String[]enTete, List<Vol> listeVols) {
@@ -201,7 +200,6 @@ public class Vol {
 		return myModel;
 	}
 
-	// TODO : voir si bien placé ?
 	// dimensionne les colonnes à la bonne taille pour présenter les vols
 	public static void columnSizeVols(JTable maTable){
 		maTable.getColumnModel().getColumn(0).setPreferredWidth(60);

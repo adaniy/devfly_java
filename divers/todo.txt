@@ -1,4 +1,3 @@
--todo : reprendre à ui
 -Reprendre la méthode de connexion !! -> demander pour chiffrement
 -vols en attente : mise à jour (trigger...) + suppression
 -Tout éditable sauf id/codeaeroport/pays
