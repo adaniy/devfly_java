@@ -86,6 +86,34 @@ public class PanelVolsEnAttente extends JPanel {
 		Vol.columnSizeVols(tableVolsEnAttente);
 		
 		panelModifVolEnAttente = new PanelModifVol();
+		panelModifVolEnAttente.getBtnSupprimer().addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				// au clic sur supprimer, on supprime le vol de la base (table vol_tmp)
+				
+				// On récupère le code du vol à supprimer :
+				String numVol = panelModifVolEnAttente.getTextFieldNdeVol().getText();
+				// On supprime le vol :
+				try {
+					if(dao.deleteVolEnAttente(numVol)){ // si la suppression s'est bien passée
+						// On affiche un message :
+						panelModifVolEnAttente.getLblMessage().setText("Le vol a bien été supprimé !");
+						
+						// On vide les champs du formulaire et on rafraichit les données :
+						// On récupère la liste des vols en attente à jour :
+						List<Vol> listeVolsEnAttente = dao.getAllVolsEnAttente();
+						panelModifVolEnAttente.rafraichirDonnees(listeVolsEnAttente, tableVolsEnAttente);
+						
+					}else{
+						// En cas d'erreur, on affiche un message (a priori aucun vol n'était sélectionné)
+						panelModifVolEnAttente.getLblMessage().setText("<html><p>La suppression n'a pas pu être effectuée !<br>"
+								+ "Veuillez sélectionner un vol ci-dessus et renouveler l'opération.</p></html>");
+					}
+				} catch (SQLException e2) {
+					panelModifVolEnAttente.getLblMessage().setText(e2.getMessage());
+				}
+				
+			}
+		});
 		panelModifVolEnAttente.getBtnReinitialiser().addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				// au clic sur "réinitialiser", on réinitalise les champs à leur valeur initiale
@@ -114,5 +142,4 @@ public class PanelVolsEnAttente extends JPanel {
 	public JTable getTableVolsEnAttente() {
 		return tableVolsEnAttente;
 	}
-
 }

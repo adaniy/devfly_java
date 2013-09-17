@@ -30,6 +30,7 @@ import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 
 @SuppressWarnings("serial")
 public class PanelModifVol extends JPanel {
@@ -673,5 +674,43 @@ public class PanelModifVol extends JPanel {
 		panelModifVol.getTextFieldHotesseSt1().setText(v.getCodeHotesseSt1());
 		panelModifVol.getTextFieldHotesseSt2().setText(v.getCodeHotesseSt2());
 		panelModifVol.getTextFieldHotesseSt3().setText(v.getCodeHotesseSt3());
+	}
+	
+	// méthode appelée après la mise à jour ou la suppression d'un vol
+	// prend en paramètre une liste de vols (cf vols en attente ou vols programmés)
+	// et la JTable dans laquelle on affiche les vols
+	public void rafraichirDonnees(List<Vol> listeVols, JTable maJTable) throws SQLException{
+		// On vide les champs du formulaire, et on réinitialise les comboBoxes :
+		textFieldNdeVol.setText("");
+		textFieldPaysDeDepart.setText("");
+		textFieldCodeDep.setText("");
+		textFieldPaysDarrivee.setText("");
+		textFieldCodeArriv.setText("");
+		textFieldDateDep.setText("");
+		textFieldHeureDep.setText("");
+		textFieldDateArriv.setText("");
+		textFieldHeureArriv.setText("");
+		textFieldDuree.setText("");
+		textFieldTarif.setText("");
+		textFieldPilote.setText("");
+		textFieldCopilote.setText("");
+		textFieldHotesseSt1.setText("");
+		textFieldHotesseSt2.setText("");
+		textFieldHotesseSt3.setText("");
+		
+		// On récupère les villes proposées par la compagnie pour les comboboxes
+		String[] villes = null;
+		try {
+			 villes = Aeroport.getVillesProposees();
+		}
+		catch(SQLException e) {
+			getLblMessage().setText(e.getMessage());
+		}
+		Aeroport.comboBoxCreation(villes, comboBoxVilleDeDepart);
+		Aeroport.comboBoxCreation(villes, comboBoxVilleDarrivee);
+		
+		// On crée le model avec les bonnes données et on le donne à la JTable
+		// On utilise pour cela la méthode statique définie dans Vol
+		Vol.TableCreation(listeVols, maJTable);
 	}
 }

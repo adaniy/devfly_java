@@ -414,6 +414,24 @@ public class MysqlDao {
 		// on crée un objet Vol avec les éléments récupérés :
 		return new Vol(id, aeroportDepart, aeroportArrivee, dateHeureDepart, dateHeureArrivee, duree, tarif, codePilote, codeCopilote, codeHotesseSt1, codeHotesseSt2, codeHotesseSt3);
 	}
+	
+	// supprime le vol "en attente" dont le code est passé en paramètre
+	// renvoie vrai si la suppression s'est bien passée
+	public boolean deleteVolEnAttente(String code) throws SQLException {
+		// on se connecte à la BDD
+		Connection connection = DriverManager.getConnection(datasource,user,password);
+		// requête SQL pour supprimer le vol "en attente" :
+		String sql = "DELETE FROM vol_tmp WHERE numvol=?";
+		PreparedStatement stmt = connection.prepareStatement(sql);
+		// on valorise le paramètre
+		stmt.setString(1, code);
+		int result = stmt.executeUpdate(); // retourne le nb d'enregistrements impactés
+		connection.close();
+		if(result == 1){ // la suppression s'est bien passée
+			return true;
+		}		
+		return false; 
+	}
 
 	// renvoie "true" si le couple login + mdp est correct, "false" sinon
 	public boolean connection(String identifiant, String mdp) throws Exception{

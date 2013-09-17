@@ -218,6 +218,16 @@ public class TestMysqlDao {
 		Assert.assertEquals(volTest.getAeroportDepart().getCodeAeroport(), volRecupere.getAeroportDepart().getCodeAeroport());		
 		Assert.assertEquals(volTest.getCodeCopilote(), volRecupere.getCodeCopilote());
 	}
+	
+	//@Test
+	public void deleteVolEnAttente() throws Exception{ // doit supprimer le vol "en attente" dont le code est en paramètre
+		MysqlDao dao = new MysqlDao();
+		// À modifier avant de relancer un test :
+		boolean result1 = dao.deleteVolEnAttente("TMP4"); // ce vol existe et peut être supprimé
+		boolean result2 = dao.deleteVolEnAttente("TMP42"); // ce vol n'existe pas
+		Assert.assertTrue(result1); // renvoie vrai si le vol a été supprimé
+		Assert.assertFalse(result2); // non supprimable
+	}
 
 	//@Test
 	public void connection() throws Exception{ // doit renvoyer vrai si le couple login + password est correct

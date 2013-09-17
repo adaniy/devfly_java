@@ -211,7 +211,7 @@ public class PanelModifAeroport extends JPanel {
 		btnSupprimer = new JButton("supprimer");
 		btnSupprimer.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				// au clic sur supprimer, on supprimer l'aéroport de la base
+				// au clic sur supprimer, on supprime l'aéroport de la base
 				
 				// On récupère le code de l'aéroport à supprimer :
 				String codeAita = getTextFieldCode().getText();
