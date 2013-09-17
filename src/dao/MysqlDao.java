@@ -498,6 +498,22 @@ public class MysqlDao {
 		connection.close();
 		return copilotes;
 	}
+	
+	// renvoie une liste des codes des hotesses et stewards de la compagnie
+	public List<String> getHotessesSt() throws SQLException{
+		List<String> hotessesSt = new ArrayList<>();
+		// on se connecte à la BDD
+		Connection connection = DriverManager.getConnection(datasource,user,password);
+		// requête SQL pour récupérer les hôtesses et stewards
+		String sql = "SELECT numemploye FROM employe WHERE lower(fonction) IN ('hotesse','steward')";
+		PreparedStatement stmt = connection.prepareStatement(sql);
+		ResultSet result = stmt.executeQuery();
+		while (result.next()) {
+			hotessesSt.add(result.getString("numemploye")); // on ajoute chaque numéro d'hôtesse/steward à la liste
+		}
+		connection.close();
+		return hotessesSt;
+	}
 
 	// renvoie "true" si le couple login + mdp est correct, "false" sinon
 	public boolean connection(String identifiant, String mdp) throws Exception{

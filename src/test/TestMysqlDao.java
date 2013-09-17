@@ -270,6 +270,18 @@ public class TestMysqlDao {
 		Assert.assertFalse(test2); // false
 	}
 	
+	@Test
+	public void getHotessesSt() throws SQLException{
+		MysqlDao dao = new MysqlDao();
+		List<String> hotessesSt = dao.getHotessesSt();
+		boolean test1 = hotessesSt.contains("H0002"); // la liste doit contenir H0002 (steward)
+		boolean test2 = hotessesSt.contains("H0003"); // la liste doit contenir H0003 (hôtesse)
+		boolean test3 = hotessesSt.contains("autreChaine"); // la liste ne contient pas cette chaine
+		Assert.assertTrue(test1); // true
+		Assert.assertTrue(test2); // true
+		Assert.assertFalse(test3); // false
+	}
+	
 	//@Test
 	public void connection() throws Exception{ // doit renvoyer vrai si le couple login + password est correct
 		MysqlDao dao = new MysqlDao();
