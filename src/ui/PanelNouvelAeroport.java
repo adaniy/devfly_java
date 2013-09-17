@@ -15,6 +15,7 @@ import java.awt.Insets;
 import javax.swing.JTextField;
 
 import model.Aeroport;
+import model.Vol;
 import dao.MysqlDao;
 
 import java.awt.Font;
@@ -173,6 +174,28 @@ public class PanelNouvelAeroport extends JPanel {
 				String ville = getTextFieldVille().getText();
 				String pays = getTextFieldPays().getText();
 				
+				// On met la première lettre de la ville et du pays en majuscule
+				// (uniformisé + permet que le tri des villes par ordre alphabétique soit correct dans le formulaire de création d'un vol)
+				String villeBonFormat = UpperFirstLetter(ville);
+				String paysBonFormat = UpperFirstLetter(pays);
+				
+				// on vérifie que la ville n'existe pas déjà en base (pas possible de créer 2 aéroports pour une même ville)
+				try {
+					String[]villesEnBase = Aeroport.getVillesProposees();
+					// On initialise un booléen à false
+					boolean villeExistante = false;
+					for(String villeEnBase : villesEnBase){
+						if(villeEnBase.equals(villeBonFormat)){
+							villeExistante = true;
+						}
+					}
+					if(!villeExistante){
+						// TODO réorganiser ici
+					}
+				} catch (SQLException e1) {
+					getLabelMessage().setText(e1.getMessage());
+				}
+				
 				// On définit des expressions régulières.
 				String regexLettresAccentsTirets = "^[A-Za-zàâäéèêëìîïôöòùûüçÀÂÄÉÈËÏÎÌÔÖÙÛÜÇ-]+$";
 				String regexLettres = "^[A-Z]+$";
@@ -181,13 +204,9 @@ public class PanelNouvelAeroport extends JPanel {
 				// qu'ils contiennent des lettres (accentuées ou non) ou tirets,
 				// et que le code aéroport est composé de 3 lettres
 				// (on utilise les regex).
-				if(codeAita.length() == 3 && ville.length()!=0 && pays.length()!=0
-						&& codeAita.matches(regexLettres) && ville.matches(regexLettresAccentsTirets)
-						&& pays.matches(regexLettresAccentsTirets)){
-					// On met la première lettre de la ville et du pays en majuscule
-					// (uniformisé + permet que le tri des villes par ordre alphabétique soit correct dans le formulaire de création d'un vol)
-					String villeBonFormat = UpperFirstLetter(ville);
-					String paysBonFormat = UpperFirstLetter(pays);
+				if(codeAita.length() == 3 && villeBonFormat.length()!=0 && paysBonFormat.length()!=0
+						&& codeAita.matches(regexLettres) && villeBonFormat.matches(regexLettresAccentsTirets)
+						&& paysBonFormat.matches(regexLettresAccentsTirets)){
 					
 					// On crée un objet Aeroport avec ces données
 					Aeroport nouvelAeroport = new Aeroport(codeAita, villeBonFormat, paysBonFormat);
