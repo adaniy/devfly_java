@@ -174,99 +174,103 @@ public class PanelNouvelAeroport extends JPanel {
 				String ville = getTextFieldVille().getText();
 				String pays = getTextFieldPays().getText();
 				
-				// On met la première lettre de la ville et du pays en majuscule
-				// (uniformisé + permet que le tri des villes par ordre alphabétique soit correct dans le formulaire de création d'un vol)
-				String villeBonFormat = UpperFirstLetter(ville);
-				String paysBonFormat = UpperFirstLetter(pays);
-				
-				// on vérifie que la ville n'existe pas déjà en base (pas possible de créer 2 aéroports pour une même ville)
+				// on vérifie que la ville n'existe pas déjà en base
+				// (pas possible de créer 2 aéroports pour une même ville)
 				try {
 					String[]villesEnBase = Aeroport.getVillesProposees();
 					// On initialise un booléen à false
 					boolean villeExistante = false;
 					for(String villeEnBase : villesEnBase){
-						if(villeEnBase.equals(villeBonFormat)){
+						if(villeEnBase.toUpperCase().equals(ville.toUpperCase())){
 							villeExistante = true;
 						}
 					}
 					if(!villeExistante){
-						// TODO réorganiser ici
+						// si la ville n'existe pas déjà, on peut ajouter l'aéroport
+						
+						// On définit des expressions régulières.
+						String regexLettresAccentsTirets = "^[A-Za-zàâäéèêëìîïôöòùûüçÀÂÄÉÈËÏÎÌÔÖÙÛÜÇ-]+$";
+						String regexLettres = "^[A-Z]+$";
+						
+						// On vérifie que les 3 champs ne sont pas vides,
+						// qu'ils contiennent des lettres (accentuées ou non) ou tirets,
+						// et que le code aéroport est composé de 3 lettres
+						// (on utilise les regex).
+						if(codeAita.length() == 3 && ville.length()!=0 && pays.length()!=0
+								&& codeAita.matches(regexLettres) && ville.matches(regexLettresAccentsTirets)
+								&& pays.matches(regexLettresAccentsTirets)){
+							
+							// On met la première lettre de la ville et du pays en majuscule
+							// (uniformisé + permet que le tri des villes par ordre alphabétique soit correct dans le formulaire de création d'un vol)
+							String villeBonFormat = UpperFirstLetter(ville);
+							String paysBonFormat = UpperFirstLetter(pays);
+							
+							// On crée un objet Aeroport avec ces données
+							Aeroport nouvelAeroport = new Aeroport(codeAita, villeBonFormat, paysBonFormat);
+							
+							// On ajoute l'aéroport à la base
+							try {
+								boolean ajout = dao.addNewAeroport(nouvelAeroport);
+								
+								// On vérifie que l'ajout s'est bien passé
+								// et on affiche un message en conséquence.
+								if(ajout){
+									getLabelMessage().setText("L'aéroport " + codeAita + " a bien été ajouté !");
+									// On vide les champs texte :
+									getTextFieldAita().setText("");
+									getTextFieldVille().setText("");
+									getTextFieldPays().setText("");
+									
+									// on va recharger la liste des aéroports pour que le nouvel aéroport apparaisse dans la section "aéroports"
+									// On récupère les aéroports
+									List<Aeroport> aeroports = dao.getAllAeroports();
+									// on récupère la frame principale
+									FenetrePrincipale frame = (FenetrePrincipale) SwingUtilities.getRoot(PanelNouvelAeroport.this);
+									// on récupère la JTable
+									JTable table = frame.getPanelAeroports().getTableAeroports();
+									// On crée le model avec les bonnes données et on le donne à la JTable
+									// On utilise pour cela la méthode statique définie dans Aeroport
+									Aeroport.TableCreation(aeroports, table);
+									
+									// on va également recharger la liste des villes proposées dans les formulaires
+									// de création d'un vol ET de modification d'un vol
+									String[]villes = Aeroport.getVillesProposees();
+									// On insère les villes dans les comboBox
+									JComboBox comboBoxCreationDepart = frame.getPanelNouveauVol().getComboBoxVilleDeDepart();
+									JComboBox comboBoxCreationArrivee = frame.getPanelNouveauVol().getComboBoxVilleDarrivee();
+									JComboBox comboBoxModificationDepart1 = frame.getPanelVolsEnAttente().getPanelModifVolEnAttente().getJComboBoxVilleDeDepart();
+									JComboBox comboBoxModificationArrivee1 = frame.getPanelVolsEnAttente().getPanelModifVolEnAttente().getJComboBoxVilleDarrivee();
+									JComboBox comboBoxModificationDepart2 = frame.getPanelVolsProgrammes().getPanelModifVolProgramme().getJComboBoxVilleDeDepart();
+									JComboBox comboBoxModificationArrivee2 = frame.getPanelVolsProgrammes().getPanelModifVolProgramme().getJComboBoxVilleDarrivee();
+									
+									Aeroport.comboBoxCreation(villes, comboBoxCreationDepart);
+									Aeroport.comboBoxCreation(villes, comboBoxCreationArrivee);
+									Aeroport.comboBoxCreation(villes, comboBoxModificationDepart1);
+									Aeroport.comboBoxCreation(villes, comboBoxModificationArrivee1);
+									Aeroport.comboBoxCreation(villes, comboBoxModificationDepart2);
+									Aeroport.comboBoxCreation(villes, comboBoxModificationArrivee2);
+									
+								}else{
+									getLabelMessage().setText("Le code aéroport " + codeAita + " existe déjà.");
+								}
+								
+							} catch (SQLException e) {
+								getLabelMessage().setText(e.getMessage());
+							}
+						}else{
+							// si tous les champs ne sont pas ok, on affiche un
+							// message (et on ne vide pas les champs !)
+							getLabelMessage().setText("<html><p>Attention, veuillez vous assurer que :<br>"
+									+ "- tous les champs sont remplis<br>"
+									+ "- la ville et le pays sont constitués de lettres<br>"
+									+ "- le code aéroport contient 3 lettres.</p></html>");
+						}	
+					}else{
+						// si la ville existe déjà, on affiche un message
+						getLabelMessage().setText("La ville " + ville + " existe déjà.");
 					}
 				} catch (SQLException e1) {
 					getLabelMessage().setText(e1.getMessage());
-				}
-				
-				// On définit des expressions régulières.
-				String regexLettresAccentsTirets = "^[A-Za-zàâäéèêëìîïôöòùûüçÀÂÄÉÈËÏÎÌÔÖÙÛÜÇ-]+$";
-				String regexLettres = "^[A-Z]+$";
-				
-				// On vérifie que les 3 champs ne sont pas vides,
-				// qu'ils contiennent des lettres (accentuées ou non) ou tirets,
-				// et que le code aéroport est composé de 3 lettres
-				// (on utilise les regex).
-				if(codeAita.length() == 3 && villeBonFormat.length()!=0 && paysBonFormat.length()!=0
-						&& codeAita.matches(regexLettres) && villeBonFormat.matches(regexLettresAccentsTirets)
-						&& paysBonFormat.matches(regexLettresAccentsTirets)){
-					
-					// On crée un objet Aeroport avec ces données
-					Aeroport nouvelAeroport = new Aeroport(codeAita, villeBonFormat, paysBonFormat);
-					
-					// On ajoute l'aéroport à la base
-					try {
-						boolean ajout = dao.addNewAeroport(nouvelAeroport);
-						
-						// On vérifie que l'ajout s'est bien passé
-						// et on affiche un message en conséquence.
-						if(ajout){
-							getLabelMessage().setText("L'aéroport " + codeAita + " a bien été ajouté !");
-							// On vide les champs texte :
-							getTextFieldAita().setText("");
-							getTextFieldVille().setText("");
-							getTextFieldPays().setText("");
-							
-							// on va recharger la liste des aéroports pour que le nouvel aéroport apparaisse dans la section "aéroports"
-							// On récupère les aéroports
-							List<Aeroport> aeroports = dao.getAllAeroports();
-							// on récupère la frame principale
-							FenetrePrincipale frame = (FenetrePrincipale) SwingUtilities.getRoot(PanelNouvelAeroport.this);
-							// on récupère la JTable
-							JTable table = frame.getPanelAeroports().getTableAeroports();
-							// On crée le model avec les bonnes données et on le donne à la JTable
-							// On utilise pour cela la méthode statique définie dans Aeroport
-							Aeroport.TableCreation(aeroports, table);
-							
-							// on va également recharger la liste des villes proposées dans les formulaires
-							// de création d'un vol ET de modification d'un vol
-							String[]villes = Aeroport.getVillesProposees();
-							// On insère les villes dans les comboBox
-							JComboBox comboBoxCreationDepart = frame.getPanelNouveauVol().getComboBoxVilleDeDepart();
-							JComboBox comboBoxCreationArrivee = frame.getPanelNouveauVol().getComboBoxVilleDarrivee();
-							JComboBox comboBoxModificationDepart1 = frame.getPanelVolsEnAttente().getPanelModifVolEnAttente().getJComboBoxVilleDeDepart();
-							JComboBox comboBoxModificationArrivee1 = frame.getPanelVolsEnAttente().getPanelModifVolEnAttente().getJComboBoxVilleDarrivee();
-							JComboBox comboBoxModificationDepart2 = frame.getPanelVolsProgrammes().getPanelModifVolProgramme().getJComboBoxVilleDeDepart();
-							JComboBox comboBoxModificationArrivee2 = frame.getPanelVolsProgrammes().getPanelModifVolProgramme().getJComboBoxVilleDarrivee();
-							
-							Aeroport.comboBoxCreation(villes, comboBoxCreationDepart);
-							Aeroport.comboBoxCreation(villes, comboBoxCreationArrivee);
-							Aeroport.comboBoxCreation(villes, comboBoxModificationDepart1);
-							Aeroport.comboBoxCreation(villes, comboBoxModificationArrivee1);
-							Aeroport.comboBoxCreation(villes, comboBoxModificationDepart2);
-							Aeroport.comboBoxCreation(villes, comboBoxModificationArrivee2);
-							
-						}else{
-							getLabelMessage().setText("Le code aéroport " + codeAita + " existe déjà.");
-						}
-						
-					} catch (SQLException e) {
-						getLabelMessage().setText(e.getMessage());
-					}
-				}else{
-					// si tous les champs ne sont pas ok, on affiche un
-					// message (et on ne vide pas les champs !)
-					getLabelMessage().setText("<html><p>Attention, veuillez vous assurer que :<br>"
-							+ "- tous les champs sont remplis<br>"
-							+ "- la ville et le pays sont constitués de lettres<br>"
-							+ "- le code aéroport contient 3 lettres.</p></html>");
 				}
 			}
 		});
