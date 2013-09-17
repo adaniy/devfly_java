@@ -15,7 +15,6 @@ import java.awt.Insets;
 import javax.swing.JTextField;
 
 import model.Aeroport;
-import model.Vol;
 import dao.MysqlDao;
 
 import java.awt.Font;

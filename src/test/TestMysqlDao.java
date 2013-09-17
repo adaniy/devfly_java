@@ -228,6 +228,27 @@ public class TestMysqlDao {
 		Assert.assertTrue(result1); // renvoie vrai si le vol a été supprimé
 		Assert.assertFalse(result2); // non supprimable
 	}
+	
+	@Test
+	public void updateVolEnAttente() throws Exception{
+		MysqlDao dao = new MysqlDao();
+		// (On peut le modifier avant de relancer un test) :
+		// TODO : vérifer pour 1 ou 2h
+		Date dateDepart = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse("2014-03-30 03:15:00");
+		Date dateArrivee = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse("2014-03-30 15:15:00");
+		
+		Aeroport aeroportDepart = dao.getAeroportByVille("Casablanca");
+		Aeroport aeroportArrivee = dao.getAeroportByVille("Honolulu");
+		// à réajuster à chaque test :
+		Vol volTest1 = new Vol("TMP1", aeroportDepart, aeroportArrivee, dateDepart, dateArrivee, 720, 1000, "P0001", "C0006", "H0002", "", "");
+		Vol volTest2 = new Vol("TMP42", aeroportDepart, aeroportArrivee, dateDepart, dateArrivee, 720, 1000, "P0001", "C0006", "H0002", "", "");
+		boolean result1 = dao.updateVolEnAttente(volTest1);
+		boolean result2 = dao.updateVolEnAttente(volTest2); // n'existe pas, ne peut pas être modifié
+		Vol v1 = dao.getVolEnAttenteById("TMP1"); // on récupère le vol modifié
+		Assert.assertTrue(result1); // true
+		Assert.assertFalse(result2); // false
+		Assert.assertEquals(volTest1.getCodePilote(), v1.getCodePilote()); // les codes pilotes coïcident
+	}
 
 	//@Test
 	public void connection() throws Exception{ // doit renvoyer vrai si le couple login + password est correct
@@ -236,6 +257,5 @@ public class TestMysqlDao {
 		boolean test2 = dao.connection("admin", "bidule");
 		Assert.assertTrue(test1);
 		Assert.assertFalse(test2);
-		//Assert.assertEquals(true,test1);
 	}
 }

@@ -11,10 +11,6 @@ import javax.swing.JLabel;
 
 import java.awt.Color;
 import java.sql.SQLException;
-import java.text.DecimalFormat;
-import java.text.NumberFormat;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
 
 import javax.swing.SwingConstants;

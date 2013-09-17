@@ -432,10 +432,44 @@ public class MysqlDao {
 		}		
 		return false; 
 	}
+	
+	// met à jour le vol "en attente" en paramètre
+	// renvoie "vrai" si la mise à jour s'est bien passée
+	public boolean updateVolEnAttente(Vol v) throws SQLException {
+		// on se connecte à la BDD
+		Connection connection = DriverManager.getConnection(datasource,user,password);
+		// requête SQL pour mettre à jour le vol
+		String sql = "UPDATE vol_tmp SET lieudep=?, lieuarriv=?, dateheuredep=?, dateheurearrivee=?, tarif=?,"
+				+ "pilote=?, copilote=?, hotesse_steward1=?, hotesse_steward2=?, hotesse_steward3=?"
+				+ "WHERE numvol=?";
+		PreparedStatement stmt = connection.prepareStatement(sql);
+		// On valorise les paramètres
+		stmt.setString(1, v.getAeroportDepart().getVille());
+		stmt.setString(2, v.getAeroportArrivee().getVille());
+		// on transforme la date util en timestamp SQL. Pour cela, on utilise le timestamp des dates.
+		// (rq : avec une java.sql.Date, on ne récupèrerait pas les heures et minutes)
+		stmt.setTimestamp(3, new java.sql.Timestamp(v.getDateHeureDepart().getTime()));
+		stmt.setTimestamp(4, new java.sql.Timestamp(v.getDateHeureArrivee().getTime()));
+		stmt.setFloat(5, v.getTarif());
+		stmt.setString(6, v.getCodePilote());
+		stmt.setString(7, v.getCodeCopilote());
+		stmt.setString(8, v.getCodeHotesseSt1());
+		stmt.setString(9, v.getCodeHotesseSt2());
+		stmt.setString(10, v.getCodeHotesseSt3());
+		stmt.setString(11, v.getId());
+		
+		int result = stmt.executeUpdate(); // retourne le nb d'enregistrements impactés
+		connection.close();
+		if(result == 1){ // l'ajout s'est bien passé
+			return true;
+		}
+		return false; 
+	}
 
 	// renvoie "true" si le couple login + mdp est correct, "false" sinon
 	public boolean connection(String identifiant, String mdp) throws Exception{
-		String chaineSalt = "ABCDEFGHIJKLM";
+
+		String chaineSalt = "ABCDEFGHIJKLM"; // ou $5$ABCDEFGHIJKLM  ?
 		String mdpChiffre = null;
 		String sql = "SELECT login FROM user WHERE login=? and password=?";
 

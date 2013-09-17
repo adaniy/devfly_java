@@ -25,6 +25,7 @@ Rqs à intégrer dans le rapport :
 - problème de conception avec la ville utilisée comme "clé" en PHP (=> 2 villes ne peuvent pas avoir le même nom + un aéroport "utilisé" ne peut pas être modifié sous peine de plantage...)
 - le numéro de vol n'a pas d'importance sémantique (le 6 peut partir avant le 2)...
 - gestion des exceptions
+- on aurait pu faire en sorte de proposer uniquement les employés disponibles à la date
 
 Notes / Voc :
 - Add @SuppressWarnings ("permet de signaler au compilateur que l'on a conscience de réaliser une opération risquée, et qu'il peut donc arrêter de signaler un éventuel problème")
