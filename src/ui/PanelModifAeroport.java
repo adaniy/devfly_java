@@ -235,6 +235,10 @@ public class PanelModifAeroport extends JPanel {
 		btnReinitialiser.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				// au clic sur "réinitialiser", on réinitalise les champs à leur valeur initiale
+				
+				// On efface l'éventuel message saisi :
+				lblMessage.setText("");
+				
 				// On récupère le code de l'aéroport en cours de modification
 				String codeAita = getTextFieldCode().getText();
 				if(codeAita.isEmpty()){
