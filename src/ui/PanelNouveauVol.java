@@ -406,13 +406,13 @@ public class PanelNouveauVol extends JPanel {
 
 	// Prend en paramètre une date sous forme de chaîne de caractères jj/mm/aaaa
 	// Renvoie vrai si la date indiquée est dans le futur
-	private boolean futureDate(String laDate){ // on n'utilise cette méthode que dans ce panel
+	public static boolean futureDate(String laDate){
 		// On crée une date à partir de la chaîne récupérée :
 		Date laDateFormatee = null;
 		try {
 			laDateFormatee = new SimpleDateFormat("dd/MM/yyyy").parse(laDate);
 		} catch (ParseException e1) {
-			getLabelMessage().setText(e1.getMessage());
+			e1.printStackTrace();
 		}
 		// On récupère le timestamp de la date indiquée :
 		long timeStampLaDate = laDateFormatee.getTime();

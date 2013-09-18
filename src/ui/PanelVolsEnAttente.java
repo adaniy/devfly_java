@@ -120,9 +120,56 @@ public class PanelVolsEnAttente extends JPanel {
 				// on le passe à faux. C'est lui qui déterminera si la mise à jour peut se faire.
 				boolean miseAJour = true;
 				
+				// On définit les formats voulus pour la date, l'heure, la durée du vol :
+				String regexDate = "^(0[1-9]|1[0-9]|2[0-9]|30|31)/(0[1-9]|1[0-2])/[0-9]{4}";
+				String regexHeure = "^([0-1][0-9]|2[0-3]):[0-5][0-9]$";
+				String regexDuree = "^[1-9][0-9]+$"; // la durée du vol ne peut pas être inférieure à 10 min
+				// Le tarif est un nombre décimal (rq : on laisse la possibilité à la compagnie d'indiquer
+				// un tarif à zéro pour les événements particuliers).
+				String regexTarif = "^[0-9]+\\.[0-9]{2}$";
 				
-				
+				// On vérifie que les villes de départ et d'arrivée sont différentes
+				if(villeDepart.equals(villeArrivee)){
+					panelModifVolEnAttente.getLblMessage().setText("Le trajet indiqué n'est pas correct !");
+					miseAJour = false;
+				}
+				// On vérifie que la date est au bon format ET dans le futur
+				if(!dateDepart.matches(regexDate) || !PanelNouveauVol.futureDate(dateDepart)){
+					// (on ne vérifie que la date est dans le futur que si elle a un format valide)
+					panelModifVolEnAttente.getLblMessage().setText("<html><p>Vérifiez le format de la date svp.<br>"
+							+ "Attention, la date ne peut pas être antérieure à demain !</p></html>");
+					miseAJour = false;
+				}
+				// On vérifie que l'heure est au bon format
+				if(!heureDepart.matches(regexHeure)){
+					panelModifVolEnAttente.getLblMessage().setText("Vérifiez le format de l'heure svp !");
+					miseAJour = false;
+				}
+				// On vérifie que la durée est OK
+				if(!duree.matches(regexDuree)){
+					panelModifVolEnAttente.getLblMessage().setText("Vérifiez la durée du vol svp !");
+					miseAJour = false;
+				}
+				// On vérifie que le tarif est OK
+				if(!tarif.matches(regexTarif)){
+					panelModifVolEnAttente.getLblMessage().setText("Vérifiez le format du tarif (ex : 230,00)");
+					miseAJour = false;
+				}
+				// On vérifie que les 3 hôtesses / stewards sélectionnés sont différents.
+				// La vérification se fait uniquement si l'employé n'a pas la valeur "Choisissez un employé".
+				String choixEmploye = "Choisissez un employé";
+				if(!codeHotesseSt1.equals(choixEmploye) && codeHotesseSt1.equals(codeHotesseSt2) ||
+						!codeHotesseSt1.equals(choixEmploye) && codeHotesseSt1.equals(codeHotesseSt3) ||
+						!codeHotesseSt2.equals(choixEmploye) && codeHotesseSt2.equals(codeHotesseSt3)){
+					panelModifVolEnAttente.getLblMessage().setText("Vous devez choisir des hôtesses ou stewards différents.");
+					miseAJour = false;
+				}
 			}
+			
+			// TODO : si tous les champs sont remplis ET que les employés n'ont pas la valeur
+			// "Choisissez un employé", on passe le vol "en attente" en vol "confirmé"
+			// mise à jour : attention à la valeur choixEmploye
+
 		});
 		panelModifVolEnAttente.getBtnSupprimer().addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {

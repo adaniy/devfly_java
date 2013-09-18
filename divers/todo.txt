@@ -1,9 +1,7 @@
 -combobox désactivées -> couleurs
 -Reprendre la méthode de connexion !! -> demander pour chiffrement
 -vols en attente : mise à jour (trigger...)
--Tout éditable sauf id/codeaeroport/pays
 -TRIGGER pour l'exam
--mettre des setEditable à false en fonction du contexte...
 -BDD : prévenir changements + changer sur le serveur
 
 -CAHIER DES CHARGES (rappel : tarif à zéro autorisé + date du vol à partir du lendemain + contraintes sur les modifs d'aéroports / vols)
