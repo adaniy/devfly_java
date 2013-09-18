@@ -231,8 +231,12 @@ public class PanelVolsEnAttente extends JPanel {
 					Vol vol = new Vol(id, aeroportDepart, aeroportArrivee, dateDeDepart, dateDArrivee, dureeInt, tarifFloat, pilote, copilote, hotesseSt1, hotesseSt2, hotesseSt3);
 					
 					try {
-						dao.updateVolEnAttente(vol);
-						panelModifVolEnAttente.getLblMessage().setText("Le vol a bien été mis à jour !");
+						if(dao.updateVolEnAttente(vol)){ // renvoie vrai si la mise à jour s'est bien passée
+							panelModifVolEnAttente.getLblMessage().setText("Le vol a bien été mis à jour !");
+						}else{
+							panelModifVolEnAttente.getLblMessage().setText("Il y a eu un problème lors de la mise à jour !");
+						}
+						
 					} catch (SQLException e) {
 						panelModifVolEnAttente.getLblMessage().setText(e.getMessage());
 					}

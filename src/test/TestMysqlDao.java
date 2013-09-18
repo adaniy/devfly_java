@@ -282,6 +282,19 @@ public class TestMysqlDao {
 		Assert.assertFalse(test3); // false
 	}
 	
+	@Test
+	public void updateTarifVolProgramme() throws SQLException{
+		MysqlDao dao = new MysqlDao();
+		// à réajuster à chaque test :
+		boolean test1 = dao.updateTarifVolProgramme("DF1", 700.77F); // le vol existe, le tarif est modifiable
+		boolean test2 = dao.updateTarifVolProgramme("DF42", 700.77F); // le vol n'existe pas
+		Vol v = dao.getVolProgrammeById("DF1"); // on récupère le vol modifié
+		Assert.assertTrue(test1); // true
+		Assert.assertFalse(test2); // false
+		// on vérifie que le tarif a bien été changé (on le passe en String uniquement pour le test)
+		Assert.assertEquals("700.77", String.valueOf(v.getTarif()));
+	}
+	
 	//@Test
 	public void connection() throws Exception{ // doit renvoyer vrai si le couple login + password est correct
 		MysqlDao dao = new MysqlDao();

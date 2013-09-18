@@ -461,7 +461,7 @@ public class MysqlDao {
 		
 		int result = stmt.executeUpdate(); // retourne le nb d'enregistrements impactés
 		connection.close();
-		if(result == 1){ // l'ajout s'est bien passé
+		if(result == 1){ // la mise à jour s'est bien passée
 			return true;
 		}
 		return false; 
@@ -513,6 +513,27 @@ public class MysqlDao {
 		}
 		connection.close();
 		return hotessesSt;
+	}
+	
+	// met à jour le tarif pour un vol programmé
+	// prend en paramètre le numéro de vol et le nouveau tarif
+	// renvoie vrai si la mise à jour s'est bien passée
+	public boolean updateTarifVolProgramme(String numVol, float tarif) throws SQLException{
+		// on se connecte à la BDD
+		Connection connection = DriverManager.getConnection(datasource,user,password);
+		// requête SQL pour mettre à jour le tarif
+		String sql = "UPDATE vol SET tarif=? WHERE numvol=?";
+		PreparedStatement stmt = connection.prepareStatement(sql);
+		// On valorise les paramètres
+		stmt.setFloat(1, tarif);
+		stmt.setString(2, numVol);
+		
+		int result = stmt.executeUpdate(); // retourne le nb d'enregistrements impactés
+		connection.close();
+		if(result == 1){ // la mise à jour s'est bien passée
+			return true;
+		}
+		return false; 
 	}
 
 	// renvoie "true" si le couple login + mdp est correct, "false" sinon
