@@ -82,6 +82,48 @@ public class PanelVolsEnAttente extends JPanel {
 		Vol.columnSizeVols(tableVolsEnAttente);
 		
 		panelModifVolEnAttente = new PanelModifVol();
+		panelModifVolEnAttente.getBtnMettreAJour().addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				// Au clic sur valider, on vérifie la validité des champs
+				// Si tout est correct, on met à jour le vol
+				
+				// On récupère les données saisies
+				String id = panelModifVolEnAttente.getTextFieldNdeVol().getText();
+				String paysDepart = panelModifVolEnAttente.getTextFieldPaysDeDepart().getText();
+				String codeDepart = panelModifVolEnAttente.getTextFieldCodeDep().getText();
+				String paysArrivee = panelModifVolEnAttente.getTextFieldPaysDarrivee().getText();
+				String codeArrivee = panelModifVolEnAttente.getTextFieldCodeArriv().getText();
+				String dateDepart = panelModifVolEnAttente.getTextFieldDateDep().getText();
+				String heureDepart = panelModifVolEnAttente.getTextFieldHeureDep().getText();
+				String duree = panelModifVolEnAttente.getTextFieldDuree().getText();
+				String tarifRecupere = panelModifVolEnAttente.getTextFieldTarif().getText();
+				// On remplace l'éventuelle virgule saisie par un point (sera nécessaire pour convertir en float)
+				// (-> on autorise indifféremment point et virgule)
+				String tarif = tarifRecupere.replace(",", ".");
+				
+				// pour les comboBoxes :
+				String villeDepart = (String) panelModifVolEnAttente.getJComboBoxVilleDeDepart().getSelectedItem();
+				String villeArrivee = (String) panelModifVolEnAttente.getJComboBoxVilleDarrivee().getSelectedItem();
+				String codePilote = (String) panelModifVolEnAttente.getComboBoxPilote().getSelectedItem();
+				String codeCopilote = (String) panelModifVolEnAttente.getComboBoxCopilote().getSelectedItem();
+				String codeHotesseSt1 = (String) panelModifVolEnAttente.getComboBoxHotesseSt1().getSelectedItem();
+				String codeHotesseSt2 = (String) panelModifVolEnAttente.getComboBoxHotesseSt2().getSelectedItem();
+				String codeHotesseSt3 = (String) panelModifVolEnAttente.getComboBoxHotesseSt3().getSelectedItem();
+				
+				// On sait que les éléments suivants sont corrects :
+				//- l'id du vol (il n'est pas modifiable)
+				//- les villes de départ et d'arrivée sont bien prévues par la compagnie (cf liste déroulante)
+				//- les pays et codes aéroports sont générés par rapport à la ville choisie
+				//- les codes des employés sont bien ceux de la compagnie (cf listes déroulantes)
+				
+				// On initialise un booléen à vrai. Dès lors qu'un critère n'est pas rempli,
+				// on le passe à faux. C'est lui qui déterminera si la mise à jour peut se faire.
+				boolean miseAJour = true;
+				
+				
+				
+			}
+		});
 		panelModifVolEnAttente.getBtnSupprimer().addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				// au clic sur supprimer, on supprime le vol de la base (table vol_tmp)

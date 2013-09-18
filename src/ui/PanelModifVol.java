@@ -50,7 +50,9 @@ public class PanelModifVol extends JPanel {
 	private JTextField textFieldDateArriv;
 	private JTextField textFieldHeureArriv;
 	private JTextField textFieldDuree;
+	private JLabel lblLegendeDuree;
 	private JTextField textFieldTarif;
+	private JLabel lblLegendeTarif;
 	@SuppressWarnings("rawtypes")
 	private JComboBox comboBoxPilote;
 	@SuppressWarnings("rawtypes")
@@ -180,9 +182,9 @@ public class PanelModifVol extends JPanel {
 	public PanelModifVol() throws SQLException {
 		// on joue sur les dimensions de la grille pour positionner les éléments :
 		GridBagLayout gridBagLayout = new GridBagLayout();
-		gridBagLayout.columnWidths = new int[]{0, 0, 50, 70, 0, 0, 0};
+		gridBagLayout.columnWidths = new int[]{0, 0, 50, 70, 0, 0, 0, 0};
 		gridBagLayout.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 21, 0, 0, 0};
-		gridBagLayout.columnWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
+		gridBagLayout.columnWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
 		gridBagLayout.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
 		setLayout(gridBagLayout);
 		
@@ -331,13 +333,14 @@ public class PanelModifVol extends JPanel {
 		add(lblDuree, gbc_lblDuree);
 		
 		textFieldDuree = new JTextField();
-		// TODO
-//		textFieldDuree.addKeyListener(new KeyAdapter() {
-//			@Override
-//			public void keyPressed(KeyEvent e) {
-//				textFieldHeureArriv.setText(textFieldDuree.getText());
-//			}
-//		});
+		textFieldDuree.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyPressed(KeyEvent e) {
+				// dès qu'une durée est saisie, on réinitialise la date et l'heure d'arrivée (qui seront recalculées lors de la mise à jour)
+				textFieldDateArriv.setText("");
+				textFieldHeureArriv.setText("");
+			}
+		});
 		GridBagConstraints gbc_textFieldDuree = new GridBagConstraints();
 		gbc_textFieldDuree.insets = new Insets(0, 0, 5, 5);
 		gbc_textFieldDuree.fill = GridBagConstraints.HORIZONTAL;
@@ -345,6 +348,15 @@ public class PanelModifVol extends JPanel {
 		gbc_textFieldDuree.gridy = 3;
 		add(textFieldDuree, gbc_textFieldDuree);
 		textFieldDuree.setColumns(10);
+		
+		lblLegendeDuree = new JLabel("> 9 min");
+		lblLegendeDuree.setFont(new Font("Tahoma", Font.ITALIC, 11));
+		GridBagConstraints gbc_lblLegendeDuree = new GridBagConstraints();
+		gbc_lblLegendeDuree.anchor = GridBagConstraints.WEST;
+		gbc_lblLegendeDuree.insets = new Insets(0, 0, 5, 5);
+		gbc_lblLegendeDuree.gridx = 6;
+		gbc_lblLegendeDuree.gridy = 3;
+		add(lblLegendeDuree, gbc_lblLegendeDuree);
 
 		JLabel lblCodeDep = new JLabel("code aéroport de départ");
 		GridBagConstraints gbc_lblCodeDep = new GridBagConstraints();
@@ -380,6 +392,15 @@ public class PanelModifVol extends JPanel {
 		gbc_textFieldTarif.gridy = 4;
 		add(textFieldTarif, gbc_textFieldTarif);
 		textFieldTarif.setColumns(10);
+		
+		lblLegendeTarif = new JLabel("format __,xx");
+		lblLegendeTarif.setFont(new Font("Tahoma", Font.ITALIC, 11));
+		GridBagConstraints gbc_lblLegendeTarif = new GridBagConstraints();
+		gbc_lblLegendeTarif.anchor = GridBagConstraints.WEST;
+		gbc_lblLegendeTarif.insets = new Insets(0, 0, 5, 5);
+		gbc_lblLegendeTarif.gridx = 6;
+		gbc_lblLegendeTarif.gridy = 4;
+		add(lblLegendeTarif, gbc_lblLegendeTarif);
 
 		JLabel lblVilleDarrivee = new JLabel("ville d'arrivée");
 		GridBagConstraints gbc_lblVilleDarrivee = new GridBagConstraints();
@@ -607,7 +628,7 @@ public class PanelModifVol extends JPanel {
 		GridBagConstraints gbc_btnReinitialiser = new GridBagConstraints();
 		gbc_btnReinitialiser.anchor = GridBagConstraints.WEST;
 		gbc_btnReinitialiser.insets = new Insets(0, 0, 5, 0);
-		gbc_btnReinitialiser.gridx = 6;
+		gbc_btnReinitialiser.gridx = 7;
 		gbc_btnReinitialiser.gridy = 10;
 		add(btnReinitialiser, gbc_btnReinitialiser);
 
