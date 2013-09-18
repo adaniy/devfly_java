@@ -167,9 +167,9 @@ public class PanelVolsEnAttente extends JPanel {
 				// On vérifie que les 3 hôtesses / stewards sélectionnés sont différents.
 				// La vérification se fait uniquement si l'employé n'a pas la valeur "Choisissez un employé".
 				String choixEmploye = "Choisissez un employé";
-				if(!codeHotesseSt1.equals(choixEmploye) && codeHotesseSt1.equals(codeHotesseSt2) ||
-						!codeHotesseSt1.equals(choixEmploye) && codeHotesseSt1.equals(codeHotesseSt3) ||
-						!codeHotesseSt2.equals(choixEmploye) && codeHotesseSt2.equals(codeHotesseSt3)){
+				if((!codeHotesseSt1.equals(choixEmploye) && codeHotesseSt1.equals(codeHotesseSt2)) ||
+						(!codeHotesseSt1.equals(choixEmploye) && codeHotesseSt1.equals(codeHotesseSt3)) ||
+						(!codeHotesseSt2.equals(choixEmploye) && codeHotesseSt2.equals(codeHotesseSt3))){
 					panelModifVolEnAttente.getLblMessage().setText("Vous devez choisir des hôtesses ou stewards différents.");
 					miseAJour = false;
 				}
@@ -177,7 +177,6 @@ public class PanelVolsEnAttente extends JPanel {
 				
 				// TODO : si tous les champs sont remplis ET que les employés n'ont pas la valeur
 				// "Choisissez un employé", on passe le vol "en attente" en vol "confirmé"
-				// mise à jour : attention à la valeur choixEmploye
 				
 				if(miseAJour){ // si rien n'a bloqué la mise à jour, on peut la faire !
 					// avant de faire la mise à jour, on remplace les éventuels codes employés qui
@@ -233,11 +232,24 @@ public class PanelVolsEnAttente extends JPanel {
 					
 					try {
 						dao.updateVolEnAttente(vol);
+						panelModifVolEnAttente.getLblMessage().setText("Le vol a bien été mis à jour !");
 					} catch (SQLException e) {
 						panelModifVolEnAttente.getLblMessage().setText(e.getMessage());
 					}
 					
-					//TODO : vérifier + réinitialiser le formulaire
+					// On vide les champs du formulaire et on rafraichit les données :
+					// On récupère la liste des vols en attente à jour :
+					List<Vol> listeVolsEnAttente = null;
+					try {
+						listeVolsEnAttente = dao.getAllVolsEnAttente();
+					} catch (SQLException e) {
+						panelModifVolEnAttente.getLblMessage().setText(e.getMessage());
+					}
+					try {
+						panelModifVolEnAttente.rafraichirDonnees(listeVolsEnAttente, tableVolsEnAttente);
+					} catch (SQLException e) {
+						panelModifVolEnAttente.getLblMessage().setText(e.getMessage());
+					}
 				}
 				
 			}

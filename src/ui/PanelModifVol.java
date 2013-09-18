@@ -830,6 +830,9 @@ public class PanelModifVol extends JPanel {
 		// On crée le model avec les bonnes données et on le donne à la JTable
 		// On utilise pour cela la méthode statique définie dans Vol
 		Vol.TableCreation(listeVols, maJTable);
+		
+		// On redimensionne les colonnes du tableau à la bonne taille
+		Vol.columnSizeVols(maJTable);
 	}
 	
 	// transforme une liste de numéros d'employés de la compagnie
