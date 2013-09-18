@@ -196,9 +196,9 @@ public class PanelModifVol extends JPanel {
 	public PanelModifVol() throws SQLException {
 		// on joue sur les dimensions de la grille pour positionner les éléments :
 		GridBagLayout gridBagLayout = new GridBagLayout();
-		gridBagLayout.columnWidths = new int[]{0, 0, 50, 0, 70, 0, 0, 0, 0};
+		gridBagLayout.columnWidths = new int[]{0, 207, 50, 0, 23, 0, 0, 0, 0};
 		gridBagLayout.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 21, 0, 0, 0};
-		gridBagLayout.columnWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
+		gridBagLayout.columnWeights = new double[]{1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
 		gridBagLayout.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
 		setLayout(gridBagLayout);
 		
@@ -207,6 +207,7 @@ public class PanelModifVol extends JPanel {
 		lblMessage.setHorizontalAlignment(SwingConstants.CENTER);
 		lblMessage.setForeground(Color.RED);
 		GridBagConstraints gbc_lblMessage = new GridBagConstraints();
+		gbc_lblMessage.fill = GridBagConstraints.HORIZONTAL;
 		gbc_lblMessage.gridwidth = 7;
 		gbc_lblMessage.insets = new Insets(0, 0, 5, 5);
 		gbc_lblMessage.gridx = 0;
@@ -660,7 +661,7 @@ public class PanelModifVol extends JPanel {
 		GridBagConstraints gbc_btnReinitialiser = new GridBagConstraints();
 		gbc_btnReinitialiser.anchor = GridBagConstraints.WEST;
 		gbc_btnReinitialiser.insets = new Insets(0, 0, 5, 0);
-		gbc_btnReinitialiser.gridx = 8;
+		gbc_btnReinitialiser.gridx = 7;
 		gbc_btnReinitialiser.gridy = 10;
 		add(btnReinitialiser, gbc_btnReinitialiser);
 

@@ -1,3 +1,4 @@
+-vérifer rendu Windows
 -combobox désactivées -> couleurs
 -Vols programmés : suppression si pas de résa
 -Reprendre la méthode de connexion !! -> demander pour chiffrement
@@ -16,6 +17,7 @@
 -enlever les lignes TODO
 -vérifier rendu Windows
 -enlever les lignes commentées automatiquement
+-tester l'appli
 
 Rqs à intégrer dans le rapport :
 - fuseau horaire du pays de départ et non de destination

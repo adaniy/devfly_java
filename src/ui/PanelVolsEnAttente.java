@@ -272,7 +272,7 @@ public class PanelVolsEnAttente extends JPanel {
 				try {
 					if(dao.deleteVolEnAttente(numVol)){ // si la suppression s'est bien passée
 						// On affiche un message :
-						panelModifVolEnAttente.getLblMessage().setText("Le vol a bien été supprimé !");
+						panelModifVolEnAttente.getLblMessage().setText("Le vol " + numVol + " a bien été supprimé !");
 						
 						// On vide les champs du formulaire et on rafraichit les données :
 						// On récupère la liste des vols en attente à jour :

@@ -79,6 +79,38 @@ public class PanelVolsProgrammes extends JPanel {
 		Vol.columnSizeVols(tableVolsProgrammes);
 		
 		panelModifVolProgramme = new PanelModifVol();
+		panelModifVolProgramme.getBtnSupprimer().addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				// au clic sur supprimer, on supprime le vol de la base
+				// s'il n'y a pas de réservation dessus (la vérif est faite directement dans la
+				// méthode du dao)
+				
+				// On récupère le code du vol à supprimer :
+				String numVol = panelModifVolProgramme.getTextFieldNdeVol().getText();
+				// On supprime le vol :
+				try {
+					if(dao.deleteVolProgramme(numVol)){ // si la suppression s'est bien passée
+						// On affiche un message :
+						panelModifVolProgramme.getLblMessage().setText("Le vol " + numVol + " a bien été supprimé !");
+						
+						// On vide les champs du formulaire et on rafraichit les données :
+						// On récupère la liste des vols programmés à jour :
+						List<Vol> listeVolsProgrammes = dao.getAllVolsProgrammes();
+						panelModifVolProgramme.rafraichirDonnees(listeVolsProgrammes, tableVolsProgrammes);
+						
+					}else{
+						// En cas d'erreur, on affiche un message (a priori aucun vol n'était sélectionné,
+						// ou alors il y avait une réservation sur le vol)
+						panelModifVolProgramme.getLblMessage().setText("<html><p>La suppression n'a pas pu être effectuée.<br>"
+								+ "Veuillez sélectionner un vol ci-dessus et renouveler l'opération.<br>"
+								+ "<u>Attention, les vols ne sont plus supprimables si une place a été réservée dessus !</u></p></html>");
+					}
+				} catch (SQLException e2) {
+					panelModifVolProgramme.getLblMessage().setText(e2.getMessage());
+				}
+				
+			}
+		});
 		panelModifVolProgramme.getBtnMettreAJour().addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				// Au clic sur valider, on vérifie que le vol est bien "futur" et que le tarif est ok
