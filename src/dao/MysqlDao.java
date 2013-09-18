@@ -536,6 +536,47 @@ public class MysqlDao {
 		}
 		return false; 
 	}
+	
+//	// supprime le vol "programmé" dont le code est passé en paramètre
+//	// renvoie vrai si la suppression s'est bien passée
+//	public boolean deleteVolProgramme(String code) throws SQLException {
+//		// on se connecte à la BDD
+//		Connection connection = DriverManager.getConnection(datasource,user,password);
+//		// on vérifie au préalable qu'aucune réservation n'a été faite sur le vol
+//		// si c'est le cas, on renvoie "false" et on ne supprime pas le vol
+//		
+//		// requête SQL pour supprimer le vol "en attente" :
+//		String sql = "DELETE FROM vol_tmp WHERE numvol=?";
+//		PreparedStatement stmt = connection.prepareStatement(sql);
+//		// on valorise le paramètre
+//		stmt.setString(1, code);
+//		int result = stmt.executeUpdate(); // retourne le nb d'enregistrements impactés
+//		connection.close();
+//		if(result == 1){ // la suppression s'est bien passée
+//			return true;
+//		}		
+//		return false; 
+//	}
+	
+	// renvoie vrai s'il y a au moins une réservation sur le vol dont l'id est en paramètre
+	public boolean volReserve(String numVol) throws SQLException{
+		// on se connecte à la BDD
+		Connection connection = DriverManager.getConnection(datasource,user,password);
+		// on cherche une réservation sur le vol
+		String sql = "SELECT numreservation FROM place WHERE numvol = ?";
+		PreparedStatement stmt = connection.prepareStatement(sql);
+		// on valorise le paramètre
+		stmt.setString(1, numVol);
+		// On exécute la requête :
+		ResultSet result = stmt.executeQuery();
+		// si au moins une réservation a été trouvée, on renvoie vrai.
+		if (result.next()) {
+			connection.close();
+			return true;
+		}
+		connection.close();
+		return false;
+	}
 
 	// renvoie "true" si le couple login + mdp est correct, "false" sinon
 	public boolean connection(String identifiant, String mdp) throws Exception{
