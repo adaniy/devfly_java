@@ -295,9 +295,9 @@ public class PanelNouveauVol extends JPanel {
 					// On transforme le tarif récupéré en float
 					float tarifFloat = Float.parseFloat(tarif);
 					
-					Vol volTest = new Vol(aeroportDepart, aeroportArrivee, dateDeDepart, dateDArrivee, dureeInt, tarifFloat);
+					Vol vol = new Vol(aeroportDepart, aeroportArrivee, dateDeDepart, dateDArrivee, dureeInt, tarifFloat);
 					try {
-						dao.addNewVol(volTest);
+						dao.addNewVol(vol);
 						// On affiche un message pour prévenir que tout s'est bien passé
 						getLabelMessage().setText("Le vol a bien été ajouté !");
 					} catch (SQLException e1) {

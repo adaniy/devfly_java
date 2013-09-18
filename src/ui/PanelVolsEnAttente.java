@@ -11,10 +11,15 @@ import javax.swing.JLabel;
 
 import java.awt.Color;
 import java.sql.SQLException;
+import java.sql.Timestamp;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import javax.swing.SwingConstants;
 
+import model.Aeroport;
 import model.Vol;
 import dao.MysqlDao;
 
@@ -33,6 +38,10 @@ public class PanelVolsEnAttente extends JPanel {
 
 	public PanelModifVol getPanelModifVolEnAttente() {
 		return panelModifVolEnAttente;
+	}
+	
+	public JTable getTableVolsEnAttente() {
+		return tableVolsEnAttente;
 	}
 
 	/**
@@ -164,11 +173,74 @@ public class PanelVolsEnAttente extends JPanel {
 					panelModifVolEnAttente.getLblMessage().setText("Vous devez choisir des hôtesses ou stewards différents.");
 					miseAJour = false;
 				}
+				
+				
+				// TODO : si tous les champs sont remplis ET que les employés n'ont pas la valeur
+				// "Choisissez un employé", on passe le vol "en attente" en vol "confirmé"
+				// mise à jour : attention à la valeur choixEmploye
+				
+				if(miseAJour){ // si rien n'a bloqué la mise à jour, on peut la faire !
+					// avant de faire la mise à jour, on remplace les éventuels codes employés qui
+					// ont pour valeur "Choisissez un employé" par une chaîne vide
+					String pilote = employeNonSelectionne(codePilote);
+					String copilote = employeNonSelectionne(codeCopilote);
+					String hotesseSt1 = employeNonSelectionne(codeHotesseSt1);
+					String hotesseSt2 = employeNonSelectionne(codeHotesseSt2);
+					String hotesseSt3 = employeNonSelectionne(codeHotesseSt3);
+					
+					// on récupère les objets Aeroport
+					Aeroport aeroportDepart = null;
+					try {
+						aeroportDepart = dao.getAeroportByVille(villeDepart);
+					} catch (SQLException e1) {
+						panelModifVolEnAttente.getLblMessage().setText(e1.getMessage());
+					}
+					Aeroport aeroportArrivee = null;
+					try {
+						aeroportArrivee = dao.getAeroportByVille(villeArrivee);
+					} catch (SQLException e1) {
+						panelModifVolEnAttente.getLblMessage().setText(e1.getMessage());
+					}
+					
+					// On concatène la date et l'heure de départ
+					String dateHeureDepart = dateDepart + " " + heureDepart;
+					
+					// On tranforme le résultat de String en Date
+					Date dateDeDepart = null;
+					try {
+						dateDeDepart = new SimpleDateFormat("dd/MM/yyyy HH:mm").parse(dateHeureDepart);
+					} catch (ParseException e1) {
+						panelModifVolEnAttente.getLblMessage().setText(e1.getMessage());
+					}
+					
+					// On transforme la durée récupérée en int
+					int dureeInt = Integer.parseInt(duree); // en minutes
+					
+					// pour calculer la date d'arrivée, on convertit la date de départ en timestamp
+					// et la durée en millisecondes, et on les additionne
+					long departMillisecondes = dateDeDepart.getTime();
+					long dureeMillisecondes = dureeInt * 60_000;
+					
+					long arriveeMillisecondes = departMillisecondes + dureeMillisecondes;
+					// On transforme le long obtenu en Timestamp
+					Timestamp dateDArrivee = new Timestamp(arriveeMillisecondes);
+					
+					// On transforme le tarif récupéré en float
+					float tarifFloat = Float.parseFloat(tarif);
+					
+					// on crée un objet Vol avec toutes les données récupérées qu'on passe en paramètre de la commande
+					Vol vol = new Vol(id, aeroportDepart, aeroportArrivee, dateDeDepart, dateDArrivee, dureeInt, tarifFloat, pilote, copilote, hotesseSt1, hotesseSt2, hotesseSt3);
+					
+					try {
+						dao.updateVolEnAttente(vol);
+					} catch (SQLException e) {
+						panelModifVolEnAttente.getLblMessage().setText(e.getMessage());
+					}
+					
+					//TODO : vérifier + réinitialiser le formulaire
+				}
+				
 			}
-			
-			// TODO : si tous les champs sont remplis ET que les employés n'ont pas la valeur
-			// "Choisissez un employé", on passe le vol "en attente" en vol "confirmé"
-			// mise à jour : attention à la valeur choixEmploye
 
 		});
 		panelModifVolEnAttente.getBtnSupprimer().addActionListener(new ActionListener() {
@@ -223,8 +295,13 @@ public class PanelVolsEnAttente extends JPanel {
 		});
 		add(panelModifVolEnAttente, BorderLayout.SOUTH);
 	}
-
-	public JTable getTableVolsEnAttente() {
-		return tableVolsEnAttente;
+	
+	// pour "transformer" un code employé de "Choisissez un employé" à "" le cas échéant
+	private String employeNonSelectionne(String codeEmploye){
+		if(codeEmploye.equals("Choisissez un employé")){
+			return ""; // on retourne une chaîne vide
+		}
+		return codeEmploye; // sinon, on retourne le code employé "normal"
 	}
+
 }
