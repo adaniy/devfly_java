@@ -98,10 +98,6 @@ public class PanelVolsEnAttente extends JPanel {
 				
 				// On récupère les données saisies
 				String id = panelModifVolEnAttente.getTextFieldNdeVol().getText();
-				String paysDepart = panelModifVolEnAttente.getTextFieldPaysDeDepart().getText();
-				String codeDepart = panelModifVolEnAttente.getTextFieldCodeDep().getText();
-				String paysArrivee = panelModifVolEnAttente.getTextFieldPaysDarrivee().getText();
-				String codeArrivee = panelModifVolEnAttente.getTextFieldCodeArriv().getText();
 				String dateDepart = panelModifVolEnAttente.getTextFieldDateDep().getText();
 				String heureDepart = panelModifVolEnAttente.getTextFieldHeureDep().getText();
 				String duree = panelModifVolEnAttente.getTextFieldDuree().getText();

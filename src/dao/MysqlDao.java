@@ -30,6 +30,7 @@ public class MysqlDao {
 		Connection connection = DriverManager.getConnection(datasource, user, password);
 		// on crée et exécute une requête préparée pour récupérer
 		// les informations sur le vol et ses employés
+		// (note : il n'y a pas de vols programmés sans employés affectés)
 		String sql1 = "SELECT V.numvol, V.lieudep, V.lieuarriv, V.dateheuredep,"
 				+ "V.dateheurearrivee, V.tarif, T.pilote, T.copilote,"
 				+ "T.hotesse_steward1, T.hotesse_steward2, T.hotesse_steward3 FROM vol V INNER JOIN travailler T ON V.numvol = T.vol";

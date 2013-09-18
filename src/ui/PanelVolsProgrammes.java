@@ -79,6 +79,74 @@ public class PanelVolsProgrammes extends JPanel {
 		Vol.columnSizeVols(tableVolsProgrammes);
 		
 		panelModifVolProgramme = new PanelModifVol();
+		panelModifVolProgramme.getBtnMettreAJour().addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				// Au clic sur valider, on vérifie que le vol est bien "futur" et que le tarif est ok
+				// Si tout est correct, on met à jour le tarif du vol
+				
+				// On récupère l'id du vol + la date du vol + le tarif saisi
+				String id = panelModifVolProgramme.getTextFieldNdeVol().getText();
+				String dateDepart = panelModifVolProgramme.getTextFieldDateDep().getText();
+				String tarifRecupere = panelModifVolProgramme.getTextFieldTarif().getText();
+				// On remplace l'éventuelle virgule saisie par un point (sera nécessaire pour convertir en float)
+				// (-> on autorise indifféremment point et virgule)
+				String tarif = tarifRecupere.replace(",", ".");
+						
+				// On initialise un booléen à vrai. Dès lors qu'un critère n'est pas rempli,
+				// on le passe à faux. C'est lui qui déterminera si la mise à jour peut se faire.
+				boolean miseAJour = true;
+				
+				// Le tarif est un nombre décimal (rq : on laisse la possibilité à la compagnie d'indiquer
+				// un tarif à zéro pour les événements particuliers).
+				String regexTarif = "^[0-9]+\\.[0-9]{2}$";
+				
+				// On vérifie que la date est dans le futur SI une date est sélectionnée
+				// (cf le visiteur pourrait cliquer directement sur "mise à jour" sans choisir un vol
+				// ce qui provoquerait une erreur : on essaierait de parser une chaine vide en date)
+				if(!dateDepart.isEmpty()){
+					if(!PanelNouveauVol.futureDate(dateDepart)){
+						panelModifVolProgramme.getLblMessage().setText("Vous ne pouvez pas modifier le tarif des "
+								+ "vols en partance ce jour ou dans le passé !");
+						miseAJour = false;
+					}
+				}
+				// On vérifie que le tarif est OK
+				if(!tarif.matches(regexTarif)){
+					panelModifVolProgramme.getLblMessage().setText("Vérifiez le format du tarif (ex : 230,00)");
+					miseAJour = false;
+				}
+				
+				if(miseAJour){ // si rien n'a bloqué la mise à jour, on peut la faire !
+					// On transforme le tarif récupéré en float
+					float tarifFloat = Float.parseFloat(tarif);
+					
+					try {
+						if(dao.updateTarifVolProgramme(id, tarifFloat)){ // renvoie vrai si la mise à jour s'est bien passée
+							panelModifVolProgramme.getLblMessage().setText("Le tarif du vol " + id + " a bien été mis à jour !");
+						}else{
+							panelModifVolProgramme.getLblMessage().setText("Il y a eu un problème lors de la mise à jour du tarif !");
+						}
+					} catch (SQLException e1) {
+						panelModifVolProgramme.getLblMessage().setText(e1.getMessage());
+					}
+					
+					// On vide les champs du formulaire et on rafraichit les données :
+					// On récupère la liste des vols programmés à jour :
+					List<Vol> listeVolsProgrammes = null;
+					try {
+						listeVolsProgrammes = dao.getAllVolsProgrammes();
+					} catch (SQLException e) {
+						panelModifVolProgramme.getLblMessage().setText(e.getMessage());
+					}
+					
+					try {
+						panelModifVolProgramme.rafraichirDonnees(listeVolsProgrammes, tableVolsProgrammes);
+					} catch (SQLException e) {
+						panelModifVolProgramme.getLblMessage().setText(e.getMessage());
+					}
+				}
+			}
+		});
 		
 		// On efface les légendes du formulaire pour les champs que l'utilisateur n'a pas à remplir
 		panelModifVolProgramme.getLblLegendeDateDep().setText("");

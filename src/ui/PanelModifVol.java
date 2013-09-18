@@ -7,7 +7,6 @@ import java.awt.Point;
 
 import javax.swing.JTable;
 import javax.swing.JLabel;
-import javax.swing.plaf.ColorUIResource;
 import javax.swing.table.TableModel;
 import javax.swing.*;
 
