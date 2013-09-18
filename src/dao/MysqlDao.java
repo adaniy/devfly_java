@@ -302,6 +302,7 @@ public class MysqlDao {
 		Connection connection = DriverManager.getConnection(datasource,user,password);
 		// On vérifie que l'aéroport n'est pas déjà utilisé
 		if(isAirportUsed(code)){ // si c'est le cas, on empêche sa suppression
+			connection.close();
 			return false;
 		}
 		// requête SQL pour supprimer l'aéroport :
@@ -537,26 +538,38 @@ public class MysqlDao {
 		return false; 
 	}
 	
-//	// supprime le vol "programmé" dont le code est passé en paramètre
-//	// renvoie vrai si la suppression s'est bien passée
-//	public boolean deleteVolProgramme(String code) throws SQLException {
-//		// on se connecte à la BDD
-//		Connection connection = DriverManager.getConnection(datasource,user,password);
-//		// on vérifie au préalable qu'aucune réservation n'a été faite sur le vol
-//		// si c'est le cas, on renvoie "false" et on ne supprime pas le vol
-//		
-//		// requête SQL pour supprimer le vol "en attente" :
-//		String sql = "DELETE FROM vol_tmp WHERE numvol=?";
-//		PreparedStatement stmt = connection.prepareStatement(sql);
-//		// on valorise le paramètre
-//		stmt.setString(1, code);
-//		int result = stmt.executeUpdate(); // retourne le nb d'enregistrements impactés
-//		connection.close();
-//		if(result == 1){ // la suppression s'est bien passée
-//			return true;
-//		}		
-//		return false; 
-//	}
+	// supprime le vol "programmé" dont le code est passé en paramètre
+	// si il n'y a pas de réservation dessus
+	// renvoie vrai si la suppression s'est bien passée
+	public boolean deleteVolProgramme(String numVol) throws SQLException {
+		// on se connecte à la BDD
+		Connection connection = DriverManager.getConnection(datasource,user,password);
+		// on vérifie au préalable qu'aucune réservation n'a été faite sur le vol
+		// si c'est le cas, on renvoie "false" et on ne supprime pas le vol
+		if(volReserve(numVol)){
+			return false;
+		}
+		// requête SQL pour supprimer le lien entre les employés et le vol à supprimer :
+		// (rappel : il y a forcément des employés affectés sur un vol "programmé")
+		String sql1 = "DELETE FROM travailler WHERE vol = ?";
+		// requête SQL pour supprimer le vol
+		String sql2 = "DELETE FROM vol WHERE numvol = ?";
+		PreparedStatement stmt1 = connection.prepareStatement(sql1);
+		PreparedStatement stmt2 = connection.prepareStatement(sql2);
+		// on valorise le paramètre pour les 2 requêtes
+		stmt1.setString(1, numVol);
+		stmt2.setString(1, numVol);
+		if(stmt1.executeUpdate() == 0){ // renvoie le nb de lignes impactées. Si aucune, il y a eu un pb, on renvoie false.
+			connection.close();
+			return false;
+		}
+		if(stmt2.executeUpdate() == 0){ // renvoie le nb de lignes impactées. Si aucune, il y a eu un pb, on renvoie false.
+			connection.close();
+			return false;
+		}
+		connection.close();
+		return true; // la suppression s'est bien passée
+	}
 	
 	// renvoie vrai s'il y a au moins une réservation sur le vol dont l'id est en paramètre
 	public boolean volReserve(String numVol) throws SQLException{
