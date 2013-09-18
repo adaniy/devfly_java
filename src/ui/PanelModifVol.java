@@ -7,6 +7,7 @@ import java.awt.Point;
 
 import javax.swing.JTable;
 import javax.swing.JLabel;
+import javax.swing.plaf.ColorUIResource;
 import javax.swing.table.TableModel;
 import javax.swing.*;
 
@@ -70,7 +71,7 @@ public class PanelModifVol extends JPanel {
 	private JButton btnReinitialiser;
 	private JButton btnSupprimer;
 	private MysqlDao dao = new MysqlDao();
-	
+
 	@SuppressWarnings("rawtypes")
 	public JComboBox getComboBoxVilleDeDepart() {
 		return comboBoxVilleDeDepart;
@@ -172,6 +173,18 @@ public class PanelModifVol extends JPanel {
 		return textFieldTarif;
 	}
 
+	public JLabel getLblLegendeDateDep() {
+		return lblLegendeDateDep;
+	}
+
+	public JLabel getLblLegendeHeureDep() {
+		return lblLegendeHeureDep;
+	}
+
+	public JLabel getLblLegendeDuree() {
+		return lblLegendeDuree;
+	}
+	
 	public JLabel getLblMessage() {
 		return lblMessage;
 	}

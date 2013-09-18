@@ -79,6 +79,23 @@ public class PanelVolsProgrammes extends JPanel {
 		Vol.columnSizeVols(tableVolsProgrammes);
 		
 		panelModifVolProgramme = new PanelModifVol();
+		
+		// On efface les légendes du formulaire pour les champs que l'utilisateur n'a pas à remplir
+		panelModifVolProgramme.getLblLegendeDateDep().setText("");
+		panelModifVolProgramme.getLblLegendeHeureDep().setText("");
+		panelModifVolProgramme.getLblLegendeDuree().setText("");
+		// On rend "non éditables" les champs que l'utilisateur ne peut pas modifier
+		panelModifVolProgramme.getTextFieldDateDep().setEditable(false);
+		panelModifVolProgramme.getTextFieldHeureDep().setEditable(false);
+		panelModifVolProgramme.getTextFieldDuree().setEditable(false);
+		panelModifVolProgramme.getJComboBoxVilleDeDepart().setEnabled(false);
+		panelModifVolProgramme.getJComboBoxVilleDarrivee().setEnabled(false);
+		panelModifVolProgramme.getComboBoxPilote().setEnabled(false);
+		panelModifVolProgramme.getComboBoxCopilote().setEnabled(false);
+		panelModifVolProgramme.getComboBoxHotesseSt1().setEnabled(false);
+		panelModifVolProgramme.getComboBoxHotesseSt2().setEnabled(false);
+		panelModifVolProgramme.getComboBoxHotesseSt3().setEnabled(false);
+		
 		panelModifVolProgramme.getBtnReinitialiser().addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				// au clic sur "réinitialiser", on réinitalise les champs à leur valeur initiale
