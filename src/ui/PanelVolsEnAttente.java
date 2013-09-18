@@ -62,6 +62,8 @@ public class PanelVolsEnAttente extends JPanel {
 				Point p = arg0.getPoint();
 				// on remplit le formulaire avec les données du tableau
 				PanelModifVol.fillInForm(panelModifVolEnAttente, p, tableVolsEnAttente);
+				// on supprime le message éventuellement saisi
+				panelModifVolEnAttente.getLblMessage().setText("");
 			}
 		});
 		

@@ -61,6 +61,9 @@ public class PanelAeroports extends JPanel {
 				panelModifAeroport.getTextFieldCode().setText(code);
 				panelModifAeroport.getTextFieldVille().setText(ville);
 				panelModifAeroport.getTextFieldPays().setText(pays);
+				
+				// on supprime le message éventuellement saisi
+				panelModifAeroport.getLblMessage().setText("");
 			}
 		});
 

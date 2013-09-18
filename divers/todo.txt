@@ -1,6 +1,5 @@
 -vérifer rendu Windows
 -combobox désactivées -> couleurs
--Vols programmés : suppression si pas de résa
 -Reprendre la méthode de connexion !! -> demander pour chiffrement
 -vols en attente : trigger pour passer en vol programmé (! numéro)
 -TRIGGER pour l'exam

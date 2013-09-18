@@ -51,6 +51,8 @@ public class PanelVolsProgrammes extends JPanel {
 				Point p = e.getPoint();
 				// on remplit le formulaire avec les données du tableau
 				PanelModifVol.fillInForm(panelModifVolProgramme, p, tableVolsProgrammes);
+				// on supprime le message éventuellement saisi
+				panelModifVolProgramme.getLblMessage().setText("");
 			}
 		});
 		// pour que le tableau ne soit pas redimensionné automatiquement à la longueur de la fenêtre :

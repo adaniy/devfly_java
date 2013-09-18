@@ -32,6 +32,7 @@ public class PanelModifAeroport extends JPanel {
 	private JTextField textFieldCode;
 	private JTextField textFieldVille;
 	private JTextField textFieldPays;
+	private JLabel lblMessage;
 	private JButton btnMettreAJour;
 	private JButton btnReinitialiser;
 	private JButton btnSupprimer;
@@ -60,6 +61,10 @@ public class PanelModifAeroport extends JPanel {
 	public JButton getBtnSupprimer() {
 		return btnSupprimer;
 	}
+	
+	public JLabel getLblMessage() {
+		return lblMessage;
+	}
 
 	/**
 	 * Create the panel.
@@ -75,7 +80,7 @@ public class PanelModifAeroport extends JPanel {
 		
 		
 		// Label qui pourra contenir les différents messages à afficher :
-		final JLabel lblMessage = new JLabel("");
+		lblMessage = new JLabel("");
 		lblMessage.setHorizontalAlignment(SwingConstants.CENTER);
 		lblMessage.setForeground(Color.RED);
 		GridBagConstraints gbc_lblMessage = new GridBagConstraints();
