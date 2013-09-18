@@ -1,5 +1,5 @@
 -combobox désactivées -> couleurs
--Vols programmés : mise à jour tarif si date future + suppression si pas de résa
+-Vols programmés : suppression si pas de résa
 -Reprendre la méthode de connexion !! -> demander pour chiffrement
 -vols en attente : trigger pour passer en vol programmé (! numéro)
 -TRIGGER pour l'exam
@@ -16,9 +16,6 @@
 -enlever les lignes TODO
 -vérifier rendu Windows
 -enlever les lignes commentées automatiquement
-
-Idées autres :
-- permettre la sélection dans le formulaire depuis la barre de défilement
 
 Rqs à intégrer dans le rapport :
 - fuseau horaire du pays de départ et non de destination

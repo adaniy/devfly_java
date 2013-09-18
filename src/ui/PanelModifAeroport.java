@@ -148,81 +148,88 @@ public class PanelModifAeroport extends JPanel {
 			public void actionPerformed(ActionEvent arg0) {
 				// au clic sur le bouton, on va mettre à jour l'aéroport
 				
-				// On récupère les informations du formulaire :
+				// On s'assure au préalable qu'un aéroport est bien sélectionné
+				// On récupère le code de l'aéroport en cours de modification
 				String codeAita = getTextFieldCode().getText();
-				String ville = getTextFieldVille().getText();
-				String pays = getTextFieldPays().getText();
-				
-				// on vérifie que la ville n'existe pas déjà en base
-				// (pas possible de créer 2 aéroports pour une même ville)
-				try {
-					String[]villesEnBase = Aeroport.getVillesProposees();
-					// On initialise 2 booléens à false
-					boolean villeExistante = false; // la ville existe-t-elle en base ?
-					boolean villeOk = false; // (si elle existe), correspond-elle à l'aéroport en cours de modif ?
-					for(String villeEnBase : villesEnBase){
-						if(villeEnBase.toUpperCase().equals(ville.toUpperCase())){
-							villeExistante = true;
-						}
-						if(villeExistante){
-							// si la ville existe déjà, je regarde si elle correspond à l'aéroport en cours de modification
-							// (dans ce cas, on ne bloque pas la modif ! On peut très bien modifier le pays pour cette ville)
-							// Je passe la première lettre de la ville en majuscule pour coller à la syntaxe en base
-							String villeBonFormat = PanelNouvelAeroport.UpperFirstLetter(ville);
-							Aeroport aeroportVilleEnCours = dao.getAeroportByVille(villeBonFormat);
-							// on regarde si le code de l'aéroport en cours de modif correspond au code aéroport de la ville en cours
-							
-							if(aeroportVilleEnCours.getCodeAeroport().equals(codeAita)){
-								villeOk = true; // les villes coïncident, on ne bloque pas les modifs
+				if(codeAita.isEmpty()){
+					// Si aucun aéroport n'est sélectionné, on affiche un message et on ne continue pas
+					lblMessage.setText("Vous devez sélectionner un aéroport ci-dessus !");
+				}else{				
+					// Sinon, on récupère les autres informations du formulaire :
+					String ville = getTextFieldVille().getText();
+					String pays = getTextFieldPays().getText();
+					
+					// on vérifie que la ville n'existe pas déjà en base
+					// (pas possible de créer 2 aéroports pour une même ville)
+					try {
+						String[]villesEnBase = Aeroport.getVillesProposees();
+						// On initialise 2 booléens à false
+						boolean villeExistante = false; // la ville existe-t-elle en base ?
+						boolean villeOk = false; // (si elle existe), correspond-elle à l'aéroport en cours de modif ?
+						for(String villeEnBase : villesEnBase){
+							if(villeEnBase.toUpperCase().equals(ville.toUpperCase())){
+								villeExistante = true;
 							}
-						}
-					}
-					if(!villeExistante || villeOk){
-						// si la ville n'existe pas déjà, ou si elle correspond à l'aéroport en cours
-						// on peut modifier l'aéroport
-				
-						// On définit l'expression régulière.
-						String regexLettresAccentsTirets = "^[A-Za-zàâäéèêëìîïôöòùûüçÀÂÄÉÈËÏÎÌÔÖÙÛÜÇ-]+$";
-						
-						// On vérifie que les 2 champs ne sont pas vides,
-						// qu'ils contiennent des lettres (accentuées ou non) ou tirets
-						if(ville.length()!=0 && pays.length()!=0
-								&& ville.matches(regexLettresAccentsTirets)
-								&& pays.matches(regexLettresAccentsTirets)){
-							// On met la première lettre de la ville et du pays en majuscule
-							// (uniformisé + permet que le tri des villes par ordre alphabétique soit correct dans le formulaire de création d'un vol)
-							String villeBonFormat = PanelNouvelAeroport.UpperFirstLetter(ville);
-							String paysBonFormat = PanelNouvelAeroport.UpperFirstLetter(pays);
-							
-							// On crée un objet Aeroport, et on appelle la méthode du dao pour la mise à jour
-							Aeroport a = new Aeroport(codeAita, villeBonFormat, paysBonFormat);
-							try {
-								if(dao.updateAeroport(a)){ // si la mise à jour s'est bien passée
-									// On affiche un message :
-									lblMessage.setText("La mise à jour de l'aéroport " + codeAita + " a bien été effectuée !");
-									
-									// On vide les champs texte et on rafraichit les données :
-									rafraichirDonnees();
-								}else{
-									// En cas d'erreur, on affiche un message (soit il y a eu saisie ds le formulaire
-									// sans avoir sélectionné un aéroport, soit celui-ci est déjà utilisé pour un vol)
-									lblMessage.setText("<html><p>La mise à jour n'a pas pu être effectuée !<br>"
-											+ "Veuillez sélectionner un aéroport ci-dessus et renouveler l'opération.<br>"
-											+ "<u>ATTENTION, les aéroports déjà utilisés pour un vol ne sont plus modifiables.</u></p></html>");
-								}
+							if(villeExistante){
+								// si la ville existe déjà, je regarde si elle correspond à l'aéroport en cours de modification
+								// (dans ce cas, on ne bloque pas la modif ! On peut très bien modifier le pays pour cette ville)
+								// Je passe la première lettre de la ville en majuscule pour coller à la syntaxe en base
+								String villeBonFormat = PanelNouvelAeroport.UpperFirstLetter(ville);
+								Aeroport aeroportVilleEnCours = dao.getAeroportByVille(villeBonFormat);
+								// on regarde si le code de l'aéroport en cours de modif correspond au code aéroport de la ville en cours
 								
-							} catch (SQLException e) {
-								lblMessage.setText(e.getMessage());
+								if(aeroportVilleEnCours.getCodeAeroport().equals(codeAita)){
+									villeOk = true; // les villes coïncident, on ne bloque pas les modifs
+								}
 							}
+						}
+						if(!villeExistante || villeOk){
+							// si la ville n'existe pas déjà, ou si elle correspond à l'aéroport en cours
+							// on peut modifier l'aéroport
+					
+							// On définit l'expression régulière.
+							String regexLettresAccentsTirets = "^[A-Za-zàâäéèêëìîïôöòùûüçÀÂÄÉÈËÏÎÌÔÖÙÛÜÇ-]+$";
+							
+							// On vérifie que les 2 champs ne sont pas vides,
+							// qu'ils contiennent des lettres (accentuées ou non) ou tirets
+							if(ville.length()!=0 && pays.length()!=0
+									&& ville.matches(regexLettresAccentsTirets)
+									&& pays.matches(regexLettresAccentsTirets)){
+								// On met la première lettre de la ville et du pays en majuscule
+								// (uniformisé + permet que le tri des villes par ordre alphabétique soit correct dans le formulaire de création d'un vol)
+								String villeBonFormat = PanelNouvelAeroport.UpperFirstLetter(ville);
+								String paysBonFormat = PanelNouvelAeroport.UpperFirstLetter(pays);
+								
+								// On crée un objet Aeroport, et on appelle la méthode du dao pour la mise à jour
+								Aeroport a = new Aeroport(codeAita, villeBonFormat, paysBonFormat);
+								try {
+									if(dao.updateAeroport(a)){ // si la mise à jour s'est bien passée
+										// On affiche un message :
+										lblMessage.setText("La mise à jour de l'aéroport " + codeAita + " a bien été effectuée !");
+										
+										// On vide les champs texte et on rafraichit les données :
+										rafraichirDonnees();
+									}else{
+										// En cas d'erreur, on affiche un message (soit il y a eu saisie ds le formulaire
+										// sans avoir sélectionné un aéroport, soit celui-ci est déjà utilisé pour un vol)
+										lblMessage.setText("<html><p>La mise à jour n'a pas pu être effectuée !<br>"
+												+ "Veuillez sélectionner un aéroport ci-dessus et renouveler l'opération.<br>"
+												+ "<u>ATTENTION, les aéroports déjà utilisés pour un vol ne sont plus modifiables.</u></p></html>");
+									}
+									
+								} catch (SQLException e) {
+									lblMessage.setText(e.getMessage());
+								}
+							}else{
+								lblMessage.setText("Les champs doivent contenir des lettres !");
+							}	
 						}else{
-							lblMessage.setText("Les champs doivent contenir des lettres !");
-						}	
-					}else{
-						// si la ville existe déjà pour un autre aéroport, on affiche un message
-						lblMessage.setText("La ville " + ville + " existe déjà.");
+							// si la ville existe déjà pour un autre aéroport, on affiche un message
+							lblMessage.setText("La ville " + ville + " existe déjà.");
+						}
+					} catch (SQLException e1) {
+						lblMessage.setText(e1.getMessage());
 					}
-				} catch (SQLException e1) {
-					lblMessage.setText(e1.getMessage());
 				}
 			}
 		});

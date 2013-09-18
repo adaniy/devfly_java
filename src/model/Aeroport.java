@@ -115,7 +115,7 @@ public class Aeroport {
 		String[]headers = {"code AITA", "ville", "pays"};
 		
 		// Le model avec les bonnes données (on utilise la méthode statique définie dans la classe Aeroport)
-		TableModel model = Aeroport.createTableModelAeroports(headers, listeAeroports);
+		TableModel model = createTableModelAeroports(headers, listeAeroports);
 		
 		// On donne le model à la table :
 		maJTable.setModel(model);

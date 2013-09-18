@@ -96,159 +96,166 @@ public class PanelVolsEnAttente extends JPanel {
 				// Au clic sur valider, on vérifie la validité des champs
 				// Si tout est correct, on met à jour le vol
 				
-				// On récupère les données saisies
+				// On récupère au préalable le code du vol en cours de modification
+				// pour s'assurer qu'un vol est bien sélectionné
 				String id = panelModifVolEnAttente.getTextFieldNdeVol().getText();
-				String dateDepart = panelModifVolEnAttente.getTextFieldDateDep().getText();
-				String heureDepart = panelModifVolEnAttente.getTextFieldHeureDep().getText();
-				String duree = panelModifVolEnAttente.getTextFieldDuree().getText();
-				String tarifRecupere = panelModifVolEnAttente.getTextFieldTarif().getText();
-				// On remplace l'éventuelle virgule saisie par un point (sera nécessaire pour convertir en float)
-				// (-> on autorise indifféremment point et virgule)
-				String tarif = tarifRecupere.replace(",", ".");
-				
-				// pour les comboBoxes :
-				String villeDepart = (String) panelModifVolEnAttente.getJComboBoxVilleDeDepart().getSelectedItem();
-				String villeArrivee = (String) panelModifVolEnAttente.getJComboBoxVilleDarrivee().getSelectedItem();
-				String codePilote = (String) panelModifVolEnAttente.getComboBoxPilote().getSelectedItem();
-				String codeCopilote = (String) panelModifVolEnAttente.getComboBoxCopilote().getSelectedItem();
-				String codeHotesseSt1 = (String) panelModifVolEnAttente.getComboBoxHotesseSt1().getSelectedItem();
-				String codeHotesseSt2 = (String) panelModifVolEnAttente.getComboBoxHotesseSt2().getSelectedItem();
-				String codeHotesseSt3 = (String) panelModifVolEnAttente.getComboBoxHotesseSt3().getSelectedItem();
-				
-				// On sait que les éléments suivants sont corrects :
-				//- l'id du vol (il n'est pas modifiable)
-				//- les villes de départ et d'arrivée sont bien prévues par la compagnie (cf liste déroulante)
-				//- les pays et codes aéroports sont générés par rapport à la ville choisie
-				//- les codes des employés sont bien ceux de la compagnie (cf listes déroulantes)
-				
-				// On initialise un booléen à vrai. Dès lors qu'un critère n'est pas rempli,
-				// on le passe à faux. C'est lui qui déterminera si la mise à jour peut se faire.
-				boolean miseAJour = true;
-				
-				// On définit les formats voulus pour la date, l'heure, la durée du vol :
-				String regexDate = "^(0[1-9]|1[0-9]|2[0-9]|30|31)/(0[1-9]|1[0-2])/[0-9]{4}";
-				String regexHeure = "^([0-1][0-9]|2[0-3]):[0-5][0-9]$";
-				String regexDuree = "^[1-9][0-9]+$"; // la durée du vol ne peut pas être inférieure à 10 min
-				// Le tarif est un nombre décimal (rq : on laisse la possibilité à la compagnie d'indiquer
-				// un tarif à zéro pour les événements particuliers).
-				String regexTarif = "^[0-9]+\\.[0-9]{2}$";
-				
-				// On vérifie que les villes de départ et d'arrivée sont différentes
-				if(villeDepart.equals(villeArrivee)){
-					panelModifVolEnAttente.getLblMessage().setText("Le trajet indiqué n'est pas correct !");
-					miseAJour = false;
-				}
-				// On vérifie que la date est au bon format ET dans le futur
-				if(!dateDepart.matches(regexDate) || !PanelNouveauVol.futureDate(dateDepart)){
-					// (on ne vérifie que la date est dans le futur que si elle a un format valide)
-					panelModifVolEnAttente.getLblMessage().setText("<html><p>Vérifiez le format de la date svp.<br>"
-							+ "Attention, la date ne peut pas être antérieure à demain !</p></html>");
-					miseAJour = false;
-				}
-				// On vérifie que l'heure est au bon format
-				if(!heureDepart.matches(regexHeure)){
-					panelModifVolEnAttente.getLblMessage().setText("Vérifiez le format de l'heure svp !");
-					miseAJour = false;
-				}
-				// On vérifie que la durée est OK
-				if(!duree.matches(regexDuree)){
-					panelModifVolEnAttente.getLblMessage().setText("Vérifiez la durée du vol svp !");
-					miseAJour = false;
-				}
-				// On vérifie que le tarif est OK
-				if(!tarif.matches(regexTarif)){
-					panelModifVolEnAttente.getLblMessage().setText("Vérifiez le format du tarif (ex : 230,00)");
-					miseAJour = false;
-				}
-				// On vérifie que les 3 hôtesses / stewards sélectionnés sont différents.
-				// La vérification se fait uniquement si l'employé n'a pas la valeur "Choisissez un employé".
-				String choixEmploye = "Choisissez un employé";
-				if((!codeHotesseSt1.equals(choixEmploye) && codeHotesseSt1.equals(codeHotesseSt2)) ||
-						(!codeHotesseSt1.equals(choixEmploye) && codeHotesseSt1.equals(codeHotesseSt3)) ||
-						(!codeHotesseSt2.equals(choixEmploye) && codeHotesseSt2.equals(codeHotesseSt3))){
-					panelModifVolEnAttente.getLblMessage().setText("Vous devez choisir des hôtesses ou stewards différents.");
-					miseAJour = false;
-				}
-				
-				
-				// TODO : si tous les champs sont remplis ET que les employés n'ont pas la valeur
-				// "Choisissez un employé", on passe le vol "en attente" en vol "confirmé"
-				
-				if(miseAJour){ // si rien n'a bloqué la mise à jour, on peut la faire !
-					// avant de faire la mise à jour, on remplace les éventuels codes employés qui
-					// ont pour valeur "Choisissez un employé" par une chaîne vide
-					String pilote = employeNonSelectionne(codePilote);
-					String copilote = employeNonSelectionne(codeCopilote);
-					String hotesseSt1 = employeNonSelectionne(codeHotesseSt1);
-					String hotesseSt2 = employeNonSelectionne(codeHotesseSt2);
-					String hotesseSt3 = employeNonSelectionne(codeHotesseSt3);
+				if(id.isEmpty()){
+					// Si aucun vol n'est sélectionné, on affiche un message et on ne continue pas
+					panelModifVolEnAttente.getLblMessage().setText("Vous devez sélectionner un vol ci-dessus !");
+				}else{
+					// Sinon, on récupère les autres données saisies
+					String dateDepart = panelModifVolEnAttente.getTextFieldDateDep().getText();
+					String heureDepart = panelModifVolEnAttente.getTextFieldHeureDep().getText();
+					String duree = panelModifVolEnAttente.getTextFieldDuree().getText();
+					String tarifRecupere = panelModifVolEnAttente.getTextFieldTarif().getText();
+					// On remplace l'éventuelle virgule saisie par un point (sera nécessaire pour convertir en float)
+					// (-> on autorise indifféremment point et virgule)
+					String tarif = tarifRecupere.replace(",", ".");
 					
-					// on récupère les objets Aeroport
-					Aeroport aeroportDepart = null;
-					try {
-						aeroportDepart = dao.getAeroportByVille(villeDepart);
-					} catch (SQLException e1) {
-						panelModifVolEnAttente.getLblMessage().setText(e1.getMessage());
+					// pour les comboBoxes :
+					String villeDepart = (String) panelModifVolEnAttente.getJComboBoxVilleDeDepart().getSelectedItem();
+					String villeArrivee = (String) panelModifVolEnAttente.getJComboBoxVilleDarrivee().getSelectedItem();
+					String codePilote = (String) panelModifVolEnAttente.getComboBoxPilote().getSelectedItem();
+					String codeCopilote = (String) panelModifVolEnAttente.getComboBoxCopilote().getSelectedItem();
+					String codeHotesseSt1 = (String) panelModifVolEnAttente.getComboBoxHotesseSt1().getSelectedItem();
+					String codeHotesseSt2 = (String) panelModifVolEnAttente.getComboBoxHotesseSt2().getSelectedItem();
+					String codeHotesseSt3 = (String) panelModifVolEnAttente.getComboBoxHotesseSt3().getSelectedItem();
+					
+					// On sait que les éléments suivants sont corrects :
+					//- l'id du vol (il n'est pas modifiable)
+					//- les villes de départ et d'arrivée sont bien prévues par la compagnie (cf liste déroulante)
+					//- les pays et codes aéroports sont générés par rapport à la ville choisie
+					//- les codes des employés sont bien ceux de la compagnie (cf listes déroulantes)
+					
+					// On initialise un booléen à vrai. Dès lors qu'un critère n'est pas rempli,
+					// on le passe à faux. C'est lui qui déterminera si la mise à jour peut se faire.
+					boolean miseAJour = true;
+					
+					// On définit les formats voulus pour la date, l'heure, la durée du vol :
+					String regexDate = "^(0[1-9]|1[0-9]|2[0-9]|30|31)/(0[1-9]|1[0-2])/[0-9]{4}";
+					String regexHeure = "^([0-1][0-9]|2[0-3]):[0-5][0-9]$";
+					String regexDuree = "^[1-9][0-9]+$"; // la durée du vol ne peut pas être inférieure à 10 min
+					// Le tarif est un nombre décimal (rq : on laisse la possibilité à la compagnie d'indiquer
+					// un tarif à zéro pour les événements particuliers).
+					String regexTarif = "^[0-9]+\\.[0-9]{2}$";
+					
+					// On vérifie que les villes de départ et d'arrivée sont différentes
+					if(villeDepart.equals(villeArrivee)){
+						panelModifVolEnAttente.getLblMessage().setText("Le trajet indiqué n'est pas correct !");
+						miseAJour = false;
 					}
-					Aeroport aeroportArrivee = null;
-					try {
-						aeroportArrivee = dao.getAeroportByVille(villeArrivee);
-					} catch (SQLException e1) {
-						panelModifVolEnAttente.getLblMessage().setText(e1.getMessage());
+					// On vérifie que la date est au bon format ET dans le futur
+					if(!dateDepart.matches(regexDate) || !PanelNouveauVol.futureDate(dateDepart)){
+						// (on ne vérifie que la date est dans le futur que si elle a un format valide)
+						panelModifVolEnAttente.getLblMessage().setText("<html><p>Vérifiez le format de la date svp.<br>"
+								+ "Attention, la date ne peut pas être antérieure à demain !</p></html>");
+						miseAJour = false;
+					}
+					// On vérifie que l'heure est au bon format
+					if(!heureDepart.matches(regexHeure)){
+						panelModifVolEnAttente.getLblMessage().setText("Vérifiez le format de l'heure svp !");
+						miseAJour = false;
+					}
+					// On vérifie que la durée est OK
+					if(!duree.matches(regexDuree)){
+						panelModifVolEnAttente.getLblMessage().setText("Vérifiez la durée du vol svp !");
+						miseAJour = false;
+					}
+					// On vérifie que le tarif est OK
+					if(!tarif.matches(regexTarif)){
+						panelModifVolEnAttente.getLblMessage().setText("Vérifiez le format du tarif (ex : 230,00)");
+						miseAJour = false;
+					}
+					// On vérifie que les 3 hôtesses / stewards sélectionnés sont différents.
+					// La vérification se fait uniquement si l'employé n'a pas la valeur "Choisissez un employé".
+					String choixEmploye = "Choisissez un employé";
+					if((!codeHotesseSt1.equals(choixEmploye) && codeHotesseSt1.equals(codeHotesseSt2)) ||
+							(!codeHotesseSt1.equals(choixEmploye) && codeHotesseSt1.equals(codeHotesseSt3)) ||
+							(!codeHotesseSt2.equals(choixEmploye) && codeHotesseSt2.equals(codeHotesseSt3))){
+						panelModifVolEnAttente.getLblMessage().setText("Vous devez choisir des hôtesses ou stewards différents.");
+						miseAJour = false;
 					}
 					
-					// On concatène la date et l'heure de départ
-					String dateHeureDepart = dateDepart + " " + heureDepart;
 					
-					// On tranforme le résultat de String en Date
-					Date dateDeDepart = null;
-					try {
-						dateDeDepart = new SimpleDateFormat("dd/MM/yyyy HH:mm").parse(dateHeureDepart);
-					} catch (ParseException e1) {
-						panelModifVolEnAttente.getLblMessage().setText(e1.getMessage());
-					}
+					// TODO : si tous les champs sont remplis ET que les employés n'ont pas la valeur
+					// "Choisissez un employé", on passe le vol "en attente" en vol "confirmé"
 					
-					// On transforme la durée récupérée en int
-					int dureeInt = Integer.parseInt(duree); // en minutes
-					
-					// pour calculer la date d'arrivée, on convertit la date de départ en timestamp
-					// et la durée en millisecondes, et on les additionne
-					long departMillisecondes = dateDeDepart.getTime();
-					long dureeMillisecondes = dureeInt * 60_000;
-					
-					long arriveeMillisecondes = departMillisecondes + dureeMillisecondes;
-					// On transforme le long obtenu en Timestamp
-					Timestamp dateDArrivee = new Timestamp(arriveeMillisecondes);
-					
-					// On transforme le tarif récupéré en float
-					float tarifFloat = Float.parseFloat(tarif);
-					
-					// on crée un objet Vol avec toutes les données récupérées qu'on passe en paramètre de la commande
-					Vol vol = new Vol(id, aeroportDepart, aeroportArrivee, dateDeDepart, dateDArrivee, dureeInt, tarifFloat, pilote, copilote, hotesseSt1, hotesseSt2, hotesseSt3);
-					
-					try {
-						if(dao.updateVolEnAttente(vol)){ // renvoie vrai si la mise à jour s'est bien passée
-							panelModifVolEnAttente.getLblMessage().setText("Le vol a bien été mis à jour !");
-						}else{
-							panelModifVolEnAttente.getLblMessage().setText("Il y a eu un problème lors de la mise à jour !");
+					if(miseAJour){ // si rien n'a bloqué la mise à jour, on peut la faire !
+						// avant de faire la mise à jour, on remplace les éventuels codes employés qui
+						// ont pour valeur "Choisissez un employé" par une chaîne vide
+						String pilote = employeNonSelectionne(codePilote);
+						String copilote = employeNonSelectionne(codeCopilote);
+						String hotesseSt1 = employeNonSelectionne(codeHotesseSt1);
+						String hotesseSt2 = employeNonSelectionne(codeHotesseSt2);
+						String hotesseSt3 = employeNonSelectionne(codeHotesseSt3);
+						
+						// on récupère les objets Aeroport
+						Aeroport aeroportDepart = null;
+						try {
+							aeroportDepart = dao.getAeroportByVille(villeDepart);
+						} catch (SQLException e1) {
+							panelModifVolEnAttente.getLblMessage().setText(e1.getMessage());
+						}
+						Aeroport aeroportArrivee = null;
+						try {
+							aeroportArrivee = dao.getAeroportByVille(villeArrivee);
+						} catch (SQLException e1) {
+							panelModifVolEnAttente.getLblMessage().setText(e1.getMessage());
 						}
 						
-					} catch (SQLException e) {
-						panelModifVolEnAttente.getLblMessage().setText(e.getMessage());
-					}
-					
-					// On vide les champs du formulaire et on rafraichit les données :
-					// On récupère la liste des vols en attente à jour :
-					List<Vol> listeVolsEnAttente = null;
-					try {
-						listeVolsEnAttente = dao.getAllVolsEnAttente();
-					} catch (SQLException e) {
-						panelModifVolEnAttente.getLblMessage().setText(e.getMessage());
-					}
-					try {
-						panelModifVolEnAttente.rafraichirDonnees(listeVolsEnAttente, tableVolsEnAttente);
-					} catch (SQLException e) {
-						panelModifVolEnAttente.getLblMessage().setText(e.getMessage());
+						// On concatène la date et l'heure de départ
+						String dateHeureDepart = dateDepart + " " + heureDepart;
+						
+						// On tranforme le résultat de String en Date
+						Date dateDeDepart = null;
+						try {
+							dateDeDepart = new SimpleDateFormat("dd/MM/yyyy HH:mm").parse(dateHeureDepart);
+						} catch (ParseException e1) {
+							panelModifVolEnAttente.getLblMessage().setText(e1.getMessage());
+						}
+						
+						// On transforme la durée récupérée en int
+						int dureeInt = Integer.parseInt(duree); // en minutes
+						
+						// pour calculer la date d'arrivée, on convertit la date de départ en timestamp
+						// et la durée en millisecondes, et on les additionne
+						long departMillisecondes = dateDeDepart.getTime();
+						long dureeMillisecondes = dureeInt * 60_000;
+						
+						long arriveeMillisecondes = departMillisecondes + dureeMillisecondes;
+						// On transforme le long obtenu en Timestamp
+						Timestamp dateDArrivee = new Timestamp(arriveeMillisecondes);
+						
+						// On transforme le tarif récupéré en float
+						float tarifFloat = Float.parseFloat(tarif);
+						
+						// on crée un objet Vol avec toutes les données récupérées qu'on passe en paramètre de la commande
+						Vol vol = new Vol(id, aeroportDepart, aeroportArrivee, dateDeDepart, dateDArrivee, dureeInt, tarifFloat, pilote, copilote, hotesseSt1, hotesseSt2, hotesseSt3);
+						
+						try {
+							if(dao.updateVolEnAttente(vol)){ // renvoie vrai si la mise à jour s'est bien passée
+								panelModifVolEnAttente.getLblMessage().setText("Le vol a bien été mis à jour !");
+							}else{
+								panelModifVolEnAttente.getLblMessage().setText("Il y a eu un problème lors de la mise à jour !");
+							}
+							
+						} catch (SQLException e) {
+							panelModifVolEnAttente.getLblMessage().setText(e.getMessage());
+						}
+						
+						// On vide les champs du formulaire et on rafraichit les données :
+						// On récupère la liste des vols en attente à jour :
+						List<Vol> listeVolsEnAttente = null;
+						try {
+							listeVolsEnAttente = dao.getAllVolsEnAttente();
+						} catch (SQLException e) {
+							panelModifVolEnAttente.getLblMessage().setText(e.getMessage());
+						}
+						try {
+							panelModifVolEnAttente.rafraichirDonnees(listeVolsEnAttente, tableVolsEnAttente);
+						} catch (SQLException e) {
+							panelModifVolEnAttente.getLblMessage().setText(e.getMessage());
+						}
 					}
 				}
 				
