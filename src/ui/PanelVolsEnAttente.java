@@ -185,57 +185,65 @@ public class PanelVolsEnAttente extends JPanel {
 						String hotesseSt2 = employeNonSelectionne(codeHotesseSt2);
 						String hotesseSt3 = employeNonSelectionne(codeHotesseSt3);
 						
+						// on récupère les objets Aeroport
+						Aeroport aeroportDepart = null;
+						try {
+							aeroportDepart = dao.getAeroportByVille(villeDepart);
+						} catch (SQLException e1) {
+							panelModifVolEnAttente.getLblMessage().setText(e1.getMessage());
+						}
+						Aeroport aeroportArrivee = null;
+						try {
+							aeroportArrivee = dao.getAeroportByVille(villeArrivee);
+						} catch (SQLException e1) {
+							panelModifVolEnAttente.getLblMessage().setText(e1.getMessage());
+						}
+						
+						// On concatène la date et l'heure de départ
+						String dateHeureDepart = dateDepart + " " + heureDepart;
+						
+						// On tranforme le résultat de String en Date
+						Date dateDeDepart = null;
+						try {
+							dateDeDepart = new SimpleDateFormat("dd/MM/yyyy HH:mm").parse(dateHeureDepart);
+						} catch (ParseException e1) {
+							panelModifVolEnAttente.getLblMessage().setText(e1.getMessage());
+						}
+						
+						// On transforme la durée récupérée en int
+						int dureeInt = Integer.parseInt(duree); // en minutes
+						
+						// pour calculer la date d'arrivée, on convertit la date de départ en timestamp
+						// et la durée en millisecondes, et on les additionne
+						long departMillisecondes = dateDeDepart.getTime();
+						long dureeMillisecondes = dureeInt * 60_000;
+						
+						long arriveeMillisecondes = departMillisecondes + dureeMillisecondes;
+						// On transforme le long obtenu en Timestamp
+						Timestamp dateDArrivee = new Timestamp(arriveeMillisecondes);
+						
+						// On transforme le tarif récupéré en float
+						float tarifFloat = Float.parseFloat(tarif);
+						
+						// on crée un objet Vol avec toutes les données récupérées
+						Vol vol = new Vol(id, aeroportDepart, aeroportArrivee, dateDeDepart, dateDArrivee, dureeInt, tarifFloat, pilote, copilote, hotesseSt1, hotesseSt2, hotesseSt3);
+						
 						// Si tous les employés sont renseignés, on passe le vol de "vol en attente" à
 						// "vol programmé"
 						if(!pilote.isEmpty() && !copilote.isEmpty() && !hotesseSt1.isEmpty() &&
 								!hotesseSt2.isEmpty() && !hotesseSt3.isEmpty()){
-							// TODO !!
-							System.out.println("vol à passer en vol programmé !");
+							// TODO trigger pour supprimer le vol_tmp + vérifier que la page est rafraichie
+							try {
+								if(dao.confirmVol(vol)){ // renvoie vrai si ça s'est bien passé
+									panelModifVolEnAttente.getLblMessage().setText("Le vol " + id + " a bien été validé !");
+								}else{
+									panelModifVolEnAttente.getLblMessage().setText("Il y a eu un problème lors de la validation du vol !");
+								}
+							} catch (SQLException e) {
+								panelModifVolEnAttente.getLblMessage().setText(e.getMessage());
+							}
 						}else{
 							// sinon, on modifie simplement le vol "en attente"
-							// on récupère les objets Aeroport
-							Aeroport aeroportDepart = null;
-							try {
-								aeroportDepart = dao.getAeroportByVille(villeDepart);
-							} catch (SQLException e1) {
-								panelModifVolEnAttente.getLblMessage().setText(e1.getMessage());
-							}
-							Aeroport aeroportArrivee = null;
-							try {
-								aeroportArrivee = dao.getAeroportByVille(villeArrivee);
-							} catch (SQLException e1) {
-								panelModifVolEnAttente.getLblMessage().setText(e1.getMessage());
-							}
-							
-							// On concatène la date et l'heure de départ
-							String dateHeureDepart = dateDepart + " " + heureDepart;
-							
-							// On tranforme le résultat de String en Date
-							Date dateDeDepart = null;
-							try {
-								dateDeDepart = new SimpleDateFormat("dd/MM/yyyy HH:mm").parse(dateHeureDepart);
-							} catch (ParseException e1) {
-								panelModifVolEnAttente.getLblMessage().setText(e1.getMessage());
-							}
-							
-							// On transforme la durée récupérée en int
-							int dureeInt = Integer.parseInt(duree); // en minutes
-							
-							// pour calculer la date d'arrivée, on convertit la date de départ en timestamp
-							// et la durée en millisecondes, et on les additionne
-							long departMillisecondes = dateDeDepart.getTime();
-							long dureeMillisecondes = dureeInt * 60_000;
-							
-							long arriveeMillisecondes = departMillisecondes + dureeMillisecondes;
-							// On transforme le long obtenu en Timestamp
-							Timestamp dateDArrivee = new Timestamp(arriveeMillisecondes);
-							
-							// On transforme le tarif récupéré en float
-							float tarifFloat = Float.parseFloat(tarif);
-							
-							// on crée un objet Vol avec toutes les données récupérées qu'on passe en paramètre de la commande
-							Vol vol = new Vol(id, aeroportDepart, aeroportArrivee, dateDeDepart, dateDArrivee, dureeInt, tarifFloat, pilote, copilote, hotesseSt1, hotesseSt2, hotesseSt3);
-							
 							try {
 								if(dao.updateVolEnAttente(vol)){ // renvoie vrai si la mise à jour s'est bien passée
 									panelModifVolEnAttente.getLblMessage().setText("Le vol " + id + " a bien été mis à jour !");
@@ -246,20 +254,20 @@ public class PanelVolsEnAttente extends JPanel {
 							} catch (SQLException e) {
 								panelModifVolEnAttente.getLblMessage().setText(e.getMessage());
 							}
-							
-							// On vide les champs du formulaire et on rafraichit les données :
-							// On récupère la liste des vols en attente à jour :
-							List<Vol> listeVolsEnAttente = null;
-							try {
-								listeVolsEnAttente = dao.getAllVolsEnAttente();
-							} catch (SQLException e) {
-								panelModifVolEnAttente.getLblMessage().setText(e.getMessage());
-							}
-							try {
-								panelModifVolEnAttente.rafraichirDonnees(listeVolsEnAttente, tableVolsEnAttente);
-							} catch (SQLException e) {
-								panelModifVolEnAttente.getLblMessage().setText(e.getMessage());
-							}
+						}
+						// Dans tous les cas (vol mis à jour ou vol validé),
+						// on vide les champs du formulaire et on rafraichit les données.
+						// On récupère la liste des vols en attente à jour :
+						List<Vol> listeVolsEnAttente = null;
+						try {
+							listeVolsEnAttente = dao.getAllVolsEnAttente();
+						} catch (SQLException e) {
+							panelModifVolEnAttente.getLblMessage().setText(e.getMessage());
+						}
+						try {
+							panelModifVolEnAttente.rafraichirDonnees(listeVolsEnAttente, tableVolsEnAttente);
+						} catch (SQLException e) {
+							panelModifVolEnAttente.getLblMessage().setText(e.getMessage());
 						}
 					}
 				}
