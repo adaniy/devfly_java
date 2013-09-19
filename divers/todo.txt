@@ -1,12 +1,11 @@
+-TODO dans testMySql
 -BDD : prévenir changements + changer sur le serveur (vérifier trigger OK)
 
 -CAHIER DES CHARGES (rappel : tarif à zéro autorisé + date du vol à partir du lendemain + contraintes sur les modifs d'aéroports / vols)
 -DSPP
+-avoir l'exécutable et modifier au préalable l'adresse de la BDD
 
 -commentaires
--vérifier les imports
--enlever les lignes TODO
--enlever les lignes commentées automatiquement
 -relire + tester l'appli
 
 Rqs à intégrer dans le rapport :

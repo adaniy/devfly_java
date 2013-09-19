@@ -237,12 +237,12 @@ public class TestMysqlDao {
 		Assert.assertFalse(result2); // non supprimable
 	}
 	
-	//@Test
+	@Test
 	public void updateVolEnAttente() throws Exception{
 		MysqlDao dao = new MysqlDao();
 		// (On peut le modifier avant de relancer un test) :
-		// TODO : vérifer pour 1 ou 2h
-		Date dateDepart = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse("2014-03-30 03:15:00");
+		// TODO : vérifier pour 1 ou 2h
+		Date dateDepart = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse("2014-03-30 02:00:00");
 		Date dateArrivee = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse("2014-03-30 15:15:00");
 		
 		Aeroport aeroportDepart = dao.getAeroportByVille("Casablanca");
