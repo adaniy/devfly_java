@@ -127,7 +127,7 @@ public class Vol {
 	public static TableModel createTableModelVols(String[]enTete, List<Vol> listeVols) {
 		// le nombre de lignes sera égal aux nombres de vols dans la liste,
 		// le nombre de colonnes sera égal à la taille du tableau d'en-têtes
-		final Object[][] myValues = new Object[listeVols.size()][enTete.length];
+		Object[][] myValues = new Object[listeVols.size()][enTete.length];
 		// on parcourt les lignes :
 		for (int i = 0; i < listeVols.size(); i++) {
 			// on récupère chaque vol
@@ -157,15 +157,6 @@ public class Vol {
 		
 		@SuppressWarnings("serial")
 		DefaultTableModel myModel = new DefaultTableModel(myValues, enTete) {
-			// pour renseigner la JTable avec le type exact contenu dans la colonne
-			// pour avoir un tri cohérent
-			// Principe : on prend la première ligne, et on lui donne le type des éléments
-			// contenus dans chaque colonne.
-			@Override
-			public Class<?> getColumnClass(int arg0) {
-				return myValues[0][arg0].getClass();
-			}
-
 			// pour qu'on ne puisse pas éditer les cellules directement :
 			@Override
 			public boolean isCellEditable(int arg0, int arg1) {

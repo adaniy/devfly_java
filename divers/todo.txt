@@ -1,8 +1,7 @@
--BDD : prévenir changements + changer sur le serveur
+-BDD : prévenir changements + changer sur le serveur (vérifier trigger OK)
 
 -CAHIER DES CHARGES (rappel : tarif à zéro autorisé + date du vol à partir du lendemain + contraintes sur les modifs d'aéroports / vols)
 -DSPP
--commentaire "final" -> voir explication
 
 -commentaires
 -vérifier les imports
@@ -22,3 +21,8 @@ Rqs à intégrer dans le rapport :
 Notes / Voc :
 - Add @SuppressWarnings ("permet de signaler au compilateur que l'on a conscience de réaliser une opération risquée, et qu'il peut donc arrêter de signaler un éventuel problème")
 - propager une exception : lors de l'appel, on aura un try / catch
+- pour faire un tri autrement que par chaînes de caractères, il autait fallu utiliser :
+@Override
+public Class<?> getColumnClass(int arg0) {
+	return myValues[0][arg0].getClass();
+}
