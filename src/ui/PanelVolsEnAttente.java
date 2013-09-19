@@ -44,10 +44,7 @@ public class PanelVolsEnAttente extends JPanel {
 		return tableVolsEnAttente;
 	}
 
-	/**
-	 * Create the panel.
-	 * @throws SQLException 
-	 */
+
 	public PanelVolsEnAttente() throws SQLException {
 		setLayout(new BorderLayout(0, 0));
 		

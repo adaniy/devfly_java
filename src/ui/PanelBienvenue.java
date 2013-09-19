@@ -30,9 +30,7 @@ public class PanelBienvenue extends JPanel {
 	private PanelValiderAnnuler panelValiderAnnuler;
 	//private MysqlDao dao = new MysqlDao();
 
-	/**
-	 * Create the panel.
-	 */
+
 	public PanelBienvenue() {
 		GridBagLayout gridBagLayout = new GridBagLayout();
 		// on joue sur les dimensions de la grille pour positionner les éléments :

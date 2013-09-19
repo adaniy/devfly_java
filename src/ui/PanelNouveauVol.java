@@ -38,10 +38,7 @@ public class PanelNouveauVol extends JPanel {
 	private PanelValiderAnnuler panelValiderAnnuler;
 	private MysqlDao dao = new MysqlDao();
 
-	/**
-	 * Create the panel.
-	 * @throws SQLException 
-	 */
+
 	public PanelNouveauVol() throws SQLException {
 		GridBagLayout gridBagLayout = new GridBagLayout();
 		// on joue sur les dimensions de la grille pour positionner les éléments :

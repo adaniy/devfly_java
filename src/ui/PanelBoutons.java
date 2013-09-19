@@ -22,9 +22,7 @@ public class PanelBoutons extends JPanel {
 	private JButton btnDeconnexion;
 	private JButton btnAeroports;
 
-	/**
-	 * Create the panel.
-	 */
+
 	public PanelBoutons() {
 		setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
 

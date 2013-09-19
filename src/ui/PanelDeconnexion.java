@@ -17,9 +17,7 @@ public class PanelDeconnexion extends JPanel {
 	private JLabel labelMessage;
 	private JButton btnConfirmer;
 
-	/**
-	 * Create the panel.
-	 */
+
 	public PanelDeconnexion() {
 		GridBagLayout gridBagLayout = new GridBagLayout();
 		// on joue sur les dimensions de la grille pour positionner les éléments :

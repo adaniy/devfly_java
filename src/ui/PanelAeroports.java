@@ -31,10 +31,7 @@ public class PanelAeroports extends JPanel {
 	private MysqlDao dao = new MysqlDao();
 	private PanelModifAeroport panelModifAeroport;
 
-	/**
-	 * Create the panel.
-	 * @throws SQLException 
-	 */
+	
 	public PanelAeroports() throws SQLException {
 				
 		setLayout(new BorderLayout(0, 0));

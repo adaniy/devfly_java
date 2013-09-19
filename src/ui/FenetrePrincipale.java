@@ -31,9 +31,8 @@ public class FenetrePrincipale extends JFrame {
 	private JLabel lblLogoGauche;
 	private JLabel lblLogoDroite;
 
-	/**
-	 * Launch the application.
-	 */
+	
+	// le main de l'application est ici
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -47,10 +46,6 @@ public class FenetrePrincipale extends JFrame {
 		});
 	}
 
-	/**
-	 * Create the frame.
-	 * @throws SQLException 
-	 */
 	public FenetrePrincipale() throws SQLException {
 		// la fenêtre n'est pas redimensionnable
 		setResizable(false);

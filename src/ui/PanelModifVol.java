@@ -172,10 +172,7 @@ public class PanelModifVol extends JPanel {
 		return lblMessage;
 	}
 
-	/**
-	 * Create the panel.
-	 * @throws SQLException 
-	 */
+
 	public PanelModifVol() throws SQLException {
 		// on joue sur les dimensions de la grille pour positionner les éléments :
 		GridBagLayout gridBagLayout = new GridBagLayout();

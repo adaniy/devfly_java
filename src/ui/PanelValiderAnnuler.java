@@ -9,9 +9,7 @@ public class PanelValiderAnnuler extends JPanel {
 	private JButton btnValider;
 	private JButton btnAnnuler;
 
-	/**
-	 * Create the panel.
-	 */
+
 	public PanelValiderAnnuler() {
 		
 		btnValider = new JButton("valider");

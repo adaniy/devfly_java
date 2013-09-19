@@ -66,9 +66,7 @@ public class PanelNouvelAeroport extends JPanel {
 		this.textFieldAita = textFieldAita;
 	}
 
-	/**
-	 * Create the panel.
-	 */
+
 	public PanelNouvelAeroport() {
 		GridBagLayout gridBagLayout = new GridBagLayout();
 		// on joue sur les dimensions de la grille pour positionner les éléments :

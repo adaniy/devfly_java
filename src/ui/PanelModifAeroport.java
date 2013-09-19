@@ -66,9 +66,7 @@ public class PanelModifAeroport extends JPanel {
 		return lblMessage;
 	}
 
-	/**
-	 * Create the panel.
-	 */
+
 	public PanelModifAeroport() {
 		// on joue sur les dimensions de la grille pour positionner les éléments :
 		GridBagLayout gridBagLayout = new GridBagLayout();
