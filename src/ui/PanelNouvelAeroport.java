@@ -38,10 +38,6 @@ public class PanelNouvelAeroport extends JPanel {
 		return textFieldVille;
 	}
 
-	public void setTextFieldVille(JTextField textFieldVille) {
-		this.textFieldVille = textFieldVille;
-	}
-
 	public JTextField getTextFieldPays() {
 		return textFieldPays;
 	}
@@ -50,20 +46,8 @@ public class PanelNouvelAeroport extends JPanel {
 		return labelMessage;
 	}
 
-	public void setLabelMessage(JLabel labelMessage) {
-		this.labelMessage = labelMessage;
-	}
-
-	public void setTextFieldPays(JTextField textFieldPays) {
-		this.textFieldPays = textFieldPays;
-	}
-
 	public JTextField getTextFieldAita() {
 		return textFieldAita;
-	}
-
-	public void setTextFieldAita(JTextField textFieldAita) {
-		this.textFieldAita = textFieldAita;
 	}
 
 

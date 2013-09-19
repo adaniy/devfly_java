@@ -39,6 +39,34 @@ public class PanelNouveauVol extends JPanel {
 	private MysqlDao dao = new MysqlDao();
 
 
+	public JLabel getLabelMessage() {
+		return labelMessage;
+	}
+
+	public JTextField getTextFieldDateDeDepart() {
+		return textFieldDateDeDepart;
+	}
+
+	public JTextField getTextFieldHeureDeDepart() {
+		return textFieldHeureDeDepart;
+	}
+
+	public JTextField getTextFieldDureeDuVol() {
+		return textFieldDureeDuVol;
+	}
+
+	public JTextField getTextFieldTarif() {
+		return textFieldTarif;
+	}
+
+	public JComboBox<String> getComboBoxVilleDeDepart() {
+		return comboBoxVilleDeDepart;
+	}
+
+	public JComboBox<String> getComboBoxVilleDarrivee() {
+		return comboBoxVilleDarrivee;
+	}
+
 	public PanelNouveauVol() throws SQLException {
 		GridBagLayout gridBagLayout = new GridBagLayout();
 		// on joue sur les dimensions de la grille pour positionner les éléments :
@@ -333,34 +361,6 @@ public class PanelNouveauVol extends JPanel {
 		gbc_panelValiderAnnuler.gridy = 10;
 		add(panelValiderAnnuler, gbc_panelValiderAnnuler);
 
-	}
-
-	public JLabel getLabelMessage() {
-		return labelMessage;
-	}
-
-	public JTextField getTextFieldDateDeDepart() {
-		return textFieldDateDeDepart;
-	}
-
-	public JTextField getTextFieldHeureDeDepart() {
-		return textFieldHeureDeDepart;
-	}
-
-	public JTextField getTextFieldDureeDuVol() {
-		return textFieldDureeDuVol;
-	}
-
-	public JTextField getTextFieldTarif() {
-		return textFieldTarif;
-	}
-
-	public JComboBox<String> getComboBoxVilleDeDepart() {
-		return comboBoxVilleDeDepart;
-	}
-
-	public JComboBox<String> getComboBoxVilleDarrivee() {
-		return comboBoxVilleDarrivee;
 	}
 
 	// Prend en paramètre une date sous forme de chaîne de caractères jj/mm/aaaa

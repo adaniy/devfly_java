@@ -1,10 +1,8 @@
--vols en attente : trigger pour passer en vol programmé (! numéro)
--TRIGGER pour l'exam : before insert delete (voir critère)
 -BDD : prévenir changements + changer sur le serveur
+-TRIGGER pour l'exam : before insert into vol delete from vol_tmp
 
 -CAHIER DES CHARGES (rappel : tarif à zéro autorisé + date du vol à partir du lendemain + contraintes sur les modifs d'aéroports / vols)
 -DSPP
--notes papier
 -commentaire "final" -> voir explication
 
 -commentaires
@@ -15,10 +13,11 @@
 
 Rqs à intégrer dans le rapport :
 - fuseau horaire du pays de départ et non de destination
-- problème de conception avec la ville utilisée comme "clé" en PHP (=> 2 villes ne peuvent pas avoir le même nom + un aéroport "utilisé" ne peut pas être modifié sous peine de plantage...)
+- problème de conception avec la ville utilisée comme "clé" en PHP (=> 2 villes ne peuvent pas avoir le même nom + un aéroport "utilisé" ne peut pas être modifié sous peine de plantage... pas de redondance possible dans les noms de villes)
 - le numéro de vol n'a pas d'importance sémantique (le 6 peut partir avant le 2)...
 - gestion des exceptions
 - on aurait pu faire en sorte de proposer uniquement les employés disponibles à la date
+- amélioration : durée calculée automatiquement selon le trajet
 
 Notes / Voc :
 - Add @SuppressWarnings ("permet de signaler au compilateur que l'on a conscience de réaliser une opération risquée, et qu'il peut donc arrêter de signaler un éventuel problème")
