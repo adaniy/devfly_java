@@ -167,7 +167,7 @@ public class MysqlDao {
 		PreparedStatement stmt = connection.prepareStatement(sql);
 		
 		// On récupère la valeur du prochain id à insérer dans la table vol_tmp.
-		stmt.setString(1, getNextId());
+		stmt.setString(1, getNextIdVolTmp());
 		
 		stmt.setString(2, v.getAeroportDepart().getVille());
 		stmt.setString(3, v.getAeroportArrivee().getVille());
@@ -241,7 +241,7 @@ public class MysqlDao {
 	}
 
 	// renvoie le prochain ID à insérer dans la table vol_tmp
-	public String getNextId() throws SQLException{
+	public String getNextIdVolTmp() throws SQLException{
 		// on se connecte à la BDD
 		Connection connection = DriverManager.getConnection(datasource, user, password);
 		// On récupère les numvol de la table vol_tmp.
@@ -268,6 +268,38 @@ public class MysqlDao {
 		// le prochain ID à insérer correspondra à l'idMax + 1
 		int prochainId = idMax + 1;
 		String prochainIdString = "TMP" + prochainId; // on ajoute le préfixe "TMP"
+		connection.close();
+		return prochainIdString;
+	}
+	
+	// renvoie le prochain ID à insérer dans la table vol
+	public String getNextIdVol() throws SQLException{
+		// on se connecte à la BDD
+		Connection connection = DriverManager.getConnection(datasource, user, password);
+		// On récupère les numvol de la table vol
+		String sql = "SELECT numvol FROM vol";
+		PreparedStatement stmt = connection.prepareStatement(sql);
+		ResultSet result = stmt.executeQuery();
+		// On va chercher l'id max de la table. On initialise idMax à zéro.
+		int idMax = 0;
+		// On parcourt les résultats de la requête.
+		while (result.next()) {
+			// On ne prend que la fin de la chaîne. Ex : pour le vol "DF10", on veut récupérer "10".
+			// On récupère donc la chaine à partir du 3ème caractère (on enlève "DF")
+			String numvol = result.getString("numvol").substring(2);
+
+			// On transforme la chaîne récupérée en int
+			int nb = Integer.parseInt(numvol);
+			
+			// On récupère la plus grande valeur de la liste
+			if(nb > idMax){
+				idMax = nb;
+			}
+		};		
+		
+		// le prochain ID à insérer correspondra à l'idMax + 1
+		int prochainId = idMax + 1;
+		String prochainIdString = "DF" + prochainId; // on ajoute le préfixe "DF"
 		connection.close();
 		return prochainIdString;
 	}

@@ -1,9 +1,8 @@
 -vérifer rendu Windows
--combobox désactivées -> couleurs
 -Reprendre la méthode de connexion !! -> demander pour chiffrement
 -vols en attente : trigger pour passer en vol programmé (! numéro)
 -TRIGGER pour l'exam : before insert delete (voir critère)
--BDD : prévenir changements + changer sur le serveur + rajouter un vol programmé "passé" avec des employés affectés !
+-BDD : prévenir changements + changer sur le serveur
 
 -CAHIER DES CHARGES (rappel : tarif à zéro autorisé + date du vol à partir du lendemain + contraintes sur les modifs d'aéroports / vols)
 -DSPP

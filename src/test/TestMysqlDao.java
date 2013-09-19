@@ -139,11 +139,19 @@ public class TestMysqlDao {
 	}
 
 	//@Test
-	public void getNextId() throws SQLException{ // doit renvoyer le prochain ID à insérer dans la table vol_tmp
+	public void getNextIdVolTmp() throws SQLException{ // doit renvoyer le prochain ID à insérer dans la table vol_tmp
 		MysqlDao dao = new MysqlDao();
-		String nextId = dao.getNextId();
+		String nextId = dao.getNextIdVolTmp();
 		// à adapter à chaque test
 		Assert.assertEquals("TMP7", nextId);
+	}
+	
+	//@Test
+	public void getNextIdVol() throws SQLException{ // doit renvoyer le prochain ID à insérer dans la table vol
+		MysqlDao dao = new MysqlDao();
+		String nextId = dao.getNextIdVol();
+		// à adapter à chaque test
+		Assert.assertEquals("DF11", nextId);
 	}
 
 	//@Test
