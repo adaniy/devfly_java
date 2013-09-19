@@ -704,11 +704,31 @@ public class PanelModifVol extends JPanel {
 		// pour les comboBoxes :
 		panelModifVol.getJComboBoxVilleDeDepart().setSelectedItem(villeDep);
 		panelModifVol.getJComboBoxVilleDarrivee().setSelectedItem(villeArriv); 
-		panelModifVol.getComboBoxPilote().setSelectedItem(pilote);
-		panelModifVol.getComboBoxCopilote().setSelectedItem(copilote);
-		panelModifVol.getComboBoxHotesseSt1().setSelectedItem(hotesseSt1);
-		panelModifVol.getComboBoxHotesseSt2().setSelectedItem(hotesseSt2);
-		panelModifVol.getComboBoxHotesseSt3().setSelectedItem(hotesseSt3);
+		if(pilote.isEmpty()){
+			panelModifVol.getComboBoxPilote().setSelectedItem("Choisissez un employé");
+		}else{
+			panelModifVol.getComboBoxPilote().setSelectedItem(pilote);
+		}
+		if(copilote.isEmpty()){
+			panelModifVol.getComboBoxCopilote().setSelectedItem("Choisissez un employé");
+		}else{
+			panelModifVol.getComboBoxCopilote().setSelectedItem(copilote);
+		}
+		if(hotesseSt1.isEmpty()){
+			panelModifVol.getComboBoxHotesseSt1().setSelectedItem("Choisissez un employé");
+		}else{
+			panelModifVol.getComboBoxHotesseSt1().setSelectedItem(hotesseSt1);
+		}
+		if(hotesseSt2.isEmpty()){
+			panelModifVol.getComboBoxHotesseSt2().setSelectedItem("Choisissez un employé");
+		}else{
+			panelModifVol.getComboBoxHotesseSt2().setSelectedItem(hotesseSt2);
+		}
+		if(hotesseSt3.isEmpty()){
+			panelModifVol.getComboBoxHotesseSt3().setSelectedItem("Choisissez un employé");
+		}else{
+			panelModifVol.getComboBoxHotesseSt3().setSelectedItem(hotesseSt3);
+		}
 	}
 	
 	// au clic, réinitialise les champs du formulaire de modification d'un vol
