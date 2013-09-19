@@ -586,6 +586,7 @@ public class MysqlDao {
 		String sql1 = "DELETE FROM travailler WHERE vol = ?";
 		// requête SQL pour supprimer le vol
 		String sql2 = "DELETE FROM vol WHERE numvol = ?";
+		// on prépare les 2 requêtes
 		PreparedStatement stmt1 = connection.prepareStatement(sql1);
 		PreparedStatement stmt2 = connection.prepareStatement(sql2);
 		// on valorise le paramètre pour les 2 requêtes
@@ -621,6 +622,65 @@ public class MysqlDao {
 		}
 		connection.close();
 		return false;
+	}
+	
+	// ajoute les 5 codes employés en paramètres au vol programmé
+	// renvoie vrai si tout s'est bien passé
+	private boolean addEmployeToVolProgramme(String numVol, String pilote, String copilote, String HS1, String HS2, String HS3, java.sql.Date dateVol) throws SQLException{
+		// on se connecte à la BDD
+		Connection connection = DriverManager.getConnection(datasource, user, password);
+		// requête préparée pour indiquer les employés travaillant sur ce vol
+		String sql = "INSERT INTO travailler VALUES(?, ?, ?, ?, ?, ?, ?)";
+		// on prépare la requête
+		PreparedStatement stmt = connection.prepareStatement(sql);
+		// on valorise les paramètres
+		stmt.setString(1, numVol);
+		stmt.setString(2, pilote);
+		stmt.setString(3, copilote);
+		stmt.setString(4, HS1);
+		stmt.setString(5, HS2);
+		stmt.setString(6, HS3);
+		stmt.setDate(7, dateVol); // date SQL !
+		if(stmt.executeUpdate() == 0){ // renvoie le nb de lignes impactées. Si aucune, il y a eu un pb, on renvoie false.
+			connection.close();
+			return false;
+		}
+		connection.close();
+		return true;
+	}
+	
+	// passe un vol de "vol en attente" (vol_tmp) à "vol programmé" (vol)
+	// La méthode ci-dessous insère un vol programmé en base
+	// TODO
+	// Un trigger fait en sorte de supprimer le vol en attente correspondant
+	public boolean confirmVol(Vol v) throws SQLException{
+		// on se connecte à la BDD
+		Connection connection = DriverManager.getConnection(datasource, user, password);
+		// requête préparée pour insérer le vol
+		String sql = "INSERT INTO vol VALUES(?, ?, ?, ?, ?, ?)";
+		// on prépare la requête
+		PreparedStatement stmt = connection.prepareStatement(sql);
+		// on valorise les paramètres
+		String idVol = getNextIdVol(); // on récupère le prochain id à insérer
+		stmt.setString(1, idVol);
+		stmt.setString(2, v.getAeroportDepart().getVille());
+		stmt.setString(3, v.getAeroportArrivee().getVille());
+		// on transforme la date util en timestamp SQL. Pour cela, on utilise le timestamp des dates.
+		// (rq : avec une java.sql.Date, on ne récupèrerait pas les heures et minutes)
+		stmt.setTimestamp(4, new java.sql.Timestamp(v.getDateHeureDepart().getTime()));
+		stmt.setTimestamp(5, new java.sql.Timestamp(v.getDateHeureArrivee().getTime()));
+		stmt.setFloat(6, v.getTarif());
+		if(stmt.executeUpdate() == 0){ // renvoie le nb de lignes impactées. Si aucune, il y a eu un pb, on renvoie false.
+			connection.close();
+			return false; // on ne continue pas
+		}
+		// si l'ajout du vol s'est bien passé, on lie les employés au vol
+		boolean employe = addEmployeToVolProgramme(idVol, v.getCodePilote(), v.getCodeCopilote(), v.getCodeHotesseSt1(), v.getCodeHotesseSt2(), v.getCodeHotesseSt3(), new java.sql.Date(v.getDateHeureDepart().getTime()));
+		if(!employe){
+			connection.close();
+			return false; // si ça s'est mal passé, on sort de la boucle
+		}
+		return true; // si tout s'est bien passé
 	}
 
 	// renvoie "true" si le couple login + mdp est correct, "false" sinon

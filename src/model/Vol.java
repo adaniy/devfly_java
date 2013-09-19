@@ -52,7 +52,25 @@ public class Vol {
 		this.dateHeureArrivee = dateHeureArrivee;
 		this.duree = duree;
 		this.tarif = tarif;
-	}	
+	}
+	
+	// un constructeur sans l'"id", pour insérer un nouveau vol dont l'id sera généré automatiquement
+	public Vol(Aeroport aeroportDepart, Aeroport aeroportArrivee,
+			Date dateHeureDepart, Date dateHeureArrivee, int duree, float tarif, String codePilote,
+			String codeCopilote, String codeHotesseSt1, String codeHotesseSt2,
+			String codeHotesseSt3) {
+		this.aeroportDepart = aeroportDepart;
+		this.aeroportArrivee = aeroportArrivee;
+		this.dateHeureDepart = dateHeureDepart;
+		this.dateHeureArrivee = dateHeureArrivee;
+		this.duree = duree;
+		this.tarif = tarif;
+		this.codePilote = codePilote;
+		this.codeCopilote = codeCopilote;
+		this.codeHotesseSt1 = codeHotesseSt1;
+		this.codeHotesseSt2 = codeHotesseSt2;
+		this.codeHotesseSt3 = codeHotesseSt3;
+	}
 
 	// Remarque : pas de setter sur l'id du vol qui ne doit pas être modifié.
 

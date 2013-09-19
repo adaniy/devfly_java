@@ -237,7 +237,7 @@ public class TestMysqlDao {
 		Assert.assertFalse(result2); // non supprimable
 	}
 	
-	@Test
+	//@Test
 	public void updateVolEnAttente() throws Exception{
 		MysqlDao dao = new MysqlDao();
 		// (On peut le modifier avant de relancer un test) :
@@ -258,7 +258,7 @@ public class TestMysqlDao {
 		Assert.assertEquals(volTest1.getCodePilote(), v1.getCodePilote()); // les codes pilotes coïcident
 	}
 
-	@Test
+	//@Test
 	public void getPilotes() throws SQLException{
 		MysqlDao dao = new MysqlDao();
 		List<String> pilotes = dao.getPilotes();
@@ -278,7 +278,7 @@ public class TestMysqlDao {
 		Assert.assertFalse(test2); // false
 	}
 	
-	@Test
+	//@Test
 	public void getHotessesSt() throws SQLException{
 		MysqlDao dao = new MysqlDao();
 		List<String> hotessesSt = dao.getHotessesSt();
@@ -325,6 +325,23 @@ public class TestMysqlDao {
 		Assert.assertTrue(test1); // true
 		Assert.assertFalse(test2); // false
 		Assert.assertFalse(test3); // false
+	}
+	
+	//@Test
+	public void confirmVol() throws Exception{ // 
+		MysqlDao dao = new MysqlDao();
+		Date dateDepart = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse("2014-03-30 03:15:00");
+		Date dateArrivee = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse("2014-03-30 15:15:00");
+		
+		Aeroport aeroportDepart = dao.getAeroportByVille("Casablanca");
+		Aeroport aeroportArrivee = dao.getAeroportByVille("Honolulu");
+		Vol v = new Vol(aeroportDepart, aeroportArrivee, dateDepart, dateArrivee, 720, 1000, "P0001", "C0003", "H0003", "H0004", "H0005");
+		boolean test = dao.confirmVol(v);
+		// à réajuster à chaque test
+		Vol volRecupere = dao.getVolProgrammeById("DF11");
+		Assert.assertTrue(test);
+		Assert.assertEquals(v.getCodePilote(), volRecupere.getCodePilote());
+		Assert.assertEquals(v.getAeroportDepart().getCodeAeroport(), volRecupere.getAeroportDepart().getCodeAeroport());
 	}
 	
 	//@Test
