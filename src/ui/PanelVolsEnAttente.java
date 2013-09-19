@@ -233,7 +233,7 @@ public class PanelVolsEnAttente extends JPanel {
 						// "vol programmé"
 						if(!pilote.isEmpty() && !copilote.isEmpty() && !hotesseSt1.isEmpty() &&
 								!hotesseSt2.isEmpty() && !hotesseSt3.isEmpty()){
-							// TODO trigger pour supprimer le vol_tmp + vérifier que la page est rafraichie
+							// TODO trigger pour supprimer le vol_tmp
 							try {
 								if(dao.confirmVol(vol)){ // renvoie vrai si ça s'est bien passé
 									panelModifVolEnAttente.getLblMessage().setText("Le vol " + id + " a bien été validé !");
