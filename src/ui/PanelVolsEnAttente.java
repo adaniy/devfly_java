@@ -236,7 +236,7 @@ public class PanelVolsEnAttente extends JPanel {
 							// TODO trigger pour supprimer le vol_tmp
 							try {
 								if(dao.confirmVol(vol)){ // renvoie vrai si ça s'est bien passé
-									panelModifVolEnAttente.getLblMessage().setText("Le vol " + id + " a bien été validé !");
+									panelModifVolEnAttente.getLblMessage().setText("Le vol a bien été validé !");
 								}else{
 									panelModifVolEnAttente.getLblMessage().setText("Il y a eu un problème lors de la validation du vol !");
 								}
