@@ -1,3 +1,4 @@
+DROP TRIGGER IF EXISTS suppr_vol_tmp//
 CREATE TRIGGER suppr_vol_tmp BEFORE INSERT ON vol
   FOR EACH ROW
   BEGIN
@@ -5,4 +6,5 @@ CREATE TRIGGER suppr_vol_tmp BEFORE INSERT ON vol
 	DELETE FROM vol_tmp WHERE lieudep = NEW.lieudep AND lieuarriv = NEW.lieuarriv AND dateheuredep = NEW.dateheuredep
 	AND dateheurearrivee = NEW.dateheurearrivee AND tarif = NEW.tarif AND pilote = NEW.pilote AND copilote = NEW.copilote
 	AND hotesse_steward1 = NEW.hotesse_steward1 AND hotesse_steward2 = NEW.hotesse_steward2 AND hotesse_steward3 = NEW.hotesse_steward3;
-END;
+END
+//
