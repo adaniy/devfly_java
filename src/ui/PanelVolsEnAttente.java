@@ -3,6 +3,7 @@ package ui;
 import javax.swing.JPanel;
 import javax.swing.JTable;
 import javax.swing.JScrollPane;
+import javax.swing.SwingUtilities;
 
 import java.awt.BorderLayout;
 import java.awt.Point;
@@ -257,15 +258,32 @@ public class PanelVolsEnAttente extends JPanel {
 						}
 						// Dans tous les cas (vol mis à jour ou vol validé),
 						// on vide les champs du formulaire et on rafraichit les données.
-						// On récupère la liste des vols en attente à jour :
+						// avec la méthode "rafraichirDonnees".
+						// On récupère les listes de vols à jour :
 						List<Vol> listeVolsEnAttente = null;
+						List<Vol> listeVolsProgrammes = null;
 						try {
 							listeVolsEnAttente = dao.getAllVolsEnAttente();
 						} catch (SQLException e) {
 							panelModifVolEnAttente.getLblMessage().setText(e.getMessage());
 						}
 						try {
+							listeVolsProgrammes = dao.getAllVolsProgrammes();
+						} catch (SQLException e1) {
+							panelModifVolEnAttente.getLblMessage().setText(e1.getMessage());
+						}
+						try {
+							// on rafraichit les données pour les vols en attente
 							panelModifVolEnAttente.rafraichirDonnees(listeVolsEnAttente, tableVolsEnAttente);
+						} catch (SQLException e) {
+							panelModifVolEnAttente.getLblMessage().setText(e.getMessage());
+						}
+						// pour récupèrer la table des vols programmés, on doit récupèrer la frame principale
+						FenetrePrincipale frame = (FenetrePrincipale) SwingUtilities.getRoot(PanelVolsEnAttente.this);
+						JTable tableVolsProgrammes = frame.getPanelVolsProgrammes().getTableVolsProgrammes();
+						try {
+							// on rafraichit les données pour les vols programmés
+							panelModifVolEnAttente.rafraichirDonnees(listeVolsProgrammes, tableVolsProgrammes);
 						} catch (SQLException e) {
 							panelModifVolEnAttente.getLblMessage().setText(e.getMessage());
 						}

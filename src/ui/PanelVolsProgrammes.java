@@ -36,6 +36,10 @@ public class PanelVolsProgrammes extends JPanel {
 		return panelModifVolProgramme;
 	}
 
+	public JTable getTableVolsProgrammes() {
+		return tableVolsProgrammes;
+	}
+	
 
 	public PanelVolsProgrammes() throws SQLException {
 		setLayout(new BorderLayout(0, 0));
