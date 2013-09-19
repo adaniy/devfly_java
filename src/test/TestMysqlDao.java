@@ -229,7 +229,7 @@ public class TestMysqlDao {
 		Assert.assertFalse(result2); // non supprimable
 	}
 	
-	//@Test
+	@Test
 	public void updateVolEnAttente() throws Exception{
 		MysqlDao dao = new MysqlDao();
 		// (On peut le modifier avant de relancer un test) :
@@ -282,7 +282,7 @@ public class TestMysqlDao {
 		Assert.assertFalse(test3); // false
 	}
 	
-	@Test
+	//@Test
 	public void updateTarifVolProgramme() throws SQLException{
 		MysqlDao dao = new MysqlDao();
 		// à réajuster à chaque test :
@@ -307,7 +307,7 @@ public class TestMysqlDao {
 		Assert.assertFalse(test3); // false
 	}
 	
-	@Test
+	//@Test
 	public void deleteVolProgramme() throws SQLException{ // supprime un vol s'il n'y a pas de réservation dessus
 		MysqlDao dao = new MysqlDao();
 		// à réajuster à chaque test :

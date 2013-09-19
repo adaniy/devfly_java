@@ -1,5 +1,7 @@
 package ui;
 
+import javax.swing.DefaultListCellRenderer;
+import javax.swing.JComboBox;
 import javax.swing.JPanel;
 import javax.swing.JTable;
 import javax.swing.SwingConstants;
@@ -7,6 +9,7 @@ import javax.swing.JScrollPane;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Graphics;
 import java.awt.Point;
 import java.sql.SQLException;
 import java.util.List;
@@ -37,6 +40,7 @@ public class PanelVolsProgrammes extends JPanel {
 	 * Create the panel.
 	 * @throws SQLException 
 	 */
+	@SuppressWarnings("unchecked")
 	public PanelVolsProgrammes() throws SQLException {
 		setLayout(new BorderLayout(0, 0));
 		
@@ -204,6 +208,15 @@ public class PanelVolsProgrammes extends JPanel {
 		panelModifVolProgramme.getComboBoxHotesseSt1().setEnabled(false);
 		panelModifVolProgramme.getComboBoxHotesseSt2().setEnabled(false);
 		panelModifVolProgramme.getComboBoxHotesseSt3().setEnabled(false);
+		// pour les combobox désactivées, on leur donne un style plus visible que celui par défaut :
+		renduComboBox(panelModifVolProgramme.getJComboBoxVilleDeDepart());
+		renduComboBox(panelModifVolProgramme.getJComboBoxVilleDarrivee());
+		renduComboBox(panelModifVolProgramme.getComboBoxPilote());
+		renduComboBox(panelModifVolProgramme.getComboBoxCopilote());
+		renduComboBox(panelModifVolProgramme.getComboBoxHotesseSt1());
+		renduComboBox(panelModifVolProgramme.getComboBoxHotesseSt2());
+		renduComboBox(panelModifVolProgramme.getComboBoxHotesseSt3());
+				
 		
 		panelModifVolProgramme.getBtnReinitialiser().addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -230,5 +243,16 @@ public class PanelVolsProgrammes extends JPanel {
 		add(panelModifVolProgramme, BorderLayout.SOUTH);
 		
 	}
-
+	
+	// pour modifier le rendu d'une combobox désactivée
+	// On passe la couleur de police de gris très clair (peu lisible) à gris foncé
+	private void renduComboBox(JComboBox<String> maComboBox){
+		maComboBox.setRenderer(new DefaultListCellRenderer() {
+	        @Override
+	        public void paint(Graphics g) {
+	            setForeground(new Color(51, 51, 51));
+	            super.paint(g);
+	        }
+	    });
+	}
 }

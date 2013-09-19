@@ -70,7 +70,7 @@ public class PanelModifVol extends JPanel {
 	private JButton btnReinitialiser;
 	private JButton btnSupprimer;
 	private MysqlDao dao = new MysqlDao();
-
+	
 	@SuppressWarnings("rawtypes")
 	public JComboBox getComboBoxVilleDeDepart() {
 		return comboBoxVilleDeDepart;
