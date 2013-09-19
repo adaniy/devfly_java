@@ -343,13 +343,4 @@ public class TestMysqlDao {
 		Assert.assertEquals(v.getCodePilote(), volRecupere.getCodePilote());
 		Assert.assertEquals(v.getAeroportDepart().getCodeAeroport(), volRecupere.getAeroportDepart().getCodeAeroport());
 	}
-	
-	//@Test
-	public void connection() throws Exception{ // doit renvoyer vrai si le couple login + password est correct
-		MysqlDao dao = new MysqlDao();
-		boolean test1 = dao.connection("admin", "admin");
-		boolean test2 = dao.connection("admin", "bidule");
-		Assert.assertTrue(test1);
-		Assert.assertFalse(test2);
-	}
 }

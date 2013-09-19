@@ -21,7 +21,6 @@ public class FenetrePrincipale extends JFrame {
 	private PanelBoutons panelBoutons;
 	private PanelVolsProgrammes panelVolsProgrammes;
 	private PanelVolsEnAttente panelVolsEnAttente;
-	private PanelDeconnexion panelDeconnexion;
 	private PanelNouveauVol panelNouveauVol;
 	private PanelNouvelAeroport panelNouvelAeroport;
 	private PanelAeroports panelAeroports;
@@ -70,7 +69,6 @@ public class FenetrePrincipale extends JFrame {
 		getContentPane().add(lblLogoDroite, BorderLayout.EAST);
 
 		// on instancie les panels non visibles au départ :
-		panelDeconnexion = new PanelDeconnexion();
 		panelNouveauVol = new PanelNouveauVol();
 		panelNouvelAeroport = new PanelNouvelAeroport();
 		panelAeroports = new PanelAeroports();
@@ -105,10 +103,6 @@ public class FenetrePrincipale extends JFrame {
 		return lblLogoDroite;
 	}
 
-	public PanelDeconnexion getPanelDeconnexion() {
-		return panelDeconnexion;
-	}
-
 	public PanelNouveauVol getPanelNouveauVol() {
 		return panelNouveauVol;
 	}
@@ -132,7 +126,6 @@ public class FenetrePrincipale extends JFrame {
 	public void hideElements()
 	{
 		// on nettoie la page en rendant invisible tous les éléments :
-		getPanelDeconnexion().setVisible(false);
 		getPanelBienvenue().setVisible(false);
 		getPanelBoutons().setVisible(false);
 		getPanelNouveauVol().setVisible(false);
@@ -216,20 +209,6 @@ public class FenetrePrincipale extends JFrame {
 		// et on fait un repaint pour avoir le nouvel affichage
 		getPanelBoutons().setVisible(true);
 		getPanelAeroports().setVisible(true);
-		getContentPane().repaint();
-	}
-
-	public void displayDeconnexion()
-	{
-		hideElements();
-		// on ajoute le panel de déconnexion + le PanelBoutons
-		getContentPane().add(getPanelBoutons(), BorderLayout.NORTH);
-		getContentPane().add(getPanelDeconnexion(), BorderLayout.CENTER);
-
-		// on rend visible les éléments ajoutés
-		// et on fait un repaint pour avoir le nouvel affichage
-		getPanelBoutons().setVisible(true);
-		getPanelDeconnexion().setVisible(true);
 		getContentPane().repaint();
 	}
 }

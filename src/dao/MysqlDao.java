@@ -1,6 +1,5 @@
 package dao;
 
-import java.security.MessageDigest;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -681,52 +680,5 @@ public class MysqlDao {
 			return false; // si ça s'est mal passé, on sort de la boucle
 		}
 		return true; // si tout s'est bien passé
-	}
-
-	// renvoie "true" si le couple login + mdp est correct, "false" sinon
-	public boolean connection(String identifiant, String mdp) throws Exception{
-
-		String chaineSalt = "ABCDEFGHIJKLM"; // ou $5$ABCDEFGHIJKLM  ?
-		String mdpChiffre = null;
-		String sql = "SELECT login FROM user WHERE login=? and password=?";
-
-		MessageDigest digest = MessageDigest.getInstance("SHA-256");
-		digest.reset();
-		digest.update(chaineSalt.getBytes());	// salt
-		byte[] input = digest.digest(mdp.getBytes());
-		for (int i = 0; i < 4999; i++) {
-			//digest.reset();
-			//digest.update(chaineSalt.getBytes());	// salt
-			input = digest.digest(input);
-		}
-		//mdpChiffre = new String(Base64.encodeBase64(input));
-
-		/*
-		StringBuffer sb = new StringBuffer();
-		for(byte b : input) {
-			sb.append(String.format("%02x", b));
-		}
-		mdpChiffre = sb.toString();
-		*/
-
-
-		System.out.print("mdp : "); // test pour débug
-		System.out.println(mdp); // test pour débug
-		System.out.print("mdp chiffré : "); // test pour débug
-		System.out.println(mdpChiffre); // test pour débug
-
-		// on se connecte à la BDD
-		Connection connection = DriverManager.getConnection(datasource, user, password);
-		PreparedStatement stmt = connection.prepareStatement(sql);
-		stmt.setString(1, identifiant);
-		stmt.setString(2, mdpChiffre);
-		ResultSet result = stmt.executeQuery();
-		// si la requête renvoie un résultat, les données saisies sont OK, on renvoie vrai.
-		if (result.next()) {
-			connection.close();
-			return true;
-		}
-		connection.close();
-		return false; // sinon, on renvoie faux, et l'utilisateur ne sera pas connecté
 	}
 }

@@ -1,12 +1,9 @@
--vérifer rendu Windows
--Reprendre la méthode de connexion !! -> demander pour chiffrement
 -vols en attente : trigger pour passer en vol programmé (! numéro)
 -TRIGGER pour l'exam : before insert delete (voir critère)
 -BDD : prévenir changements + changer sur le serveur
 
 -CAHIER DES CHARGES (rappel : tarif à zéro autorisé + date du vol à partir du lendemain + contraintes sur les modifs d'aéroports / vols)
 -DSPP
--une fois la méthode pour les vols confirmés codée, penser à recharger la liste !
 -notes papier
 -commentaire "final" -> voir explication
 
@@ -14,7 +11,7 @@
 -vérifier les imports
 -enlever les lignes TODO
 -enlever les lignes commentées automatiquement
--tester l'appli
+-relire + tester l'appli
 
 Rqs à intégrer dans le rapport :
 - fuseau horaire du pays de départ et non de destination

@@ -19,7 +19,6 @@ public class PanelBoutons extends JPanel {
 	private JButton btnVolsEnAttente;
 	private JButton btnNouveauVol;
 	private JButton btnNouvelAeroport;
-	private JButton btnDeconnexion;
 	private JButton btnAeroports;
 
 
@@ -129,25 +128,6 @@ public class PanelBoutons extends JPanel {
 		});
 		add(btnNouvelAeroport);
 
-		btnDeconnexion = new JButton("déconnexion");
-		btnDeconnexion.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				// cf méthode définie ci-dessous
-				// On réinitialise le style de chaque bouton et
-				// on donne un style particulier au bouton sélectionné.
-				styleBouton(btnDeconnexion);
-				
-				// on récupère la frame principale
-				FenetrePrincipale frame = 
-				(FenetrePrincipale) 
-				SwingUtilities.getRoot(PanelBoutons.this);
-
-				// on affiche la page de déconnexion
-				frame.displayDeconnexion();
-			}
-		});
-		add(btnDeconnexion);
-
 	}
 	
 	// méthode private utilisée uniquement dans ce panel
@@ -170,10 +150,6 @@ public class PanelBoutons extends JPanel {
 		btnNouvelAeroport.setBackground(UIManager.getColor("Button.background"));
 		btnNouvelAeroport.setFont(new Font("Tahoma", Font.PLAIN, 11));
 		btnNouvelAeroport.setForeground(Color.BLACK);
-		
-		btnDeconnexion.setBackground(UIManager.getColor("Button.background"));
-		btnDeconnexion.setFont(new Font("Tahoma", Font.PLAIN, 11));
-		btnDeconnexion.setForeground(Color.BLACK);
 		
 		btnAeroports.setBackground(UIManager.getColor("Button.background"));
 		btnAeroports.setFont(new Font("Tahoma", Font.PLAIN, 11));
