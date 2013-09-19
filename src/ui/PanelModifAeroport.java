@@ -317,7 +317,6 @@ public class PanelModifAeroport extends JPanel {
 	}
 
 	// méthode appelée après la mise à jour ou la suppression d'un aéroport
-	@SuppressWarnings("rawtypes")
 	private void rafraichirDonnees() throws SQLException{
 		// On vide les champs texte :
 		getTextFieldCode().setText("");
@@ -337,8 +336,8 @@ public class PanelModifAeroport extends JPanel {
 		// on va également recharger la liste des villes proposées dans le formulaire de création d'un vol
 		String[]villes = Aeroport.getVillesProposees();
 		// On insère les villes dans les comboBox
-		JComboBox comboBoxDepart = frame.getPanelNouveauVol().getComboBoxVilleDeDepart();
-		JComboBox comboBoxArrivee = frame.getPanelNouveauVol().getComboBoxVilleDarrivee();
+		JComboBox<String> comboBoxDepart = frame.getPanelNouveauVol().getComboBoxVilleDeDepart();
+		JComboBox<String> comboBoxArrivee = frame.getPanelNouveauVol().getComboBoxVilleDarrivee();
 		Vol.comboBoxCreation(villes, comboBoxDepart);
 		Vol.comboBoxCreation(villes, comboBoxArrivee);
 	}

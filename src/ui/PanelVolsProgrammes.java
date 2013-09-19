@@ -40,7 +40,6 @@ public class PanelVolsProgrammes extends JPanel {
 	 * Create the panel.
 	 * @throws SQLException 
 	 */
-	@SuppressWarnings("unchecked")
 	public PanelVolsProgrammes() throws SQLException {
 		setLayout(new BorderLayout(0, 0));
 		

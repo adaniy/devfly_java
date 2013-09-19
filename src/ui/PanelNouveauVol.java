@@ -10,9 +10,6 @@ import java.awt.GridBagConstraints;
 import java.awt.Insets;
 
 import javax.swing.*;
-import javax.swing.JTable;
-import javax.swing.JTextField;
-import javax.swing.SwingUtilities;
 
 import model.Aeroport;
 import model.Vol;
@@ -36,10 +33,8 @@ public class PanelNouveauVol extends JPanel {
 	private JTextField textFieldDureeDuVol;
 	private JTextField textFieldTarif;
 	private JLabel labelMessage;
-	@SuppressWarnings("rawtypes")
-	private JComboBox comboBoxVilleDeDepart;
-	@SuppressWarnings("rawtypes")
-	private JComboBox comboBoxVilleDarrivee;
+	private JComboBox<String> comboBoxVilleDeDepart;
+	private JComboBox<String> comboBoxVilleDarrivee;
 	private PanelValiderAnnuler panelValiderAnnuler;
 	private MysqlDao dao = new MysqlDao();
 
@@ -47,7 +42,6 @@ public class PanelNouveauVol extends JPanel {
 	 * Create the panel.
 	 * @throws SQLException 
 	 */
-	@SuppressWarnings("rawtypes")
 	public PanelNouveauVol() throws SQLException {
 		GridBagLayout gridBagLayout = new GridBagLayout();
 		// on joue sur les dimensions de la grille pour positionner les éléments :
@@ -88,7 +82,7 @@ public class PanelNouveauVol extends JPanel {
 		add(lblVilleDeDepart, gbc_lblVilleDeDepart);
 		
 		// Une combobox présentant les villes de départ possibles :
-		comboBoxVilleDeDepart = new JComboBox();
+		comboBoxVilleDeDepart = new JComboBox<String>();
 		GridBagConstraints gbc_comboBoxVilleDeDepart = new GridBagConstraints();
 		gbc_comboBoxVilleDeDepart.insets = new Insets(0, 0, 5, 0);
 		gbc_comboBoxVilleDeDepart.fill = GridBagConstraints.HORIZONTAL;
@@ -112,7 +106,7 @@ public class PanelNouveauVol extends JPanel {
 		add(lblVilleDarrivee, gbc_lblVilleDarrivee);
 		
 		// Une combobox présentant les villes d'arrivée possibles :
-		comboBoxVilleDarrivee = new JComboBox();
+		comboBoxVilleDarrivee = new JComboBox<String>();
 		GridBagConstraints gbc_comboBoxVilleDarrivee = new GridBagConstraints();
 		gbc_comboBoxVilleDarrivee.insets = new Insets(0, 0, 5, 0);
 		gbc_comboBoxVilleDarrivee.fill = GridBagConstraints.HORIZONTAL;
@@ -348,60 +342,28 @@ public class PanelNouveauVol extends JPanel {
 		return labelMessage;
 	}
 
-	public void setLabelMessage(JLabel labelMessage) {
-		this.labelMessage = labelMessage;
-	}
-
 	public JTextField getTextFieldDateDeDepart() {
 		return textFieldDateDeDepart;
-	}
-
-	public void setTextFieldDateDeDepart(JTextField textFieldDateDeDepart) {
-		this.textFieldDateDeDepart = textFieldDateDeDepart;
 	}
 
 	public JTextField getTextFieldHeureDeDepart() {
 		return textFieldHeureDeDepart;
 	}
 
-	public void setTextFieldHeureDeDepart(JTextField textFieldHeureDeDepart) {
-		this.textFieldHeureDeDepart = textFieldHeureDeDepart;
-	}
-
 	public JTextField getTextFieldDureeDuVol() {
 		return textFieldDureeDuVol;
-	}
-
-	public void setTextFieldDureeDuVol(JTextField textFieldDureeDuVol) {
-		this.textFieldDureeDuVol = textFieldDureeDuVol;
 	}
 
 	public JTextField getTextFieldTarif() {
 		return textFieldTarif;
 	}
 
-	public void setTextFieldTarif(JTextField textFieldTarif) {
-		this.textFieldTarif = textFieldTarif;
-	}
-
-	@SuppressWarnings("rawtypes")
-	public JComboBox getComboBoxVilleDeDepart() {
+	public JComboBox<String> getComboBoxVilleDeDepart() {
 		return comboBoxVilleDeDepart;
 	}
 
-	@SuppressWarnings("rawtypes")
-	public void setComboBoxVilleDeDepart(JComboBox comboBoxVilleDeDepart) {
-		this.comboBoxVilleDeDepart = comboBoxVilleDeDepart;
-	}
-
-	@SuppressWarnings("rawtypes")
-	public JComboBox getComboBoxVilleDarrivee() {
+	public JComboBox<String> getComboBoxVilleDarrivee() {
 		return comboBoxVilleDarrivee;
-	}
-
-	@SuppressWarnings("rawtypes")
-	public void setComboBoxVilleDarrivee(JComboBox comboBoxVilleDarrivee) {
-		this.comboBoxVilleDarrivee = comboBoxVilleDarrivee;
 	}
 
 	// Prend en paramètre une date sous forme de chaîne de caractères jj/mm/aaaa

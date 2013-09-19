@@ -239,8 +239,7 @@ public class Vol {
 	
 	// prend en paramètres un tableau de String (villes, codes employés...) et une JComboBox
 	// insère les villes / codes employés(...) dans la comboBox
-	@SuppressWarnings({ "unchecked", "rawtypes" })
-	public static void comboBoxCreation(String[]donnees, JComboBox maComboBox){
+	public static void comboBoxCreation(String[]donnees, JComboBox<String> maComboBox){
 		// on donne le tableau de données au model :
 		DefaultComboBoxModel<String>model = new DefaultComboBoxModel<>(donnees);
 		// on ajoute le model à la combobox :

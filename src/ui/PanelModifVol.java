@@ -37,12 +37,10 @@ import java.awt.event.KeyEvent;
 @SuppressWarnings("serial")
 public class PanelModifVol extends JPanel {
 	private JTextField textFieldNdeVol;
-	@SuppressWarnings("rawtypes")
-	private JComboBox comboBoxVilleDeDepart;
+	private JComboBox<String> comboBoxVilleDeDepart;
 	private JTextField textFieldPaysDeDepart;
 	private JTextField textFieldCodeDep;
-	@SuppressWarnings("rawtypes")
-	private JComboBox comboBoxVilleDarrivee;
+	private JComboBox<String> comboBoxVilleDarrivee;
 	private JTextField textFieldPaysDarrivee;
 	private JTextField textFieldCodeArriv;
 	private JTextField textFieldDateDep;
@@ -55,54 +53,42 @@ public class PanelModifVol extends JPanel {
 	private JLabel lblLegendeDuree;
 	private JTextField textFieldTarif;
 	private JLabel lblLegendeTarif;
-	@SuppressWarnings("rawtypes")
-	private JComboBox comboBoxPilote;
-	@SuppressWarnings("rawtypes")
-	private JComboBox comboBoxCopilote;
-	@SuppressWarnings("rawtypes")
-	private JComboBox comboBoxHotesseSt1;
-	@SuppressWarnings("rawtypes")
-	private JComboBox comboBoxHotesseSt2;
-	@SuppressWarnings("rawtypes")
-	private JComboBox comboBoxHotesseSt3;
+	private JComboBox<String> comboBoxPilote;
+	private JComboBox<String> comboBoxCopilote;
+	private JComboBox<String> comboBoxHotesseSt1;
+	private JComboBox<String> comboBoxHotesseSt2;
+	private JComboBox<String> comboBoxHotesseSt3;
 	private JLabel lblMessage;
 	private JButton btnMettreAJour;
 	private JButton btnReinitialiser;
 	private JButton btnSupprimer;
 	private MysqlDao dao = new MysqlDao();
 	
-	@SuppressWarnings("rawtypes")
-	public JComboBox getComboBoxVilleDeDepart() {
+	public JComboBox<String> getComboBoxVilleDeDepart() {
 		return comboBoxVilleDeDepart;
 	}
 
-	@SuppressWarnings("rawtypes")
-	public JComboBox getComboBoxVilleDarrivee() {
+	public JComboBox<String> getComboBoxVilleDarrivee() {
 		return comboBoxVilleDarrivee;
 	}
 
-	@SuppressWarnings("rawtypes")
-	public JComboBox getComboBoxPilote() {
+	public JComboBox<String> getComboBoxPilote() {
 		return comboBoxPilote;
 	}
 
-	@SuppressWarnings("rawtypes")
-	public JComboBox getComboBoxCopilote() {
+	public JComboBox<String> getComboBoxCopilote() {
 		return comboBoxCopilote;
 	}
 
-	@SuppressWarnings("rawtypes")
-	public JComboBox getComboBoxHotesseSt1() {
+	public JComboBox<String> getComboBoxHotesseSt1() {
 		return comboBoxHotesseSt1;
 	}
 
-	@SuppressWarnings("rawtypes")
-	public JComboBox getComboBoxHotesseSt2() {
+	public JComboBox<String> getComboBoxHotesseSt2() {
 		return comboBoxHotesseSt2;
 	}
 
-	@SuppressWarnings("rawtypes")
-	public JComboBox getComboBoxHotesseSt3() {
+	public JComboBox<String> getComboBoxHotesseSt3() {
 		return comboBoxHotesseSt3;
 	}
 
@@ -122,8 +108,7 @@ public class PanelModifVol extends JPanel {
 		return textFieldNdeVol;
 	}
 
-	@SuppressWarnings("rawtypes")
-	public JComboBox getJComboBoxVilleDeDepart() {
+	public JComboBox<String> getJComboBoxVilleDeDepart() {
 		return comboBoxVilleDeDepart;
 	}
 
@@ -135,8 +120,7 @@ public class PanelModifVol extends JPanel {
 		return textFieldCodeDep;
 	}
 
-	@SuppressWarnings("rawtypes")
-	public JComboBox getJComboBoxVilleDarrivee() {
+	public JComboBox<String> getJComboBoxVilleDarrivee() {
 		return comboBoxVilleDarrivee;
 	}
 
@@ -192,7 +176,6 @@ public class PanelModifVol extends JPanel {
 	 * Create the panel.
 	 * @throws SQLException 
 	 */
-	@SuppressWarnings("rawtypes")
 	public PanelModifVol() throws SQLException {
 		// on joue sur les dimensions de la grille pour positionner les éléments :
 		GridBagLayout gridBagLayout = new GridBagLayout();
@@ -270,7 +253,7 @@ public class PanelModifVol extends JPanel {
 			getLblMessage().setText(e.getMessage());
 		}
 		
-		comboBoxVilleDeDepart = new JComboBox();
+		comboBoxVilleDeDepart = new JComboBox<>();
 		// pour créer la comboxBox avec les villes prévues par la compagnie :
 		Vol.comboBoxCreation(villes, comboBoxVilleDeDepart);
 		comboBoxVilleDeDepart.addActionListener (new ActionListener () {
@@ -425,7 +408,7 @@ public class PanelModifVol extends JPanel {
 		gbc_lblVilleDarrivee.gridy = 5;
 		add(lblVilleDarrivee, gbc_lblVilleDarrivee);
 
-		comboBoxVilleDarrivee = new JComboBox();
+		comboBoxVilleDarrivee = new JComboBox<>();
 		// pour créer la comboxBox avec les villes prévues par la compagnie :
 		Vol.comboBoxCreation(villes, comboBoxVilleDarrivee);
 		comboBoxVilleDarrivee.addActionListener (new ActionListener () {

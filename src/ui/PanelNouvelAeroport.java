@@ -161,7 +161,6 @@ public class PanelNouvelAeroport extends JPanel {
 		});
 		
 		panelValiderAnnuler.getBtnValider().addActionListener(new ActionListener() {
-			@SuppressWarnings("rawtypes")
 			public void actionPerformed(ActionEvent arg0) {
 				// au clic sur le bouton "valider", on ajoute un aéroport en base.
 				
@@ -236,12 +235,12 @@ public class PanelNouvelAeroport extends JPanel {
 									// de création d'un vol ET de modification d'un vol
 									String[]villes = Aeroport.getVillesProposees();
 									// On insère les villes dans les comboBox
-									JComboBox comboBoxCreationDepart = frame.getPanelNouveauVol().getComboBoxVilleDeDepart();
-									JComboBox comboBoxCreationArrivee = frame.getPanelNouveauVol().getComboBoxVilleDarrivee();
-									JComboBox comboBoxModificationDepart1 = frame.getPanelVolsEnAttente().getPanelModifVolEnAttente().getJComboBoxVilleDeDepart();
-									JComboBox comboBoxModificationArrivee1 = frame.getPanelVolsEnAttente().getPanelModifVolEnAttente().getJComboBoxVilleDarrivee();
-									JComboBox comboBoxModificationDepart2 = frame.getPanelVolsProgrammes().getPanelModifVolProgramme().getJComboBoxVilleDeDepart();
-									JComboBox comboBoxModificationArrivee2 = frame.getPanelVolsProgrammes().getPanelModifVolProgramme().getJComboBoxVilleDarrivee();
+									JComboBox<String> comboBoxCreationDepart = frame.getPanelNouveauVol().getComboBoxVilleDeDepart();
+									JComboBox<String> comboBoxCreationArrivee = frame.getPanelNouveauVol().getComboBoxVilleDarrivee();
+									JComboBox<String> comboBoxModificationDepart1 = frame.getPanelVolsEnAttente().getPanelModifVolEnAttente().getJComboBoxVilleDeDepart();
+									JComboBox<String> comboBoxModificationArrivee1 = frame.getPanelVolsEnAttente().getPanelModifVolEnAttente().getJComboBoxVilleDarrivee();
+									JComboBox<String> comboBoxModificationDepart2 = frame.getPanelVolsProgrammes().getPanelModifVolProgramme().getJComboBoxVilleDeDepart();
+									JComboBox<String> comboBoxModificationArrivee2 = frame.getPanelVolsProgrammes().getPanelModifVolProgramme().getJComboBoxVilleDarrivee();
 									
 									Vol.comboBoxCreation(villes, comboBoxCreationDepart);
 									Vol.comboBoxCreation(villes, comboBoxCreationArrivee);
