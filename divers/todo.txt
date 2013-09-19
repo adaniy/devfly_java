@@ -1,5 +1,4 @@
 -BDD : prévenir changements + changer sur le serveur
--TRIGGER pour l'exam : before insert into vol delete from vol_tmp
 
 -CAHIER DES CHARGES (rappel : tarif à zéro autorisé + date du vol à partir du lendemain + contraintes sur les modifs d'aéroports / vols)
 -DSPP
@@ -18,6 +17,7 @@ Rqs à intégrer dans le rapport :
 - gestion des exceptions
 - on aurait pu faire en sorte de proposer uniquement les employés disponibles à la date
 - amélioration : durée calculée automatiquement selon le trajet
+- trigger
 
 Notes / Voc :
 - Add @SuppressWarnings ("permet de signaler au compilateur que l'on a conscience de réaliser une opération risquée, et qu'il peut donc arrêter de signaler un éventuel problème")

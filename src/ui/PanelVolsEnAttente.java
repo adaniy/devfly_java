@@ -229,35 +229,36 @@ public class PanelVolsEnAttente extends JPanel {
 						// on crée un objet Vol avec toutes les données récupérées
 						Vol vol = new Vol(id, aeroportDepart, aeroportArrivee, dateDeDepart, dateDArrivee, dureeInt, tarifFloat, pilote, copilote, hotesseSt1, hotesseSt2, hotesseSt3);
 						
-						// Si tous les employés sont renseignés, on passe le vol de "vol en attente" à
-						// "vol programmé"
-						if(!pilote.isEmpty() && !copilote.isEmpty() && !hotesseSt1.isEmpty() &&
-								!hotesseSt2.isEmpty() && !hotesseSt3.isEmpty()){
-							// TODO trigger pour supprimer le vol_tmp
-							try {
-								if(dao.confirmVol(vol)){ // renvoie vrai si ça s'est bien passé
-									panelModifVolEnAttente.getLblMessage().setText("Le vol a bien été validé !");
-								}else{
-									panelModifVolEnAttente.getLblMessage().setText("Il y a eu un problème lors de la validation du vol !");
+						// on modifie le vol "en attente"
+						try {
+							if(dao.updateVolEnAttente(vol)){ // renvoie vrai si la mise à jour s'est bien passée
+								panelModifVolEnAttente.getLblMessage().setText("Le vol " + id + " a bien été mis à jour !");
+							
+								// Si tous les employés sont renseignés, on passe le vol de "vol en attente" à
+								// "vol programmé". Les données du vol "en attente" fraichement modifié sont
+								// utilisées par un TRIGGER qui va l'identifier comme étant le vol "temporaire" à
+								// supprimer lors de l'ajout en base du vol "programmé" correspondant.
+								if(!pilote.isEmpty() && !copilote.isEmpty() && !hotesseSt1.isEmpty() &&
+										!hotesseSt2.isEmpty() && !hotesseSt3.isEmpty()){
+									try {
+										if(dao.confirmVol(vol)){ // renvoie vrai si ça s'est bien passé
+											panelModifVolEnAttente.getLblMessage().setText("Le vol a bien été validé !");
+										}else{
+											panelModifVolEnAttente.getLblMessage().setText("Il y a eu un problème lors de la validation du vol !");
+										}
+									} catch (SQLException e) {
+										panelModifVolEnAttente.getLblMessage().setText(e.getMessage());
+									}
 								}
-							} catch (SQLException e) {
-								panelModifVolEnAttente.getLblMessage().setText(e.getMessage());
+							}else{
+								panelModifVolEnAttente.getLblMessage().setText("Il y a eu un problème lors de la mise à jour !");
 							}
-						}else{
-							// sinon, on modifie simplement le vol "en attente"
-							try {
-								if(dao.updateVolEnAttente(vol)){ // renvoie vrai si la mise à jour s'est bien passée
-									panelModifVolEnAttente.getLblMessage().setText("Le vol " + id + " a bien été mis à jour !");
-								}else{
-									panelModifVolEnAttente.getLblMessage().setText("Il y a eu un problème lors de la mise à jour !");
-								}
-								
-							} catch (SQLException e) {
-								panelModifVolEnAttente.getLblMessage().setText(e.getMessage());
-							}
+							
+						} catch (SQLException e) {
+							panelModifVolEnAttente.getLblMessage().setText(e.getMessage());
 						}
-						// Dans tous les cas (vol mis à jour ou vol validé),
-						// on vide les champs du formulaire et on rafraichit les données.
+						
+						// On vide ensuite les champs du formulaire et on rafraichit les données.
 						// avec la méthode "rafraichirDonnees".
 						// On récupère les listes de vols à jour :
 						List<Vol> listeVolsEnAttente = null;

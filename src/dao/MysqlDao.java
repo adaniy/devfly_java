@@ -648,10 +648,9 @@ public class MysqlDao {
 		return true;
 	}
 	
-	// passe un vol de "vol en attente" (vol_tmp) à "vol programmé" (vol)
-	// La méthode ci-dessous insère un vol programmé en base
-	// TODO
-	// Un trigger fait en sorte de supprimer le vol en attente correspondant
+	// pour passer un vol de "vol en attente" (vol_tmp) à "vol programmé" (vol) :
+	// la méthode ci-dessous insère simplement un vol programmé en base,
+	// et un trigger fait en sorte de supprimer le vol en attente correspondant
 	public boolean confirmVol(Vol v) throws SQLException{
 		// on se connecte à la BDD
 		Connection connection = DriverManager.getConnection(datasource, user, password);
