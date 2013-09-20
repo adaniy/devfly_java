@@ -330,12 +330,21 @@ public class PanelModifAeroport extends JPanel {
 		// On utilise pour cela la méthode statique définie dans Aeroport
 		util.MiseEnForme.TableCreationAeroports(aeroports, table);
 		
-		// on va également recharger la liste des villes proposées dans le formulaire de création d'un vol
+		// on va également recharger la liste des villes proposées dans les formulaires de création
+		// et modification d'un vol
 		String[]villes = util.Donnees.getVillesProposees();
 		// On insère les villes dans les comboBox
-		JComboBox<String> comboBoxDepart = frame.getPanelNouveauVol().getComboBoxVilleDeDepart();
-		JComboBox<String> comboBoxArrivee = frame.getPanelNouveauVol().getComboBoxVilleDarrivee();
-		util.MiseEnForme.comboBoxCreation(villes, comboBoxDepart);
-		util.MiseEnForme.comboBoxCreation(villes, comboBoxArrivee);
+		JComboBox<String> comboBoxDepart1 = frame.getPanelNouveauVol().getComboBoxVilleDeDepart();
+		JComboBox<String> comboBoxArrivee1 = frame.getPanelNouveauVol().getComboBoxVilleDarrivee();
+		JComboBox<String> comboBoxDepart2 = frame.getPanelVolsEnAttente().getPanelModifVolEnAttente().getComboBoxVilleDeDepart();
+		JComboBox<String> comboBoxArrivee2 = frame.getPanelVolsEnAttente().getPanelModifVolEnAttente().getComboBoxVilleDarrivee();
+		JComboBox<String> comboBoxDepart3 = frame.getPanelVolsProgrammes().getPanelModifVolProgramme().getComboBoxVilleDeDepart();
+		JComboBox<String> comboBoxArrivee3 = frame.getPanelVolsProgrammes().getPanelModifVolProgramme().getComboBoxVilleDarrivee();
+		util.MiseEnForme.comboBoxCreation(villes, comboBoxDepart1);
+		util.MiseEnForme.comboBoxCreation(villes, comboBoxArrivee1);
+		util.MiseEnForme.comboBoxCreation(villes, comboBoxDepart2);
+		util.MiseEnForme.comboBoxCreation(villes, comboBoxArrivee2);
+		util.MiseEnForme.comboBoxCreation(villes, comboBoxDepart3);
+		util.MiseEnForme.comboBoxCreation(villes, comboBoxArrivee3);
 	}
 }

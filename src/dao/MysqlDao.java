@@ -168,7 +168,7 @@ public class MysqlDao {
 		
 		stmt.setString(2, v.getAeroportDepart().getVille());
 		stmt.setString(3, v.getAeroportArrivee().getVille());
-		// on transforme la date util en timestamp SQL. Pour cela, on utilise le timestamp des dates.
+		// on transforme la date util en timestamp SQL (on utilise getTime() pour récupérer le timestamp).
 		// (rq : avec une java.sql.Date, on ne récupèrerait pas les heures et minutes)
 		stmt.setTimestamp(4, new java.sql.Timestamp(v.getDateHeureDepart().getTime()));
 		stmt.setTimestamp(5, new java.sql.Timestamp(v.getDateHeureArrivee().getTime()));
