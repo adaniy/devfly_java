@@ -9,15 +9,11 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-//import org.apache.commons.codec.binary.Base64;
-//import org.apache.commons.codec.binary.StringUtils;
-
-
-
 import model.Aeroport;
 import model.Vol;
 
 public class MysqlDao {
+	// infos pour la connexion
 	private String datasource = "jdbc:mysql://localhost:3306/DEVFLY";
 	private String user = "greta";
 	private String password = "gretatest";
@@ -35,6 +31,7 @@ public class MysqlDao {
 				+ "T.hotesse_steward1, T.hotesse_steward2, T.hotesse_steward3 FROM vol V INNER JOIN travailler T ON V.numvol = T.vol";
 		PreparedStatement stmt1 = connection.prepareStatement(sql1);
 		ResultSet result1 = stmt1.executeQuery();
+		// on parcourt le résultat
 		while (result1.next()) {
 			String id = result1.getString("numvol");
 			String villeDepart = result1.getString("lieudep");
@@ -76,6 +73,7 @@ public class MysqlDao {
 		String sql1 = "SELECT * FROM vol_tmp";
 		PreparedStatement stmt1 = connection.prepareStatement(sql1);
 		ResultSet result1 = stmt1.executeQuery();
+		// on parcourt le résultat
 		while (result1.next()) {
 			String id = result1.getString("numvol");
 			String villeDepart = result1.getString("lieudep");
