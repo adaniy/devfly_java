@@ -17,6 +17,7 @@ Rqs à intégrer dans le rapport :
 
 Notes / Voc :
 - Add @SuppressWarnings ("permet de signaler au compilateur que l'on a conscience de réaliser une opération risquée, et qu'il peut donc arrêter de signaler un éventuel problème")
+- @SuppressWarnings("serial") : "oubli du SerialVersionUid dans une classe déclarée Serializable". (La sérialisation permet de rendre un objet persistant. Il est mis sous une forme sous laquelle il pourra être reconstitué à l'identique. Il pourra ainsi être stocké).
 - propager une exception : lors de l'appel, on aura un try / catch
 - pour faire un tri autrement que par chaînes de caractères, il autait fallu utiliser (fait planter l'appli si colonne nulle, ex : pas de vol_tmp) :
 @Override
