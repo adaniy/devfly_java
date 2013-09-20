@@ -210,7 +210,7 @@ public class PanelNouvelAeroport extends JPanel {
 									JTable table = frame.getPanelAeroports().getTableAeroports();
 									// On crée le model avec les bonnes données et on le donne à la JTable
 									// On utilise pour cela la méthode statique définie dans Aeroport
-									Aeroport.TableCreation(aeroports, table);
+									util.MiseEnForme.TableCreationAeroports(aeroports, table);
 									
 									// on va également recharger la liste des villes proposées dans les formulaires
 									// de création d'un vol ET de modification d'un vol

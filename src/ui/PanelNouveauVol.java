@@ -345,7 +345,7 @@ public class PanelNouveauVol extends JPanel {
 						
 						// On crée le model avec les bonnes données et on le donne à la JTable
 						// On utilise pour cela la méthode statique définie dans Vol
-						Vol.TableCreation(volsEnAttente, table);
+						util.MiseEnForme.TableCreationVols(volsEnAttente, table);
 						
 						// On dimensionne les colonnes :
 						util.MiseEnForme.columnSizeVols(table);

@@ -1,12 +1,6 @@
 package model;
 
-import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.List;
-
-import javax.swing.JTable;
-import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableModel;
 
 public class Vol {
 	private String id; // ex : DF1
@@ -118,64 +112,5 @@ public class Vol {
 
 	public String getCodeHotesseSt3() {
 		return codeHotesseSt3;
-	}
-
-	// Retourne un model à donner à la table
-	// On lui passera une liste de vols récupérée du dao :
-	public static TableModel createTableModelVols(String[]enTete, List<Vol> listeVols) {
-		// le nombre de lignes sera égal aux nombres de vols dans la liste,
-		// le nombre de colonnes sera égal à la taille du tableau d'en-têtes
-		Object[][] myValues = new Object[listeVols.size()][enTete.length];
-		// on parcourt les lignes :
-		for (int i = 0; i < listeVols.size(); i++) {
-			// on récupère chaque vol
-			Vol v = listeVols.get(i);
-			// le sous-tableau vient directement du vol récupéré
-			myValues[i][0] = v.getId();
-			myValues[i][1] = v.getAeroportDepart().getVille();
-			myValues[i][2] = v.getAeroportDepart().getPays();
-			myValues[i][3] = v.getAeroportDepart().getCodeAeroport();
-			myValues[i][4] = v.getAeroportArrivee().getVille();
-			myValues[i][5] = v.getAeroportArrivee().getPays();
-			myValues[i][6] = v.getAeroportArrivee().getCodeAeroport();
-			// on formate les dates pour les afficher correctement :
-			myValues[i][7] = new SimpleDateFormat("dd/MM/yyyy - HH:mm").format(v.getDateHeureDepart());
-			myValues[i][8] = new SimpleDateFormat("dd/MM/yyyy - HH:mm").format(v.getDateHeureArrivee());
-			myValues[i][9] = v.getDuree();
-			// on formate le tarif pour avoir 2 chiffres après la virgule :
-			myValues[i][10] = String.format("%.2f",v.getTarif());
-			myValues[i][11] = v.getCodePilote();
-			myValues[i][12] = v.getCodeCopilote();
-			myValues[i][13] = v.getCodeHotesseSt1();
-			myValues[i][14] = v.getCodeHotesseSt2();
-			myValues[i][15] = v.getCodeHotesseSt3();
-			// on répète l'id du vol en fin de tableau pour plus de lisibilité
-			myValues[i][16] = v.getId();
-		}
-		
-		@SuppressWarnings("serial")
-		DefaultTableModel myModel = new DefaultTableModel(myValues, enTete) {
-			// pour qu'on ne puisse pas éditer les cellules directement :
-			@Override
-			public boolean isCellEditable(int arg0, int arg1) {
-				return false;
-			}
-		};
-		return myModel;
-	}
-
-	// prend en paramètre une liste de vols et une JTable
-	// crée le model avec les bonnes données et le donne à la JTable
-	public static void TableCreation(List<Vol> listeVols, JTable maJTable){
-		// Les en-têtes : (on trouve le N° de vol en début et fin de tableau pour faciliter la lecture)
-		String[]headers = {"n°", "ville départ", "pays dép.", "code dép.",
-				"ville arrivée", "pays arr.", "code arr.", "date/heure départ",
-				"date/heure arrivée", "durée (mn)", "tarif (€)", "pilote", "copilote", "Hôtesse/St1", "Hôtesse/St2", "Hôtesse/St3", "n°"};
-		
-		// Le model avec les bonnes données (on utilise la méthode statique définie dans la classe Vol)
-		TableModel model = createTableModelVols(headers, listeVols);
-				
-		// On donne le model à la table :
-		maJTable.setModel(model);
 	}
 }

@@ -79,7 +79,7 @@ public class PanelVolsEnAttente extends JPanel {
 		
 		// On crée le model avec les bonnes données et on le donne à la JTable
 		// On utilise pour cela la méthode statique définie dans Vol
-		Vol.TableCreation(volsEnAttente, tableVolsEnAttente);
+		util.MiseEnForme.TableCreationVols(volsEnAttente, tableVolsEnAttente);
 		
 		// Label qui pourra contenir les différents messages à afficher :
 		labelMessage = new JLabel("");

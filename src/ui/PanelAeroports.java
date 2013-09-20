@@ -77,7 +77,7 @@ public class PanelAeroports extends JPanel {
 		
 		// On crée le model avec les bonnes données et on le donne à la JTable
 		// On utilise pour cela la méthode statique définie dans Aeroport
-		Aeroport.TableCreation(aeroports, tableAeroports);
+		util.MiseEnForme.TableCreationAeroports(aeroports, tableAeroports);
 		
 		// Label qui pourra contenir les différents messages à afficher :
 		labelMessage = new JLabel("");
