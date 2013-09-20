@@ -59,7 +59,7 @@ public class PanelVolsEnAttente extends JPanel {
 				// on récupère l'endroit où a eu lieu l'événement (= le clic)
 				Point p = arg0.getPoint();
 				// on remplit le formulaire avec les données du tableau
-				PanelModifVol.fillInForm(panelModifVolEnAttente, p, tableVolsEnAttente);
+				panelModifVolEnAttente.fillInForm(panelModifVolEnAttente, p, tableVolsEnAttente);
 				// on supprime le message éventuellement saisi
 				panelModifVolEnAttente.getLblMessage().setText("");
 			}
@@ -180,11 +180,11 @@ public class PanelVolsEnAttente extends JPanel {
 					if(miseAJour){ // si rien n'a bloqué la mise à jour, on peut la faire !
 						// avant de faire la mise à jour, on remplace les éventuels codes employés qui
 						// ont pour valeur "Choisissez un employé" par une chaîne vide
-						String pilote = employeNonSelectionne(codePilote);
-						String copilote = employeNonSelectionne(codeCopilote);
-						String hotesseSt1 = employeNonSelectionne(codeHotesseSt1);
-						String hotesseSt2 = employeNonSelectionne(codeHotesseSt2);
-						String hotesseSt3 = employeNonSelectionne(codeHotesseSt3);
+						String pilote = formatEmployeNonSelectionne(codePilote);
+						String copilote = formatEmployeNonSelectionne(codeCopilote);
+						String hotesseSt1 = formatEmployeNonSelectionne(codeHotesseSt1);
+						String hotesseSt2 = formatEmployeNonSelectionne(codeHotesseSt2);
+						String hotesseSt3 = formatEmployeNonSelectionne(codeHotesseSt3);
 						
 						// on récupère les objets Aeroport
 						Aeroport aeroportDepart = null;
@@ -336,7 +336,7 @@ public class PanelVolsEnAttente extends JPanel {
 						// On efface l'éventuel message saisi :
 						panelModifVolEnAttente.getLblMessage().setText("");
 						// On réinitialise les champs du formulaire :
-						PanelModifVol.formReset(panelModifVolEnAttente, v);
+						panelModifVolEnAttente.formReset(panelModifVolEnAttente, v);
 						
 					} catch (SQLException e) {
 						panelModifVolEnAttente.getLblMessage().setText(e.getMessage());
@@ -348,7 +348,7 @@ public class PanelVolsEnAttente extends JPanel {
 	}
 	
 	// pour "transformer" un code employé de "Choisissez un employé" à "" le cas échéant
-	private String employeNonSelectionne(String codeEmploye){
+	private String formatEmployeNonSelectionne(String codeEmploye){
 		if(codeEmploye.equals("Choisissez un employé")){
 			return ""; // on retourne une chaîne vide
 		}

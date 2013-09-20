@@ -660,7 +660,7 @@ public class PanelModifVol extends JPanel {
 
 	// au clic, remplit le formulaire avec les données du tableau
 	// prend en paramètre le panel de type PanelModifVol, le pointeur, et la JTable
-	public static void fillInForm(PanelModifVol panelModifVol, Point p, JTable tableVols){
+	public void fillInForm(PanelModifVol panelModifVol, Point p, JTable tableVols){
 		// on récupère l'endroit où a eu lieu l'événement (= le clic)
 		int row = tableVols.rowAtPoint(p); // renvoie la ligne sous le pointeur
 		// On convertit les row du tableau en row du modèle pour maintenir la cohérence 
@@ -734,7 +734,7 @@ public class PanelModifVol extends JPanel {
 	// au clic, réinitialise les champs du formulaire de modification d'un vol
 	// prend en paramètre le panel de type PanelModifVol dont on doit réinitialiser les champs,
 	// et un objet Vol dont on obtient les données à remettre dans le formulaire
-	public static void formReset(PanelModifVol panelModifVol, Vol v){
+	public void formReset(PanelModifVol panelModifVol, Vol v){
 		// pour la comboBox ville de départ :
 		panelModifVol.getJComboBoxVilleDeDepart().setSelectedItem(v.getAeroportDepart().getVille());
 		panelModifVol.getTextFieldPaysDeDepart().setText(v.getAeroportDepart().getPays());

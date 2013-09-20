@@ -54,7 +54,7 @@ public class PanelVolsProgrammes extends JPanel {
 				// on récupère l'endroit où a eu lieu l'événement (= le clic)
 				Point p = e.getPoint();
 				// on remplit le formulaire avec les données du tableau
-				PanelModifVol.fillInForm(panelModifVolProgramme, p, tableVolsProgrammes);
+				panelModifVolProgramme.fillInForm(panelModifVolProgramme, p, tableVolsProgrammes);
 				// on supprime le message éventuellement saisi
 				panelModifVolProgramme.getLblMessage().setText("");
 			}
@@ -220,7 +220,7 @@ public class PanelVolsProgrammes extends JPanel {
 		
 		panelModifVolProgramme.getBtnReinitialiser().addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				// au clic sur "réinitialiser", on réinitalise les champs à leur valeur initiale
+				// au clic sur "réinitialiser", on réinitalise le(s) champ(s) à leur valeur initiale
 				// On récupère le code du vol en cours de modification
 				String numVol = panelModifVolProgramme.getTextFieldNdeVol().getText();
 				if(numVol.isEmpty()){
@@ -231,8 +231,8 @@ public class PanelVolsProgrammes extends JPanel {
 						Vol v = dao.getVolProgrammeById(numVol);
 						// On efface l'éventuel message saisi :
 						panelModifVolProgramme.getLblMessage().setText("");
-						// On réinitialise les champs du formulaire :
-						PanelModifVol.formReset(panelModifVolProgramme, v);
+						// On réinitialise le(s) champ(s) du formulaire :
+						panelModifVolProgramme.formReset(panelModifVolProgramme, v);
 						
 					} catch (SQLException e) {
 						panelModifVolProgramme.getLblMessage().setText(e.getMessage());
