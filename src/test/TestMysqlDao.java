@@ -88,12 +88,12 @@ public class TestMysqlDao {
 		// (On peut le modifier avant de relancer un test) :
 		Vol volTest = new Vol(aeroportTest1, aeroportTest2, dateDepart, dateArrivee, 1540, 974F);
 		
-		int result = dao.addNewVol(volTest); // doit ajouter le vol en base (table vol_tmp)
-		Assert.assertEquals(1, result); // une seule ligne doit être impactée
-		//Vol v = dao.getVolById(5);
-		//Assert.assertEquals(volTest.getId(), v.getId());
+		boolean result = dao.addNewVol(volTest); // doit ajouter le vol en base (table vol_tmp)
+		Assert.assertTrue(result);
+		// à réajuster à chaque test :
+		Vol v = dao.getVolEnAttenteById("TMP7");
+		Assert.assertEquals(volTest.getAeroportDepart().getVille(), v.getAeroportDepart().getVille());
 	}
-
 
 	//@Test
 	public void getAeroportByVille() throws SQLException{

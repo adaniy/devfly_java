@@ -316,9 +316,13 @@ public class PanelNouveauVol extends JPanel {
 					
 					Vol vol = new Vol(aeroportDepart, aeroportArrivee, dateDeDepart, dateDArrivee, dureeInt, tarifFloat);
 					try {
-						dao.addNewVol(vol);
-						// On affiche un message pour prévenir que tout s'est bien passé
-						getLabelMessage().setText("Le vol a bien été ajouté !");
+						if(dao.addNewVol(vol)){ // si tout se passe bien
+							// On affiche un message pour prévenir que tout s'est bien passé
+							getLabelMessage().setText("Le vol a bien été ajouté !");
+						}else{
+							getLabelMessage().setText("Il y a eu un problème lors de l'ajout du vol !");
+						}
+						
 					} catch (SQLException e1) {
 						getLabelMessage().setText(e1.getMessage());
 					}

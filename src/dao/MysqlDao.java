@@ -156,7 +156,8 @@ public class MysqlDao {
 	}
 
 	// ajoute un nouveau vol en base (table vol_tmp)
-	public int addNewVol(Vol v) throws SQLException{
+	// renvoie "vrai" si tout s'est bien passé
+	public boolean addNewVol(Vol v) throws SQLException{
 		// on se connecte à la BDD
 		Connection connection = DriverManager.getConnection(datasource, user, password);
 		// on crée et exécute une requête préparée pour insérer le vol
@@ -168,7 +169,7 @@ public class MysqlDao {
 		
 		stmt.setString(2, v.getAeroportDepart().getVille());
 		stmt.setString(3, v.getAeroportArrivee().getVille());
-		// on transforme la date util en timestamp SQL (on utilise getTime() pour récupérer le timestamp).
+		// on transforme la date util en timestamp SQL (on utilise getTime() pour récupérer le timestamp de la date util).
 		// (rq : avec une java.sql.Date, on ne récupèrerait pas les heures et minutes)
 		stmt.setTimestamp(4, new java.sql.Timestamp(v.getDateHeureDepart().getTime()));
 		stmt.setTimestamp(5, new java.sql.Timestamp(v.getDateHeureArrivee().getTime()));
@@ -177,7 +178,10 @@ public class MysqlDao {
 		
 		int result = stmt.executeUpdate(); // renvoie le nb d'enregistrements impactés
 		connection.close();
-		return result; // doit renvoyer "1"
+		if(result == 1){ // tout s'est bien passé
+			return true;
+		}
+		return false;
 	}
 
 	// renvoie un objet Aeroport correspondant à la ville en paramètre
