@@ -20,7 +20,7 @@ Rqs à intégrer dans le rapport :
 Notes / Voc :
 - Add @SuppressWarnings ("permet de signaler au compilateur que l'on a conscience de réaliser une opération risquée, et qu'il peut donc arrêter de signaler un éventuel problème")
 - propager une exception : lors de l'appel, on aura un try / catch
-- pour faire un tri autrement que par chaînes de caractères, il autait fallu utiliser :
+- pour faire un tri autrement que par chaînes de caractères, il autait fallu utiliser (fait planter l'appli si colonne nulle, ex : pas de vol_tmp) :
 @Override
 public Class<?> getColumnClass(int arg0) {
 	return myValues[0][arg0].getClass();

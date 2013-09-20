@@ -125,7 +125,7 @@ public class TestMysqlDao {
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
-		int duree = Vol.getDureeVol(dateDepart, dateArrivee);
+		int duree = util.Donnees.getDureeVol(dateDepart, dateArrivee);
 		Assert.assertEquals(130, duree);		
 	}
 

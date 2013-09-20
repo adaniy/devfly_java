@@ -165,7 +165,7 @@ public class PanelModifAeroport extends JPanel {
 					// on vérifie que la ville n'existe pas déjà en base
 					// (pas possible de créer 2 aéroports pour une même ville)
 					try {
-						String[]villesEnBase = Aeroport.getVillesProposees();
+						String[]villesEnBase = util.Donnees.getVillesProposees();
 						// On initialise 2 booléens à false
 						boolean villeExistante = false; // la ville existe-t-elle en base ?
 						boolean villeOk = false; // (si elle existe), correspond-elle à l'aéroport en cours de modif ?
@@ -332,7 +332,7 @@ public class PanelModifAeroport extends JPanel {
 		Aeroport.TableCreation(aeroports, table);
 		
 		// on va également recharger la liste des villes proposées dans le formulaire de création d'un vol
-		String[]villes = Aeroport.getVillesProposees();
+		String[]villes = util.Donnees.getVillesProposees();
 		// On insère les villes dans les comboBox
 		JComboBox<String> comboBoxDepart = frame.getPanelNouveauVol().getComboBoxVilleDeDepart();
 		JComboBox<String> comboBoxArrivee = frame.getPanelNouveauVol().getComboBoxVilleDarrivee();

@@ -117,7 +117,7 @@ public class PanelNouveauVol extends JPanel {
 		
 		// Les données dans la combobox vont provenir des données en base.
 		// On récupère les villes proposées par la compagnie
-		String[]villes = Aeroport.getVillesProposees();
+		String[]villes = util.Donnees.getVillesProposees();
 		
 		// On insère les villes dans la comboBox
 		Vol.comboBoxCreation(villes, comboBoxVilleDeDepart);
@@ -393,7 +393,7 @@ public class PanelNouveauVol extends JPanel {
 		// On récupère les villes proposées par la compagnie
 		String[] villesPrevues = null;
 		try {
-			villesPrevues = Aeroport.getVillesProposees();
+			villesPrevues = util.Donnees.getVillesProposees();
 		} catch (SQLException e) {
 			getLabelMessage().setText(e.getMessage());
 		}

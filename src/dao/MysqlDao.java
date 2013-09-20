@@ -45,7 +45,7 @@ public class MysqlDao {
 			Date dateHeureArrivee = result1.getTimestamp("dateheurearrivee");
 			
 			// on calcule la durée du vol
-			int duree = Vol.getDureeVol(dateHeureDepart, dateHeureArrivee);
+			int duree = util.Donnees.getDureeVol(dateHeureDepart, dateHeureArrivee);
 			
 			float tarif = result1.getFloat("tarif");
 			String codePilote = result1.getString("pilote");
@@ -86,7 +86,7 @@ public class MysqlDao {
 			Date dateHeureArrivee = result1.getTimestamp("dateheurearrivee");
 			
 			// on calcule la durée du vol
-			int duree = Vol.getDureeVol(dateHeureDepart, dateHeureArrivee);
+			int duree = util.Donnees.getDureeVol(dateHeureDepart, dateHeureArrivee);
 			
 			float tarif = result1.getFloat("tarif");
 			
@@ -400,7 +400,7 @@ public class MysqlDao {
 		Date dateHeureDepart = result.getTimestamp("dateheuredep");
 		Date dateHeureArrivee = result.getTimestamp("dateheurearrivee");
 		// on calcule la durée du vol
-		int duree = Vol.getDureeVol(dateHeureDepart, dateHeureArrivee);
+		int duree = util.Donnees.getDureeVol(dateHeureDepart, dateHeureArrivee);
 		float tarif = result.getFloat("tarif");
 		String codePilote = result.getString("pilote");
 		String codeCopilote = result.getString("copilote");
@@ -436,7 +436,7 @@ public class MysqlDao {
 		Date dateHeureDepart = result.getTimestamp("dateheuredep");
 		Date dateHeureArrivee = result.getTimestamp("dateheurearrivee");
 		// on calcule la durée du vol
-		int duree = Vol.getDureeVol(dateHeureDepart, dateHeureArrivee);
+		int duree = util.Donnees.getDureeVol(dateHeureDepart, dateHeureArrivee);
 		float tarif = result.getFloat("tarif");
 		String codePilote = result.getString("pilote");
 		String codeCopilote = result.getString("copilote");

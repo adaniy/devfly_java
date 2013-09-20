@@ -64,29 +64,6 @@ public class Aeroport {
 		return myModel;
 	}
 
-	// renvoie les villes proposées par la compagnie sous forme
-	// d'un tableau de chaînes de caractères trié par ordre alphabétique
-	public static String[] getVillesProposees() throws SQLException{ // méthode appelée depuis ce panel directement + via le panelNouvelAeroport
-		// On récupère la liste des objets Aeroport :
-		MysqlDao dao = new MysqlDao();
-		List<Aeroport> aeroports = dao.getAllAeroports();
-		
-		// On initialise un tableau de chaînes de caractères de la taille
-		// de la liste, on y placera les villes.
-		String[]villes = new String[aeroports.size()];
-		
-		// On parcourt la liste :
-		for(int i = 0 ; i < aeroports.size(); i++){
-			String ville = aeroports.get(i).getVille(); // on récupère la ville
-			// On ajoute la ville dans le tableau :
-			villes[i] = ville;
-		}
-		
-		Arrays.sort(villes); // pour trier les villes par ordre alphabétique
-		
-		return villes;
-	}
-
 	// prend en paramètre une liste d'aéroports et une JTable
 	// crée le model avec les bonnes données et le donne à la JTable
 	public static void TableCreation(List<Aeroport> listeAeroports, JTable maJTable){
