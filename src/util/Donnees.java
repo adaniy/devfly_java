@@ -1,6 +1,8 @@
 package util;
 
 import java.sql.SQLException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
@@ -46,6 +48,53 @@ public class Donnees {
 		long dureeMillisecondes = arriveeMillisecondes - departMillisecondes;
 		
 		return (int) (dureeMillisecondes / 60_000); // en minutes
+	}
+	
+	// Prend en paramètre une date sous forme de chaîne de caractères jj/mm/aaaa
+	// Renvoie vrai si la date indiquée est dans le futur
+	public static boolean futureDate(String laDate){
+		// On crée une date à partir de la chaîne récupérée :
+		Date laDateFormatee = null;
+		try {
+			laDateFormatee = new SimpleDateFormat("dd/MM/yyyy").parse(laDate);
+		} catch (ParseException e1) {
+			e1.printStackTrace();
+		}
+		// On récupère le timestamp de la date indiquée :
+		long timeStampLaDate = laDateFormatee.getTime();
+		// On récupère le timestamp actuel :
+		Date d = new Date();
+		long timeStampActuel = d.getTime();
+		
+		// On fait la différence entre les 2 timeStamp
+		if(timeStampLaDate - timeStampActuel > 0){
+			return true; // date future
+		}else{
+			return false;
+		}
+	}
+	
+	// vérifie si la ville en paramètre correspond bien
+	// à une destination prévue par la compagnie.
+	public static boolean isVillePrevue(String ville){
+		// On récupère les villes proposées par la compagnie
+		String[] villesPrevues = null;
+		try {
+			villesPrevues = getVillesProposees();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		// On initialise 1 booléen à false :
+		boolean villePresente = false;
+		
+		// On vérifie si la ville sélectionnée est présente dans le tableau :
+		for(String v : villesPrevues){
+			if(v.equals(ville)){
+				villePresente = true;
+			}
+		}
+		return villePresente;
 	}
 
 }

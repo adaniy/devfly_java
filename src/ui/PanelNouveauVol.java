@@ -254,7 +254,7 @@ public class PanelNouveauVol extends JPanel {
 				// un tarif à zéro pour les événements particuliers).
 				String regexTarif = "^[0-9]+\\.[0-9]{2}$";
 				
-				if(!isVillePrevue(villeDepart) || !isVillePrevue(villeArrivee) ||
+				if(!util.Donnees.isVillePrevue(villeDepart) || !util.Donnees.isVillePrevue(villeArrivee) ||
 						villeDepart.equals(villeArrivee)){
 					// si l'une des villes n'est pas ok, ou que les villes de
 					// départ et d'arrivée sont similaires :
@@ -262,7 +262,7 @@ public class PanelNouveauVol extends JPanel {
 				}else if(!dateDepart.matches(regexDate)){
 					// si la date n'est pas au bon format :
 					getLabelMessage().setText("Vérifiez le format de la date svp !");
-				}else if(!futureDate(dateDepart)){
+				}else if(!util.Donnees.futureDate(dateDepart)){
 					// On ne passe ici que si la date a un format valide !
 					getLabelMessage().setText("La date ne peut être antérieure à demain !");
 				}else if(!heureDepart.matches(regexHeure)){
@@ -361,53 +361,6 @@ public class PanelNouveauVol extends JPanel {
 		gbc_panelValiderAnnuler.gridy = 10;
 		add(panelValiderAnnuler, gbc_panelValiderAnnuler);
 
-	}
-
-	// Prend en paramètre une date sous forme de chaîne de caractères jj/mm/aaaa
-	// Renvoie vrai si la date indiquée est dans le futur
-	public static boolean futureDate(String laDate){
-		// On crée une date à partir de la chaîne récupérée :
-		Date laDateFormatee = null;
-		try {
-			laDateFormatee = new SimpleDateFormat("dd/MM/yyyy").parse(laDate);
-		} catch (ParseException e1) {
-			e1.printStackTrace();
-		}
-		// On récupère le timestamp de la date indiquée :
-		long timeStampLaDate = laDateFormatee.getTime();
-		// On récupère le timestamp actuel :
-		Date d = new Date();
-		long timeStampActuel = d.getTime();
-		
-		// On fait la différence entre les 2 timeStamp
-		if(timeStampLaDate - timeStampActuel > 0){
-			return true; // date future
-		}else{
-			return false;
-		}
-	}
-
-	// utilisée pour vérifier si les villes de départ et d'arrivée
-	// correspondent à celles prévues par la compagnie.
-	private boolean isVillePrevue(String ville){
-		// On récupère les villes proposées par la compagnie
-		String[] villesPrevues = null;
-		try {
-			villesPrevues = util.Donnees.getVillesProposees();
-		} catch (SQLException e) {
-			getLabelMessage().setText(e.getMessage());
-		}
-		
-		// On initialise 1 booléen à false :
-		boolean villePresente = false;
-		
-		// On vérifie si la ville sélectionnée est présente dans le tableau :
-		for(String v : villesPrevues){
-			if(v.equals(ville)){
-				villePresente = true;
-			}
-		}
-		return villePresente;
 	}
 
 }

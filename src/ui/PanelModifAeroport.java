@@ -177,7 +177,7 @@ public class PanelModifAeroport extends JPanel {
 								// si la ville existe déjà, je regarde si elle correspond à l'aéroport en cours de modification
 								// (dans ce cas, on ne bloque pas la modif ! On peut très bien modifier le pays pour cette ville)
 								// Je passe la première lettre de la ville en majuscule pour coller à la syntaxe en base
-								String villeBonFormat = PanelNouvelAeroport.UpperFirstLetter(ville);
+								String villeBonFormat = util.MiseEnForme.UpperFirstLetter(ville);
 								Aeroport aeroportVilleEnCours = dao.getAeroportByVille(villeBonFormat);
 								// on regarde si le code de l'aéroport en cours de modif correspond au code aéroport de la ville en cours
 								
@@ -200,8 +200,8 @@ public class PanelModifAeroport extends JPanel {
 									&& pays.matches(regexLettresAccentsTirets)){
 								// On met la première lettre de la ville et du pays en majuscule
 								// (uniformisé + permet que le tri des villes par ordre alphabétique soit correct dans le formulaire de création d'un vol)
-								String villeBonFormat = PanelNouvelAeroport.UpperFirstLetter(ville);
-								String paysBonFormat = PanelNouvelAeroport.UpperFirstLetter(pays);
+								String villeBonFormat = util.MiseEnForme.UpperFirstLetter(ville);
+								String paysBonFormat = util.MiseEnForme.UpperFirstLetter(pays);
 								
 								// On crée un objet Aeroport, et on appelle la méthode du dao pour la mise à jour
 								Aeroport a = new Aeroport(codeAita, villeBonFormat, paysBonFormat);

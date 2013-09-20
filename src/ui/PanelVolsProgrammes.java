@@ -148,7 +148,7 @@ public class PanelVolsProgrammes extends JPanel {
 					// (cf le visiteur pourrait cliquer directement sur "mise à jour" sans choisir un vol
 					// ce qui provoquerait une erreur : on essaierait de parser une chaine vide en date)
 					if(!dateDepart.isEmpty()){
-						if(!PanelNouveauVol.futureDate(dateDepart)){
+						if(!util.Donnees.futureDate(dateDepart)){
 							panelModifVolProgramme.getLblMessage().setText("Vous ne pouvez pas modifier le tarif des "
 									+ "vols en partance ce jour ou dans le passé !");
 							miseAJour = false;

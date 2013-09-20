@@ -6,10 +6,6 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 import javax.swing.*;
 
-import java.sql.SQLException;
-import java.util.Arrays;
-import dao.MysqlDao;
-
 public class Aeroport {
 	private String codeAeroport; // code AITA
 	private String ville;

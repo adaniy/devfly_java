@@ -145,7 +145,7 @@ public class PanelVolsEnAttente extends JPanel {
 						miseAJour = false;
 					}
 					// On vérifie que la date est au bon format ET dans le futur
-					if(!dateDepart.matches(regexDate) || !PanelNouveauVol.futureDate(dateDepart)){
+					if(!dateDepart.matches(regexDate) || !util.Donnees.futureDate(dateDepart)){
 						// (on ne vérifie que la date est dans le futur que si elle a un format valide)
 						panelModifVolEnAttente.getLblMessage().setText("<html><p>Vérifiez le format de la date svp.<br>"
 								+ "Attention, la date ne peut pas être antérieure à demain !</p></html>");

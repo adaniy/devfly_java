@@ -183,8 +183,8 @@ public class PanelNouvelAeroport extends JPanel {
 							
 							// On met la première lettre de la ville et du pays en majuscule
 							// (uniformisé + permet que le tri des villes par ordre alphabétique soit correct dans le formulaire de création d'un vol)
-							String villeBonFormat = UpperFirstLetter(ville);
-							String paysBonFormat = UpperFirstLetter(pays);
+							String villeBonFormat = util.MiseEnForme.UpperFirstLetter(ville);
+							String paysBonFormat = util.MiseEnForme.UpperFirstLetter(pays);
 							
 							// On crée un objet Aeroport avec ces données
 							Aeroport nouvelAeroport = new Aeroport(codeAita, villeBonFormat, paysBonFormat);
@@ -262,12 +262,5 @@ public class PanelNouvelAeroport extends JPanel {
 		gbc_panelValiderAnnuler.gridy = 8;
 		add(panelValiderAnnuler, gbc_panelValiderAnnuler);
 
-	}
-
-	// passe la première lettre de la chaîne en majuscules (pour la ville et le pays d'un nouvel aéroport)
-	public static String UpperFirstLetter(String chaine){
-		char[] charTable = chaine.toCharArray(); // on récupère un tableau de caractères
-		charTable[0] = Character.toUpperCase(charTable[0]); // on passe le premier en majuscule
-		return new String(charTable); // on construit 1 String à partir du tableau
 	}
 }
