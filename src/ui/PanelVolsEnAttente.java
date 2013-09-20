@@ -88,7 +88,7 @@ public class PanelVolsEnAttente extends JPanel {
 		add(labelMessage, BorderLayout.NORTH);
 		
 		// On dimensionne les colonnes :
-		Vol.columnSizeVols(tableVolsEnAttente);
+		util.MiseEnForme.columnSizeVols(tableVolsEnAttente);
 		
 		panelModifVolEnAttente = new PanelModifVol();
 		panelModifVolEnAttente.getBtnMettreAJour().addActionListener(new ActionListener() {

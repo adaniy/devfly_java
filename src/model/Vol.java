@@ -4,8 +4,6 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
-import javax.swing.DefaultComboBoxModel;
-import javax.swing.JComboBox;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
@@ -166,27 +164,6 @@ public class Vol {
 		return myModel;
 	}
 
-	// dimensionne les colonnes à la bonne taille pour présenter les vols
-	public static void columnSizeVols(JTable maTable){
-		maTable.getColumnModel().getColumn(0).setPreferredWidth(60);
-		maTable.getColumnModel().getColumn(1).setPreferredWidth(80);
-		maTable.getColumnModel().getColumn(2).setPreferredWidth(75);
-		maTable.getColumnModel().getColumn(3).setPreferredWidth(70);
-		maTable.getColumnModel().getColumn(4).setPreferredWidth(80);
-		maTable.getColumnModel().getColumn(5).setPreferredWidth(75);
-		maTable.getColumnModel().getColumn(6).setPreferredWidth(70);
-		maTable.getColumnModel().getColumn(7).setPreferredWidth(130);
-		maTable.getColumnModel().getColumn(8).setPreferredWidth(130);
-		maTable.getColumnModel().getColumn(9).setPreferredWidth(85);
-		maTable.getColumnModel().getColumn(10).setPreferredWidth(60);
-		maTable.getColumnModel().getColumn(11).setPreferredWidth(90);
-		maTable.getColumnModel().getColumn(12).setPreferredWidth(90);
-		maTable.getColumnModel().getColumn(13).setPreferredWidth(90);
-		maTable.getColumnModel().getColumn(14).setPreferredWidth(90);
-		maTable.getColumnModel().getColumn(15).setPreferredWidth(90);
-		maTable.getColumnModel().getColumn(16).setPreferredWidth(60);
-	}
-
 	// prend en paramètre une liste de vols et une JTable
 	// crée le model avec les bonnes données et le donne à la JTable
 	public static void TableCreation(List<Vol> listeVols, JTable maJTable){
@@ -200,16 +177,5 @@ public class Vol {
 				
 		// On donne le model à la table :
 		maJTable.setModel(model);
-	}
-	
-	// prend en paramètres un tableau de String (villes, codes employés...) et une JComboBox
-	// insère les villes / codes employés(...) dans la comboBox
-	public static void comboBoxCreation(String[]donnees, JComboBox<String> maComboBox){
-		// on donne le tableau de données au model :
-		DefaultComboBoxModel<String>model = new DefaultComboBoxModel<>(donnees);
-		// on ajoute le model à la combobox :
-		maComboBox.setModel(model);
-		// on pourra faire défiler les données avec la molette de la souris :
-		maComboBox.setMaximumRowCount(6); // 6 données visibles à chaque fois
 	}
 }

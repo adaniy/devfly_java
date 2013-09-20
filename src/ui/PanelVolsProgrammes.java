@@ -82,7 +82,7 @@ public class PanelVolsProgrammes extends JPanel {
 		add(labelMessage, BorderLayout.NORTH);
 		
 		// On dimensionne les colonnes :
-		Vol.columnSizeVols(tableVolsProgrammes);
+		util.MiseEnForme.columnSizeVols(tableVolsProgrammes);
 		
 		panelModifVolProgramme = new PanelModifVol();
 		panelModifVolProgramme.getBtnSupprimer().addActionListener(new ActionListener() {

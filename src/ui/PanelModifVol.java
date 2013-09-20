@@ -252,7 +252,7 @@ public class PanelModifVol extends JPanel {
 		
 		comboBoxVilleDeDepart = new JComboBox<>();
 		// pour créer la comboxBox avec les villes prévues par la compagnie :
-		Vol.comboBoxCreation(villes, comboBoxVilleDeDepart);
+		util.MiseEnForme.comboBoxCreation(villes, comboBoxVilleDeDepart);
 		comboBoxVilleDeDepart.addActionListener (new ActionListener () {
 			// lorsqu'une ville est sélectionnée dans la combobox, le code et le pays affichés changent en fonction
 			public void actionPerformed(ActionEvent e) {
@@ -407,7 +407,7 @@ public class PanelModifVol extends JPanel {
 
 		comboBoxVilleDarrivee = new JComboBox<>();
 		// pour créer la comboxBox avec les villes prévues par la compagnie :
-		Vol.comboBoxCreation(villes, comboBoxVilleDarrivee);
+		util.MiseEnForme.comboBoxCreation(villes, comboBoxVilleDarrivee);
 		comboBoxVilleDarrivee.addActionListener (new ActionListener () {
 			// lorsqu'une ville est sélectionnée dans la combobox, le code et le pays affichés changent en fonction
 			public void actionPerformed(ActionEvent e) {
@@ -453,7 +453,7 @@ public class PanelModifVol extends JPanel {
 		listePilotes.add(0,"Choisissez un employé"); // on rajoute cette mention en première position dans la liste
 		// on transforme la liste en tableau de String
 		String[]pilotes = listToString(listePilotes);
-		Vol.comboBoxCreation(pilotes, comboBoxPilote);
+		util.MiseEnForme.comboBoxCreation(pilotes, comboBoxPilote);
 		GridBagConstraints gbc_comboBoxPilote = new GridBagConstraints();
 		gbc_comboBoxPilote.insets = new Insets(0, 0, 5, 5);
 		gbc_comboBoxPilote.fill = GridBagConstraints.HORIZONTAL;
@@ -493,7 +493,7 @@ public class PanelModifVol extends JPanel {
 		listeCopilotes.add(0,"Choisissez un employé"); // on rajoute cette mention en première position dans la liste
 		// on transforme la liste en tableau de String
 		String[]copilotes = listToString(listeCopilotes);
-		Vol.comboBoxCreation(copilotes, comboBoxCopilote);
+		util.MiseEnForme.comboBoxCreation(copilotes, comboBoxCopilote);
 		GridBagConstraints gbc_comboBoxCopilote = new GridBagConstraints();
 		gbc_comboBoxCopilote.insets = new Insets(0, 0, 5, 5);
 		gbc_comboBoxCopilote.fill = GridBagConstraints.HORIZONTAL;
@@ -533,7 +533,7 @@ public class PanelModifVol extends JPanel {
 		listeHotessesSt.add(0,"Choisissez un employé"); // on rajoute cette mention en première position dans la liste
 		// on transforme la liste en tableau de String
 		String[]hotessesSt = listToString(listeHotessesSt);
-		Vol.comboBoxCreation(hotessesSt, comboBoxHotesseSt1);
+		util.MiseEnForme.comboBoxCreation(hotessesSt, comboBoxHotesseSt1);
 		GridBagConstraints gbc_comboBoxHotesseSt1 = new GridBagConstraints();
 		gbc_comboBoxHotesseSt1.insets = new Insets(0, 0, 5, 5);
 		gbc_comboBoxHotesseSt1.fill = GridBagConstraints.HORIZONTAL;
@@ -577,7 +577,7 @@ public class PanelModifVol extends JPanel {
 
 		comboBoxHotesseSt2 = new JComboBox<>();
 		// On utilise les mêmes données que pour la comboBoxHotesseSt1
-		Vol.comboBoxCreation(hotessesSt, comboBoxHotesseSt2);
+		util.MiseEnForme.comboBoxCreation(hotessesSt, comboBoxHotesseSt2);
 		GridBagConstraints gbc_comboBoxHotesseSt2 = new GridBagConstraints();
 		gbc_comboBoxHotesseSt2.insets = new Insets(0, 0, 5, 5);
 		gbc_comboBoxHotesseSt2.fill = GridBagConstraints.HORIZONTAL;
@@ -621,7 +621,7 @@ public class PanelModifVol extends JPanel {
 
 		comboBoxHotesseSt3 = new JComboBox<>();
 		// On utilise les mêmes données que pour la comboBoxHotesseSt1
-		Vol.comboBoxCreation(hotessesSt, comboBoxHotesseSt3);
+		util.MiseEnForme.comboBoxCreation(hotessesSt, comboBoxHotesseSt3);
 		GridBagConstraints gbc_comboBoxHotesseSt3 = new GridBagConstraints();
 		gbc_comboBoxHotesseSt3.insets = new Insets(0, 0, 5, 5);
 		gbc_comboBoxHotesseSt3.fill = GridBagConstraints.HORIZONTAL;
@@ -824,15 +824,15 @@ public class PanelModifVol extends JPanel {
 		catch(SQLException e) {
 			getLblMessage().setText(e.getMessage());
 		}
-		Vol.comboBoxCreation(villes, comboBoxVilleDeDepart);
-		Vol.comboBoxCreation(villes, comboBoxVilleDarrivee);
+		util.MiseEnForme.comboBoxCreation(villes, comboBoxVilleDeDepart);
+		util.MiseEnForme.comboBoxCreation(villes, comboBoxVilleDarrivee);
 		
 		// On crée le model avec les bonnes données et on le donne à la JTable
 		// On utilise pour cela la méthode statique définie dans Vol
 		Vol.TableCreation(listeVols, maJTable);
 		
 		// On redimensionne les colonnes du tableau à la bonne taille
-		Vol.columnSizeVols(maJTable);
+		util.MiseEnForme.columnSizeVols(maJTable);
 	}
 	
 	// transforme une liste en chaîne de caractères (utilisé pour la liste des numéros d'employés)

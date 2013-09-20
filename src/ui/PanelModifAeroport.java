@@ -18,7 +18,6 @@ import javax.swing.SwingUtilities;
 
 import dao.MysqlDao;
 import model.Aeroport;
-import model.Vol;
 
 import java.awt.Color;
 import java.awt.Font;
@@ -336,7 +335,7 @@ public class PanelModifAeroport extends JPanel {
 		// On insère les villes dans les comboBox
 		JComboBox<String> comboBoxDepart = frame.getPanelNouveauVol().getComboBoxVilleDeDepart();
 		JComboBox<String> comboBoxArrivee = frame.getPanelNouveauVol().getComboBoxVilleDarrivee();
-		Vol.comboBoxCreation(villes, comboBoxDepart);
-		Vol.comboBoxCreation(villes, comboBoxArrivee);
+		util.MiseEnForme.comboBoxCreation(villes, comboBoxDepart);
+		util.MiseEnForme.comboBoxCreation(villes, comboBoxArrivee);
 	}
 }

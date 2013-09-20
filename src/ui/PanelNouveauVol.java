@@ -120,7 +120,7 @@ public class PanelNouveauVol extends JPanel {
 		String[]villes = util.Donnees.getVillesProposees();
 		
 		// On insère les villes dans la comboBox
-		Vol.comboBoxCreation(villes, comboBoxVilleDeDepart);
+		util.MiseEnForme.comboBoxCreation(villes, comboBoxVilleDeDepart);
 		
 		JLabel lblVilleDarrivee = new JLabel("Ville d'arrivée");
 		GridBagConstraints gbc_lblVilleDarrivee = new GridBagConstraints();
@@ -141,7 +141,7 @@ public class PanelNouveauVol extends JPanel {
 		
 		// Les données dans la combobox proviennent également des données en base
 		// On insère les villes dans la comboBox
-		Vol.comboBoxCreation(villes, comboBoxVilleDarrivee);
+		util.MiseEnForme.comboBoxCreation(villes, comboBoxVilleDarrivee);
 		
 		JLabel lblDateDeDepart = new JLabel("Date de départ (jj/mm/aaaa)");
 		GridBagConstraints gbc_lblDateDeDepart = new GridBagConstraints();
@@ -348,7 +348,7 @@ public class PanelNouveauVol extends JPanel {
 						Vol.TableCreation(volsEnAttente, table);
 						
 						// On dimensionne les colonnes :
-						Vol.columnSizeVols(table);
+						util.MiseEnForme.columnSizeVols(table);
 					} catch (SQLException e1) {
 						getLabelMessage().setText(e1.getMessage());
 					}

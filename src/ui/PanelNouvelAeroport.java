@@ -15,7 +15,6 @@ import java.awt.Insets;
 import javax.swing.JTextField;
 
 import model.Aeroport;
-import model.Vol;
 import dao.MysqlDao;
 
 import java.awt.Font;
@@ -224,12 +223,12 @@ public class PanelNouvelAeroport extends JPanel {
 									JComboBox<String> comboBoxModificationDepart2 = frame.getPanelVolsProgrammes().getPanelModifVolProgramme().getJComboBoxVilleDeDepart();
 									JComboBox<String> comboBoxModificationArrivee2 = frame.getPanelVolsProgrammes().getPanelModifVolProgramme().getJComboBoxVilleDarrivee();
 									
-									Vol.comboBoxCreation(villes, comboBoxCreationDepart);
-									Vol.comboBoxCreation(villes, comboBoxCreationArrivee);
-									Vol.comboBoxCreation(villes, comboBoxModificationDepart1);
-									Vol.comboBoxCreation(villes, comboBoxModificationArrivee1);
-									Vol.comboBoxCreation(villes, comboBoxModificationDepart2);
-									Vol.comboBoxCreation(villes, comboBoxModificationArrivee2);
+									util.MiseEnForme.comboBoxCreation(villes, comboBoxCreationDepart);
+									util.MiseEnForme.comboBoxCreation(villes, comboBoxCreationArrivee);
+									util.MiseEnForme.comboBoxCreation(villes, comboBoxModificationDepart1);
+									util.MiseEnForme.comboBoxCreation(villes, comboBoxModificationArrivee1);
+									util.MiseEnForme.comboBoxCreation(villes, comboBoxModificationDepart2);
+									util.MiseEnForme.comboBoxCreation(villes, comboBoxModificationArrivee2);
 									
 								}else{
 									getLabelMessage().setText("Le code aéroport " + codeAita + " existe déjà.");
