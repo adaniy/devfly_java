@@ -284,7 +284,7 @@ public class PanelModifAeroport extends JPanel {
 				try {
 					if(dao.deleteAeroport(codeAita)){ // si la suppression s'est bien passée
 						// On affiche un message :
-						lblMessage.setText("L'aéroport a bien été supprimé !");
+						lblMessage.setText("L'aéroport " + codeAita + " a bien été supprimé !");
 						
 						// On vide les champs texte et on rafraichit les données :
 						rafraichirDonnees();

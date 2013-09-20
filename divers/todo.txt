@@ -4,8 +4,7 @@
 -DSPP
 -avoir l'exécutable et modifier au préalable l'adresse de la BDD
 
--commentaires
--relire + tester l'appli
+-commentaires + relire
 
 Rqs à intégrer dans le rapport :
 - fuseau horaire du pays de départ et non de destination

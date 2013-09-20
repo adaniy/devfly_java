@@ -52,7 +52,7 @@ public class PanelBienvenue extends JPanel {
 		add(lblBienvenue, gbc_lblBienvenue);
 		
 		// Texte "cliquez..."
-		JLabel lblCliquez = new JLabel("~~ Cliquez n'importe où pour entrez ~~");
+		JLabel lblCliquez = new JLabel("~~ Cliquez n'importe où pour entrer ~~");
 		lblCliquez.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		GridBagConstraints gbc_lblCliquez = new GridBagConstraints();
 		gbc_lblCliquez.insets = new Insets(0, 0, 5, 5);
