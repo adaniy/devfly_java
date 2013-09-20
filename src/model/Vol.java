@@ -82,88 +82,44 @@ public class Vol {
 		return aeroportDepart;
 	}
 
-	public void setAeroportDepart(Aeroport aeroportDepart) {
-		this.aeroportDepart = aeroportDepart;
-	}
-
 	public Aeroport getAeroportArrivee() {
 		return aeroportArrivee;
-	}
-
-	public void setAeroportArrivee(Aeroport aeroportArrivee) {
-		this.aeroportArrivee = aeroportArrivee;
 	}
 
 	public Date getDateHeureDepart() {
 		return dateHeureDepart;
 	}
 
-	public void setDateHeureDepart(Date dateHeureDepart) {
-		this.dateHeureDepart = dateHeureDepart;
-	}
-
 	public Date getDateHeureArrivee() {
 		return dateHeureArrivee;
-	}
-
-	public void setDateHeureArrivee(Date dateHeureArrivee) {
-		this.dateHeureArrivee = dateHeureArrivee;
 	}
 
 	public int getDuree() {
 		return duree;
 	}
 
-	public void setDuree(int duree) {
-		this.duree = duree;
-	}
-
 	public float getTarif() {
 		return tarif;
-	}
-
-	public void setTarif(int tarif) {
-		this.tarif = tarif;
 	}
 
 	public String getCodePilote() {
 		return codePilote;
 	}
 
-	public void setCodePilote(String codePilote) {
-		this.codePilote = codePilote;
-	}
-
 	public String getCodeCopilote() {
 		return codeCopilote;
-	}
-
-	public void setCodeCopilote(String codeCopilote) {
-		this.codeCopilote = codeCopilote;
 	}
 
 	public String getCodeHotesseSt1() {
 		return codeHotesseSt1;
 	}
 
-	public void setCodeHotesseSt1(String codeHotesseSt1) {
-		this.codeHotesseSt1 = codeHotesseSt1;
-	}
-
 	public String getCodeHotesseSt2() {
 		return codeHotesseSt2;
 	}
 
-	public void setCodeHotesseSt2(String codeHotesseSt2) {
-		this.codeHotesseSt2 = codeHotesseSt2;
-	}
-
 	public String getCodeHotesseSt3() {
 		return codeHotesseSt3;
-	}
-
-	public void setCodeHotesseSt3(String codeHotesseSt3) {
-		this.codeHotesseSt3 = codeHotesseSt3;
 	}
 
 	// Retourne un model à donner à la table
@@ -171,7 +127,7 @@ public class Vol {
 	public static TableModel createTableModelVols(String[]enTete, List<Vol> listeVols) {
 		// le nombre de lignes sera égal aux nombres de vols dans la liste,
 		// le nombre de colonnes sera égal à la taille du tableau d'en-têtes
-		final Object[][] myValues = new Object[listeVols.size()][enTete.length];
+		Object[][] myValues = new Object[listeVols.size()][enTete.length];
 		// on parcourt les lignes :
 		for (int i = 0; i < listeVols.size(); i++) {
 			// on récupère chaque vol
@@ -201,15 +157,6 @@ public class Vol {
 		
 		@SuppressWarnings("serial")
 		DefaultTableModel myModel = new DefaultTableModel(myValues, enTete) {
-			// pour renseigner la JTable avec le type exact contenu dans la colonne
-			// pour avoir un tri cohérent
-			// Principe : on prend la première ligne, et on lui donne le type des éléments
-			// contenus dans chaque colonne.
-			@Override
-			public Class<?> getColumnClass(int arg0) {
-				return myValues[0][arg0].getClass();
-			}
-
 			// pour qu'on ne puisse pas éditer les cellules directement :
 			@Override
 			public boolean isCellEditable(int arg0, int arg1) {
@@ -264,15 +211,5 @@ public class Vol {
 		maComboBox.setModel(model);
 		// on pourra faire défiler les données avec la molette de la souris :
 		maComboBox.setMaximumRowCount(6); // 6 données visibles à chaque fois
-	}
-
-	// renvoie la durée du vol en min par rapport aux dates de départ et d'arrivée en paramètres
-	public static int getDureeVol(Date dateHeureDepart, Date dateHeureArrivee){
-		// on fait la différence entre les timestamps des 2 dates
-		long departMillisecondes = dateHeureDepart.getTime();
-		long arriveeMillisecondes = dateHeureArrivee.getTime();
-		long dureeMillisecondes = arriveeMillisecondes - departMillisecondes;
-		
-		return (int) (dureeMillisecondes / 60_000); // en minutes
 	}
 }

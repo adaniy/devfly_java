@@ -45,7 +45,7 @@ public class MysqlDao {
 			Date dateHeureArrivee = result1.getTimestamp("dateheurearrivee");
 			
 			// on calcule la durée du vol
-			int duree = Vol.getDureeVol(dateHeureDepart, dateHeureArrivee);
+			int duree = util.Donnees.getDureeVol(dateHeureDepart, dateHeureArrivee);
 			
 			float tarif = result1.getFloat("tarif");
 			String codePilote = result1.getString("pilote");
@@ -86,7 +86,7 @@ public class MysqlDao {
 			Date dateHeureArrivee = result1.getTimestamp("dateheurearrivee");
 			
 			// on calcule la durée du vol
-			int duree = Vol.getDureeVol(dateHeureDepart, dateHeureArrivee);
+			int duree = util.Donnees.getDureeVol(dateHeureDepart, dateHeureArrivee);
 			
 			float tarif = result1.getFloat("tarif");
 			
@@ -400,7 +400,7 @@ public class MysqlDao {
 		Date dateHeureDepart = result.getTimestamp("dateheuredep");
 		Date dateHeureArrivee = result.getTimestamp("dateheurearrivee");
 		// on calcule la durée du vol
-		int duree = Vol.getDureeVol(dateHeureDepart, dateHeureArrivee);
+		int duree = util.Donnees.getDureeVol(dateHeureDepart, dateHeureArrivee);
 		float tarif = result.getFloat("tarif");
 		String codePilote = result.getString("pilote");
 		String codeCopilote = result.getString("copilote");
@@ -436,7 +436,7 @@ public class MysqlDao {
 		Date dateHeureDepart = result.getTimestamp("dateheuredep");
 		Date dateHeureArrivee = result.getTimestamp("dateheurearrivee");
 		// on calcule la durée du vol
-		int duree = Vol.getDureeVol(dateHeureDepart, dateHeureArrivee);
+		int duree = util.Donnees.getDureeVol(dateHeureDepart, dateHeureArrivee);
 		float tarif = result.getFloat("tarif");
 		String codePilote = result.getString("pilote");
 		String codeCopilote = result.getString("copilote");
@@ -648,10 +648,9 @@ public class MysqlDao {
 		return true;
 	}
 	
-	// passe un vol de "vol en attente" (vol_tmp) à "vol programmé" (vol)
-	// La méthode ci-dessous insère un vol programmé en base
-	// TODO
-	// Un trigger fait en sorte de supprimer le vol en attente correspondant
+	// pour passer un vol de "vol en attente" (vol_tmp) à "vol programmé" (vol) :
+	// la méthode ci-dessous insère simplement un vol programmé en base,
+	// et un trigger fait en sorte de supprimer le vol en attente correspondant
 	public boolean confirmVol(Vol v) throws SQLException{
 		// on se connecte à la BDD
 		Connection connection = DriverManager.getConnection(datasource, user, password);

@@ -244,7 +244,7 @@ public class PanelModifVol extends JPanel {
 		// On récupère les villes proposées par la compagnie
 		String[] villes = null;
 		try {
-			 villes = Aeroport.getVillesProposees();
+			 villes = util.Donnees.getVillesProposees();
 		}
 		catch(SQLException e) {
 			getLblMessage().setText(e.getMessage());
@@ -452,7 +452,7 @@ public class PanelModifVol extends JPanel {
 		List<String> listePilotes = dao.getPilotes();
 		listePilotes.add(0,"Choisissez un employé"); // on rajoute cette mention en première position dans la liste
 		// on transforme la liste en tableau de String
-		String[]pilotes = getTableauEmployes(listePilotes);
+		String[]pilotes = listToString(listePilotes);
 		Vol.comboBoxCreation(pilotes, comboBoxPilote);
 		GridBagConstraints gbc_comboBoxPilote = new GridBagConstraints();
 		gbc_comboBoxPilote.insets = new Insets(0, 0, 5, 5);
@@ -492,7 +492,7 @@ public class PanelModifVol extends JPanel {
 		List<String> listeCopilotes = dao.getCopilotes();
 		listeCopilotes.add(0,"Choisissez un employé"); // on rajoute cette mention en première position dans la liste
 		// on transforme la liste en tableau de String
-		String[]copilotes = getTableauEmployes(listeCopilotes);
+		String[]copilotes = listToString(listeCopilotes);
 		Vol.comboBoxCreation(copilotes, comboBoxCopilote);
 		GridBagConstraints gbc_comboBoxCopilote = new GridBagConstraints();
 		gbc_comboBoxCopilote.insets = new Insets(0, 0, 5, 5);
@@ -532,7 +532,7 @@ public class PanelModifVol extends JPanel {
 		List<String> listeHotessesSt = dao.getHotessesSt();
 		listeHotessesSt.add(0,"Choisissez un employé"); // on rajoute cette mention en première position dans la liste
 		// on transforme la liste en tableau de String
-		String[]hotessesSt = getTableauEmployes(listeHotessesSt);
+		String[]hotessesSt = listToString(listeHotessesSt);
 		Vol.comboBoxCreation(hotessesSt, comboBoxHotesseSt1);
 		GridBagConstraints gbc_comboBoxHotesseSt1 = new GridBagConstraints();
 		gbc_comboBoxHotesseSt1.insets = new Insets(0, 0, 5, 5);
@@ -660,7 +660,7 @@ public class PanelModifVol extends JPanel {
 
 	// au clic, remplit le formulaire avec les données du tableau
 	// prend en paramètre le panel de type PanelModifVol, le pointeur, et la JTable
-	public static void fillInForm(PanelModifVol panelModifVol, Point p, JTable tableVols){
+	public void fillInForm(PanelModifVol panelModifVol, Point p, JTable tableVols){
 		// on récupère l'endroit où a eu lieu l'événement (= le clic)
 		int row = tableVols.rowAtPoint(p); // renvoie la ligne sous le pointeur
 		// On convertit les row du tableau en row du modèle pour maintenir la cohérence 
@@ -734,7 +734,7 @@ public class PanelModifVol extends JPanel {
 	// au clic, réinitialise les champs du formulaire de modification d'un vol
 	// prend en paramètre le panel de type PanelModifVol dont on doit réinitialiser les champs,
 	// et un objet Vol dont on obtient les données à remettre dans le formulaire
-	public static void formReset(PanelModifVol panelModifVol, Vol v){
+	public void formReset(PanelModifVol panelModifVol, Vol v){
 		// pour la comboBox ville de départ :
 		panelModifVol.getJComboBoxVilleDeDepart().setSelectedItem(v.getAeroportDepart().getVille());
 		panelModifVol.getTextFieldPaysDeDepart().setText(v.getAeroportDepart().getPays());
@@ -819,7 +819,7 @@ public class PanelModifVol extends JPanel {
 		// On récupère les villes proposées par la compagnie pour les comboboxes
 		String[] villes = null;
 		try {
-			 villes = Aeroport.getVillesProposees();
+			 villes = util.Donnees.getVillesProposees();
 		}
 		catch(SQLException e) {
 			getLblMessage().setText(e.getMessage());
@@ -835,17 +835,16 @@ public class PanelModifVol extends JPanel {
 		Vol.columnSizeVols(maJTable);
 	}
 	
-	// transforme une liste de numéros d'employés de la compagnie
-	// en un tableau de chaînes de caractères
-	private static String[] getTableauEmployes(List<String> listeEmployes) throws SQLException{
+	// transforme une liste en chaîne de caractères (utilisé pour la liste des numéros d'employés)
+	private String[] listToString(List<String> liste) throws SQLException{
 		// On initialise un tableau de chaînes de caractères de la taille
 		// de la liste, on y placera les code employés.
-		String[]tableau = new String[listeEmployes.size()];
+		String[]tableau = new String[liste.size()];
 		
 		// On parcourt la liste :
-		for(int i = 0 ; i < listeEmployes.size(); i++){
+		for(int i = 0 ; i < liste.size(); i++){
 			// On place les codes employés dans le tableau au fur et à mesure
-			tableau[i] = listeEmployes.get(i);
+			tableau[i] = liste.get(i);
 		}
 		
 		return tableau;

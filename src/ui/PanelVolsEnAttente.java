@@ -59,7 +59,7 @@ public class PanelVolsEnAttente extends JPanel {
 				// on récupère l'endroit où a eu lieu l'événement (= le clic)
 				Point p = arg0.getPoint();
 				// on remplit le formulaire avec les données du tableau
-				PanelModifVol.fillInForm(panelModifVolEnAttente, p, tableVolsEnAttente);
+				panelModifVolEnAttente.fillInForm(panelModifVolEnAttente, p, tableVolsEnAttente);
 				// on supprime le message éventuellement saisi
 				panelModifVolEnAttente.getLblMessage().setText("");
 			}
@@ -180,11 +180,11 @@ public class PanelVolsEnAttente extends JPanel {
 					if(miseAJour){ // si rien n'a bloqué la mise à jour, on peut la faire !
 						// avant de faire la mise à jour, on remplace les éventuels codes employés qui
 						// ont pour valeur "Choisissez un employé" par une chaîne vide
-						String pilote = employeNonSelectionne(codePilote);
-						String copilote = employeNonSelectionne(codeCopilote);
-						String hotesseSt1 = employeNonSelectionne(codeHotesseSt1);
-						String hotesseSt2 = employeNonSelectionne(codeHotesseSt2);
-						String hotesseSt3 = employeNonSelectionne(codeHotesseSt3);
+						String pilote = formatEmployeNonSelectionne(codePilote);
+						String copilote = formatEmployeNonSelectionne(codeCopilote);
+						String hotesseSt1 = formatEmployeNonSelectionne(codeHotesseSt1);
+						String hotesseSt2 = formatEmployeNonSelectionne(codeHotesseSt2);
+						String hotesseSt3 = formatEmployeNonSelectionne(codeHotesseSt3);
 						
 						// on récupère les objets Aeroport
 						Aeroport aeroportDepart = null;
@@ -229,35 +229,36 @@ public class PanelVolsEnAttente extends JPanel {
 						// on crée un objet Vol avec toutes les données récupérées
 						Vol vol = new Vol(id, aeroportDepart, aeroportArrivee, dateDeDepart, dateDArrivee, dureeInt, tarifFloat, pilote, copilote, hotesseSt1, hotesseSt2, hotesseSt3);
 						
-						// Si tous les employés sont renseignés, on passe le vol de "vol en attente" à
-						// "vol programmé"
-						if(!pilote.isEmpty() && !copilote.isEmpty() && !hotesseSt1.isEmpty() &&
-								!hotesseSt2.isEmpty() && !hotesseSt3.isEmpty()){
-							// TODO trigger pour supprimer le vol_tmp
-							try {
-								if(dao.confirmVol(vol)){ // renvoie vrai si ça s'est bien passé
-									panelModifVolEnAttente.getLblMessage().setText("Le vol a bien été validé !");
-								}else{
-									panelModifVolEnAttente.getLblMessage().setText("Il y a eu un problème lors de la validation du vol !");
+						// on modifie le vol "en attente"
+						try {
+							if(dao.updateVolEnAttente(vol)){ // renvoie vrai si la mise à jour s'est bien passée
+								panelModifVolEnAttente.getLblMessage().setText("Le vol " + id + " a bien été mis à jour !");
+							
+								// Si tous les employés sont renseignés, on passe le vol de "vol en attente" à
+								// "vol programmé". Les données du vol "en attente" fraichement modifié sont
+								// utilisées par un TRIGGER qui va l'identifier comme étant le vol "temporaire" à
+								// supprimer lors de l'ajout en base du vol "programmé" correspondant.
+								if(!pilote.isEmpty() && !copilote.isEmpty() && !hotesseSt1.isEmpty() &&
+										!hotesseSt2.isEmpty() && !hotesseSt3.isEmpty()){
+									try {
+										if(dao.confirmVol(vol)){ // renvoie vrai si ça s'est bien passé
+											panelModifVolEnAttente.getLblMessage().setText("Le vol a bien été validé !");
+										}else{
+											panelModifVolEnAttente.getLblMessage().setText("Il y a eu un problème lors de la validation du vol !");
+										}
+									} catch (SQLException e) {
+										panelModifVolEnAttente.getLblMessage().setText(e.getMessage());
+									}
 								}
-							} catch (SQLException e) {
-								panelModifVolEnAttente.getLblMessage().setText(e.getMessage());
+							}else{
+								panelModifVolEnAttente.getLblMessage().setText("Il y a eu un problème lors de la mise à jour !");
 							}
-						}else{
-							// sinon, on modifie simplement le vol "en attente"
-							try {
-								if(dao.updateVolEnAttente(vol)){ // renvoie vrai si la mise à jour s'est bien passée
-									panelModifVolEnAttente.getLblMessage().setText("Le vol " + id + " a bien été mis à jour !");
-								}else{
-									panelModifVolEnAttente.getLblMessage().setText("Il y a eu un problème lors de la mise à jour !");
-								}
-								
-							} catch (SQLException e) {
-								panelModifVolEnAttente.getLblMessage().setText(e.getMessage());
-							}
+							
+						} catch (SQLException e) {
+							panelModifVolEnAttente.getLblMessage().setText(e.getMessage());
 						}
-						// Dans tous les cas (vol mis à jour ou vol validé),
-						// on vide les champs du formulaire et on rafraichit les données.
+						
+						// On vide ensuite les champs du formulaire et on rafraichit les données.
 						// avec la méthode "rafraichirDonnees".
 						// On récupère les listes de vols à jour :
 						List<Vol> listeVolsEnAttente = null;
@@ -335,7 +336,7 @@ public class PanelVolsEnAttente extends JPanel {
 						// On efface l'éventuel message saisi :
 						panelModifVolEnAttente.getLblMessage().setText("");
 						// On réinitialise les champs du formulaire :
-						PanelModifVol.formReset(panelModifVolEnAttente, v);
+						panelModifVolEnAttente.formReset(panelModifVolEnAttente, v);
 						
 					} catch (SQLException e) {
 						panelModifVolEnAttente.getLblMessage().setText(e.getMessage());
@@ -347,7 +348,7 @@ public class PanelVolsEnAttente extends JPanel {
 	}
 	
 	// pour "transformer" un code employé de "Choisissez un employé" à "" le cas échéant
-	private String employeNonSelectionne(String codeEmploye){
+	private String formatEmployeNonSelectionne(String codeEmploye){
 		if(codeEmploye.equals("Choisissez un employé")){
 			return ""; // on retourne une chaîne vide
 		}

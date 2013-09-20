@@ -39,6 +39,34 @@ public class PanelNouveauVol extends JPanel {
 	private MysqlDao dao = new MysqlDao();
 
 
+	public JLabel getLabelMessage() {
+		return labelMessage;
+	}
+
+	public JTextField getTextFieldDateDeDepart() {
+		return textFieldDateDeDepart;
+	}
+
+	public JTextField getTextFieldHeureDeDepart() {
+		return textFieldHeureDeDepart;
+	}
+
+	public JTextField getTextFieldDureeDuVol() {
+		return textFieldDureeDuVol;
+	}
+
+	public JTextField getTextFieldTarif() {
+		return textFieldTarif;
+	}
+
+	public JComboBox<String> getComboBoxVilleDeDepart() {
+		return comboBoxVilleDeDepart;
+	}
+
+	public JComboBox<String> getComboBoxVilleDarrivee() {
+		return comboBoxVilleDarrivee;
+	}
+
 	public PanelNouveauVol() throws SQLException {
 		GridBagLayout gridBagLayout = new GridBagLayout();
 		// on joue sur les dimensions de la grille pour positionner les éléments :
@@ -89,7 +117,7 @@ public class PanelNouveauVol extends JPanel {
 		
 		// Les données dans la combobox vont provenir des données en base.
 		// On récupère les villes proposées par la compagnie
-		String[]villes = Aeroport.getVillesProposees();
+		String[]villes = util.Donnees.getVillesProposees();
 		
 		// On insère les villes dans la comboBox
 		Vol.comboBoxCreation(villes, comboBoxVilleDeDepart);
@@ -335,34 +363,6 @@ public class PanelNouveauVol extends JPanel {
 
 	}
 
-	public JLabel getLabelMessage() {
-		return labelMessage;
-	}
-
-	public JTextField getTextFieldDateDeDepart() {
-		return textFieldDateDeDepart;
-	}
-
-	public JTextField getTextFieldHeureDeDepart() {
-		return textFieldHeureDeDepart;
-	}
-
-	public JTextField getTextFieldDureeDuVol() {
-		return textFieldDureeDuVol;
-	}
-
-	public JTextField getTextFieldTarif() {
-		return textFieldTarif;
-	}
-
-	public JComboBox<String> getComboBoxVilleDeDepart() {
-		return comboBoxVilleDeDepart;
-	}
-
-	public JComboBox<String> getComboBoxVilleDarrivee() {
-		return comboBoxVilleDarrivee;
-	}
-
 	// Prend en paramètre une date sous forme de chaîne de caractères jj/mm/aaaa
 	// Renvoie vrai si la date indiquée est dans le futur
 	public static boolean futureDate(String laDate){
@@ -393,7 +393,7 @@ public class PanelNouveauVol extends JPanel {
 		// On récupère les villes proposées par la compagnie
 		String[] villesPrevues = null;
 		try {
-			villesPrevues = Aeroport.getVillesProposees();
+			villesPrevues = util.Donnees.getVillesProposees();
 		} catch (SQLException e) {
 			getLabelMessage().setText(e.getMessage());
 		}
