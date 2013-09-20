@@ -22,7 +22,7 @@ public class TestMysqlDao {
 	// Décommenter le mot @Test pour lancer le(s) test(s) correspondant(s)
 
 	//@Test
-	public void getAllAeroports() throws SQLException{
+	public void getAllAeroports() throws SQLException{ // doit retourner une liste des aéroports
 		MysqlDao dao = new MysqlDao();
 		List<Aeroport>aeroports = dao.getAllAeroports();
 		// on peut tester que le nombre d'aéroports retournés correspond bien
@@ -33,7 +33,7 @@ public class TestMysqlDao {
 	}
 
 	//@Test
-	public void addNewAeroport() throws SQLException{
+	public void addNewAeroport() throws SQLException{ // doit ajouter un aéroport en base
 		MysqlDao dao = new MysqlDao();
 		// à remodifier à chaque test :
 		Aeroport aeroportTest = new Aeroport("SXB", "Strasbourg", "France");
@@ -45,7 +45,7 @@ public class TestMysqlDao {
 	}
 
 	//@Test
-	public void getAllVolsProgrammes() throws SQLException{
+	public void getAllVolsProgrammes() throws SQLException{ // doit retourner une liste de vols "programmés"
 		MysqlDao dao = new MysqlDao();
 		List<Vol>vols = dao.getAllVolsProgrammes();
 		// on peut tester que le nombre de vols retournés correspond bien
@@ -56,7 +56,7 @@ public class TestMysqlDao {
 	}
 
 	//@Test
-	public void getAllVolsEnAttente() throws SQLException{
+	public void getAllVolsEnAttente() throws SQLException{ // doit retourner une liste de vols "en attente"
 		MysqlDao dao = new MysqlDao();
 		List<Vol>vols = dao.getAllVolsEnAttente();
 		// on peut tester que le nombre de vols retournés correspond bien
@@ -67,7 +67,7 @@ public class TestMysqlDao {
 	}
 
 	//@Test
-	public void addNewVol() throws SQLException{
+	public void addNewVol() throws SQLException{ // doit ajouter un nouveau vol en base (table vol_tmp)
 		MysqlDao dao = new MysqlDao();
 		
 		// On transforme les chaînes de caractères en dates selon le motif.

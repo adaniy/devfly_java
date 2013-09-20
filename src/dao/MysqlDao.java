@@ -264,8 +264,7 @@ public class MysqlDao {
 			if(nb > idMax){
 				idMax = nb;
 			}
-		};		
-		
+		};
 		// le prochain ID à insérer correspondra à l'idMax + 1
 		int prochainId = idMax + 1;
 		String prochainIdString = "TMP" + prochainId; // on ajoute le préfixe "TMP"
@@ -296,8 +295,7 @@ public class MysqlDao {
 			if(nb > idMax){
 				idMax = nb;
 			}
-		};		
-		
+		};
 		// le prochain ID à insérer correspondra à l'idMax + 1
 		int prochainId = idMax + 1;
 		String prochainIdString = "DF" + prochainId; // on ajoute le préfixe "DF"
@@ -482,7 +480,7 @@ public class MysqlDao {
 		// On valorise les paramètres
 		stmt.setString(1, v.getAeroportDepart().getVille());
 		stmt.setString(2, v.getAeroportArrivee().getVille());
-		// on transforme la date util en timestamp SQL. Pour cela, on utilise le timestamp des dates.
+		// on transforme la date util en timestamp SQL (on utilise getTime() pour récupérer le timestamp de la date util).
 		// (rq : avec une java.sql.Date, on ne récupèrerait pas les heures et minutes)
 		stmt.setTimestamp(3, new java.sql.Timestamp(v.getDateHeureDepart().getTime()));
 		stmt.setTimestamp(4, new java.sql.Timestamp(v.getDateHeureArrivee().getTime()));
@@ -534,7 +532,7 @@ public class MysqlDao {
 		return copilotes;
 	}
 	
-	// renvoie une liste des codes des hotesses et stewards de la compagnie
+	// renvoie une liste des codes des hôtesses et stewards de la compagnie
 	public List<String> getHotessesSt() throws SQLException{
 		List<String> hotessesSt = new ArrayList<>();
 		// on se connecte à la BDD
@@ -571,9 +569,9 @@ public class MysqlDao {
 		return false; 
 	}
 	
-	// supprime le vol "programmé" dont le code est passé en paramètre
-	// si il n'y a pas de réservation dessus
-	// renvoie vrai si la suppression s'est bien passée
+	// Supprime le vol "programmé" dont le code est passé en paramètre
+	// si il n'y a pas de réservation dessus.
+	// Renvoie vrai si la suppression s'est bien passée
 	public boolean deleteVolProgramme(String numVol) throws SQLException {
 		// on se connecte à la BDD
 		Connection connection = DriverManager.getConnection(datasource,user,password);
@@ -651,7 +649,8 @@ public class MysqlDao {
 	}
 	
 	// pour passer un vol de "vol en attente" (vol_tmp) à "vol programmé" (vol) :
-	// la méthode ci-dessous insère simplement un vol programmé en base,
+	// Insère en base le vol passé en paramètre (et ses employés)
+	// La méthode ci-dessous insère simplement un vol programmé en base,
 	// et un trigger fait en sorte de supprimer le vol en attente correspondant
 	public boolean confirmVol(Vol v) throws SQLException{
 		// on se connecte à la BDD
@@ -665,7 +664,7 @@ public class MysqlDao {
 		stmt.setString(1, idVol);
 		stmt.setString(2, v.getAeroportDepart().getVille());
 		stmt.setString(3, v.getAeroportArrivee().getVille());
-		// on transforme la date util en timestamp SQL. Pour cela, on utilise le timestamp des dates.
+		// on transforme la date util en timestamp SQL (on utilise getTime() pour récupérer le timestamp de la date util).
 		// (rq : avec une java.sql.Date, on ne récupèrerait pas les heures et minutes)
 		stmt.setTimestamp(4, new java.sql.Timestamp(v.getDateHeureDepart().getTime()));
 		stmt.setTimestamp(5, new java.sql.Timestamp(v.getDateHeureArrivee().getTime()));
@@ -678,7 +677,7 @@ public class MysqlDao {
 		boolean employe = addEmployeeToVolProgramme(idVol, v.getCodePilote(), v.getCodeCopilote(), v.getCodeHotesseSt1(), v.getCodeHotesseSt2(), v.getCodeHotesseSt3(), new java.sql.Date(v.getDateHeureDepart().getTime()));
 		if(!employe){
 			connection.close();
-			return false; // si ça s'est mal passé, on sort de la boucle
+			return false; // si ça s'est mal passé, on renvoie false
 		}
 		return true; // si tout s'est bien passé
 	}
