@@ -26,30 +26,30 @@ public class MysqlDao {
 		// on crée et exécute une requête préparée pour récupérer
 		// les informations sur le vol et ses employés
 		// (note : il n'y a pas de vols programmés sans employés affectés)
-		String sql1 = "SELECT V.numvol, V.lieudep, V.lieuarriv, V.dateheuredep,"
+		String sql = "SELECT V.numvol, V.lieudep, V.lieuarriv, V.dateheuredep,"
 				+ "V.dateheurearrivee, V.tarif, T.pilote, T.copilote,"
 				+ "T.hotesse_steward1, T.hotesse_steward2, T.hotesse_steward3 FROM vol V INNER JOIN travailler T ON V.numvol = T.vol";
-		PreparedStatement stmt1 = connection.prepareStatement(sql1);
-		ResultSet result1 = stmt1.executeQuery();
+		PreparedStatement stmt = connection.prepareStatement(sql);
+		ResultSet result = stmt.executeQuery();
 		// on parcourt le résultat
-		while (result1.next()) {
-			String id = result1.getString("numvol");
-			String villeDepart = result1.getString("lieudep");
-			String villeArrivee = result1.getString("lieuarriv");
+		while (result.next()) {
+			String id = result.getString("numvol");
+			String villeDepart = result.getString("lieudep");
+			String villeArrivee = result.getString("lieuarriv");
 			
 			// On récupère les dates sous forme de timestamp. On formatera à l'affichage.
-			Date dateHeureDepart = result1.getTimestamp("dateheuredep");
-			Date dateHeureArrivee = result1.getTimestamp("dateheurearrivee");
+			Date dateHeureDepart = result.getTimestamp("dateheuredep");
+			Date dateHeureArrivee = result.getTimestamp("dateheurearrivee");
 			
 			// on calcule la durée du vol
 			int duree = util.Donnees.getDureeVol(dateHeureDepart, dateHeureArrivee);
 			
-			float tarif = result1.getFloat("tarif");
-			String codePilote = result1.getString("pilote");
-			String codeCopilote = result1.getString("copilote");
-			String codeHotesseSt1 = result1.getString("hotesse_steward1");
-			String codeHotesseSt2 = result1.getString("hotesse_steward2");
-			String codeHotesseSt3 = result1.getString("hotesse_steward3");
+			float tarif = result.getFloat("tarif");
+			String codePilote = result.getString("pilote");
+			String codeCopilote = result.getString("copilote");
+			String codeHotesseSt1 = result.getString("hotesse_steward1");
+			String codeHotesseSt2 = result.getString("hotesse_steward2");
+			String codeHotesseSt3 = result.getString("hotesse_steward3");
 			
 			// on récupère les aéroports de départ et d'arrivée
 			Aeroport aeroportDepart = getAeroportByVille(villeDepart);
@@ -70,29 +70,29 @@ public class MysqlDao {
 		// on se connecte à la BDD
 		Connection connection = DriverManager.getConnection(datasource, user, password);
 		// on crée et exécute une requête préparée pour récupérer les informations sur le vol
-		String sql1 = "SELECT * FROM vol_tmp";
-		PreparedStatement stmt1 = connection.prepareStatement(sql1);
-		ResultSet result1 = stmt1.executeQuery();
+		String sql = "SELECT * FROM vol_tmp";
+		PreparedStatement stmt = connection.prepareStatement(sql);
+		ResultSet result = stmt.executeQuery();
 		// on parcourt le résultat
-		while (result1.next()) {
-			String id = result1.getString("numvol");
-			String villeDepart = result1.getString("lieudep");
-			String villeArrivee = result1.getString("lieuarriv");
+		while (result.next()) {
+			String id = result.getString("numvol");
+			String villeDepart = result.getString("lieudep");
+			String villeArrivee = result.getString("lieuarriv");
 			
 			// On récupère les dates sous forme de timestamp. On formatera à l'affichage.
-			Date dateHeureDepart = result1.getTimestamp("dateheuredep");
-			Date dateHeureArrivee = result1.getTimestamp("dateheurearrivee");
+			Date dateHeureDepart = result.getTimestamp("dateheuredep");
+			Date dateHeureArrivee = result.getTimestamp("dateheurearrivee");
 			
 			// on calcule la durée du vol
 			int duree = util.Donnees.getDureeVol(dateHeureDepart, dateHeureArrivee);
 			
-			float tarif = result1.getFloat("tarif");
+			float tarif = result.getFloat("tarif");
 			
-			String codePilote = result1.getString("pilote");
-			String codeCopilote = result1.getString("copilote");
-			String codeHotesseSt1 = result1.getString("hotesse_steward1");
-			String codeHotesseSt2 = result1.getString("hotesse_steward2");
-			String codeHotesseSt3 = result1.getString("hotesse_steward3");
+			String codePilote = result.getString("pilote");
+			String codeCopilote = result.getString("copilote");
+			String codeHotesseSt1 = result.getString("hotesse_steward1");
+			String codeHotesseSt2 = result.getString("hotesse_steward2");
+			String codeHotesseSt3 = result.getString("hotesse_steward3");
 			
 			// on récupère les aéroports de départ et d'arrivée
 			Aeroport aeroportDepart = getAeroportByVille(villeDepart);
