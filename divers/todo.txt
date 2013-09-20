@@ -1,4 +1,3 @@
--TODO dans testMySql
 -BDD : prévenir changements + changer sur le serveur (vérifier trigger OK)
 
 -CAHIER DES CHARGES (rappel : tarif à zéro autorisé + date du vol à partir du lendemain + contraintes sur les modifs d'aéroports / vols)

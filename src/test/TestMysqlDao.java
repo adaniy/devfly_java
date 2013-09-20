@@ -76,8 +76,8 @@ public class TestMysqlDao {
 		Date dateArrivee = null;
 		
 		try {
-			dateDepart = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse("2014-03-24 02:20:00");
-			dateArrivee = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse("2014-03-24 18:34:00");
+			dateDepart = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse("2014-02-24 02:20:00");
+			dateArrivee = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse("2014-02-24 18:34:00");
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
@@ -120,8 +120,8 @@ public class TestMysqlDao {
 		Date dateArrivee = null;
 		
 		try {
-			dateDepart = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse("2014-03-24 02:20:00");
-			dateArrivee = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse("2014-03-24 04:30:00");
+			dateDepart = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse("2014-02-24 02:20:00");
+			dateArrivee = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse("2014-02-24 04:30:00");
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
@@ -237,19 +237,18 @@ public class TestMysqlDao {
 		Assert.assertFalse(result2); // non supprimable
 	}
 	
-	@Test
+	//@Test
 	public void updateVolEnAttente() throws Exception{
 		MysqlDao dao = new MysqlDao();
 		// (On peut le modifier avant de relancer un test) :
-		// TODO : vérifier pour 1 ou 2h
-		Date dateDepart = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse("2014-03-30 02:00:00");
-		Date dateArrivee = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse("2014-03-30 15:15:00");
+		Date dateDepart = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse("2014-04-25 04:00:00");
+		Date dateArrivee = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse("2014-04-25 17:15:00");
 		
 		Aeroport aeroportDepart = dao.getAeroportByVille("Casablanca");
 		Aeroport aeroportArrivee = dao.getAeroportByVille("Honolulu");
 		// à réajuster à chaque test :
-		Vol volTest1 = new Vol("TMP1", aeroportDepart, aeroportArrivee, dateDepart, dateArrivee, 720, 1000, "P0001", "C0006", "H0002", "", "");
-		Vol volTest2 = new Vol("TMP42", aeroportDepart, aeroportArrivee, dateDepart, dateArrivee, 720, 1000, "P0001", "C0006", "H0002", "", "");
+		Vol volTest1 = new Vol("TMP1", aeroportDepart, aeroportArrivee, dateDepart, dateArrivee, 795, 1000, "P0001", "C0006", "H0002", "", "");
+		Vol volTest2 = new Vol("TMP42", aeroportDepart, aeroportArrivee, dateDepart, dateArrivee, 795, 1000, "P0001", "C0006", "H0002", "", "");
 		boolean result1 = dao.updateVolEnAttente(volTest1);
 		boolean result2 = dao.updateVolEnAttente(volTest2); // n'existe pas, ne peut pas être modifié
 		Vol v1 = dao.getVolEnAttenteById("TMP1"); // on récupère le vol modifié
@@ -330,8 +329,8 @@ public class TestMysqlDao {
 	//@Test
 	public void confirmVol() throws Exception{ // 
 		MysqlDao dao = new MysqlDao();
-		Date dateDepart = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse("2014-03-30 03:15:00");
-		Date dateArrivee = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse("2014-03-30 15:15:00");
+		Date dateDepart = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse("2014-05-05 03:15:00");
+		Date dateArrivee = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse("2014-05-05 15:15:00");
 		
 		Aeroport aeroportDepart = dao.getAeroportByVille("Casablanca");
 		Aeroport aeroportArrivee = dao.getAeroportByVille("Honolulu");
