@@ -625,7 +625,7 @@ public class MysqlDao {
 	
 	// ajoute les 5 codes employés en paramètres au vol programmé
 	// renvoie vrai si tout s'est bien passé
-	private boolean addEmployeToVolProgramme(String numVol, String pilote, String copilote, String HS1, String HS2, String HS3, java.sql.Date dateVol) throws SQLException{
+	private boolean addEmployeeToVolProgramme(String numVol, String pilote, String copilote, String HS1, String HS2, String HS3, java.sql.Date dateVol) throws SQLException{
 		// on se connecte à la BDD
 		Connection connection = DriverManager.getConnection(datasource, user, password);
 		// requête préparée pour indiquer les employés travaillant sur ce vol
@@ -673,7 +673,7 @@ public class MysqlDao {
 			return false; // on ne continue pas
 		}
 		// si l'ajout du vol s'est bien passé, on lie les employés au vol
-		boolean employe = addEmployeToVolProgramme(idVol, v.getCodePilote(), v.getCodeCopilote(), v.getCodeHotesseSt1(), v.getCodeHotesseSt2(), v.getCodeHotesseSt3(), new java.sql.Date(v.getDateHeureDepart().getTime()));
+		boolean employe = addEmployeeToVolProgramme(idVol, v.getCodePilote(), v.getCodeCopilote(), v.getCodeHotesseSt1(), v.getCodeHotesseSt2(), v.getCodeHotesseSt3(), new java.sql.Date(v.getDateHeureDepart().getTime()));
 		if(!employe){
 			connection.close();
 			return false; // si ça s'est mal passé, on sort de la boucle

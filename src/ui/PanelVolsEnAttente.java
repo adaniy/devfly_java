@@ -88,7 +88,7 @@ public class PanelVolsEnAttente extends JPanel {
 		add(labelMessage, BorderLayout.NORTH);
 		
 		// On dimensionne les colonnes :
-		util.MiseEnForme.columnSizeVols(tableVolsEnAttente);
+		util.MiseEnForme.tableColumnWidths(tableVolsEnAttente);
 		
 		panelModifVolEnAttente = new PanelModifVol();
 		panelModifVolEnAttente.getBtnMettreAJour().addActionListener(new ActionListener() {
@@ -180,11 +180,11 @@ public class PanelVolsEnAttente extends JPanel {
 					if(miseAJour){ // si rien n'a bloqué la mise à jour, on peut la faire !
 						// avant de faire la mise à jour, on remplace les éventuels codes employés qui
 						// ont pour valeur "Choisissez un employé" par une chaîne vide
-						String pilote = formatEmployeNonSelectionne(codePilote);
-						String copilote = formatEmployeNonSelectionne(codeCopilote);
-						String hotesseSt1 = formatEmployeNonSelectionne(codeHotesseSt1);
-						String hotesseSt2 = formatEmployeNonSelectionne(codeHotesseSt2);
-						String hotesseSt3 = formatEmployeNonSelectionne(codeHotesseSt3);
+						String pilote = formatEmployeeNotSelected(codePilote);
+						String copilote = formatEmployeeNotSelected(codeCopilote);
+						String hotesseSt1 = formatEmployeeNotSelected(codeHotesseSt1);
+						String hotesseSt2 = formatEmployeeNotSelected(codeHotesseSt2);
+						String hotesseSt3 = formatEmployeeNotSelected(codeHotesseSt3);
 						
 						// on récupère les objets Aeroport
 						Aeroport aeroportDepart = null;
@@ -275,7 +275,7 @@ public class PanelVolsEnAttente extends JPanel {
 						}
 						try {
 							// on rafraichit les données pour les vols en attente
-							panelModifVolEnAttente.rafraichirDonnees(listeVolsEnAttente, tableVolsEnAttente);
+							panelModifVolEnAttente.refreshData(listeVolsEnAttente, tableVolsEnAttente);
 						} catch (SQLException e) {
 							panelModifVolEnAttente.getLblMessage().setText(e.getMessage());
 						}
@@ -284,7 +284,7 @@ public class PanelVolsEnAttente extends JPanel {
 						JTable tableVolsProgrammes = frame.getPanelVolsProgrammes().getTableVolsProgrammes();
 						try {
 							// on rafraichit les données pour les vols programmés
-							panelModifVolEnAttente.rafraichirDonnees(listeVolsProgrammes, tableVolsProgrammes);
+							panelModifVolEnAttente.refreshData(listeVolsProgrammes, tableVolsProgrammes);
 						} catch (SQLException e) {
 							panelModifVolEnAttente.getLblMessage().setText(e.getMessage());
 						}
@@ -309,7 +309,7 @@ public class PanelVolsEnAttente extends JPanel {
 						// On vide les champs du formulaire et on rafraichit les données :
 						// On récupère la liste des vols en attente à jour :
 						List<Vol> listeVolsEnAttente = dao.getAllVolsEnAttente();
-						panelModifVolEnAttente.rafraichirDonnees(listeVolsEnAttente, tableVolsEnAttente);
+						panelModifVolEnAttente.refreshData(listeVolsEnAttente, tableVolsEnAttente);
 						
 					}else{
 						// En cas d'erreur, on affiche un message (a priori aucun vol n'était sélectionné)
@@ -336,7 +336,7 @@ public class PanelVolsEnAttente extends JPanel {
 						// On efface l'éventuel message saisi :
 						panelModifVolEnAttente.getLblMessage().setText("");
 						// On réinitialise les champs du formulaire :
-						panelModifVolEnAttente.formReset(panelModifVolEnAttente, v);
+						panelModifVolEnAttente.resetForm(panelModifVolEnAttente, v);
 						
 					} catch (SQLException e) {
 						panelModifVolEnAttente.getLblMessage().setText(e.getMessage());
@@ -348,7 +348,7 @@ public class PanelVolsEnAttente extends JPanel {
 	}
 	
 	// pour "transformer" un code employé de "Choisissez un employé" à "" le cas échéant
-	private String formatEmployeNonSelectionne(String codeEmploye){
+	private String formatEmployeeNotSelected(String codeEmploye){
 		if(codeEmploye.equals("Choisissez un employé")){
 			return ""; // on retourne une chaîne vide
 		}

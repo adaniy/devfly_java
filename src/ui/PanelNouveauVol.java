@@ -348,7 +348,7 @@ public class PanelNouveauVol extends JPanel {
 						util.MiseEnForme.TableCreationVols(volsEnAttente, table);
 						
 						// On dimensionne les colonnes :
-						util.MiseEnForme.columnSizeVols(table);
+						util.MiseEnForme.tableColumnWidths(table);
 					} catch (SQLException e1) {
 						getLabelMessage().setText(e1.getMessage());
 					}

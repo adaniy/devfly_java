@@ -176,7 +176,7 @@ public class PanelModifAeroport extends JPanel {
 								// si la ville existe déjà, je regarde si elle correspond à l'aéroport en cours de modification
 								// (dans ce cas, on ne bloque pas la modif ! On peut très bien modifier le pays pour cette ville)
 								// Je passe la première lettre de la ville en majuscule pour coller à la syntaxe en base
-								String villeBonFormat = util.MiseEnForme.UpperFirstLetter(ville);
+								String villeBonFormat = util.MiseEnForme.UpperCaseFirstLetter(ville);
 								Aeroport aeroportVilleEnCours = dao.getAeroportByVille(villeBonFormat);
 								// on regarde si le code de l'aéroport en cours de modif correspond au code aéroport de la ville en cours
 								
@@ -199,8 +199,8 @@ public class PanelModifAeroport extends JPanel {
 									&& pays.matches(regexLettresAccentsTirets)){
 								// On met la première lettre de la ville et du pays en majuscule
 								// (uniformisé + permet que le tri des villes par ordre alphabétique soit correct dans le formulaire de création d'un vol)
-								String villeBonFormat = util.MiseEnForme.UpperFirstLetter(ville);
-								String paysBonFormat = util.MiseEnForme.UpperFirstLetter(pays);
+								String villeBonFormat = util.MiseEnForme.UpperCaseFirstLetter(ville);
+								String paysBonFormat = util.MiseEnForme.UpperCaseFirstLetter(pays);
 								
 								// On crée un objet Aeroport, et on appelle la méthode du dao pour la mise à jour
 								Aeroport a = new Aeroport(codeAita, villeBonFormat, paysBonFormat);
@@ -210,7 +210,7 @@ public class PanelModifAeroport extends JPanel {
 										lblMessage.setText("La mise à jour de l'aéroport " + codeAita + " a bien été effectuée !");
 										
 										// On vide les champs texte et on rafraichit les données :
-										rafraichirDonnees();
+										refreshData();
 									}else{
 										// En cas d'erreur, on affiche un message (soit il y a eu saisie ds le formulaire
 										// sans avoir sélectionné un aéroport, soit celui-ci est déjà utilisé pour un vol)
@@ -287,7 +287,7 @@ public class PanelModifAeroport extends JPanel {
 						lblMessage.setText("L'aéroport " + codeAita + " a bien été supprimé !");
 						
 						// On vide les champs texte et on rafraichit les données :
-						rafraichirDonnees();
+						refreshData();
 						
 					}else{
 						// En cas d'erreur, on affiche un message (soit il y a eu saisie ds le formulaire
@@ -314,7 +314,7 @@ public class PanelModifAeroport extends JPanel {
 	}
 
 	// méthode appelée après la mise à jour ou la suppression d'un aéroport
-	private void rafraichirDonnees() throws SQLException{
+	private void refreshData() throws SQLException{
 		// On vide les champs texte :
 		getTextFieldCode().setText("");
 		getTextFieldVille().setText("");

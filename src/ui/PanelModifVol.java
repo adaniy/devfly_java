@@ -734,7 +734,7 @@ public class PanelModifVol extends JPanel {
 	// au clic, réinitialise les champs du formulaire de modification d'un vol
 	// prend en paramètre le panel de type PanelModifVol dont on doit réinitialiser les champs,
 	// et un objet Vol dont on obtient les données à remettre dans le formulaire
-	public void formReset(PanelModifVol panelModifVol, Vol v){
+	public void resetForm(PanelModifVol panelModifVol, Vol v){
 		// pour la comboBox ville de départ :
 		panelModifVol.getJComboBoxVilleDeDepart().setSelectedItem(v.getAeroportDepart().getVille());
 		panelModifVol.getTextFieldPaysDeDepart().setText(v.getAeroportDepart().getPays());
@@ -797,7 +797,7 @@ public class PanelModifVol extends JPanel {
 	// méthode appelée après la mise à jour ou la suppression d'un vol
 	// prend en paramètre une liste de vols (cf vols en attente ou vols programmés)
 	// et la JTable dans laquelle on affiche les vols
-	public void rafraichirDonnees(List<Vol> listeVols, JTable maJTable) throws SQLException{
+	public void refreshData(List<Vol> listeVols, JTable maJTable) throws SQLException{
 		// On vide les champs du formulaire, et on réinitialise les comboBoxes :
 		textFieldNdeVol.setText("");
 		textFieldPaysDeDepart.setText("");
@@ -832,7 +832,7 @@ public class PanelModifVol extends JPanel {
 		util.MiseEnForme.TableCreationVols(listeVols, maJTable);
 		
 		// On redimensionne les colonnes du tableau à la bonne taille
-		util.MiseEnForme.columnSizeVols(maJTable);
+		util.MiseEnForme.tableColumnWidths(maJTable);
 	}
 	
 	// transforme une liste en chaîne de caractères (utilisé pour la liste des numéros d'employés)

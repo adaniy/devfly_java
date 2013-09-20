@@ -20,7 +20,7 @@ public class MiseEnForme {
 	
 	
 	// passe la première lettre de la chaîne en majuscule (utilisé pour la ville et le pays d'un nouvel aéroport)
-	public static String UpperFirstLetter(String chaine){
+	public static String UpperCaseFirstLetter(String chaine){
 		char[] charTable = chaine.toCharArray(); // on récupère un tableau de caractères
 		charTable[0] = Character.toUpperCase(charTable[0]); // on passe le premier en majuscule
 		return new String(charTable); // on construit 1 String à partir du tableau
@@ -38,7 +38,7 @@ public class MiseEnForme {
 	}
 	
 	// dimensionne les colonnes à la bonne taille pour présenter les vols
-	public static void columnSizeVols(JTable maTable){
+	public static void tableColumnWidths(JTable maTable){
 		maTable.getColumnModel().getColumn(0).setPreferredWidth(60);
 		maTable.getColumnModel().getColumn(1).setPreferredWidth(80);
 		maTable.getColumnModel().getColumn(2).setPreferredWidth(75);

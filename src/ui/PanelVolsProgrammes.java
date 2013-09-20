@@ -82,7 +82,7 @@ public class PanelVolsProgrammes extends JPanel {
 		add(labelMessage, BorderLayout.NORTH);
 		
 		// On dimensionne les colonnes :
-		util.MiseEnForme.columnSizeVols(tableVolsProgrammes);
+		util.MiseEnForme.tableColumnWidths(tableVolsProgrammes);
 		
 		panelModifVolProgramme = new PanelModifVol();
 		panelModifVolProgramme.getBtnSupprimer().addActionListener(new ActionListener() {
@@ -102,7 +102,7 @@ public class PanelVolsProgrammes extends JPanel {
 						// On vide les champs du formulaire et on rafraichit les données :
 						// On récupère la liste des vols programmés à jour :
 						List<Vol> listeVolsProgrammes = dao.getAllVolsProgrammes();
-						panelModifVolProgramme.rafraichirDonnees(listeVolsProgrammes, tableVolsProgrammes);
+						panelModifVolProgramme.refreshData(listeVolsProgrammes, tableVolsProgrammes);
 						
 					}else{
 						// En cas d'erreur, on affiche un message (a priori aucun vol n'était sélectionné,
@@ -184,7 +184,7 @@ public class PanelVolsProgrammes extends JPanel {
 						}
 						
 						try {
-							panelModifVolProgramme.rafraichirDonnees(listeVolsProgrammes, tableVolsProgrammes);
+							panelModifVolProgramme.refreshData(listeVolsProgrammes, tableVolsProgrammes);
 						} catch (SQLException e) {
 							panelModifVolProgramme.getLblMessage().setText(e.getMessage());
 						}
@@ -209,13 +209,13 @@ public class PanelVolsProgrammes extends JPanel {
 		panelModifVolProgramme.getComboBoxHotesseSt2().setEnabled(false);
 		panelModifVolProgramme.getComboBoxHotesseSt3().setEnabled(false);
 		// pour les combobox désactivées, on leur donne un style plus visible que celui par défaut :
-		renduComboBox(panelModifVolProgramme.getJComboBoxVilleDeDepart());
-		renduComboBox(panelModifVolProgramme.getJComboBoxVilleDarrivee());
-		renduComboBox(panelModifVolProgramme.getComboBoxPilote());
-		renduComboBox(panelModifVolProgramme.getComboBoxCopilote());
-		renduComboBox(panelModifVolProgramme.getComboBoxHotesseSt1());
-		renduComboBox(panelModifVolProgramme.getComboBoxHotesseSt2());
-		renduComboBox(panelModifVolProgramme.getComboBoxHotesseSt3());
+		comboBoxRenderer(panelModifVolProgramme.getJComboBoxVilleDeDepart());
+		comboBoxRenderer(panelModifVolProgramme.getJComboBoxVilleDarrivee());
+		comboBoxRenderer(panelModifVolProgramme.getComboBoxPilote());
+		comboBoxRenderer(panelModifVolProgramme.getComboBoxCopilote());
+		comboBoxRenderer(panelModifVolProgramme.getComboBoxHotesseSt1());
+		comboBoxRenderer(panelModifVolProgramme.getComboBoxHotesseSt2());
+		comboBoxRenderer(panelModifVolProgramme.getComboBoxHotesseSt3());
 				
 		
 		panelModifVolProgramme.getBtnReinitialiser().addActionListener(new ActionListener() {
@@ -232,7 +232,7 @@ public class PanelVolsProgrammes extends JPanel {
 						// On efface l'éventuel message saisi :
 						panelModifVolProgramme.getLblMessage().setText("");
 						// On réinitialise le(s) champ(s) du formulaire :
-						panelModifVolProgramme.formReset(panelModifVolProgramme, v);
+						panelModifVolProgramme.resetForm(panelModifVolProgramme, v);
 						
 					} catch (SQLException e) {
 						panelModifVolProgramme.getLblMessage().setText(e.getMessage());
@@ -246,7 +246,7 @@ public class PanelVolsProgrammes extends JPanel {
 	
 	// pour modifier le rendu d'une combobox désactivée
 	// On passe la couleur de police de gris très clair (peu lisible) à gris foncé
-	private void renduComboBox(JComboBox<String> maComboBox){
+	private void comboBoxRenderer(JComboBox<String> maComboBox){
 		maComboBox.setRenderer(new DefaultListCellRenderer() {
 	        @Override
 	        public void paint(Graphics g) {

@@ -182,8 +182,8 @@ public class PanelNouvelAeroport extends JPanel {
 							
 							// On met la première lettre de la ville et du pays en majuscule
 							// (uniformisé + permet que le tri des villes par ordre alphabétique soit correct dans le formulaire de création d'un vol)
-							String villeBonFormat = util.MiseEnForme.UpperFirstLetter(ville);
-							String paysBonFormat = util.MiseEnForme.UpperFirstLetter(pays);
+							String villeBonFormat = util.MiseEnForme.UpperCaseFirstLetter(ville);
+							String paysBonFormat = util.MiseEnForme.UpperCaseFirstLetter(pays);
 							
 							// On crée un objet Aeroport avec ces données
 							Aeroport nouvelAeroport = new Aeroport(codeAita, villeBonFormat, paysBonFormat);
