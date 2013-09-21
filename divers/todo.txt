@@ -1,8 +1,8 @@
--BDD : prévenir changements + changer sur le serveur (vérifier trigger OK)
+-BDD : version à jour sur le serveur
 
 -CAHIER DES CHARGES (rappel : tarif à zéro autorisé + date du vol à partir du lendemain + contraintes sur les modifs d'aéroports / vols)
 -DSPP
--avoir l'exécutable et modifier au préalable l'adresse de la BDD
+-avoir l'exécutable : une version "en local" + une version "à distance"
 
 Rqs à intégrer dans le rapport :
 - fuseau horaire du pays de départ et non de destination
