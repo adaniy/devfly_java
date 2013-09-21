@@ -67,7 +67,7 @@ public class PanelVolsEnAttente extends JPanel {
 		
 		// pour que le tableau ne soit pas redimensionné automatiquement à la longueur de la fenêtre :
 		tableVolsEnAttente.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
-		// pour trier en cliquant sur les en-têtes
+		// pour trier en cliquant sur les en-têtes :
 		tableVolsEnAttente.setAutoCreateRowSorter(true);
 		scrollPane.setViewportView(tableVolsEnAttente);
 		
@@ -78,7 +78,7 @@ public class PanelVolsEnAttente extends JPanel {
 		List<Vol> volsEnAttente = dao.getAllVolsEnAttente();
 		
 		// On crée le model avec les bonnes données et on le donne à la JTable
-		// On utilise pour cela la méthode statique définie dans Vol
+		// On utilise pour cela la méthode statique définie dans "util"
 		util.MiseEnForme.TableCreationVols(volsEnAttente, tableVolsEnAttente);
 		
 		// Label qui pourra contenir les différents messages à afficher :
@@ -259,7 +259,7 @@ public class PanelVolsEnAttente extends JPanel {
 						}
 						
 						// On vide ensuite les champs du formulaire et on rafraichit les données.
-						// avec la méthode "rafraichirDonnees".
+						// avec la méthode "refreshData".
 						// On récupère les listes de vols à jour :
 						List<Vol> listeVolsEnAttente = null;
 						List<Vol> listeVolsProgrammes = null;

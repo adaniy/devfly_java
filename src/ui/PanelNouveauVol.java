@@ -263,7 +263,7 @@ public class PanelNouveauVol extends JPanel {
 					// si la date n'est pas au bon format :
 					getLabelMessage().setText("Vérifiez le format de la date svp !");
 				}else if(!util.Donnees.futureDate(dateDepart)){
-					// On ne passe ici que si la date a un format valide !
+					// si la date est antérieure à demain (on ne passe ici que si la date a un format valide) !
 					getLabelMessage().setText("La date ne peut être antérieure à demain !");
 				}else if(!heureDepart.matches(regexHeure)){
 					// si l'heure n'est pas au bon format :
@@ -348,7 +348,7 @@ public class PanelNouveauVol extends JPanel {
 						JTable table = frame.getPanelVolsEnAttente().getTableVolsEnAttente();
 						
 						// On crée le model avec les bonnes données et on le donne à la JTable
-						// On utilise pour cela la méthode statique définie dans Vol
+						// On utilise pour cela la méthode statique définie dans "util"
 						util.MiseEnForme.TableCreationVols(volsEnAttente, table);
 						
 						// On dimensionne les colonnes :

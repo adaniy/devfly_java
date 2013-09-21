@@ -68,7 +68,7 @@ public class MiseEnForme {
 		for (int i = 0; i < listeVols.size(); i++) {
 			// on récupère chaque vol
 			Vol v = listeVols.get(i);
-			// le sous-tableau vient directement du vol récupéré
+			// on récupère les données de chaque vol :
 			myValues[i][0] = v.getId();
 			myValues[i][1] = v.getAeroportDepart().getVille();
 			myValues[i][2] = v.getAeroportDepart().getPays();
@@ -110,7 +110,7 @@ public class MiseEnForme {
 				"ville arrivée", "pays arr.", "code arr.", "date/heure départ",
 				"date/heure arrivée", "durée (mn)", "tarif (€)", "pilote", "copilote", "Hôtesse/St1", "Hôtesse/St2", "Hôtesse/St3", "n°"};
 		
-		// Le model avec les bonnes données (on utilise la méthode statique définie dans util)
+		// Le model avec les bonnes données (on utilise la méthode statique définie dans "util")
 		TableModel model = util.MiseEnForme.createTableModelVols(headers, listeVols);
 				
 		// On donne le model à la table :
@@ -148,7 +148,7 @@ public class MiseEnForme {
 		// Les en-têtes :
 		String[]headers = {"code AITA", "ville", "pays"};
 		
-		// Le model avec les bonnes données (on utilise la méthode statique définie dans la classe Aeroport)
+		// Le model avec les bonnes données (on utilise la méthode statique définie dans "util")
 		TableModel model = util.MiseEnForme.createTableModelAeroports(headers, listeAeroports);
 		
 		// On donne le model à la table :

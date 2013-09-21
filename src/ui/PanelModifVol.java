@@ -331,7 +331,7 @@ public class PanelModifVol extends JPanel {
 		textFieldDuree.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyPressed(KeyEvent e) {
-				// dès qu'une durée est saisie, on réinitialise la date et l'heure d'arrivée (qui seront recalculées lors de la mise à jour)
+				// dès qu'une durée est saisie, on efface la date et l'heure d'arrivée (qui seront recalculées lors de la mise à jour)
 				textFieldDateArriv.setText("");
 				textFieldHeureArriv.setText("");
 			}
@@ -731,7 +731,7 @@ public class PanelModifVol extends JPanel {
 		}
 	}
 	
-	// au clic, réinitialise les champs du formulaire de modification d'un vol
+	// au clic, réinitialise les champs du formulaire avec les informations initiales du vol en cours de modification
 	// prend en paramètre le panel de type PanelModifVol dont on doit réinitialiser les champs,
 	// et un objet Vol dont on obtient les données à remettre dans le formulaire
 	public void resetForm(PanelModifVol panelModifVol, Vol v){
@@ -795,7 +795,7 @@ public class PanelModifVol extends JPanel {
 	}
 	
 	// méthode appelée après la mise à jour ou la suppression d'un vol
-	// prend en paramètre une liste de vols (cf vols en attente ou vols programmés)
+	// prend en paramètre une liste de vols ("vols en attente" ou "vols programmés")
 	// et la JTable dans laquelle on affiche les vols
 	public void refreshData(List<Vol> listeVols, JTable maJTable) throws SQLException{
 		// On vide les champs du formulaire, et on réinitialise les comboBoxes :
@@ -828,7 +828,7 @@ public class PanelModifVol extends JPanel {
 		util.MiseEnForme.comboBoxCreation(villes, comboBoxVilleDarrivee);
 		
 		// On crée le model avec les bonnes données et on le donne à la JTable
-		// On utilise pour cela la méthode statique définie dans Vol
+		// On utilise pour cela la méthode statique définie dans "util"
 		util.MiseEnForme.TableCreationVols(listeVols, maJTable);
 		
 		// On redimensionne les colonnes du tableau à la bonne taille

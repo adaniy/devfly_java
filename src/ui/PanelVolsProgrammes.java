@@ -61,7 +61,7 @@ public class PanelVolsProgrammes extends JPanel {
 		});
 		// pour que le tableau ne soit pas redimensionné automatiquement à la longueur de la fenêtre :
 		tableVolsProgrammes.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
-		// pour trier en cliquant sur les en-têtes
+		// pour trier en cliquant sur les en-têtes :
 		tableVolsProgrammes.setAutoCreateRowSorter(true);
 		scrollPane.setViewportView(tableVolsProgrammes);
 		
@@ -72,7 +72,7 @@ public class PanelVolsProgrammes extends JPanel {
 		List<Vol> volsProgrammes = dao.getAllVolsProgrammes();
 		
 		// On crée le model avec les bonnes données et on le donne à la JTable
-		// On utilise pour cela la méthode statique définie dans Vol
+		// On utilise pour cela la méthode statique définie dans "util" :
 		util.MiseEnForme.TableCreationVols(volsProgrammes, tableVolsProgrammes);
 		
 		// Label qui pourra contenir les différents messages à afficher :

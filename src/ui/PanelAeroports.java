@@ -76,7 +76,7 @@ public class PanelAeroports extends JPanel {
 		List<Aeroport> aeroports = dao.getAllAeroports();
 		
 		// On crée le model avec les bonnes données et on le donne à la JTable
-		// On utilise pour cela la méthode statique définie dans Aeroport
+		// On utilise pour cela la méthode statique définie dans "util" :
 		util.MiseEnForme.TableCreationAeroports(aeroports, tableAeroports);
 		
 		// Label qui pourra contenir les différents messages à afficher :

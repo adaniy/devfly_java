@@ -85,7 +85,7 @@ public class TestMysqlDao {
 		Aeroport aeroportTest1 = new Aeroport("CMN", "Casablanca", "Maroc");
 		Aeroport aeroportTest2 = new Aeroport("HNL", "Honolulu", "États-Unis");
 		
-		// (On peut le modifier avant de relancer un test) :
+		// On peut le modifier avant de relancer un test :
 		Vol volTest = new Vol(aeroportTest1, aeroportTest2, dateDepart, dateArrivee, 1540, 974F);
 		
 		boolean result = dao.addNewVol(volTest); // doit ajouter le vol en base (table vol_tmp)
@@ -130,7 +130,7 @@ public class TestMysqlDao {
 	}
 
 	@Test
-	public void doesAirportAlreadyExist() throws SQLException{ // doit renvoyer vrai si l'aéroport existe déjà en base
+	public void doesAirportAlreadyExist() throws SQLException{ // doit renvoyer vrai si l'aéroport existe en base
 		MysqlDao dao = new MysqlDao();
 		boolean test1 = dao.doesAirportAlreadyExist("BRN");
 		boolean test2 = dao.doesAirportAlreadyExist("LLL");
@@ -157,10 +157,10 @@ public class TestMysqlDao {
 	//@Test
 	public void updateAeroport() throws Exception{
 		MysqlDao dao = new MysqlDao();
-		// (On peut le modifier avant de relancer un test) :
-		Aeroport a = new Aeroport("ANI", "Ailleurs", "Tunisie");
+		// On peut le modifier avant de relancer un test :
+		Aeroport a = new Aeroport("ANI", "Ailleurs", "Tunisie"); // cet aéroport est modifiable
 		Aeroport b = new Aeroport("BRN", "Berne", "Suisse"); // cet aéroport déjà utilisé n'est plus modifiable
-		Aeroport c = new Aeroport("LLL", "Truc", "Pays"); // Cet aéroport n'existe pas et n'est donc pas modifiable
+		Aeroport c = new Aeroport("LLL", "Truc", "Pays"); // cet aéroport n'existe pas et n'est donc pas modifiable
 		boolean result1 = dao.updateAeroport(a);
 		boolean result2 = dao.updateAeroport(b);
 		boolean result3 = dao.updateAeroport(c);
@@ -240,7 +240,7 @@ public class TestMysqlDao {
 	//@Test
 	public void updateVolEnAttente() throws Exception{
 		MysqlDao dao = new MysqlDao();
-		// (On peut le modifier avant de relancer un test) :
+		// On peut le modifier avant de relancer un test :
 		Date dateDepart = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse("2014-04-25 04:00:00");
 		Date dateArrivee = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse("2014-04-25 17:15:00");
 		

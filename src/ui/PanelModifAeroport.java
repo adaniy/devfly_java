@@ -174,7 +174,7 @@ public class PanelModifAeroport extends JPanel {
 							}
 							if(villeExistante){
 								// si la ville existe déjà, je regarde si elle correspond à l'aéroport en cours de modification
-								// (dans ce cas, on ne bloque pas la modif ! On peut très bien modifier le pays pour cette ville)
+								// (dans ce cas, on ne bloque pas la modif ! On peut très bien modifier le pays pour cette ville par exemple)
 								// Je passe la première lettre de la ville en majuscule pour coller à la syntaxe en base
 								String villeBonFormat = util.MiseEnForme.UpperCaseFirstLetter(ville);
 								Aeroport aeroportVilleEnCours = dao.getAeroportByVille(villeBonFormat);
@@ -198,7 +198,7 @@ public class PanelModifAeroport extends JPanel {
 									&& ville.matches(regexLettresAccentsTirets)
 									&& pays.matches(regexLettresAccentsTirets)){
 								// On met la première lettre de la ville et du pays en majuscule
-								// (uniformisé + permet que le tri des villes par ordre alphabétique soit correct dans le formulaire de création d'un vol)
+								// (uniformisé + permet que le tri des villes par ordre alphabétique soit correct dans les comboBoxes sur les autres pages)
 								String villeBonFormat = util.MiseEnForme.UpperCaseFirstLetter(ville);
 								String paysBonFormat = util.MiseEnForme.UpperCaseFirstLetter(pays);
 								
@@ -327,7 +327,7 @@ public class PanelModifAeroport extends JPanel {
 		// on récupère la JTable
 		JTable table = frame.getPanelAeroports().getTableAeroports();
 		// On crée le model avec les bonnes données et on le donne à la JTable
-		// On utilise pour cela la méthode statique définie dans Aeroport
+		// On utilise pour cela la méthode statique définie dans "util"
 		util.MiseEnForme.TableCreationAeroports(aeroports, table);
 		
 		// on va également recharger la liste des villes proposées dans les formulaires de création

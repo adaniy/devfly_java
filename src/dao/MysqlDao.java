@@ -14,7 +14,8 @@ import model.Vol;
 
 public class MysqlDao {
 	// infos pour la connexion
-	private String datasource = "jdbc:mysql://localhost:3306/DEVFLY";
+	//private String datasource = "jdbc:mysql://localhost:3306/DEVFLY";
+	private String datasource = "jdbc:mysql://www.dev-fly.fr:3306/DEVFLY";
 	private String user = "greta";
 	private String password = "gretatest";
 
