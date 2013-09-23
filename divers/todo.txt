@@ -11,6 +11,7 @@ Rqs à intégrer dans le rapport :
 - gestion des exceptions
 - on aurait pu faire en sorte de proposer uniquement les employés disponibles à la date
 - amélioration : durée calculée automatiquement selon le trajet
+- changer le nombre de places réservables sur un vol
 - trigger
 
 Notes / Voc :
