@@ -50,7 +50,8 @@ public class PanelAeroports extends JPanel {
 				// entre les cellules de la présentation et les cellules du model (source de données)
 				int modelRow = tableAeroports.convertRowIndexToModel(row);
 				TableModel model = tableAeroports.getModel();
-				String code = (String) model.getValueAt(modelRow, 0); // String qui représente la valeur récupérée
+				// String qui représentent les valeurs récupérées :
+				String code = (String) model.getValueAt(modelRow, 0);
 				String ville = (String) model.getValueAt(modelRow, 1);
 				String pays = (String) model.getValueAt(modelRow, 2);
 				

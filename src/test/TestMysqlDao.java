@@ -254,7 +254,7 @@ public class TestMysqlDao {
 		Vol v1 = dao.getVolEnAttenteById("TMP1"); // on récupère le vol modifié
 		Assert.assertTrue(result1); // true
 		Assert.assertFalse(result2); // false
-		Assert.assertEquals(volTest1.getCodePilote(), v1.getCodePilote()); // les codes pilotes coïcident
+		Assert.assertEquals(volTest1.getCodePilote(), v1.getCodePilote()); // les codes pilotes coïncident
 	}
 
 	//@Test
