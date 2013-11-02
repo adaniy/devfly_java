@@ -1,5 +1,5 @@
 -BDD : version à jour sur le serveur
--avoir l'exécutable : une version "en local" + une version "à distance"
+-avoir l'exécutable : une version "en local" + une version "à distance" (vérifier que l'exécutable fonctionne sous Windows)
 
 Notes / Voc :
 - Add @SuppressWarnings ("permet de signaler au compilateur que l'on a conscience de réaliser une opération risquée, et qu'il peut donc arrêter de signaler un éventuel problème")
@@ -14,3 +14,13 @@ public Class<?> getColumnClass(int arg0) {
 - le numéro de vol n'a pas d'importance sémantique (le 6 peut partir avant le 2)...
 - gestion des exceptions
 - changer le nombre de places réservables sur un vol
+
+Pour l'exécutable depuis Eclipse :
+- clic droit sur le projet
+- export
+- Java -> Runnable JAR File
+- Dans launch configuration : fichier qui contient le main
+- indiquer la destination
+- laisser "Extract required librairies into generated JAR" et valider.
+- Si le msg "This operation repacks referenced librairies" apparait -> OK.
+- pour lancer l'appli : java -jar monfichier.jar
